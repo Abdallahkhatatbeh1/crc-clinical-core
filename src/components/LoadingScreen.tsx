@@ -34,15 +34,15 @@ const LoadingScreen = ({ onLoadingComplete }: LoadingScreenProps) => {
 
   return (
     <div
-      className={`fixed inset-0 z-[100] flex flex-col items-center justify-center gradient-brand transition-all duration-500 ${
+      className={`fixed inset-0 z-[100] flex flex-col items-center justify-center bg-white transition-all duration-500 ${
         isExiting ? "opacity-0 scale-110" : "opacity-100 scale-100"
       }`}
     >
       {/* Background decoration */}
       <div className="absolute inset-0 overflow-hidden">
-        <div className="absolute top-1/4 -left-20 w-64 h-64 bg-white/5 rounded-full blur-3xl animate-pulse" />
-        <div className="absolute bottom-1/4 -right-20 w-80 h-80 bg-white/5 rounded-full blur-3xl animate-pulse" style={{ animationDelay: "0.5s" }} />
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-white/3 rounded-full blur-3xl" />
+        <div className="absolute top-0 left-0 w-96 h-96 bg-crc-blue/5 rounded-full blur-3xl -translate-x-1/2 -translate-y-1/2" />
+        <div className="absolute bottom-0 right-0 w-96 h-96 bg-crc-green/5 rounded-full blur-3xl translate-x-1/2 translate-y-1/2" />
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-crc-light-blue/30 rounded-full blur-3xl" />
       </div>
 
       {/* Logo container */}
@@ -50,45 +50,45 @@ const LoadingScreen = ({ onLoadingComplete }: LoadingScreenProps) => {
         {/* Animated rings */}
         <div className="relative">
           <div className="absolute inset-0 flex items-center justify-center">
-            <div className="w-48 h-48 sm:w-64 sm:h-64 border-2 border-white/20 rounded-full animate-ping" style={{ animationDuration: "2s" }} />
+            <div className="w-48 h-48 sm:w-64 sm:h-64 border-2 border-crc-blue/20 rounded-full animate-ping" style={{ animationDuration: "2s" }} />
           </div>
           <div className="absolute inset-0 flex items-center justify-center">
-            <div className="w-56 h-56 sm:w-72 sm:h-72 border border-white/10 rounded-full animate-spin" style={{ animationDuration: "8s" }} />
+            <div className="w-56 h-56 sm:w-72 sm:h-72 border border-crc-blue/10 rounded-full animate-spin" style={{ animationDuration: "8s" }} />
           </div>
           <div className="absolute inset-0 flex items-center justify-center">
-            <div className="w-64 h-64 sm:w-80 sm:h-80 border border-white/5 rounded-full animate-spin" style={{ animationDuration: "12s", animationDirection: "reverse" }} />
+            <div className="w-64 h-64 sm:w-80 sm:h-80 border border-crc-green/10 rounded-full animate-spin" style={{ animationDuration: "12s", animationDirection: "reverse" }} />
           </div>
           
           {/* Logo */}
           <div className="relative w-40 h-40 sm:w-52 sm:h-52 flex items-center justify-center animate-logo-pulse">
-            <div className="absolute inset-0 bg-white/20 rounded-full blur-xl animate-pulse" />
+            <div className="absolute inset-0 bg-crc-blue/10 rounded-full blur-xl animate-pulse" />
             <img
               src={crcLogoSymbol}
               alt="CRC"
-              className="relative w-32 h-32 sm:w-44 sm:h-44 object-contain drop-shadow-2xl animate-logo-float"
+              className="relative w-32 h-32 sm:w-44 sm:h-44 object-contain drop-shadow-lg animate-logo-float"
             />
           </div>
         </div>
 
         {/* Brand text */}
         <div className="mt-10 sm:mt-12 text-center">
-          <h1 className="text-white text-xl sm:text-2xl font-semibold tracking-wider animate-fade-in" style={{ animationDelay: "0.3s" }}>
+          <h1 className="text-crc-blue text-xl sm:text-2xl font-semibold tracking-wider animate-fade-in" style={{ animationDelay: "0.3s" }}>
             Clinical Research Center
           </h1>
-          <p className="text-white/60 text-sm mt-2 animate-fade-in" style={{ animationDelay: "0.5s" }}>
+          <p className="text-muted-foreground text-sm mt-2 animate-fade-in" style={{ animationDelay: "0.5s" }}>
             Excellence in Clinical Trials
           </p>
         </div>
 
         {/* Progress bar */}
         <div className="mt-10 sm:mt-12 w-48 sm:w-56">
-          <div className="h-1 bg-white/20 rounded-full overflow-hidden">
+          <div className="h-1.5 bg-crc-light-blue rounded-full overflow-hidden">
             <div
-              className="h-full bg-white rounded-full transition-all duration-100 ease-out"
+              className="h-full bg-gradient-to-r from-crc-blue to-crc-green rounded-full transition-all duration-100 ease-out"
               style={{ width: `${progress}%` }}
             />
           </div>
-          <p className="text-white/40 text-xs mt-3 text-center font-medium">
+          <p className="text-muted-foreground text-xs mt-3 text-center font-medium">
             {Math.round(progress)}%
           </p>
         </div>
