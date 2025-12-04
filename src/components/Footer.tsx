@@ -126,8 +126,8 @@ const Footer = () => {
                 <div className="w-8 h-8 rounded-lg bg-white/5 group-hover:bg-primary/20 flex items-center justify-center flex-shrink-0 transition-colors">
                   <Mail size={14} className="text-primary" />
                 </div>
-                <a href="mailto:info@crc-jordan.com" className="text-footer-foreground/60 hover:text-primary text-sm transition-colors">
-                  info@crc-jordan.com
+                <a href="mailto:support@crcjo.com" className="text-footer-foreground/60 hover:text-primary text-sm transition-colors">
+                  support@crcjo.com
                 </a>
               </li>
             </ul>
