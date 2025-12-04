@@ -156,7 +156,7 @@ const ServicesList = () => {
   };
 
   return (
-    <section ref={sectionRef} className="py-24 bg-background relative">
+    <section ref={sectionRef} className="py-16 md:py-24 bg-background relative">
       {/* Background Pattern */}
       <div className="absolute inset-0 opacity-30">
         <div className="absolute top-0 left-0 w-full h-full" style={{
@@ -167,51 +167,51 @@ const ServicesList = () => {
 
       <div className="container mx-auto px-4 relative z-10">
         {/* Header */}
-        <div className="text-center mb-16">
+        <div className="text-center mb-10 md:mb-16">
           <div className={`transition-all duration-700 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
-            <BrandTag variant="green" className="mb-6">Our Services</BrandTag>
+            <BrandTag variant="green" className="mb-4 md:mb-6">Our Services</BrandTag>
           </div>
-          <h2 className={`text-foreground mb-4 transition-all duration-700 delay-100 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
+          <h2 className={`text-2xl md:text-3xl lg:text-4xl text-foreground mb-3 md:mb-4 transition-all duration-700 delay-100 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
             Comprehensive <span className="text-accent">Clinical Trial</span> Solutions
           </h2>
-          <p className={`text-muted-foreground text-lg max-w-2xl mx-auto transition-all duration-700 delay-200 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
+          <p className={`text-muted-foreground text-base md:text-lg max-w-2xl mx-auto transition-all duration-700 delay-200 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
             End-to-end support for high-quality, audit-ready research execution
           </p>
         </div>
 
         {/* Services Grid */}
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-7xl mx-auto items-start">
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6 max-w-7xl mx-auto items-start">
           {services.map((service, index) => {
             const isExpanded = expandedCards.includes(service.id);
             const IconComponent = service.icon;
             return (
               <div
                 key={service.id}
-                className={`group bg-white rounded-2xl border border-border overflow-hidden hover:shadow-xl transition-all duration-500 ${
+                className={`group bg-white rounded-xl md:rounded-2xl border border-border overflow-hidden hover:shadow-xl transition-all duration-500 ${
                   isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'
                 }`}
                 style={{ transitionDelay: `${200 + (index % 6) * 50}ms` }}
               >
                 {/* Header */}
                 <div 
-                  className={`p-6 cursor-pointer transition-colors ${
+                  className={`p-4 md:p-6 cursor-pointer transition-colors ${
                     service.color === 'accent' ? 'hover:bg-accent/5' : 'hover:bg-primary/5'
                   }`}
                   onClick={() => toggleCard(service.id)}
                 >
-                  <div className="flex items-start justify-between gap-4">
-                    <div className="flex items-start gap-4">
-                      <div className={`w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0 transition-transform duration-300 group-hover:scale-110 ${
+                  <div className="flex items-start justify-between gap-3 md:gap-4">
+                    <div className="flex items-start gap-3 md:gap-4">
+                      <div className={`w-10 h-10 md:w-12 md:h-12 rounded-lg md:rounded-xl flex items-center justify-center flex-shrink-0 transition-transform duration-300 group-hover:scale-110 ${
                         service.color === 'accent' ? 'bg-accent/10' : 'bg-primary/10'
                       }`}>
-                        <IconComponent className={`w-6 h-6 ${service.color === 'accent' ? 'text-accent' : 'text-primary'}`} />
+                        <IconComponent className={`w-5 h-5 md:w-6 md:h-6 ${service.color === 'accent' ? 'text-accent' : 'text-primary'}`} />
                       </div>
-                      <div>
-                        <h3 className="font-bold text-foreground text-base leading-tight mb-1">{service.title}</h3>
+                      <div className="min-w-0">
+                        <h3 className="font-bold text-foreground text-sm md:text-base leading-tight mb-1">{service.title}</h3>
                         <p className="text-xs text-muted-foreground line-clamp-2">{service.description}</p>
                       </div>
                     </div>
-                    <div className={`w-8 h-8 rounded-lg flex items-center justify-center flex-shrink-0 transition-all ${
+                    <div className={`w-7 h-7 md:w-8 md:h-8 rounded-lg flex items-center justify-center flex-shrink-0 transition-all ${
                       isExpanded ? 'bg-primary/10 rotate-180' : 'bg-muted'
                     }`}>
                       <ChevronDown className={`w-4 h-4 ${isExpanded ? 'text-primary' : 'text-muted-foreground'}`} />
@@ -223,12 +223,12 @@ const ServicesList = () => {
                 <div className={`overflow-hidden transition-all duration-300 ${
                   isExpanded ? 'max-h-[400px] opacity-100' : 'max-h-0 opacity-0'
                 }`}>
-                  <div className="px-6 pb-6 pt-2 border-t border-border/50">
-                    <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wide mb-3">Services Include:</p>
-                    <ul className="space-y-2">
+                  <div className="px-4 md:px-6 pb-4 md:pb-6 pt-2 border-t border-border/50">
+                    <p className="text-[10px] md:text-xs font-semibold text-muted-foreground uppercase tracking-wide mb-2 md:mb-3">Services Include:</p>
+                    <ul className="space-y-1.5 md:space-y-2">
                       {service.services.map((item, idx) => (
-                        <li key={idx} className="flex items-start gap-2 text-sm text-muted-foreground">
-                          <CheckCircle2 className={`w-4 h-4 mt-0.5 flex-shrink-0 ${
+                        <li key={idx} className="flex items-start gap-2 text-xs md:text-sm text-muted-foreground">
+                          <CheckCircle2 className={`w-3.5 h-3.5 md:w-4 md:h-4 mt-0.5 flex-shrink-0 ${
                             service.color === 'accent' ? 'text-accent' : 'text-primary'
                           }`} />
                           <span>{item}</span>

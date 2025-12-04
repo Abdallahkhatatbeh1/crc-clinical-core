@@ -38,55 +38,55 @@ const FacilitiesGallery = () => {
   const [selectedImage, setSelectedImage] = useState<typeof galleryImages[0] | null>(null);
 
   return (
-    <section ref={sectionRef} className="py-24 bg-background relative overflow-hidden">
+    <section ref={sectionRef} className="py-16 md:py-24 bg-background relative overflow-hidden">
       {/* Decorative */}
       <div className="absolute top-0 left-0 w-96 h-96 bg-primary/5 rounded-full blur-3xl -translate-x-1/2 -translate-y-1/2" />
       <div className="absolute bottom-0 right-0 w-72 h-72 bg-accent/5 rounded-full blur-3xl translate-x-1/2 translate-y-1/2" />
 
       <div className="container mx-auto px-4 relative z-10">
         {/* Header */}
-        <div className="text-center mb-16">
+        <div className="text-center mb-10 md:mb-16">
           <div className={`transition-all duration-700 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
-            <BrandTag className="mb-6">Our Facilities</BrandTag>
+            <BrandTag className="mb-4 md:mb-6">Our Facilities</BrandTag>
           </div>
-          <h2 className={`text-foreground mb-4 transition-all duration-700 delay-100 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
+          <h2 className={`text-2xl md:text-3xl lg:text-4xl text-foreground mb-3 md:mb-4 transition-all duration-700 delay-100 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
             State-of-the-Art <span className="text-primary">Research Facilities</span>
           </h2>
-          <p className={`text-muted-foreground text-lg max-w-2xl mx-auto transition-all duration-700 delay-200 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
+          <p className={`text-muted-foreground text-base md:text-lg max-w-2xl mx-auto transition-all duration-700 delay-200 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
             Explore our clinical-grade infrastructure designed for multi-phase and complex clinical studies
           </p>
         </div>
 
         {/* Simple Grid Gallery */}
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 max-w-6xl mx-auto">
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 md:gap-4 max-w-6xl mx-auto">
           {galleryImages.map((image, index) => (
             <div
               key={image.title}
-              className={`group relative overflow-hidden rounded-2xl cursor-pointer ${
+              className={`group relative overflow-hidden rounded-xl md:rounded-2xl cursor-pointer ${
                 isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
               }`}
               style={{ transitionDelay: `${300 + index * 50}ms`, transition: 'all 0.7s ease-out' }}
               onClick={() => setSelectedImage(image)}
             >
-              <div className="relative aspect-[4/3]">
+              <div className="relative aspect-square md:aspect-[4/3]">
                 <img
                   src={image.src}
                   alt={image.title}
                   className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
                 />
-                {/* Overlay */}
-                <div className="absolute inset-0 bg-gradient-to-t from-foreground/80 via-foreground/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                {/* Overlay - Always visible on mobile */}
+                <div className="absolute inset-0 bg-gradient-to-t from-foreground/80 via-foreground/20 to-transparent opacity-100 md:opacity-0 md:group-hover:opacity-100 transition-opacity duration-300" />
                 
-                {/* Content */}
-                <div className="absolute inset-0 flex flex-col justify-end p-4 opacity-0 group-hover:opacity-100 transition-all duration-300 translate-y-4 group-hover:translate-y-0">
-                  <span className="text-xs text-primary-foreground/80 bg-primary/80 px-2 py-1 rounded-full w-fit mb-2">
+                {/* Content - Always visible on mobile */}
+                <div className="absolute inset-0 flex flex-col justify-end p-2 md:p-4 opacity-100 md:opacity-0 md:group-hover:opacity-100 transition-all duration-300 md:translate-y-4 md:group-hover:translate-y-0">
+                  <span className="text-[10px] md:text-xs text-primary-foreground/80 bg-primary/80 px-1.5 md:px-2 py-0.5 md:py-1 rounded-full w-fit mb-1 md:mb-2">
                     {image.category}
                   </span>
-                  <h4 className="text-white font-semibold text-sm md:text-base">{image.title}</h4>
+                  <h4 className="text-white font-semibold text-xs md:text-sm lg:text-base">{image.title}</h4>
                 </div>
 
-                {/* Zoom Icon */}
-                <div className="absolute top-4 right-4 w-10 h-10 bg-white/90 rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-300 scale-75 group-hover:scale-100">
+                {/* Zoom Icon - Desktop only */}
+                <div className="hidden md:flex absolute top-4 right-4 w-10 h-10 bg-white/90 rounded-full items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-300 scale-75 group-hover:scale-100">
                   <ZoomIn className="w-5 h-5 text-foreground" />
                 </div>
               </div>
