@@ -12,19 +12,25 @@ const WhoWeAreSection = () => {
             className="text-foreground mb-8 animate-fade-in opacity-0"
             style={{ animationDelay: "0.2s" }}
           >
-            A Trusted Partner in Clinical Research
+            A Specialized Clinical Study Site
           </h2>
           <p
-            className="text-lg text-muted-foreground leading-relaxed mb-8 animate-fade-in opacity-0"
+            className="text-lg text-muted-foreground leading-relaxed mb-6 animate-fade-in opacity-0"
             style={{ animationDelay: "0.3s" }}
           >
-            The Clinical Research Center (CRC) has been at the forefront of medical innovation for over two decades. Our multidisciplinary team of researchers, physicians, and clinical specialists work together to conduct rigorous studies that meet the highest standards of scientific integrity.
+            CRC is a specialized clinical study site located in Irbid, Jordan, providing end-to-end support for clinical trials phases across diverse therapeutic areas.
+          </p>
+          <p
+            className="text-lg text-muted-foreground leading-relaxed mb-6 animate-fade-in opacity-0"
+            style={{ animationDelay: "0.4s" }}
+          >
+            Our investigators, sub-investigators, and clinical research coordinators work closely with Contract Research Organizations (CROs) and sponsors to ensure methodological rigor, accurate endpoint evaluation, and ethically sound execution.
           </p>
           <p
             className="text-lg text-muted-foreground leading-relaxed animate-fade-in opacity-0"
-            style={{ animationDelay: "0.4s" }}
+            style={{ animationDelay: "0.5s" }}
           >
-            We partner with leading pharmaceutical companies, academic institutions, and healthcare organizations to bring breakthrough treatments from the lab to patients who need them most.
+            As a scientifically driven investigator site, CRC integrates validated workflows, controlled documentation environments, and calibrated medical systems including a modern clinical trial management system.
           </p>
         </div>
       </div>
