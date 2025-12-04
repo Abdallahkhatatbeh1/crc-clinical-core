@@ -35,11 +35,11 @@ const services: Service[] = [
     id: 2,
     icon: Rocket,
     title: "Clinical Trial Start-Up Services",
-    description: "Efficient, structured start-up processes optimized for rapid study activation.",
+    description: "Efficient, structured start-up processes optimized for rapid study activation and Site Initiation Visit (SIV) readiness.",
     services: [
       "Detailed feasibility assessments",
       "Budget development and contract negotiation",
-      "Site Qualification Visit (SQV) preparation",
+      "Site Qualification Visit (SQV) preparation and Site Initiation Visit (SIV) readiness",
       "Protocol training and staff competency verification",
       "Fast FPI (First Patient In) activation support"
     ],

@@ -1,6 +1,7 @@
 import { ArrowRight, Play } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 
 const HeroSection = () => {
   const [isLoaded, setIsLoaded] = useState(false);
@@ -57,7 +58,7 @@ const HeroSection = () => {
               isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
             }`}
           >
-            Delivering reliable, high-quality <span className="text-accent font-semibold">Phase I–IV</span> clinical trials in Jordan and the Middle East.
+            Delivering reliable, high-quality <span className="text-accent font-semibold">Phase I–IV</span> clinical trials in Jordan and the Middle East — supported by experienced investigators and research professionals, and trusted by global CROs and scientific sponsors.
           </p>
 
           <p
@@ -74,18 +75,22 @@ const HeroSection = () => {
               isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
             }`}
           >
-            <Button variant="hero" size="xl" className="group">
-              Work With Us
-              <ArrowRight size={20} className="group-hover:translate-x-1 transition-transform" />
-            </Button>
-            <Button 
-              variant="ghost" 
-              size="xl" 
-              className="text-white border border-white/30 hover:bg-white/10 hover:text-white"
-            >
-              <Play size={18} className="mr-2" />
-              Watch Overview
-            </Button>
+            <Link to="/contact">
+              <Button variant="hero" size="xl" className="group">
+                Work With Us
+                <ArrowRight size={20} className="group-hover:translate-x-1 transition-transform" />
+              </Button>
+            </Link>
+            <Link to="/why-us">
+              <Button 
+                variant="ghost" 
+                size="xl" 
+                className="text-white border border-white/30 hover:bg-white/10 hover:text-white"
+              >
+                <Play size={18} className="mr-2" />
+                Watch Overview
+              </Button>
+            </Link>
           </div>
 
           {/* Trust Indicators */}
