@@ -11,29 +11,29 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { Label } from "@/components/ui/label";
 import { useToast } from "@/hooks/use-toast";
-import { LogOut, Save, Home, LayoutDashboard, FileText, Users, Eye, Plus, Trash2 } from "lucide-react";
+import { LogOut, Save, Home, LayoutDashboard, FileText, Users, Eye, Plus, Trash2, Settings, Globe } from "lucide-react";
 import crcLogo from "@/assets/crc-logo-full.png";
 
 const sectionNames: { [key: string]: string } = {
-  hero: "القسم الرئيسي (Hero)",
-  who_we_are: "من نحن",
-  features: "المميزات",
-  cta: "دعوة للتواصل (CTA)",
+  hero: "Hero Section",
+  who_we_are: "Who We Are",
+  features: "Features",
+  cta: "Call to Action",
 };
 
 const keyNames: { [key: string]: string } = {
-  title: "العنوان",
-  subtitle: "العنوان الفرعي",
-  description: "الوصف",
-  cta_text: "نص الزر",
-  button_text: "نص الزر",
-  tag: "التصنيف",
-  card1_title: "عنوان البطاقة 1",
-  card1_description: "وصف البطاقة 1",
-  card2_title: "عنوان البطاقة 2",
-  card2_description: "وصف البطاقة 2",
-  card3_title: "عنوان البطاقة 3",
-  card3_description: "وصف البطاقة 3",
+  title: "Title",
+  subtitle: "Subtitle",
+  description: "Description",
+  cta_text: "CTA Button Text",
+  button_text: "Button Text",
+  tag: "Tag Label",
+  card1_title: "Card 1 Title",
+  card1_description: "Card 1 Description",
+  card2_title: "Card 2 Title",
+  card2_description: "Card 2 Description",
+  card3_title: "Card 3 Title",
+  card3_description: "Card 3 Description",
 };
 
 interface Admin {
@@ -100,14 +100,14 @@ const AdminDashboard = () => {
     
     if (error) {
       toast({
-        title: "خطأ",
-        description: "حدث خطأ أثناء حفظ التغييرات",
+        title: "Error",
+        description: "Failed to save changes",
         variant: "destructive",
       });
     } else {
       toast({
-        title: "تم الحفظ",
-        description: "تم حفظ التغييرات بنجاح",
+        title: "Saved",
+        description: "Changes saved successfully",
       });
     }
     setSavingId(null);
@@ -116,8 +116,8 @@ const AdminDashboard = () => {
   const handleAddAdmin = async () => {
     if (!newAdminEmail || !newAdminPassword) {
       toast({
-        title: "خطأ",
-        description: "يرجى إدخال البريد الإلكتروني وكلمة المرور",
+        title: "Error",
+        description: "Please enter email and password",
         variant: "destructive",
       });
       return;
@@ -132,8 +132,8 @@ const AdminDashboard = () => {
       if (error) throw error;
 
       toast({
-        title: "تم الإضافة",
-        description: "تم إضافة المسؤول بنجاح",
+        title: "Success",
+        description: "Admin added successfully",
       });
       setNewAdminEmail("");
       setNewAdminPassword("");
@@ -142,7 +142,7 @@ const AdminDashboard = () => {
     } catch (error: unknown) {
       const errorMessage = error instanceof Error ? error.message : 'Unknown error';
       toast({
-        title: "خطأ",
+        title: "Error",
         description: errorMessage,
         variant: "destructive",
       });
@@ -153,8 +153,8 @@ const AdminDashboard = () => {
   const handleRemoveAdmin = async (adminId: string) => {
     if (adminId === user?.id) {
       toast({
-        title: "خطأ",
-        description: "لا يمكنك حذف حسابك",
+        title: "Error",
+        description: "You cannot remove yourself",
         variant: "destructive",
       });
       return;
@@ -168,14 +168,14 @@ const AdminDashboard = () => {
       if (error) throw error;
 
       toast({
-        title: "تم الحذف",
-        description: "تم حذف صلاحيات المسؤول",
+        title: "Success",
+        description: "Admin removed successfully",
       });
       fetchAdmins();
     } catch (error: unknown) {
       const errorMessage = error instanceof Error ? error.message : 'Unknown error';
       toast({
-        title: "خطأ",
+        title: "Error",
         description: errorMessage,
         variant: "destructive",
       });
@@ -197,70 +197,87 @@ const AdminDashboard = () => {
 
   if (authLoading || contentLoading) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-background">
-        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary"></div>
+      <div className="min-h-screen flex items-center justify-center gradient-brand">
+        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-white"></div>
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-muted/30">
+    <div className="min-h-screen bg-crc-light-bg">
       {/* Header */}
-      <header className="bg-background border-b sticky top-0 z-50">
-        <div className="container mx-auto px-4 py-3 flex items-center justify-between">
+      <header className="bg-white border-b border-border sticky top-0 z-50 shadow-sm">
+        <div className="container mx-auto px-4 py-4 flex items-center justify-between">
           <div className="flex items-center gap-4">
             <img src={crcLogo} alt="CRC Logo" className="h-10 object-contain" />
-            <div className="hidden sm:block">
-              <h1 className="font-semibold text-foreground">لوحة التحكم</h1>
-              <p className="text-xs text-muted-foreground">إدارة محتوى الموقع</p>
+            <div className="hidden sm:block border-l border-border pl-4">
+              <h1 className="font-semibold text-foreground">Admin Dashboard</h1>
+              <p className="text-xs text-muted-foreground">Content Management System</p>
             </div>
           </div>
-          <div className="flex items-center gap-2">
-            <Button variant="outline" size="sm" onClick={() => window.open("/", "_blank")}>
-              <Eye className="h-4 w-4 mr-2" />
-              معاينة الموقع
+          <div className="flex items-center gap-3">
+            <Button variant="outline" size="sm" onClick={() => window.open("/", "_blank")} className="hidden sm:flex">
+              <Globe className="h-4 w-4 mr-2" />
+              View Website
             </Button>
-            <Button variant="ghost" size="sm" onClick={handleLogout}>
+            <Button variant="ghost" size="sm" onClick={handleLogout} className="text-destructive hover:text-destructive hover:bg-destructive/10">
               <LogOut className="h-4 w-4 mr-2" />
-              خروج
+              Logout
             </Button>
           </div>
         </div>
       </header>
 
-      <div className="container mx-auto px-4 py-6">
+      <div className="container mx-auto px-4 py-8">
+        {/* Welcome Section */}
+        <div className="mb-8">
+          <h2 className="text-2xl font-bold text-foreground mb-2">Welcome back!</h2>
+          <p className="text-muted-foreground">Manage your website content and administrators from here.</p>
+        </div>
+
         {/* Stats Cards */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
-          <Card>
-            <CardContent className="p-4 flex items-center gap-3">
-              <div className="p-2 bg-primary/10 rounded-lg">
-                <LayoutDashboard className="h-5 w-5 text-primary" />
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
+          <Card className="border-0 shadow-sm hover:shadow-md transition-shadow">
+            <CardContent className="p-5 flex items-center gap-4">
+              <div className="p-3 bg-primary/10 rounded-xl">
+                <LayoutDashboard className="h-6 w-6 text-primary" />
               </div>
               <div>
-                <p className="text-2xl font-bold">{content.length}</p>
-                <p className="text-xs text-muted-foreground">عنصر محتوى</p>
+                <p className="text-3xl font-bold text-foreground">{content.length}</p>
+                <p className="text-sm text-muted-foreground">Content Items</p>
               </div>
             </CardContent>
           </Card>
-          <Card>
-            <CardContent className="p-4 flex items-center gap-3">
-              <div className="p-2 bg-crc-green/10 rounded-lg">
-                <FileText className="h-5 w-5 text-crc-green" />
+          <Card className="border-0 shadow-sm hover:shadow-md transition-shadow">
+            <CardContent className="p-5 flex items-center gap-4">
+              <div className="p-3 bg-accent/10 rounded-xl">
+                <FileText className="h-6 w-6 text-accent" />
               </div>
               <div>
-                <p className="text-2xl font-bold">{Object.keys(groupedContent).length}</p>
-                <p className="text-xs text-muted-foreground">أقسام</p>
+                <p className="text-3xl font-bold text-foreground">{Object.keys(groupedContent).length}</p>
+                <p className="text-sm text-muted-foreground">Sections</p>
               </div>
             </CardContent>
           </Card>
-          <Card>
-            <CardContent className="p-4 flex items-center gap-3">
-              <div className="p-2 bg-primary/10 rounded-lg">
-                <Users className="h-5 w-5 text-primary" />
+          <Card className="border-0 shadow-sm hover:shadow-md transition-shadow">
+            <CardContent className="p-5 flex items-center gap-4">
+              <div className="p-3 bg-primary/10 rounded-xl">
+                <Users className="h-6 w-6 text-primary" />
               </div>
               <div>
-                <p className="text-2xl font-bold">{admins.length || 1}</p>
-                <p className="text-xs text-muted-foreground">مسؤولين</p>
+                <p className="text-3xl font-bold text-foreground">{admins.length || 1}</p>
+                <p className="text-sm text-muted-foreground">Administrators</p>
+              </div>
+            </CardContent>
+          </Card>
+          <Card className="border-0 shadow-sm hover:shadow-md transition-shadow">
+            <CardContent className="p-5 flex items-center gap-4">
+              <div className="p-3 bg-accent/10 rounded-xl">
+                <Home className="h-6 w-6 text-accent" />
+              </div>
+              <div>
+                <p className="text-3xl font-bold text-foreground">1</p>
+                <p className="text-sm text-muted-foreground">Active Pages</p>
               </div>
             </CardContent>
           </Card>
@@ -268,31 +285,39 @@ const AdminDashboard = () => {
 
         {/* Main Tabs */}
         <Tabs value={activeTab} onValueChange={setActiveTab}>
-          <TabsList className="mb-6">
-            <TabsTrigger value="content" className="flex items-center gap-2">
+          <TabsList className="mb-6 bg-white p-1 shadow-sm">
+            <TabsTrigger value="content" className="flex items-center gap-2 px-6">
               <Home className="h-4 w-4" />
-              المحتوى
+              Content
             </TabsTrigger>
-            <TabsTrigger value="admins" className="flex items-center gap-2">
+            <TabsTrigger value="admins" className="flex items-center gap-2 px-6">
               <Users className="h-4 w-4" />
-              المسؤولين
+              Administrators
             </TabsTrigger>
           </TabsList>
 
           <TabsContent value="content">
-            <Card>
-              <CardHeader>
-                <div className="flex items-center gap-2">
-                  <Home className="h-5 w-5 text-primary" />
-                  <CardTitle>محتوى الصفحة الرئيسية</CardTitle>
+            <Card className="border-0 shadow-sm">
+              <CardHeader className="border-b border-border bg-muted/30">
+                <div className="flex items-center gap-3">
+                  <div className="p-2 bg-primary/10 rounded-lg">
+                    <Home className="h-5 w-5 text-primary" />
+                  </div>
+                  <div>
+                    <CardTitle>Homepage Content</CardTitle>
+                    <CardDescription>Edit the content displayed on your homepage</CardDescription>
+                  </div>
                 </div>
-                <CardDescription>قم بتعديل محتوى الصفحة الرئيسية من هنا</CardDescription>
               </CardHeader>
-              <CardContent>
+              <CardContent className="p-6">
                 <Tabs defaultValue={Object.keys(groupedContent)[0]} className="w-full">
-                  <TabsList className="w-full flex-wrap h-auto gap-1 mb-4">
+                  <TabsList className="w-full flex-wrap h-auto gap-2 mb-6 bg-muted/50 p-2">
                     {Object.keys(groupedContent).map((section) => (
-                      <TabsTrigger key={section} value={section} className="flex-1 min-w-fit">
+                      <TabsTrigger 
+                        key={section} 
+                        value={section} 
+                        className="flex-1 min-w-fit data-[state=active]:bg-white data-[state=active]:shadow-sm"
+                      >
                         {sectionNames[section] || section}
                       </TabsTrigger>
                     ))}
@@ -301,18 +326,28 @@ const AdminDashboard = () => {
                   {Object.entries(groupedContent).map(([section, items]) => (
                     <TabsContent key={section} value={section} className="space-y-4">
                       {items.map((item) => (
-                        <div key={item.id} className="border rounded-lg p-4 space-y-3">
+                        <div key={item.id} className="bg-muted/30 rounded-xl p-5 space-y-4 hover:bg-muted/50 transition-colors">
                           <div className="flex items-center justify-between">
-                            <label className="font-medium text-sm">
+                            <label className="font-semibold text-foreground">
                               {keyNames[item.content_key] || item.content_key}
                             </label>
                             <Button
                               size="sm"
                               onClick={() => handleSave(item.id)}
                               disabled={savingId === item.id || editedContent[item.id] === item.content_value}
+                              className="min-w-[100px]"
                             >
-                              <Save className="h-4 w-4 mr-1" />
-                              {savingId === item.id ? "جاري الحفظ..." : "حفظ"}
+                              {savingId === item.id ? (
+                                <>
+                                  <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white mr-2"></div>
+                                  Saving...
+                                </>
+                              ) : (
+                                <>
+                                  <Save className="h-4 w-4 mr-2" />
+                                  Save
+                                </>
+                              )}
                             </Button>
                           </div>
                           {item.content_key.includes("description") || item.content_key.includes("subtitle") ? (
@@ -320,13 +355,13 @@ const AdminDashboard = () => {
                               value={editedContent[item.id] || ""}
                               onChange={(e) => setEditedContent({ ...editedContent, [item.id]: e.target.value })}
                               rows={4}
-                              dir="auto"
+                              className="bg-white border-border focus:border-primary resize-none"
                             />
                           ) : (
                             <Input
                               value={editedContent[item.id] || ""}
                               onChange={(e) => setEditedContent({ ...editedContent, [item.id]: e.target.value })}
-                              dir="auto"
+                              className="bg-white border-border focus:border-primary"
                             />
                           )}
                         </div>
@@ -339,46 +374,49 @@ const AdminDashboard = () => {
           </TabsContent>
 
           <TabsContent value="admins">
-            <Card>
-              <CardHeader>
+            <Card className="border-0 shadow-sm">
+              <CardHeader className="border-b border-border bg-muted/30">
                 <div className="flex items-center justify-between">
-                  <div className="flex items-center gap-2">
-                    <Users className="h-5 w-5 text-primary" />
-                    <CardTitle>إدارة المسؤولين</CardTitle>
+                  <div className="flex items-center gap-3">
+                    <div className="p-2 bg-primary/10 rounded-lg">
+                      <Users className="h-5 w-5 text-primary" />
+                    </div>
+                    <div>
+                      <CardTitle>Administrator Management</CardTitle>
+                      <CardDescription>Add or remove administrators</CardDescription>
+                    </div>
                   </div>
                   <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
                     <DialogTrigger asChild>
-                      <Button size="sm">
+                      <Button>
                         <Plus className="h-4 w-4 mr-2" />
-                        إضافة مسؤول
+                        Add Admin
                       </Button>
                     </DialogTrigger>
-                    <DialogContent>
+                    <DialogContent className="sm:max-w-md">
                       <DialogHeader>
-                        <DialogTitle>إضافة مسؤول جديد</DialogTitle>
+                        <DialogTitle>Add New Administrator</DialogTitle>
                         <DialogDescription>
-                          أدخل بيانات المسؤول الجديد
+                          Enter the credentials for the new administrator
                         </DialogDescription>
                       </DialogHeader>
                       <div className="space-y-4 mt-4">
                         <div className="space-y-2">
-                          <Label>البريد الإلكتروني</Label>
+                          <Label>Email Address</Label>
                           <Input
                             type="email"
                             placeholder="admin@example.com"
                             value={newAdminEmail}
                             onChange={(e) => setNewAdminEmail(e.target.value)}
-                            dir="ltr"
                           />
                         </div>
                         <div className="space-y-2">
-                          <Label>كلمة المرور</Label>
+                          <Label>Password</Label>
                           <Input
                             type="password"
                             placeholder="••••••••"
                             value={newAdminPassword}
                             onChange={(e) => setNewAdminPassword(e.target.value)}
-                            dir="ltr"
                           />
                         </div>
                         <Button 
@@ -386,37 +424,52 @@ const AdminDashboard = () => {
                           onClick={handleAddAdmin}
                           disabled={addingAdmin}
                         >
-                          {addingAdmin ? "جاري الإضافة..." : "إضافة المسؤول"}
+                          {addingAdmin ? "Adding..." : "Add Administrator"}
                         </Button>
                       </div>
                     </DialogContent>
                   </Dialog>
                 </div>
-                <CardDescription>قم بإدارة مسؤولي الموقع من هنا</CardDescription>
               </CardHeader>
-              <CardContent>
+              <CardContent className="p-6">
                 {loadingAdmins ? (
-                  <div className="flex justify-center py-8">
+                  <div className="flex justify-center py-12">
                     <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary"></div>
                   </div>
                 ) : (
                   <div className="space-y-3">
                     {admins.map((admin) => (
-                      <div key={admin.id} className="flex items-center justify-between p-4 border rounded-lg">
-                        <div>
-                          <p className="font-medium">{admin.email}</p>
-                          <p className="text-xs text-muted-foreground">
-                            تاريخ الإضافة: {new Date(admin.created_at).toLocaleDateString('ar-SA')}
-                          </p>
+                      <div key={admin.id} className="flex items-center justify-between p-5 bg-muted/30 rounded-xl hover:bg-muted/50 transition-colors">
+                        <div className="flex items-center gap-4">
+                          <div className="w-10 h-10 bg-primary/10 rounded-full flex items-center justify-center">
+                            <span className="text-primary font-semibold">
+                              {admin.email.charAt(0).toUpperCase()}
+                            </span>
+                          </div>
+                          <div>
+                            <p className="font-medium text-foreground">{admin.email}</p>
+                            <p className="text-sm text-muted-foreground">
+                              Added: {new Date(admin.created_at).toLocaleDateString('en-US', { 
+                                year: 'numeric', 
+                                month: 'short', 
+                                day: 'numeric' 
+                              })}
+                            </p>
+                          </div>
                         </div>
-                        {admin.id !== user?.id && (
+                        {admin.id !== user?.id ? (
                           <Button 
                             variant="destructive" 
                             size="sm"
                             onClick={() => handleRemoveAdmin(admin.id)}
                           >
-                            <Trash2 className="h-4 w-4" />
+                            <Trash2 className="h-4 w-4 mr-2" />
+                            Remove
                           </Button>
+                        ) : (
+                          <span className="text-sm text-muted-foreground bg-muted px-3 py-1 rounded-full">
+                            You
+                          </span>
                         )}
                       </div>
                     ))}
