@@ -21,12 +21,12 @@ const pharmaPartners = [
 
 const PartnersSection = () => {
   return (
-    <section className="py-24 bg-background">
+    <section className="py-32 bg-background">
       <div className="container mx-auto px-4">
         {/* CRO Partners */}
-        <div className="mb-20">
-          <div className="text-center mb-12">
-            <BrandTag className="mb-6 animate-fade-in opacity-0" style={{ animationDelay: "0.1s" }}>
+        <div className="mb-24">
+          <div className="text-center mb-14">
+            <BrandTag className="mb-8 animate-fade-in opacity-0" style={{ animationDelay: "0.1s" }}>
               Our Network
             </BrandTag>
             <h2
@@ -39,7 +39,7 @@ const PartnersSection = () => {
               className="text-muted-foreground max-w-3xl mx-auto animate-fade-in opacity-0"
               style={{ animationDelay: "0.3s" }}
             >
-              CRC collaborates with major CRO partners, demonstrating our capacity to align with top-tier contract research organizations and deliver high-quality data.
+              CRC collaborates with major CRO partners, demonstrating our capacity to align with <span className="text-primary font-semibold">top-tier contract research organizations</span> and deliver <span className="text-accent font-semibold">high-quality data</span>.
             </p>
           </div>
 
@@ -58,8 +58,8 @@ const PartnersSection = () => {
 
         {/* Pharmaceutical Partners */}
         <div>
-          <div className="text-center mb-12">
-            <BrandTag variant="green" className="mb-6 animate-fade-in opacity-0" style={{ animationDelay: "0.1s" }}>
+          <div className="text-center mb-14">
+            <BrandTag variant="green" className="mb-8 animate-fade-in opacity-0" style={{ animationDelay: "0.1s" }}>
               Trusted By
             </BrandTag>
             <h2
@@ -72,7 +72,7 @@ const PartnersSection = () => {
               className="text-muted-foreground max-w-3xl mx-auto animate-fade-in opacity-0"
               style={{ animationDelay: "0.3s" }}
             >
-              CRC supports research programs for global pharmaceutical leaders, reflecting strong scientific reliability and alignment with rigorous clinical trial site expectations.
+              CRC supports research programs for global pharmaceutical leaders, reflecting <span className="text-accent font-semibold">strong scientific reliability</span> and alignment with rigorous clinical trial site expectations.
             </p>
           </div>
 
@@ -80,7 +80,7 @@ const PartnersSection = () => {
             {pharmaPartners.map((partner, index) => (
               <div
                 key={partner}
-                className="px-8 py-4 bg-accent/10 rounded-xl border border-accent/20 text-foreground font-semibold hover:bg-accent hover:text-accent-foreground hover:border-accent transition-all duration-300 animate-fade-in-up opacity-0"
+                className="px-8 py-4 bg-crc-green-light rounded-xl border border-accent/30 text-foreground font-semibold hover:bg-accent hover:text-accent-foreground hover:border-accent transition-all duration-300 animate-fade-in-up opacity-0"
                 style={{ animationDelay: `${0.3 + index * 0.1}s` }}
               >
                 {partner}

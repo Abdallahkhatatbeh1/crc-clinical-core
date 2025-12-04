@@ -36,7 +36,7 @@ const trustReasons = [
       "On-site laboratories, calibrated equipment, medical device CRO capability, and IP storage.",
       "CRO-dedicated monitoring rooms to support oversight and contract research and development activities."
     ],
-    isExcellence: false
+    isExcellence: true
   },
   {
     icon: Award,
@@ -61,17 +61,17 @@ const trustReasons = [
 
 const WhyTrustSection = () => {
   return (
-    <section className="py-24 bg-background">
+    <section className="py-32 bg-background">
       <div className="container mx-auto px-4">
-        <div className="text-center mb-16">
-          <BrandTag className="mb-6 animate-fade-in opacity-0" style={{ animationDelay: "0.1s" }}>
-            Why Choose CRC
+        <div className="text-center mb-20">
+          <BrandTag variant="green" className="mb-8 animate-fade-in opacity-0" style={{ animationDelay: "0.1s" }}>
+            Our Expertise
           </BrandTag>
           <h2
             className="text-foreground max-w-3xl mx-auto animate-fade-in opacity-0"
             style={{ animationDelay: "0.2s" }}
           >
-            Why Global CROs Trust CRC
+            Why Global CROs <span className="text-accent">Trust</span> CRC
           </h2>
         </div>
 
@@ -80,12 +80,12 @@ const WhyTrustSection = () => {
             <div
               key={reason.title}
               className={`group bg-card border rounded-2xl p-8 hover:shadow-elegant transition-all duration-300 animate-fade-in-up opacity-0 ${
-                reason.isExcellence ? 'border-accent/30' : 'border-border'
+                reason.isExcellence ? 'border-accent/30 bg-crc-green-light/30' : 'border-border'
               }`}
               style={{ animationDelay: `${0.2 + index * 0.1}s` }}
             >
               <div className={`w-14 h-14 rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300 ${
-                reason.isExcellence ? 'bg-accent/10' : 'bg-secondary'
+                reason.isExcellence ? 'bg-accent/15' : 'bg-secondary'
               }`}>
                 <reason.icon className={`w-7 h-7 ${reason.isExcellence ? 'text-accent' : 'text-primary'}`} />
               </div>
@@ -95,9 +95,7 @@ const WhyTrustSection = () => {
               <ul className="space-y-3">
                 {reason.points.map((point, pointIndex) => (
                   <li key={pointIndex} className="flex items-start gap-3">
-                    <CheckCircle2 className={`w-5 h-5 mt-0.5 flex-shrink-0 ${
-                      reason.isExcellence ? 'text-accent' : 'text-primary'
-                    }`} />
+                    <CheckCircle2 className="w-5 h-5 mt-0.5 flex-shrink-0 text-accent" />
                     <span className="text-muted-foreground text-sm leading-relaxed">
                       {point}
                     </span>

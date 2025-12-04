@@ -3,7 +3,8 @@ import {
   TestTube2, 
   Pill, 
   Monitor, 
-  Users2 
+  Users2,
+  CheckCircle2
 } from "lucide-react";
 import BrandTag from "./BrandTag";
 
@@ -32,11 +33,11 @@ const facilities = [
 
 const ResearchEnvironmentSection = () => {
   return (
-    <section className="py-24 bg-secondary">
+    <section className="py-32 bg-crc-blue-soft">
       <div className="container mx-auto px-4">
-        <div className="text-center mb-16">
-          <BrandTag variant="green" className="mb-6 animate-fade-in opacity-0" style={{ animationDelay: "0.1s" }}>
-            Our Facilities
+        <div className="text-center mb-20">
+          <BrandTag variant="green" className="mb-8 animate-fade-in opacity-0" style={{ animationDelay: "0.1s" }}>
+            Quality Facilities
           </BrandTag>
           <h2
             className="text-foreground max-w-2xl mx-auto animate-fade-in opacity-0"
@@ -51,15 +52,16 @@ const ResearchEnvironmentSection = () => {
             {facilities.map((facility, index) => (
               <div
                 key={facility.name}
-                className="flex items-center gap-4 bg-card border border-accent/20 rounded-xl p-6 hover:shadow-elegant hover:border-accent/40 transition-all duration-300 animate-fade-in-up opacity-0"
+                className="flex items-center gap-4 bg-card border border-border rounded-xl p-6 hover:shadow-elegant hover:border-accent/40 transition-all duration-300 animate-fade-in-up opacity-0"
                 style={{ animationDelay: `${0.2 + index * 0.1}s` }}
               >
-                <div className="w-12 h-12 rounded-lg bg-accent/10 flex items-center justify-center flex-shrink-0">
-                  <facility.icon className="w-6 h-6 text-accent" />
+                <div className="w-12 h-12 rounded-lg bg-secondary flex items-center justify-center flex-shrink-0">
+                  <facility.icon className="w-6 h-6 text-primary" />
                 </div>
-                <span className="text-foreground font-medium">
+                <span className="text-foreground font-medium flex-1">
                   {facility.name}
                 </span>
+                <CheckCircle2 className="w-5 h-5 text-accent flex-shrink-0" />
               </div>
             ))}
           </div>
