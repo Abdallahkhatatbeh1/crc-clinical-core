@@ -51,7 +51,7 @@ const ResearchEnvironmentSection = () => {
             {facilities.map((facility, index) => (
               <div
                 key={facility.name}
-                className="flex items-center gap-4 bg-card border border-border rounded-xl p-6 hover:shadow-elegant transition-all duration-300 animate-fade-in-up opacity-0"
+                className="flex items-center gap-4 bg-card border border-accent/20 rounded-xl p-6 hover:shadow-elegant hover:border-accent/40 transition-all duration-300 animate-fade-in-up opacity-0"
                 style={{ animationDelay: `${0.2 + index * 0.1}s` }}
               >
                 <div className="w-12 h-12 rounded-lg bg-accent/10 flex items-center justify-center flex-shrink-0">
