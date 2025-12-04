@@ -3,15 +3,17 @@ import { CSSProperties } from "react";
 
 interface BrandTagProps {
   children: React.ReactNode;
+  variant?: "blue" | "green";
   className?: string;
   style?: CSSProperties;
 }
 
-const BrandTag = ({ children, className, style }: BrandTagProps) => {
+const BrandTag = ({ children, variant = "blue", className, style }: BrandTagProps) => {
   return (
     <span
       className={cn(
-        "inline-block gradient-brand-horizontal px-4 py-1.5 rounded-full text-sm font-semibold text-primary-foreground uppercase tracking-wider",
+        "inline-block px-4 py-1.5 rounded-full text-sm font-semibold text-primary-foreground uppercase tracking-wider",
+        variant === "blue" ? "gradient-brand-horizontal" : "gradient-accent-horizontal",
         className
       )}
       style={style}
