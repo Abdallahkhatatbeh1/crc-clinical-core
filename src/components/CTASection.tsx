@@ -1,38 +1,80 @@
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, Mail, Phone } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import useScrollAnimation from "@/hooks/useScrollAnimation";
 
 const CTASection = () => {
+  const { ref: sectionRef, isVisible } = useScrollAnimation({ threshold: 0.3 });
+
   return (
-    <section className="py-32 gradient-brand relative overflow-hidden">
-      {/* Background decorations */}
-      <div className="absolute inset-0 opacity-10">
-        <div className="absolute top-10 right-20 w-64 h-64 rounded-full bg-crc-white blur-3xl" />
-        <div className="absolute bottom-10 left-20 w-48 h-48 rounded-full bg-crc-white blur-3xl" />
-        <div className="absolute top-1/2 left-1/3 w-96 h-96 rounded-full bg-crc-white blur-3xl opacity-50" />
+    <section ref={sectionRef} className="py-32 gradient-brand relative overflow-hidden">
+      {/* Animated Background */}
+      <div className="absolute inset-0">
+        <div className="absolute top-0 left-0 w-full h-full opacity-10">
+          <div className="absolute top-10 right-20 w-72 h-72 rounded-full bg-white blur-3xl animate-pulse" />
+          <div className="absolute bottom-10 left-20 w-56 h-56 rounded-full bg-white blur-3xl animate-pulse" style={{ animationDelay: "1s" }} />
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 rounded-full bg-white blur-3xl animate-pulse" style={{ animationDelay: "2s" }} />
+        </div>
+        
+        {/* Grid Pattern */}
+        <div className="absolute inset-0 opacity-5" style={{
+          backgroundImage: `linear-gradient(rgba(255,255,255,0.1) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.1) 1px, transparent 1px)`,
+          backgroundSize: '50px 50px'
+        }} />
       </div>
 
       <div className="container mx-auto px-4 relative z-10">
-        <div className="max-w-3xl mx-auto text-center">
-          <h2
-            className="text-primary-foreground mb-8 animate-fade-in opacity-0"
-            style={{ animationDelay: "0.1s" }}
+        <div className="max-w-4xl mx-auto">
+          {/* Main Content */}
+          <div className="text-center mb-12">
+            <h2 
+              className={`text-white text-4xl md:text-5xl font-bold mb-6 transition-all duration-700 ${
+                isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
+              }`}
+            >
+              Ready to Partner with <span className="text-accent">CRC</span>?
+            </h2>
+            <p 
+              className={`text-xl text-white/85 leading-relaxed max-w-2xl mx-auto transition-all duration-700 delay-200 ${
+                isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
+              }`}
+            >
+              Conduct your next clinical study in Jordan with <span className="font-semibold">confidence</span>, <span className="font-semibold">efficiency</span>, and <span className="font-semibold">internationally aligned quality</span>.
+            </p>
+          </div>
+
+          {/* CTA Buttons */}
+          <div 
+            className={`flex flex-col sm:flex-row gap-4 justify-center items-center mb-12 transition-all duration-700 delay-300 ${
+              isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
+            }`}
           >
-            Work With Us
-          </h2>
-          <p
-            className="text-xl text-primary-foreground/90 mb-12 leading-relaxed animate-fade-in opacity-0"
-            style={{ animationDelay: "0.2s" }}
-          >
-            Partner with CRC to conduct your next clinical study in Jordan with <span className="font-semibold">confidence</span>, <span className="font-semibold">efficiency</span>, and <span className="font-semibold">internationally aligned quality</span>.
-          </p>
-          <div
-            className="animate-fade-in opacity-0"
-            style={{ animationDelay: "0.3s" }}
-          >
-            <Button variant="hero" size="xl">
-              Partner With Us for Your Next Clinical Trial
-              <ArrowRight size={20} />
+            <Button variant="hero" size="xl" className="group min-w-[280px]">
+              Start Your Clinical Trial
+              <ArrowRight size={20} className="group-hover:translate-x-1 transition-transform" />
             </Button>
+            <Button 
+              variant="ghost" 
+              size="xl" 
+              className="text-white border border-white/30 hover:bg-white/10 hover:text-white min-w-[200px]"
+            >
+              Schedule a Call
+            </Button>
+          </div>
+
+          {/* Contact Info */}
+          <div 
+            className={`flex flex-wrap justify-center gap-8 pt-8 border-t border-white/20 transition-all duration-700 delay-400 ${
+              isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
+            }`}
+          >
+            <a href="mailto:info@crc-jordan.com" className="flex items-center gap-2 text-white/80 hover:text-white transition-colors">
+              <Mail className="w-5 h-5" />
+              <span>info@crc-jordan.com</span>
+            </a>
+            <a href="tel:+962123456789" className="flex items-center gap-2 text-white/80 hover:text-white transition-colors">
+              <Phone className="w-5 h-5" />
+              <span>+962 123 456 789</span>
+            </a>
           </div>
         </div>
       </div>
