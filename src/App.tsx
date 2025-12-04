@@ -19,7 +19,6 @@ import TermsOfService from "./pages/TermsOfService";
 import NotFound from "./pages/NotFound";
 import AdminLogin from "./pages/AdminLogin";
 import AdminDashboard from "./pages/AdminDashboard";
-import AdminSetup from "./pages/AdminSetup";
 
 const queryClient = new QueryClient();
 
@@ -48,7 +47,6 @@ const App = () => {
                 <Route path="/privacy-policy" element={<PrivacyPolicy />} />
                 <Route path="/terms-of-service" element={<TermsOfService />} />
                 <Route path="/admin" element={<AdminLogin />} />
-                <Route path="/admin/setup" element={<AdminSetup />} />
                 <Route path="/admin/dashboard" element={<AdminDashboard />} />
                 <Route path="*" element={<NotFound />} />
               </Routes>
