@@ -3,6 +3,8 @@ import { Link, useLocation } from "react-router-dom";
 import { Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
+import crcLogoFull from "@/assets/crc-logo-full.png";
+import crcLogoSymbol from "@/assets/crc-logo-symbol.png";
 
 const navLinks = [
   { name: "Home", href: "/" },
@@ -22,14 +24,20 @@ const Header = () => {
     <header className="fixed top-0 left-0 right-0 z-50 bg-background/95 backdrop-blur-sm border-b border-border">
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between h-20">
-          {/* Logo */}
-          <Link to="/" className="flex items-center gap-2">
-            <div className="w-10 h-10 gradient-brand rounded-lg flex items-center justify-center">
-              <span className="text-primary-foreground font-bold text-lg">C</span>
-            </div>
-            <span className="text-xl font-bold text-foreground">
-              CRC
-            </span>
+          {/* Logo - Full version for desktop/tablet, symbol for mobile */}
+          <Link to="/" className="flex items-center p-3 -m-3">
+            {/* Desktop/Tablet: Full logo */}
+            <img
+              src={crcLogoFull}
+              alt="Clinical Research Center"
+              className="hidden sm:block h-12 md:h-14 w-auto object-contain"
+            />
+            {/* Mobile: Symbol only */}
+            <img
+              src={crcLogoSymbol}
+              alt="CRC"
+              className="block sm:hidden h-10 w-auto object-contain"
+            />
           </Link>
 
           {/* Desktop Navigation */}
