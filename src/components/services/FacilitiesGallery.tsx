@@ -6,7 +6,6 @@ import { X, ZoomIn } from "lucide-react";
 
 // Import facility images
 import examRoom1 from "@/assets/facilities/exam-room-1.jpg";
-import examRoom2 from "@/assets/facilities/exam-room-2.jpg";
 import ecgMachine from "@/assets/facilities/ecg-machine.jpg";
 import ecgBedside from "@/assets/facilities/ecg-bedside.jpg";
 import ultrasound from "@/assets/facilities/ultrasound.jpg";
@@ -18,9 +17,6 @@ import sampleRefrigerators from "@/assets/facilities/sample-refrigerators.jpg";
 import labRoom from "@/assets/facilities/lab-room.jpg";
 import storageShelves from "@/assets/facilities/storage-shelves.jpg";
 import patientCare from "@/assets/facilities/patient-care.jpg";
-import medicalBed from "@/assets/facilities/medical-bed.jpg";
-import hallway from "@/assets/facilities/hallway.jpg";
-import centerEntrance from "@/assets/facilities/center-entrance.jpg";
 
 const galleryImages = [
   { src: patientCare, title: "Patient Care", category: "Clinical Care" },
@@ -34,7 +30,7 @@ const galleryImages = [
   { src: ultraLowFreezer, title: "Ultra-Low Freezer", category: "Storage" },
   { src: ecgBedside, title: "Bedside ECG", category: "Medical Equipment" },
   { src: storageShelves, title: "Supplies Storage", category: "Storage" },
-  { src: centerEntrance, title: "Center Entrance", category: "Facility" },
+  { src: centrifuge2, title: "Centrifuge MPW", category: "Laboratory" },
 ];
 
 const FacilitiesGallery = () => {
@@ -61,18 +57,18 @@ const FacilitiesGallery = () => {
           </p>
         </div>
 
-        {/* Masonry-style Gallery */}
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+        {/* Simple Grid Gallery */}
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 max-w-6xl mx-auto">
           {galleryImages.map((image, index) => (
             <div
               key={image.title}
               className={`group relative overflow-hidden rounded-2xl cursor-pointer ${
-                index === 0 || index === 5 ? 'md:col-span-2 md:row-span-2' : ''
-              } ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}
+                isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
+              }`}
               style={{ transitionDelay: `${300 + index * 50}ms`, transition: 'all 0.7s ease-out' }}
               onClick={() => setSelectedImage(image)}
             >
-              <div className={`relative ${index === 0 || index === 5 ? 'aspect-square' : 'aspect-[4/3]'}`}>
+              <div className="relative aspect-[4/3]">
                 <img
                   src={image.src}
                   alt={image.title}
