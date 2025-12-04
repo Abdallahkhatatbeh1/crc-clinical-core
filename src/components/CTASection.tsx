@@ -2,9 +2,11 @@ import { ArrowRight, Mail, Phone } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import useScrollAnimation from "@/hooks/useScrollAnimation";
 import { Link } from "react-router-dom";
+import { useSiteContent } from "@/hooks/useSiteContent";
 
 const CTASection = () => {
   const { ref: sectionRef, isVisible } = useScrollAnimation({ threshold: 0.3 });
+  const { content } = useSiteContent("home", "cta");
 
   return (
     <section ref={sectionRef} className="py-32 gradient-brand relative overflow-hidden">
@@ -32,14 +34,14 @@ const CTASection = () => {
                 isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
               }`}
             >
-              Ready to Partner with <span className="text-accent">CRC</span>?
+              {content.title || "Ready to Partner with"} <span className="text-accent">{content.title_highlight || "CRC"}</span>?
             </h2>
             <p 
               className={`text-xl text-white/85 leading-relaxed max-w-2xl mx-auto transition-all duration-700 delay-200 ${
                 isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
               }`}
             >
-              Conduct your next clinical study in Jordan with <span className="font-semibold">confidence</span>, <span className="font-semibold">efficiency</span>, and <span className="font-semibold">internationally aligned quality</span>.
+              {content.description || "Conduct your next clinical study in Jordan with confidence, efficiency, and internationally aligned quality."}
             </p>
           </div>
 
@@ -51,7 +53,7 @@ const CTASection = () => {
           >
             <Link to="/contact">
               <Button variant="hero" size="xl" className="group min-w-[280px]">
-                Start Your Clinical Trial
+                {content.cta_primary || "Start Your Clinical Trial"}
                 <ArrowRight size={20} className="group-hover:translate-x-1 transition-transform" />
               </Button>
             </Link>
@@ -61,7 +63,7 @@ const CTASection = () => {
                 size="xl" 
                 className="text-white border border-white/30 hover:bg-white/10 hover:text-white min-w-[200px]"
               >
-                Schedule a Call
+                {content.cta_secondary || "Schedule a Call"}
               </Button>
             </Link>
           </div>
@@ -72,13 +74,13 @@ const CTASection = () => {
               isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
             }`}
           >
-            <a href="mailto:info@crc-jordan.com" className="flex items-center gap-2 text-white/80 hover:text-white transition-colors">
+            <a href={`mailto:${content.email || "info@crc-jordan.com"}`} className="flex items-center gap-2 text-white/80 hover:text-white transition-colors">
               <Mail className="w-5 h-5" />
-              <span>info@crc-jordan.com</span>
+              <span>{content.email || "info@crc-jordan.com"}</span>
             </a>
-            <a href="tel:+962123456789" className="flex items-center gap-2 text-white/80 hover:text-white transition-colors">
+            <a href={`tel:${content.phone || "+962123456789"}`} className="flex items-center gap-2 text-white/80 hover:text-white transition-colors">
               <Phone className="w-5 h-5" />
-              <span>+962 123 456 789</span>
+              <span>{content.phone || "+962 123 456 789"}</span>
             </a>
           </div>
         </div>

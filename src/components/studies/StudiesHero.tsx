@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-import { FlaskConical, CheckCircle2, FileCheck, Globe } from "lucide-react";
-import BrandTag from "@/components/BrandTag";
+import { FlaskConical, CheckCircle2, Globe } from "lucide-react";
+import { useSiteContent } from "@/hooks/useSiteContent";
 
 const phases = [
   { phase: "Phase I", desc: "Safety & Dosage" },
@@ -11,6 +11,7 @@ const phases = [
 
 const StudiesHero = () => {
   const [isLoaded, setIsLoaded] = useState(false);
+  const { content } = useSiteContent("studies", "hero");
 
   useEffect(() => {
     setIsLoaded(true);
@@ -38,7 +39,7 @@ const StudiesHero = () => {
             }`}
           >
             <FlaskConical className="w-4 h-4 text-accent" />
-            <span className="text-sm font-medium text-white/90">Clinical Research Excellence</span>
+            <span className="text-sm font-medium text-white/90">{content.badge || "Clinical Research Excellence"}</span>
           </div>
 
           <h1 
@@ -46,7 +47,7 @@ const StudiesHero = () => {
               isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
             }`}
           >
-            Our <span className="text-accent">Studies</span> & Research
+            {content.title || "Our"} <span className="text-accent">{content.title_highlight || "Studies"}</span> {content.title_suffix || "& Research"}
           </h1>
 
           <p 
@@ -54,7 +55,7 @@ const StudiesHero = () => {
               isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
             }`}
           >
-            CRC conducts a wide spectrum of scientifically rigorous clinical trials across all phases and numerous therapeutic areas.
+            {content.subtitle || "CRC conducts a wide spectrum of scientifically rigorous clinical trials across all phases and numerous therapeutic areas."}
           </p>
 
           <p 
@@ -62,7 +63,7 @@ const StudiesHero = () => {
               isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
             }`}
           >
-            Our treatment-naïve populations support studies including depression clinical trials, metabolic disorders, and infectious diseases. We maintain strong alignment with <span className="text-accent font-semibold">ICH-GCP</span> and clinicaltrials.gov transparency standards.
+            {content.description || "Our treatment-naïve populations support studies including depression clinical trials, metabolic disorders, and infectious diseases. We maintain strong alignment with ICH-GCP and clinicaltrials.gov transparency standards."}
           </p>
 
           {/* Phase Cards */}

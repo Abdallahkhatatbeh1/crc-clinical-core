@@ -1,8 +1,10 @@
 import { useEffect, useState } from "react";
 import { Shield, Award, Globe } from "lucide-react";
+import { useSiteContent } from "@/hooks/useSiteContent";
 
 const WhyUsHero = () => {
   const [isLoaded, setIsLoaded] = useState(false);
+  const { content } = useSiteContent("whyus", "hero");
 
   useEffect(() => {
     setIsLoaded(true);
@@ -25,7 +27,7 @@ const WhyUsHero = () => {
             }`}
           >
             <Award className="w-4 h-4 text-accent" />
-            <span className="text-sm font-medium text-white/90">Our Excellence</span>
+            <span className="text-sm font-medium text-white/90">{content.badge || "Our Excellence"}</span>
           </div>
 
           <h1 
@@ -33,7 +35,7 @@ const WhyUsHero = () => {
               isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
             }`}
           >
-            Why Choose <span className="text-accent">CRC</span>
+            {content.title || "Why Choose"} <span className="text-accent">{content.title_highlight || "CRC"}</span>
           </h1>
 
           <p 
@@ -41,9 +43,7 @@ const WhyUsHero = () => {
               isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
             }`}
           >
-            The Clinical Research Center (CRC) provides a scientifically rigorous environment for 
-            high-quality clinical trials in Jordan and the Middle East, built upon internationally 
-            recognized research standards and precise operational workflows.
+            {content.subtitle || "The Clinical Research Center (CRC) provides a scientifically rigorous environment for high-quality clinical trials in Jordan and the Middle East, built upon internationally recognized research standards and precise operational workflows."}
           </p>
 
           <p 
@@ -51,8 +51,7 @@ const WhyUsHero = () => {
               isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
             }`}
           >
-            We ensure each protocol is executed with scientific rigor, operational precision, 
-            and complete adherence to ICH-GCP and international regulatory expectations.
+            {content.description || "We ensure each protocol is executed with scientific rigor, operational precision, and complete adherence to ICH-GCP and international regulatory expectations."}
           </p>
 
           {/* Trust Badges */}
