@@ -3,7 +3,7 @@ import Footer from "@/components/Footer";
 import WhyUsHero from "@/components/whyus/WhyUsHero";
 import WhyUsFeatures from "@/components/whyus/WhyUsFeatures";
 import OfferSection from "@/components/whyus/OfferSection";
-import VideoSection from "@/components/whyus/VideoSection";
+import FacilitiesShowcase from "@/components/whyus/FacilitiesShowcase";
 import PartnersShowcase from "@/components/whyus/PartnersShowcase";
 import WhyUsCTA from "@/components/whyus/WhyUsCTA";
 
@@ -15,7 +15,7 @@ const WhyUs = () => {
         <WhyUsHero />
         <WhyUsFeatures />
         <OfferSection />
-        <VideoSection />
+        <FacilitiesShowcase />
         <PartnersShowcase />
         <WhyUsCTA />
       </main>

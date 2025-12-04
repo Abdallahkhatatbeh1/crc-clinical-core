@@ -5,6 +5,7 @@ import VisionMission from "@/components/about/VisionMission";
 import OurValues from "@/components/about/OurValues";
 import FounderSection from "@/components/about/FounderSection";
 import TeamSection from "@/components/about/TeamSection";
+import TeamPhotoSection from "@/components/about/TeamPhotoSection";
 import CommitmentSection from "@/components/about/CommitmentSection";
 
 const About = () => {
@@ -16,6 +17,7 @@ const About = () => {
         <VisionMission />
         <OurValues />
         <FounderSection />
+        <TeamPhotoSection />
         <TeamSection />
         <CommitmentSection />
       </main>
