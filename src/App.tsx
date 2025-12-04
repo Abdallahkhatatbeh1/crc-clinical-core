@@ -7,6 +7,7 @@ import ScrollToTop from "@/components/ScrollToTop";
 import Index from "./pages/Index";
 import About from "./pages/About";
 import Studies from "./pages/Studies";
+import Contact from "./pages/Contact";
 import PlaceholderPage from "./pages/PlaceholderPage";
 import NotFound from "./pages/NotFound";
 
@@ -26,7 +27,7 @@ const App = () => (
           <Route path="/services" element={<PlaceholderPage />} />
           <Route path="/why-choose-us" element={<PlaceholderPage />} />
           <Route path="/partners" element={<PlaceholderPage />} />
-          <Route path="/contact" element={<PlaceholderPage />} />
+          <Route path="/contact" element={<Contact />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>
