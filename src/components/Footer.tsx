@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import { Mail, Phone, MapPin } from "lucide-react";
+import crcLogoWhite from "@/assets/crc-logo-white.png";
 
 const footerLinks = {
   company: [
@@ -23,11 +24,12 @@ const Footer = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
           {/* Brand Column */}
           <div className="space-y-6">
-            <Link to="/" className="flex items-center gap-2">
-              <div className="w-10 h-10 gradient-brand rounded-lg flex items-center justify-center">
-                <span className="text-primary-foreground font-bold text-lg">C</span>
-              </div>
-              <span className="text-xl font-bold">CRC</span>
+            <Link to="/" className="inline-block">
+              <img
+                src={crcLogoWhite}
+                alt="Clinical Research Center"
+                className="h-16 w-auto object-contain"
+              />
             </Link>
             <p className="text-footer-foreground/70 text-sm leading-relaxed">
               Clinical Research Center - Advancing medical science through innovative clinical trials and life-science research.
