@@ -2,9 +2,11 @@ import { ArrowRight, Play } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import { useSiteContent } from "@/hooks/useSiteContent";
 
 const HeroSection = () => {
   const [isLoaded, setIsLoaded] = useState(false);
+  const { content } = useSiteContent("home", "hero");
 
   useEffect(() => {
     setIsLoaded(true);
@@ -37,7 +39,7 @@ const HeroSection = () => {
             }`}
           >
             <span className="w-2 h-2 bg-accent rounded-full animate-pulse" />
-            <span className="text-sm font-medium text-white/90">GCP-Compliant Research Center</span>
+            <span className="text-sm font-medium text-white/90">{content.badge || "GCP-Compliant Research Center"}</span>
           </div>
 
           {/* Main Heading */}
@@ -46,9 +48,9 @@ const HeroSection = () => {
               isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
             }`}
           >
-            Clinical Research
+            {content.title || "Clinical Research"}
             <span className="block mt-2">
-              <span className="text-accent">Excellence</span> & Trust
+              <span className="text-accent">{content.title_highlight || "Excellence"}</span> {content.title_suffix || "& Trust"}
             </span>
           </h1>
 
@@ -58,7 +60,7 @@ const HeroSection = () => {
               isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
             }`}
           >
-            Delivering reliable, high-quality <span className="text-accent font-semibold">Phase I–IV</span> clinical trials in Jordan and the Middle East — supported by experienced investigators and research professionals, and trusted by global CROs and scientific sponsors.
+            {content.subtitle || "Delivering reliable, high-quality Phase I–IV clinical trials in Jordan and the Middle East — supported by experienced investigators and research professionals, and trusted by global CROs and scientific sponsors."}
           </p>
 
           <p
@@ -66,7 +68,7 @@ const HeroSection = () => {
               isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
             }`}
           >
-            We collaborate with global CROs and pharmaceutical sponsors for precise trial management, optimized operations, and accelerated patient recruitment.
+            {content.description || "We collaborate with global CROs and pharmaceutical sponsors for precise trial management, optimized operations, and accelerated patient recruitment."}
           </p>
 
           {/* CTA Buttons */}
@@ -77,7 +79,7 @@ const HeroSection = () => {
           >
             <Link to="/contact">
               <Button variant="hero" size="xl" className="group">
-                Work With Us
+                {content.cta_primary || "Work With Us"}
                 <ArrowRight size={20} className="group-hover:translate-x-1 transition-transform" />
               </Button>
             </Link>
@@ -88,7 +90,7 @@ const HeroSection = () => {
                 className="text-white border border-white/30 hover:bg-white/10 hover:text-white"
               >
                 <Play size={18} className="mr-2" />
-                Watch Overview
+                {content.cta_secondary || "Watch Overview"}
               </Button>
             </Link>
           </div>
@@ -99,7 +101,7 @@ const HeroSection = () => {
               isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
             }`}
           >
-            <p className="text-white/50 text-sm mb-4">Trusted by leading organizations</p>
+            <p className="text-white/50 text-sm mb-4">{content.trust_label || "Trusted by leading organizations"}</p>
             <div className="flex flex-wrap justify-center gap-8 text-white/60 text-sm font-medium">
               <span className="hover:text-white transition-colors">IQVIA</span>
               <span className="hover:text-white transition-colors">Parexel</span>

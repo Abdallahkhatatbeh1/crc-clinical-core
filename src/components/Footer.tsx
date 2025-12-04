@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import { Mail, Phone, MapPin, ArrowRight, Linkedin, Twitter } from "lucide-react";
 import crcLogoWhite from "@/assets/crc-logo-white.png";
+import { useSiteContent } from "@/hooks/useSiteContent";
 
 const footerLinks = {
   company: [
@@ -24,6 +25,8 @@ const footerLinks = {
 };
 
 const Footer = () => {
+  const { content } = useSiteContent("global", "footer");
+
   return (
     <footer className="bg-footer text-footer-foreground relative overflow-hidden">
       {/* Background Pattern */}
@@ -44,7 +47,7 @@ const Footer = () => {
               />
             </Link>
             <p className="text-footer-foreground/60 text-sm leading-relaxed max-w-sm">
-              Clinical Research Center — A GCP-compliant clinical research site in Jordan, conducting high-quality Phase I–IV clinical trials for global CROs and sponsors.
+              {content.company_description || "Clinical Research Center — A GCP-compliant clinical research site in Jordan, conducting high-quality Phase I–IV clinical trials for global CROs and sponsors."}
             </p>
             {/* Social Links */}
             <div className="flex gap-3">
@@ -111,23 +114,23 @@ const Footer = () => {
                   <MapPin size={14} className="text-primary" />
                 </div>
                 <span className="text-footer-foreground/60 text-sm">
-                  Irbid, Jordan
+                  {content.address || "Irbid, Jordan"}
                 </span>
               </li>
               <li className="flex items-center gap-3 group">
                 <div className="w-8 h-8 rounded-lg bg-white/5 group-hover:bg-primary/20 flex items-center justify-center flex-shrink-0 transition-colors">
                   <Phone size={14} className="text-primary" />
                 </div>
-                <a href="tel:+962123456789" className="text-footer-foreground/60 hover:text-primary text-sm transition-colors">
-                  +962 123 456 789
+                <a href={`tel:${content.phone || "+962123456789"}`} className="text-footer-foreground/60 hover:text-primary text-sm transition-colors">
+                  {content.phone || "+962 123 456 789"}
                 </a>
               </li>
               <li className="flex items-center gap-3 group">
                 <div className="w-8 h-8 rounded-lg bg-white/5 group-hover:bg-primary/20 flex items-center justify-center flex-shrink-0 transition-colors">
                   <Mail size={14} className="text-primary" />
                 </div>
-                <a href="mailto:support@crcjo.com" className="text-footer-foreground/60 hover:text-primary text-sm transition-colors">
-                  support@crcjo.com
+                <a href={`mailto:${content.email || "support@crcjo.com"}`} className="text-footer-foreground/60 hover:text-primary text-sm transition-colors">
+                  {content.email || "support@crcjo.com"}
                 </a>
               </li>
             </ul>
