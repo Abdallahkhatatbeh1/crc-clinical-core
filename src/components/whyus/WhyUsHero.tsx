@@ -30,15 +30,33 @@ const WhyUsHero = () => {
             Why Choose <span className="text-accent">CRC</span>
           </h1>
           
-          <p className="text-white/80 text-lg lg:text-xl leading-relaxed mb-8 animate-fade-in" style={{ animationDelay: '200ms' }}>
-            The Clinical Research Center provides a scientifically rigorous environment for 
+          <p className="text-white/80 text-lg lg:text-xl leading-relaxed mb-6 animate-fade-in" style={{ animationDelay: '200ms' }}>
+            The Clinical Research Center (CRC) provides a scientifically rigorous environment for 
             high-quality clinical trials in Jordan and the Middle East. Our site is built upon 
             internationally recognized research standards, precise operational workflows, 
             controlled documentation systems, and an unwavering commitment to methodological accuracy.
           </p>
 
+          <p className="text-white/70 text-base lg:text-lg leading-relaxed mb-6 animate-fade-in" style={{ animationDelay: '250ms' }}>
+            As an investigator site partnering with both global CROs and pharmaceutical sponsors, 
+            CRC ensures that each protocol is executed with scientific rigor, operational precision, 
+            and complete adherence to ICH-GCP and international regulatory expectations.
+          </p>
+
+          <p className="text-white/70 text-base lg:text-lg leading-relaxed mb-6 animate-fade-in" style={{ animationDelay: '300ms' }}>
+            Our capabilities enable us to support both early-phase development and large-scale, 
+            late-phase clinical programs requiring strict procedural compliance, comprehensive risk 
+            management, and high-fidelity data capture.
+          </p>
+
+          <p className="text-white/70 text-base lg:text-lg leading-relaxed mb-8 animate-fade-in" style={{ animationDelay: '350ms' }}>
+            CRC is strategically positioned to serve as a leading clinical research site for organizations 
+            seeking reliable research partners in Jordan, backed by strong access to treatment-naïve 
+            populations and regional feasibility advantages.
+          </p>
+
           {/* Trust Badges */}
-          <div className="flex flex-wrap justify-center gap-4 animate-fade-in" style={{ animationDelay: '300ms' }}>
+          <div className="flex flex-wrap justify-center gap-4 animate-fade-in" style={{ animationDelay: '400ms' }}>
             <div className="flex items-center gap-2 bg-white/10 backdrop-blur-sm border border-white/20 rounded-full px-5 py-2.5">
               <Shield className="w-5 h-5 text-accent" />
               <span className="text-white text-sm font-medium">ICH-GCP Compliant</span>

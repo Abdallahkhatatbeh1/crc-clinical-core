@@ -1,6 +1,7 @@
 import { ArrowRight, Mail, Phone } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import useScrollAnimation from "@/hooks/useScrollAnimation";
+import { Link } from "react-router-dom";
 
 const CTASection = () => {
   const { ref: sectionRef, isVisible } = useScrollAnimation({ threshold: 0.3 });
@@ -48,17 +49,21 @@ const CTASection = () => {
               isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
             }`}
           >
-            <Button variant="hero" size="xl" className="group min-w-[280px]">
-              Start Your Clinical Trial
-              <ArrowRight size={20} className="group-hover:translate-x-1 transition-transform" />
-            </Button>
-            <Button 
-              variant="ghost" 
-              size="xl" 
-              className="text-white border border-white/30 hover:bg-white/10 hover:text-white min-w-[200px]"
-            >
-              Schedule a Call
-            </Button>
+            <Link to="/contact">
+              <Button variant="hero" size="xl" className="group min-w-[280px]">
+                Start Your Clinical Trial
+                <ArrowRight size={20} className="group-hover:translate-x-1 transition-transform" />
+              </Button>
+            </Link>
+            <Link to="/contact">
+              <Button 
+                variant="ghost" 
+                size="xl" 
+                className="text-white border border-white/30 hover:bg-white/10 hover:text-white min-w-[200px]"
+              >
+                Schedule a Call
+              </Button>
+            </Link>
           </div>
 
           {/* Contact Info */}

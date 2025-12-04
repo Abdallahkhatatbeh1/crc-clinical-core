@@ -141,10 +141,10 @@ const Footer = () => {
               © {new Date().getFullYear()} Clinical Research Center. All rights reserved.
             </p>
             <div className="flex gap-8">
-              <Link to="/contact" className="text-footer-foreground/40 hover:text-primary text-sm transition-colors">
+              <Link to="/privacy-policy" className="text-footer-foreground/40 hover:text-primary text-sm transition-colors">
                 Privacy Policy
               </Link>
-              <Link to="/contact" className="text-footer-foreground/40 hover:text-primary text-sm transition-colors">
+              <Link to="/terms-of-service" className="text-footer-foreground/40 hover:text-primary text-sm transition-colors">
                 Terms of Service
               </Link>
             </div>

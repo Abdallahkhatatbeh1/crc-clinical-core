@@ -62,7 +62,7 @@ const WhoWeAreSection = () => {
                 <span className="text-2xl font-bold text-primary">1</span>
               </div>
               <p className="text-muted-foreground leading-relaxed">
-                CRC is a specialized clinical study site located in <span className="text-primary font-semibold">Irbid, Jordan</span>, providing end-to-end support for clinical trials phases across diverse therapeutic areas.
+                CRC is a specialized clinical study site located in <span className="text-primary font-semibold">Irbid, Jordan</span>, providing end-to-end support for clinical trials across all phases and diverse therapeutic areas.
               </p>
             </div>
 
@@ -75,7 +75,7 @@ const WhoWeAreSection = () => {
                 <span className="text-2xl font-bold text-accent">2</span>
               </div>
               <p className="text-muted-foreground leading-relaxed">
-                Our investigators and clinical research coordinators work closely with CROs and sponsors to ensure <span className="text-accent font-semibold">methodological rigor</span> and ethically sound execution.
+                Our principal investigators, sub-investigators, and clinical research coordinators work closely with CROs and sponsors to ensure <span className="text-accent font-semibold">methodological rigor</span>, accurate endpoint evaluation, and ethically sound execution.
               </p>
             </div>
 
@@ -88,7 +88,7 @@ const WhoWeAreSection = () => {
                 <span className="text-2xl font-bold text-primary">3</span>
               </div>
               <p className="text-muted-foreground leading-relaxed">
-                As a scientifically driven investigator site, CRC integrates <span className="text-primary font-semibold">validated workflows</span> and modern clinical trial management systems.
+                As a scientifically driven investigator site, CRC integrates <span className="text-primary font-semibold">validated workflows</span>, controlled documentation environments, calibrated medical systems, and modern clinical trial management systems.
               </p>
             </div>
           </div>
