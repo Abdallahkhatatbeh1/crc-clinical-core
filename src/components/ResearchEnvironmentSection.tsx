@@ -33,7 +33,7 @@ const facilities = [
 
 const ResearchEnvironmentSection = () => {
   return (
-    <section className="py-32 bg-crc-blue-soft">
+    <section className="py-32 bg-crc-light-bg">
       <div className="container mx-auto px-4">
         <div className="text-center mb-20">
           <BrandTag variant="green" className="mb-8 animate-fade-in opacity-0" style={{ animationDelay: "0.1s" }}>

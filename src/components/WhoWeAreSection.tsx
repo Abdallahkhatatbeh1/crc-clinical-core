@@ -2,7 +2,7 @@ import BrandTag from "./BrandTag";
 
 const WhoWeAreSection = () => {
   return (
-    <section className="py-32 bg-crc-blue-soft">
+    <section className="py-32 bg-crc-light-bg-alt">
       <div className="container mx-auto px-4">
         <div className="max-w-4xl mx-auto text-center">
           <BrandTag className="mb-8 animate-fade-in opacity-0" style={{ animationDelay: "0.1s" }}>

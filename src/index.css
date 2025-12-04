@@ -6,15 +6,14 @@
 
 @layer base {
   :root {
-    /* CRC Brand Colors - HSL format */
-    --crc-blue: 196 100% 42%;
-    --crc-blue-deep: 199 100% 31%;
-    --crc-blue-light: 199 74% 95%;
-    --crc-blue-soft: 197 100% 97%;
-    --crc-green: 90 55% 51%;
-    --crc-green-soft: 90 55% 44%;
-    --crc-green-light: 90 55% 95%;
-    --crc-charcoal: 219 15% 19%;
+    /* CRC Official Brand Colors - Exact HSL values */
+    --crc-blue: 196 100% 42%;           /* #0097D6 */
+    --crc-blue-deep: 203 100% 30%;      /* #005B97 */
+    --crc-green: 90 55% 51%;            /* #8DC63F */
+    --crc-green-deep: 90 55% 41%;       /* #6EA230 */
+    --crc-charcoal: 220 19% 21%;        /* #2B323F */
+    --crc-light-bg: 197 64% 98%;        /* #F7FCFE */
+    --crc-light-bg-alt: 199 78% 96%;    /* #ECF8FE */
     --crc-white: 0 0% 100%;
 
     /* Semantic tokens */
@@ -31,21 +30,21 @@
     --primary-foreground: var(--crc-white);
     --primary-deep: var(--crc-blue-deep);
 
-    --secondary: var(--crc-blue-light);
+    --secondary: var(--crc-light-bg-alt);
     --secondary-foreground: var(--crc-charcoal);
 
-    --muted: var(--crc-blue-light);
-    --muted-foreground: 219 10% 45%;
+    --muted: var(--crc-light-bg);
+    --muted-foreground: 220 15% 45%;
 
     --accent: var(--crc-green);
     --accent-foreground: var(--crc-white);
-    --accent-soft: var(--crc-green-soft);
+    --accent-deep: var(--crc-green-deep);
 
     --destructive: 0 84% 60%;
     --destructive-foreground: var(--crc-white);
 
-    --border: 199 30% 85%;
-    --input: 199 30% 85%;
+    --border: 199 30% 88%;
+    --input: 199 30% 88%;
     --ring: var(--crc-blue);
 
     --radius: 0.5rem;
@@ -54,40 +53,40 @@
     --footer-bg: var(--crc-charcoal);
     --footer-foreground: var(--crc-white);
 
-    /* Gradients */
-    --gradient-brand: linear-gradient(135deg, hsl(var(--crc-blue)) 0%, hsl(var(--crc-blue-deep)) 100%);
-    --gradient-brand-horizontal: linear-gradient(90deg, hsl(var(--crc-blue)) 0%, hsl(var(--crc-blue-deep)) 100%);
-    --gradient-accent: linear-gradient(135deg, hsl(var(--crc-green)) 0%, hsl(var(--crc-green-soft)) 100%);
-    --gradient-accent-horizontal: linear-gradient(90deg, hsl(var(--crc-green)) 0%, hsl(var(--crc-green-soft)) 100%);
+    /* Official Gradients */
+    --gradient-brand: linear-gradient(135deg, hsl(196 100% 42%) 0%, hsl(203 100% 30%) 100%);
+    --gradient-brand-horizontal: linear-gradient(90deg, hsl(196 100% 42%) 0%, hsl(203 100% 30%) 100%);
+    --gradient-accent: linear-gradient(135deg, hsl(90 55% 51%) 0%, hsl(90 55% 41%) 100%);
+    --gradient-accent-horizontal: linear-gradient(90deg, hsl(90 55% 51%) 0%, hsl(90 55% 41%) 100%);
 
     /* Sidebar (keeping for compatibility) */
     --sidebar-background: var(--crc-white);
     --sidebar-foreground: var(--crc-charcoal);
     --sidebar-primary: var(--crc-blue);
     --sidebar-primary-foreground: var(--crc-white);
-    --sidebar-accent: var(--crc-blue-light);
+    --sidebar-accent: var(--crc-light-bg-alt);
     --sidebar-accent-foreground: var(--crc-charcoal);
-    --sidebar-border: 199 30% 85%;
+    --sidebar-border: 199 30% 88%;
     --sidebar-ring: var(--crc-blue);
   }
 
   .dark {
     --background: var(--crc-charcoal);
     --foreground: var(--crc-white);
-    --card: 219 15% 24%;
+    --card: 220 19% 26%;
     --card-foreground: var(--crc-white);
-    --popover: 219 15% 24%;
+    --popover: 220 19% 26%;
     --popover-foreground: var(--crc-white);
     --primary: var(--crc-blue);
     --primary-foreground: var(--crc-white);
-    --secondary: 219 15% 28%;
+    --secondary: 220 19% 28%;
     --secondary-foreground: var(--crc-white);
-    --muted: 219 15% 28%;
+    --muted: 220 19% 28%;
     --muted-foreground: 199 20% 70%;
     --accent: var(--crc-green);
     --accent-foreground: var(--crc-white);
-    --border: 219 15% 28%;
-    --input: 219 15% 28%;
+    --border: 220 19% 28%;
+    --input: 220 19% 28%;
     --ring: var(--crc-blue);
   }
 }
