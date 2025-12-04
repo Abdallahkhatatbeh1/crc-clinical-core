@@ -4,6 +4,7 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import ScrollToTop from "@/components/ScrollToTop";
+import MobileBottomNav from "@/components/MobileBottomNav";
 import Index from "./pages/Index";
 import About from "./pages/About";
 import Studies from "./pages/Studies";
@@ -23,17 +24,20 @@ const App = () => (
       <Sonner />
       <BrowserRouter>
         <ScrollToTop />
-        <Routes>
-          <Route path="/" element={<Index />} />
-          <Route path="/about" element={<About />} />
-          <Route path="/studies" element={<Studies />} />
-          <Route path="/services" element={<Services />} />
-          <Route path="/why-us" element={<WhyUs />} />
-          <Route path="/contact" element={<Contact />} />
-          <Route path="/privacy-policy" element={<PrivacyPolicy />} />
-          <Route path="/terms-of-service" element={<TermsOfService />} />
-          <Route path="*" element={<NotFound />} />
-        </Routes>
+        <div className="pb-16 lg:pb-0">
+          <Routes>
+            <Route path="/" element={<Index />} />
+            <Route path="/about" element={<About />} />
+            <Route path="/studies" element={<Studies />} />
+            <Route path="/services" element={<Services />} />
+            <Route path="/why-us" element={<WhyUs />} />
+            <Route path="/contact" element={<Contact />} />
+            <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+            <Route path="/terms-of-service" element={<TermsOfService />} />
+            <Route path="*" element={<NotFound />} />
+          </Routes>
+        </div>
+        <MobileBottomNav />
       </BrowserRouter>
     </TooltipProvider>
   </QueryClientProvider>
