@@ -3,6 +3,7 @@ import Footer from "@/components/Footer";
 import ServicesHero from "@/components/services/ServicesHero";
 import ServicesList from "@/components/services/ServicesList";
 import FacilitiesSection from "@/components/services/FacilitiesSection";
+import FacilitiesGallery from "@/components/services/FacilitiesGallery";
 import ServicesCTA from "@/components/services/ServicesCTA";
 
 const Services = () => {
@@ -13,6 +14,7 @@ const Services = () => {
         <ServicesHero />
         <ServicesList />
         <FacilitiesSection />
+        <FacilitiesGallery />
         <ServicesCTA />
       </main>
       <Footer />
