@@ -8,34 +8,34 @@ const HeroSection = () => {
       <div className="absolute inset-0 opacity-10">
         <div className="absolute top-20 left-10 w-64 h-64 rounded-full bg-crc-white blur-3xl" />
         <div className="absolute bottom-20 right-10 w-96 h-96 rounded-full bg-crc-white blur-3xl" />
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full bg-crc-white blur-3xl opacity-5" />
       </div>
 
       {/* Content */}
       <div className="container mx-auto px-4 pt-20 relative z-10">
-        <div className="max-w-3xl mx-auto text-center">
+        <div className="max-w-4xl mx-auto text-center">
           <h1 className="text-primary-foreground mb-6 animate-fade-in opacity-0" style={{ animationDelay: "0.1s" }}>
-            Advancing Medical Science Through Clinical Research
+            Clinical Research Excellence | Trusted Phase I–IV Trial Site
           </h1>
           <p
-            className="text-xl md:text-2xl text-primary-foreground/90 mb-10 leading-relaxed animate-fade-in opacity-0"
+            className="text-lg md:text-xl text-primary-foreground/90 mb-6 leading-relaxed animate-fade-in opacity-0"
             style={{ animationDelay: "0.3s" }}
           >
-            CRC is a leading clinical research organization dedicated to conducting high-quality trials that shape the future of healthcare.
+            CRC is a GCP-compliant clinical research center delivering reliable, high-quality Phase I, Phase II, Phase III, and Phase IV studies in Jordan and the Middle East.
+          </p>
+          <p
+            className="text-base md:text-lg text-primary-foreground/80 mb-10 leading-relaxed animate-fade-in opacity-0"
+            style={{ animationDelay: "0.4s" }}
+          >
+            We collaborate with global CROs, pharmaceutical CROs, and scientific sponsors to ensure precise clinical trial management, optimized clinical operations, and accelerated patient recruitment supported by experienced investigators and research professionals.
           </p>
           <div
-            className="flex flex-col sm:flex-row gap-4 justify-center animate-fade-in opacity-0"
+            className="animate-fade-in opacity-0"
             style={{ animationDelay: "0.5s" }}
           >
             <Button variant="hero" size="xl">
-              Explore Our Studies
+              Work With Us
               <ArrowRight size={20} />
-            </Button>
-            <Button
-              variant="outline"
-              size="xl"
-              className="border-primary-foreground/30 text-primary-foreground hover:bg-primary-foreground/10 hover:text-primary-foreground"
-            >
-              Learn More
             </Button>
           </div>
         </div>
