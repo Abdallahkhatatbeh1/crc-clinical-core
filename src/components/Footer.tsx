@@ -7,13 +7,19 @@ const footerLinks = {
     { name: "About CRC", href: "/about" },
     { name: "Our Studies", href: "/studies" },
     { name: "Services", href: "/services" },
-    { name: "Partners", href: "/partners" },
+    { name: "Contact", href: "/contact" },
+  ],
+  services: [
+    { name: "Regulatory Support", href: "/services" },
+    { name: "Patient Recruitment", href: "/services" },
+    { name: "Data Management", href: "/services" },
+    { name: "IP Management", href: "/services" },
   ],
   resources: [
-    { name: "Why Choose CRC", href: "/why-choose-us" },
-    { name: "Research Areas", href: "/studies" },
+    { name: "Therapeutic Areas", href: "/studies" },
+    { name: "Why Choose CRC", href: "/about" },
     { name: "Careers", href: "/contact" },
-    { name: "Contact", href: "/contact" },
+    { name: "Partner With Us", href: "/contact" },
   ],
 };
 
@@ -27,9 +33,9 @@ const Footer = () => {
       </div>
 
       <div className="container mx-auto px-4 py-20 relative z-10">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 lg:gap-16">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-12 lg:gap-8">
           {/* Brand Column */}
-          <div className="lg:col-span-1 space-y-6">
+          <div className="lg:col-span-2 space-y-6">
             <Link to="/" className="inline-block group">
               <img
                 src={crcLogoWhite}
@@ -37,8 +43,8 @@ const Footer = () => {
                 className="h-14 w-auto object-contain group-hover:opacity-80 transition-opacity"
               />
             </Link>
-            <p className="text-footer-foreground/60 text-sm leading-relaxed">
-              Clinical Research Center — Advancing medical science through innovative clinical trials and life-science research in Jordan.
+            <p className="text-footer-foreground/60 text-sm leading-relaxed max-w-sm">
+              Clinical Research Center — A GCP-compliant clinical research site in Jordan, conducting high-quality Phase I–IV clinical trials for global CROs and sponsors.
             </p>
             {/* Social Links */}
             <div className="flex gap-3">
@@ -59,7 +65,7 @@ const Footer = () => {
             </h4>
             <ul className="space-y-4">
               {footerLinks.company.map((link) => (
-                <li key={link.href}>
+                <li key={link.href + link.name}>
                   <Link
                     to={link.href}
                     className="text-footer-foreground/60 hover:text-primary transition-colors duration-200 text-sm flex items-center gap-2 group"
@@ -72,15 +78,15 @@ const Footer = () => {
             </ul>
           </div>
 
-          {/* Resources Links */}
+          {/* Services Links */}
           <div>
             <h4 className="font-semibold text-lg mb-6 flex items-center gap-2">
               <span className="w-8 h-0.5 bg-accent rounded-full" />
-              Resources
+              Services
             </h4>
             <ul className="space-y-4">
-              {footerLinks.resources.map((link) => (
-                <li key={link.href}>
+              {footerLinks.services.map((link, index) => (
+                <li key={link.name + index}>
                   <Link
                     to={link.href}
                     className="text-footer-foreground/60 hover:text-accent transition-colors duration-200 text-sm flex items-center gap-2 group"
@@ -97,29 +103,28 @@ const Footer = () => {
           <div>
             <h4 className="font-semibold text-lg mb-6 flex items-center gap-2">
               <span className="w-8 h-0.5 bg-primary rounded-full" />
-              Contact Us
+              Contact
             </h4>
-            <ul className="space-y-5">
-              <li className="flex items-start gap-4 group">
-                <div className="w-10 h-10 rounded-lg bg-white/5 group-hover:bg-primary/20 flex items-center justify-center flex-shrink-0 transition-colors">
-                  <MapPin size={18} className="text-primary" />
+            <ul className="space-y-4">
+              <li className="flex items-start gap-3 group">
+                <div className="w-8 h-8 rounded-lg bg-white/5 group-hover:bg-primary/20 flex items-center justify-center flex-shrink-0 transition-colors">
+                  <MapPin size={14} className="text-primary" />
                 </div>
-                <span className="text-footer-foreground/60 text-sm leading-relaxed">
-                  Irbid, Jordan<br />
-                  Clinical Research District
+                <span className="text-footer-foreground/60 text-sm">
+                  Irbid, Jordan
                 </span>
               </li>
-              <li className="flex items-center gap-4 group">
-                <div className="w-10 h-10 rounded-lg bg-white/5 group-hover:bg-primary/20 flex items-center justify-center flex-shrink-0 transition-colors">
-                  <Phone size={18} className="text-primary" />
+              <li className="flex items-center gap-3 group">
+                <div className="w-8 h-8 rounded-lg bg-white/5 group-hover:bg-primary/20 flex items-center justify-center flex-shrink-0 transition-colors">
+                  <Phone size={14} className="text-primary" />
                 </div>
                 <a href="tel:+962123456789" className="text-footer-foreground/60 hover:text-primary text-sm transition-colors">
                   +962 123 456 789
                 </a>
               </li>
-              <li className="flex items-center gap-4 group">
-                <div className="w-10 h-10 rounded-lg bg-white/5 group-hover:bg-primary/20 flex items-center justify-center flex-shrink-0 transition-colors">
-                  <Mail size={18} className="text-primary" />
+              <li className="flex items-center gap-3 group">
+                <div className="w-8 h-8 rounded-lg bg-white/5 group-hover:bg-primary/20 flex items-center justify-center flex-shrink-0 transition-colors">
+                  <Mail size={14} className="text-primary" />
                 </div>
                 <a href="mailto:info@crc-jordan.com" className="text-footer-foreground/60 hover:text-primary text-sm transition-colors">
                   info@crc-jordan.com
@@ -136,10 +141,10 @@ const Footer = () => {
               © {new Date().getFullYear()} Clinical Research Center. All rights reserved.
             </p>
             <div className="flex gap-8">
-              <Link to="/privacy" className="text-footer-foreground/40 hover:text-primary text-sm transition-colors">
+              <Link to="/contact" className="text-footer-foreground/40 hover:text-primary text-sm transition-colors">
                 Privacy Policy
               </Link>
-              <Link to="/terms" className="text-footer-foreground/40 hover:text-primary text-sm transition-colors">
+              <Link to="/contact" className="text-footer-foreground/40 hover:text-primary text-sm transition-colors">
                 Terms of Service
               </Link>
             </div>

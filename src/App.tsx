@@ -7,8 +7,8 @@ import ScrollToTop from "@/components/ScrollToTop";
 import Index from "./pages/Index";
 import About from "./pages/About";
 import Studies from "./pages/Studies";
+import Services from "./pages/Services";
 import Contact from "./pages/Contact";
-import PlaceholderPage from "./pages/PlaceholderPage";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -24,9 +24,7 @@ const App = () => (
           <Route path="/" element={<Index />} />
           <Route path="/about" element={<About />} />
           <Route path="/studies" element={<Studies />} />
-          <Route path="/services" element={<PlaceholderPage />} />
-          <Route path="/why-choose-us" element={<PlaceholderPage />} />
-          <Route path="/partners" element={<PlaceholderPage />} />
+          <Route path="/services" element={<Services />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
