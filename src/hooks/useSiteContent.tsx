@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { supabase } from "@/integrations/supabase/client";
 
 interface ContentItem {
@@ -47,7 +47,7 @@ export const useAllPageContent = (page: string) => {
   const [content, setContent] = useState<ContentItem[]>([]);
   const [isLoading, setIsLoading] = useState(true);
 
-  const fetchContent = async () => {
+  const fetchContent = useCallback(async () => {
     const { data, error } = await supabase
       .from("site_content")
       .select("*")
@@ -58,11 +58,11 @@ export const useAllPageContent = (page: string) => {
       setContent(data);
     }
     setIsLoading(false);
-  };
+  }, [page]);
 
   useEffect(() => {
     fetchContent();
-  }, [page]);
+  }, [fetchContent]);
 
   const updateContent = async (id: string, newValue: string) => {
     const { error } = await supabase
@@ -81,4 +81,52 @@ export const useAllPageContent = (page: string) => {
   };
 
   return { content, isLoading, updateContent, refetch: fetchContent };
+};
+
+export const useAllSiteContent = () => {
+  const [content, setContent] = useState<ContentItem[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [pages, setPages] = useState<string[]>([]);
+
+  const fetchContent = useCallback(async () => {
+    setIsLoading(true);
+    const { data, error } = await supabase
+      .from("site_content")
+      .select("*")
+      .order("page", { ascending: true })
+      .order("section", { ascending: true });
+
+    if (!error && data) {
+      setContent(data);
+      const uniquePages = [...new Set(data.map(item => item.page))];
+      setPages(uniquePages);
+    }
+    setIsLoading(false);
+  }, []);
+
+  useEffect(() => {
+    fetchContent();
+  }, [fetchContent]);
+
+  const updateContent = async (id: string, newValue: string) => {
+    const { error } = await supabase
+      .from("site_content")
+      .update({ content_value: newValue })
+      .eq("id", id);
+
+    if (!error) {
+      setContent(prev => 
+        prev.map(item => 
+          item.id === id ? { ...item, content_value: newValue } : item
+        )
+      );
+    }
+    return { error };
+  };
+
+  const getContentByPage = (page: string) => {
+    return content.filter(item => item.page === page);
+  };
+
+  return { content, pages, isLoading, updateContent, refetch: fetchContent, getContentByPage };
 };

@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "@/hooks/useAuth";
-import { useAllPageContent } from "@/hooks/useSiteContent";
+import { useAllSiteContent } from "@/hooks/useSiteContent";
 import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -11,21 +11,36 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { Label } from "@/components/ui/label";
 import { useToast } from "@/hooks/use-toast";
-import { LogOut, Save, Home, LayoutDashboard, FileText, Users, Eye, Plus, Trash2, Settings, Globe } from "lucide-react";
+import { LogOut, Save, Home, LayoutDashboard, FileText, Users, Globe, Plus, Trash2, Info, Briefcase, FlaskConical, Phone, HelpCircle } from "lucide-react";
 import crcLogo from "@/assets/crc-logo-full.png";
+
+const pageNames: { [key: string]: { name: string; icon: React.ElementType } } = {
+  home: { name: "Homepage", icon: Home },
+  about: { name: "About", icon: Info },
+  services: { name: "Services", icon: Briefcase },
+  studies: { name: "Studies", icon: FlaskConical },
+  contact: { name: "Contact", icon: Phone },
+  whyus: { name: "Why Us", icon: HelpCircle },
+};
 
 const sectionNames: { [key: string]: string } = {
   hero: "Hero Section",
   who_we_are: "Who We Are",
   features: "Features",
   cta: "Call to Action",
+  vision: "Vision",
+  mission: "Mission",
+  service1: "Service 1",
+  service2: "Service 2",
+  service3: "Service 3",
+  info: "Contact Info",
 };
 
 const keyNames: { [key: string]: string } = {
   title: "Title",
   subtitle: "Subtitle",
   description: "Description",
-  cta_text: "CTA Button Text",
+  cta_text: "CTA Button",
   button_text: "Button Text",
   tag: "Tag Label",
   card1_title: "Card 1 Title",
@@ -34,6 +49,9 @@ const keyNames: { [key: string]: string } = {
   card2_description: "Card 2 Description",
   card3_title: "Card 3 Title",
   card3_description: "Card 3 Description",
+  email: "Email",
+  phone: "Phone",
+  address: "Address",
 };
 
 interface Admin {
@@ -44,10 +62,11 @@ interface Admin {
 
 const AdminDashboard = () => {
   const { user, isAdmin, isLoading: authLoading, signOut, session } = useAuth();
-  const { content, isLoading: contentLoading, updateContent } = useAllPageContent("home");
+  const { content, pages, isLoading: contentLoading, updateContent } = useAllSiteContent();
   const [editedContent, setEditedContent] = useState<{ [key: string]: string }>({});
   const [savingId, setSavingId] = useState<string | null>(null);
-  const [activeTab, setActiveTab] = useState("content");
+  const [activeMainTab, setActiveMainTab] = useState("content");
+  const [activePageTab, setActivePageTab] = useState("home");
   const [admins, setAdmins] = useState<Admin[]>([]);
   const [loadingAdmins, setLoadingAdmins] = useState(false);
   const [newAdminEmail, setNewAdminEmail] = useState("");
@@ -89,10 +108,10 @@ const AdminDashboard = () => {
   };
 
   useEffect(() => {
-    if (activeTab === "admins" && session) {
+    if (activeMainTab === "admins" && session) {
       fetchAdmins();
     }
-  }, [activeTab, session]);
+  }, [activeMainTab, session]);
 
   const handleSave = async (id: string) => {
     setSavingId(id);
@@ -187,13 +206,19 @@ const AdminDashboard = () => {
     navigate("/admin");
   };
 
-  const groupedContent = content.reduce((acc, item) => {
-    if (!acc[item.section]) {
-      acc[item.section] = [];
-    }
-    acc[item.section].push(item);
-    return acc;
-  }, {} as { [key: string]: typeof content });
+  const getPageContent = (page: string) => {
+    return content.filter(item => item.page === page);
+  };
+
+  const groupContentBySections = (pageContent: typeof content) => {
+    return pageContent.reduce((acc, item) => {
+      if (!acc[item.section]) {
+        acc[item.section] = [];
+      }
+      acc[item.section].push(item);
+      return acc;
+    }, {} as { [key: string]: typeof content });
+  };
 
   if (authLoading || contentLoading) {
     return (
@@ -254,8 +279,8 @@ const AdminDashboard = () => {
                 <FileText className="h-6 w-6 text-accent" />
               </div>
               <div>
-                <p className="text-3xl font-bold text-foreground">{Object.keys(groupedContent).length}</p>
-                <p className="text-sm text-muted-foreground">Sections</p>
+                <p className="text-3xl font-bold text-foreground">{pages.length}</p>
+                <p className="text-sm text-muted-foreground">Pages</p>
               </div>
             </CardContent>
           </Card>
@@ -276,7 +301,7 @@ const AdminDashboard = () => {
                 <Home className="h-6 w-6 text-accent" />
               </div>
               <div>
-                <p className="text-3xl font-bold text-foreground">1</p>
+                <p className="text-3xl font-bold text-foreground">{pages.length}</p>
                 <p className="text-sm text-muted-foreground">Active Pages</p>
               </div>
             </CardContent>
@@ -284,10 +309,10 @@ const AdminDashboard = () => {
         </div>
 
         {/* Main Tabs */}
-        <Tabs value={activeTab} onValueChange={setActiveTab}>
+        <Tabs value={activeMainTab} onValueChange={setActiveMainTab}>
           <TabsList className="mb-6 bg-white p-1 shadow-sm">
             <TabsTrigger value="content" className="flex items-center gap-2 px-6">
-              <Home className="h-4 w-4" />
+              <FileText className="h-4 w-4" />
               Content
             </TabsTrigger>
             <TabsTrigger value="admins" className="flex items-center gap-2 px-6">
@@ -301,73 +326,102 @@ const AdminDashboard = () => {
               <CardHeader className="border-b border-border bg-muted/30">
                 <div className="flex items-center gap-3">
                   <div className="p-2 bg-primary/10 rounded-lg">
-                    <Home className="h-5 w-5 text-primary" />
+                    <FileText className="h-5 w-5 text-primary" />
                   </div>
                   <div>
-                    <CardTitle>Homepage Content</CardTitle>
-                    <CardDescription>Edit the content displayed on your homepage</CardDescription>
+                    <CardTitle>Website Content</CardTitle>
+                    <CardDescription>Edit content for all pages</CardDescription>
                   </div>
                 </div>
               </CardHeader>
               <CardContent className="p-6">
-                <Tabs defaultValue={Object.keys(groupedContent)[0]} className="w-full">
+                {/* Page Tabs */}
+                <Tabs value={activePageTab} onValueChange={setActivePageTab}>
                   <TabsList className="w-full flex-wrap h-auto gap-2 mb-6 bg-muted/50 p-2">
-                    {Object.keys(groupedContent).map((section) => (
-                      <TabsTrigger 
-                        key={section} 
-                        value={section} 
-                        className="flex-1 min-w-fit data-[state=active]:bg-white data-[state=active]:shadow-sm"
-                      >
-                        {sectionNames[section] || section}
-                      </TabsTrigger>
-                    ))}
+                    {pages.map((page) => {
+                      const pageInfo = pageNames[page] || { name: page, icon: FileText };
+                      const PageIcon = pageInfo.icon;
+                      return (
+                        <TabsTrigger 
+                          key={page} 
+                          value={page} 
+                          className="flex items-center gap-2 data-[state=active]:bg-white data-[state=active]:shadow-sm"
+                        >
+                          <PageIcon className="h-4 w-4" />
+                          {pageInfo.name}
+                        </TabsTrigger>
+                      );
+                    })}
                   </TabsList>
 
-                  {Object.entries(groupedContent).map(([section, items]) => (
-                    <TabsContent key={section} value={section} className="space-y-4">
-                      {items.map((item) => (
-                        <div key={item.id} className="bg-muted/30 rounded-xl p-5 space-y-4 hover:bg-muted/50 transition-colors">
-                          <div className="flex items-center justify-between">
-                            <label className="font-semibold text-foreground">
-                              {keyNames[item.content_key] || item.content_key}
-                            </label>
-                            <Button
-                              size="sm"
-                              onClick={() => handleSave(item.id)}
-                              disabled={savingId === item.id || editedContent[item.id] === item.content_value}
-                              className="min-w-[100px]"
-                            >
-                              {savingId === item.id ? (
-                                <>
-                                  <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white mr-2"></div>
-                                  Saving...
-                                </>
-                              ) : (
-                                <>
-                                  <Save className="h-4 w-4 mr-2" />
-                                  Save
-                                </>
-                              )}
-                            </Button>
-                          </div>
-                          {item.content_key.includes("description") || item.content_key.includes("subtitle") ? (
-                            <Textarea
-                              value={editedContent[item.id] || ""}
-                              onChange={(e) => setEditedContent({ ...editedContent, [item.id]: e.target.value })}
-                              rows={4}
-                              className="bg-white border-border focus:border-primary resize-none"
-                            />
-                          ) : (
-                            <Input
-                              value={editedContent[item.id] || ""}
-                              onChange={(e) => setEditedContent({ ...editedContent, [item.id]: e.target.value })}
-                              className="bg-white border-border focus:border-primary"
-                            />
-                          )}
-                        </div>
-                      ))}
-                    </TabsContent>
-                  ))}
+                  {pages.map((page) => {
+                    const pageContent = getPageContent(page);
+                    const groupedContent = groupContentBySections(pageContent);
+
+                    return (
+                      <TabsContent key={page} value={page}>
+                        <Tabs defaultValue={Object.keys(groupedContent)[0]} className="w-full">
+                          <TabsList className="w-full flex-wrap h-auto gap-2 mb-6 bg-white p-2 border">
+                            {Object.keys(groupedContent).map((section) => (
+                              <TabsTrigger 
+                                key={section} 
+                                value={section} 
+                                className="flex-1 min-w-fit"
+                              >
+                                {sectionNames[section] || section}
+                              </TabsTrigger>
+                            ))}
+                          </TabsList>
+
+                          {Object.entries(groupedContent).map(([section, items]) => (
+                            <TabsContent key={section} value={section} className="space-y-4">
+                              {items.map((item) => (
+                                <div key={item.id} className="bg-muted/30 rounded-xl p-5 space-y-4 hover:bg-muted/50 transition-colors">
+                                  <div className="flex items-center justify-between">
+                                    <label className="font-semibold text-foreground">
+                                      {keyNames[item.content_key] || item.content_key}
+                                    </label>
+                                    <Button
+                                      size="sm"
+                                      onClick={() => handleSave(item.id)}
+                                      disabled={savingId === item.id || editedContent[item.id] === item.content_value}
+                                      className="min-w-[100px]"
+                                    >
+                                      {savingId === item.id ? (
+                                        <>
+                                          <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white mr-2"></div>
+                                          Saving...
+                                        </>
+                                      ) : (
+                                        <>
+                                          <Save className="h-4 w-4 mr-2" />
+                                          Save
+                                        </>
+                                      )}
+                                    </Button>
+                                  </div>
+                                  {item.content_key.includes("description") || item.content_key.includes("subtitle") || item.content_key.includes("address") ? (
+                                    <Textarea
+                                      value={editedContent[item.id] || ""}
+                                      onChange={(e) => setEditedContent({ ...editedContent, [item.id]: e.target.value })}
+                                      rows={4}
+                                      className="bg-white border-border focus:border-primary resize-none"
+                                    />
+                                  ) : (
+                                    <Input
+                                      value={editedContent[item.id] || ""}
+                                      onChange={(e) => setEditedContent({ ...editedContent, [item.id]: e.target.value })}
+                                      className="bg-white border-border focus:border-primary"
+                                    />
+                                  )}
+                                </div>
+                              ))}
+                            </TabsContent>
+                          ))}
+                        </Tabs>
+                      </TabsContent>
+                    );
+                  })}
                 </Tabs>
               </CardContent>
             </Card>
