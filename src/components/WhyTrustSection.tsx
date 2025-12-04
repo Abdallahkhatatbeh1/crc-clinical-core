@@ -80,7 +80,7 @@ const WhyTrustSection = () => {
             <div
               key={reason.title}
               className={`group bg-card border rounded-2xl p-8 hover:shadow-elegant transition-all duration-300 animate-fade-in-up opacity-0 ${
-                reason.isExcellence ? 'border-accent/30 bg-crc-green-light/30' : 'border-border'
+                reason.isExcellence ? 'border-accent/30' : 'border-border'
               }`}
               style={{ animationDelay: `${0.2 + index * 0.1}s` }}
             >

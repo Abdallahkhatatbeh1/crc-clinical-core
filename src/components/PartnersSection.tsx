@@ -80,7 +80,7 @@ const PartnersSection = () => {
             {pharmaPartners.map((partner, index) => (
               <div
                 key={partner}
-                className="px-8 py-4 bg-crc-green-light rounded-xl border border-accent/30 text-foreground font-semibold hover:bg-accent hover:text-accent-foreground hover:border-accent transition-all duration-300 animate-fade-in-up opacity-0"
+                className="px-8 py-4 bg-secondary rounded-xl border border-accent/30 text-foreground font-semibold hover:bg-accent hover:text-accent-foreground hover:border-accent transition-all duration-300 animate-fade-in-up opacity-0"
                 style={{ animationDelay: `${0.3 + index * 0.1}s` }}
               >
                 {partner}

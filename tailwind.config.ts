@@ -43,7 +43,7 @@ export default {
         accent: {
           DEFAULT: "hsl(var(--accent))",
           foreground: "hsl(var(--accent-foreground))",
-          soft: "hsl(var(--accent-soft))",
+          deep: "hsl(var(--accent-deep))",
         },
         popover: {
           DEFAULT: "hsl(var(--popover))",
@@ -60,12 +60,11 @@ export default {
         crc: {
           blue: "hsl(var(--crc-blue))",
           "blue-deep": "hsl(var(--crc-blue-deep))",
-          "blue-light": "hsl(var(--crc-blue-light))",
-          "blue-soft": "hsl(var(--crc-blue-soft))",
           green: "hsl(var(--crc-green))",
-          "green-soft": "hsl(var(--crc-green-soft))",
-          "green-light": "hsl(var(--crc-green-light))",
+          "green-deep": "hsl(var(--crc-green-deep))",
           charcoal: "hsl(var(--crc-charcoal))",
+          "light-bg": "hsl(var(--crc-light-bg))",
+          "light-bg-alt": "hsl(var(--crc-light-bg-alt))",
           white: "hsl(var(--crc-white))",
         },
         sidebar: {
