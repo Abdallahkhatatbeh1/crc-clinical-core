@@ -55,6 +55,8 @@
     /* Gradients */
     --gradient-brand: linear-gradient(135deg, hsl(var(--crc-blue)) 0%, hsl(var(--crc-blue-deep)) 100%);
     --gradient-brand-horizontal: linear-gradient(90deg, hsl(var(--crc-blue)) 0%, hsl(var(--crc-blue-deep)) 100%);
+    --gradient-accent: linear-gradient(135deg, hsl(var(--crc-green)) 0%, hsl(var(--crc-green-soft)) 100%);
+    --gradient-accent-horizontal: linear-gradient(90deg, hsl(var(--crc-green)) 0%, hsl(var(--crc-green-soft)) 100%);
 
     /* Sidebar (keeping for compatibility) */
     --sidebar-background: var(--crc-white);
@@ -133,8 +135,23 @@
     background: var(--gradient-brand-horizontal);
   }
 
+  .gradient-accent {
+    background: var(--gradient-accent);
+  }
+
+  .gradient-accent-horizontal {
+    background: var(--gradient-accent-horizontal);
+  }
+
   .text-gradient-brand {
     background: var(--gradient-brand);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .text-gradient-accent {
+    background: var(--gradient-accent);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
