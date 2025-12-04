@@ -17,7 +17,7 @@ const footerLinks = {
   ],
   resources: [
     { name: "Therapeutic Areas", href: "/studies" },
-    { name: "Why Choose CRC", href: "/about" },
+    { name: "Why Choose CRC", href: "/why-us" },
     { name: "Careers", href: "/contact" },
     { name: "Partner With Us", href: "/contact" },
   ],
