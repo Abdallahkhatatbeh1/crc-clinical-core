@@ -1,54 +1,54 @@
 import BrandTag from "./BrandTag";
+import useScrollAnimation from "@/hooks/useScrollAnimation";
+import { Handshake, Building } from "lucide-react";
 
 const croPartners = [
-  "IQVIA",
-  "Parexel",
-  "Syneos Health",
-  "ICON",
-  "PPD",
-  "Labcorp",
-  "Medpace",
-  "PSI",
-  "MCT"
+  "IQVIA", "Parexel", "Syneos Health", "ICON", "PPD", "Labcorp", "Medpace", "PSI", "MCT"
 ];
 
 const pharmaPartners = [
-  "Johnson & Johnson",
-  "Janssen",
-  "New Amsterdam Pharma",
-  "Sparta Biomedical"
+  "Johnson & Johnson", "Janssen", "New Amsterdam Pharma", "Sparta Biomedical"
 ];
 
 const PartnersSection = () => {
+  const { ref: sectionRef, isVisible } = useScrollAnimation({ threshold: 0.2 });
+
   return (
-    <section className="py-32 bg-background">
-      <div className="container mx-auto px-4">
+    <section ref={sectionRef} className="py-32 bg-background relative overflow-hidden">
+      {/* Background Pattern */}
+      <div className="absolute inset-0">
+        <div className="absolute top-20 right-20 w-64 h-64 bg-primary/3 rounded-full blur-3xl" />
+        <div className="absolute bottom-20 left-20 w-80 h-80 bg-accent/3 rounded-full blur-3xl" />
+      </div>
+
+      <div className="container mx-auto px-4 relative z-10">
         {/* CRO Partners */}
         <div className="mb-24">
           <div className="text-center mb-14">
-            <BrandTag className="mb-8 animate-fade-in opacity-0" style={{ animationDelay: "0.1s" }}>
-              Our Network
-            </BrandTag>
-            <h2
-              className="text-foreground max-w-2xl mx-auto mb-6 animate-fade-in opacity-0"
-              style={{ animationDelay: "0.2s" }}
-            >
-              CRO Partners
-            </h2>
-            <p
-              className="text-muted-foreground max-w-3xl mx-auto animate-fade-in opacity-0"
-              style={{ animationDelay: "0.3s" }}
-            >
-              CRC collaborates with major CRO partners, demonstrating our capacity to align with <span className="text-primary font-semibold">top-tier contract research organizations</span> and deliver <span className="text-accent font-semibold">high-quality data</span>.
+            <div className={`transition-all duration-700 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
+              <BrandTag className="mb-6">Our Network</BrandTag>
+            </div>
+            <div className={`flex items-center justify-center gap-3 mb-4 transition-all duration-700 delay-100 ${
+              isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
+            }`}>
+              <Handshake className="w-8 h-8 text-primary" />
+              <h2 className="text-foreground">CRO Partners</h2>
+            </div>
+            <p className={`text-muted-foreground max-w-2xl mx-auto transition-all duration-700 delay-200 ${
+              isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
+            }`}>
+              Collaborating with <span className="text-primary font-semibold">top-tier contract research organizations</span> to deliver <span className="text-accent font-semibold">high-quality data</span>
             </p>
           </div>
 
-          <div className="flex flex-wrap justify-center gap-4 max-w-4xl mx-auto">
+          <div className={`flex flex-wrap justify-center gap-3 max-w-4xl mx-auto transition-all duration-700 delay-300 ${
+            isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
+          }`}>
             {croPartners.map((partner, index) => (
               <div
                 key={partner}
-                className="px-6 py-3 bg-secondary rounded-full border border-primary/20 text-foreground font-medium hover:bg-primary hover:text-primary-foreground hover:border-primary transition-all duration-300 animate-fade-in-up opacity-0"
-                style={{ animationDelay: `${0.3 + index * 0.05}s` }}
+                className="px-6 py-3 bg-white rounded-full border border-border text-foreground font-medium hover:bg-primary hover:text-white hover:border-primary hover:shadow-lg hover:scale-105 transition-all duration-300 cursor-default"
+                style={{ transitionDelay: `${400 + index * 50}ms` }}
               >
                 {partner}
               </div>
@@ -59,31 +59,34 @@ const PartnersSection = () => {
         {/* Pharmaceutical Partners */}
         <div>
           <div className="text-center mb-14">
-            <BrandTag variant="green" className="mb-8 animate-fade-in opacity-0" style={{ animationDelay: "0.1s" }}>
-              Trusted By
-            </BrandTag>
-            <h2
-              className="text-foreground max-w-2xl mx-auto mb-6 animate-fade-in opacity-0"
-              style={{ animationDelay: "0.2s" }}
-            >
-              Pharmaceutical Sponsor Partnerships
-            </h2>
-            <p
-              className="text-muted-foreground max-w-3xl mx-auto animate-fade-in opacity-0"
-              style={{ animationDelay: "0.3s" }}
-            >
-              CRC supports research programs for global pharmaceutical leaders, reflecting <span className="text-accent font-semibold">strong scientific reliability</span> and alignment with rigorous clinical trial site expectations.
+            <div className={`transition-all duration-700 delay-500 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
+              <BrandTag variant="green" className="mb-6">Trusted By</BrandTag>
+            </div>
+            <div className={`flex items-center justify-center gap-3 mb-4 transition-all duration-700 delay-600 ${
+              isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
+            }`}>
+              <Building className="w-8 h-8 text-accent" />
+              <h2 className="text-foreground">Pharmaceutical Partners</h2>
+            </div>
+            <p className={`text-muted-foreground max-w-2xl mx-auto transition-all duration-700 delay-700 ${
+              isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
+            }`}>
+              Supporting research programs for global leaders with <span className="text-accent font-semibold">scientific reliability</span>
             </p>
           </div>
 
-          <div className="flex flex-wrap justify-center gap-4 max-w-3xl mx-auto">
+          <div className={`grid grid-cols-2 md:grid-cols-4 gap-4 max-w-4xl mx-auto transition-all duration-700 delay-800 ${
+            isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
+          }`}>
             {pharmaPartners.map((partner, index) => (
               <div
                 key={partner}
-                className="px-8 py-4 bg-secondary rounded-xl border border-accent/30 text-foreground font-semibold hover:bg-accent hover:text-accent-foreground hover:border-accent transition-all duration-300 animate-fade-in-up opacity-0"
-                style={{ animationDelay: `${0.3 + index * 0.1}s` }}
+                className="group relative bg-gradient-to-br from-accent/5 to-accent/10 rounded-2xl p-6 border border-accent/20 hover:border-accent hover:shadow-xl transition-all duration-300 overflow-hidden"
               >
-                {partner}
+                <div className="absolute inset-0 bg-gradient-to-br from-accent to-accent-deep opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                <span className="relative z-10 block text-center font-semibold text-foreground group-hover:text-white transition-colors">
+                  {partner}
+                </span>
               </div>
             ))}
           </div>
