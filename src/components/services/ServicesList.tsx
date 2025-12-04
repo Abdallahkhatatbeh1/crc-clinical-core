@@ -180,7 +180,7 @@ const ServicesList = () => {
         </div>
 
         {/* Services Grid */}
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-7xl mx-auto">
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-7xl mx-auto items-start">
           {services.map((service, index) => {
             const isExpanded = expandedCards.includes(service.id);
             const IconComponent = service.icon;
