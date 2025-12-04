@@ -8,11 +8,9 @@ import crcLogoSymbol from "@/assets/crc-logo-symbol.png";
 
 const navLinks = [
   { name: "Home", href: "/" },
-  { name: "About CRC", href: "/about" },
-  { name: "Our Studies", href: "/studies" },
+  { name: "About", href: "/about" },
+  { name: "Studies", href: "/studies" },
   { name: "Services", href: "/services" },
-  { name: "Why Choose CRC", href: "/why-choose-us" },
-  { name: "Partners", href: "/partners" },
   { name: "Contact", href: "/contact" },
 ];
 
@@ -60,9 +58,11 @@ const Header = () => {
 
           {/* CTA Button - Desktop */}
           <div className="hidden lg:block">
-            <Button variant="default" size="default">
-              Get Started
-            </Button>
+            <Link to="/contact">
+              <Button variant="default" size="default">
+                Get Started
+              </Button>
+            </Link>
           </div>
 
           {/* Mobile Menu Button */}
@@ -95,9 +95,11 @@ const Header = () => {
                 </Link>
               ))}
               <div className="pt-4 px-4">
-                <Button variant="default" size="default" className="w-full">
-                  Get Started
-                </Button>
+                <Link to="/contact" onClick={() => setIsMenuOpen(false)}>
+                  <Button variant="default" size="default" className="w-full">
+                    Get Started
+                  </Button>
+                </Link>
               </div>
             </nav>
           </div>
