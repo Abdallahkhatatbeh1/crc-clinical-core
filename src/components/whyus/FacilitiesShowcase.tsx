@@ -69,54 +69,79 @@ const FacilitiesShowcase = () => {
   };
 
   return (
-    <section ref={sectionRef} className="py-24 bg-crc-light-bg relative overflow-hidden">
+    <section ref={sectionRef} className="py-16 md:py-24 bg-crc-light-bg relative overflow-hidden">
       {/* Decorative */}
       <div className="absolute top-0 left-0 w-96 h-96 bg-primary/5 rounded-full blur-3xl -translate-x-1/2 -translate-y-1/2" />
       <div className="absolute bottom-0 right-0 w-72 h-72 bg-accent/5 rounded-full blur-3xl translate-x-1/2 translate-y-1/2" />
 
       <div className="container mx-auto px-4 relative z-10">
         {/* Header */}
-        <div className="text-center mb-16">
+        <div className="text-center mb-10 md:mb-16">
           <div className={`transition-all duration-700 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
-            <BrandTag className="mb-6">Infrastructure</BrandTag>
+            <BrandTag className="mb-4 md:mb-6">Infrastructure</BrandTag>
           </div>
-          <h2 className={`text-foreground mb-4 transition-all duration-700 delay-100 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
+          <h2 className={`text-2xl md:text-3xl lg:text-4xl text-foreground mb-3 md:mb-4 transition-all duration-700 delay-100 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
             World-Class <span className="text-primary">Research Facilities</span>
           </h2>
-          <p className={`text-muted-foreground text-lg max-w-2xl mx-auto transition-all duration-700 delay-200 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
+          <p className={`text-muted-foreground text-base md:text-lg max-w-2xl mx-auto transition-all duration-700 delay-200 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
             Our clinical-grade infrastructure supports all phases of clinical research
           </p>
         </div>
 
         {/* Main Content */}
-        <div className={`grid lg:grid-cols-2 gap-8 max-w-6xl mx-auto transition-all duration-700 delay-300 ${
+        <div className={`flex flex-col lg:grid lg:grid-cols-2 gap-6 lg:gap-8 max-w-6xl mx-auto transition-all duration-700 delay-300 ${
           isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
         }`}>
+          {/* Category Selection - Mobile First */}
+          <div className="order-2 lg:order-2 flex flex-col gap-3 lg:gap-4">
+            {facilityCategories.map((category, index) => (
+              <button
+                key={category.id}
+                onClick={() => handleCategoryChange(index)}
+                className={`flex items-center gap-3 lg:gap-4 p-4 lg:p-6 rounded-xl lg:rounded-2xl text-left transition-all duration-300 ${
+                  index === activeCategory 
+                    ? 'bg-white shadow-lg border-2 border-primary/20' 
+                    : 'bg-white/50 hover:bg-white border-2 border-transparent'
+                }`}
+              >
+                <div className={`w-10 h-10 lg:w-14 lg:h-14 rounded-lg lg:rounded-xl flex items-center justify-center shrink-0 transition-colors duration-300 ${
+                  index === activeCategory ? 'bg-primary text-primary-foreground' : 'bg-primary/10 text-primary'
+                }`}>
+                  <category.icon className="w-5 h-5 lg:w-7 lg:h-7" />
+                </div>
+                <div className="min-w-0">
+                  <h4 className="font-semibold text-foreground text-sm lg:text-lg mb-0.5 lg:mb-1">{category.title}</h4>
+                  <p className="text-muted-foreground text-xs lg:text-sm line-clamp-1">{category.description}</p>
+                </div>
+              </button>
+            ))}
+          </div>
+
           {/* Image Showcase */}
-          <div className="relative group">
-            <div className="relative aspect-[4/3] rounded-3xl overflow-hidden bg-muted">
+          <div className="order-1 lg:order-1 relative group">
+            <div className="relative aspect-[4/3] rounded-2xl lg:rounded-3xl overflow-hidden bg-muted">
               <img
                 src={currentCategory.images[currentImageIndex]}
                 alt={currentCategory.title}
                 className="w-full h-full object-cover transition-all duration-500"
               />
               
-              {/* Navigation Arrows */}
+              {/* Navigation Arrows - Always visible on mobile */}
               <button
                 onClick={prevImage}
-                className="absolute left-4 top-1/2 -translate-y-1/2 w-12 h-12 bg-white/90 rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-300 hover:bg-white shadow-lg"
+                className="absolute left-2 lg:left-4 top-1/2 -translate-y-1/2 w-10 h-10 lg:w-12 lg:h-12 bg-white/90 rounded-full flex items-center justify-center opacity-100 lg:opacity-0 lg:group-hover:opacity-100 transition-all duration-300 hover:bg-white shadow-lg"
               >
-                <ChevronLeft className="w-6 h-6 text-foreground" />
+                <ChevronLeft className="w-5 h-5 lg:w-6 lg:h-6 text-foreground" />
               </button>
               <button
                 onClick={nextImage}
-                className="absolute right-4 top-1/2 -translate-y-1/2 w-12 h-12 bg-white/90 rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-300 hover:bg-white shadow-lg"
+                className="absolute right-2 lg:right-4 top-1/2 -translate-y-1/2 w-10 h-10 lg:w-12 lg:h-12 bg-white/90 rounded-full flex items-center justify-center opacity-100 lg:opacity-0 lg:group-hover:opacity-100 transition-all duration-300 hover:bg-white shadow-lg"
               >
-                <ChevronRight className="w-6 h-6 text-foreground" />
+                <ChevronRight className="w-5 h-5 lg:w-6 lg:h-6 text-foreground" />
               </button>
 
               {/* Image Indicators */}
-              <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2">
+              <div className="absolute bottom-3 lg:bottom-4 left-1/2 -translate-x-1/2 flex gap-2">
                 {currentCategory.images.map((_, index) => (
                   <button
                     key={index}
@@ -128,31 +153,6 @@ const FacilitiesShowcase = () => {
                 ))}
               </div>
             </div>
-          </div>
-
-          {/* Category Selection */}
-          <div className="flex flex-col gap-4">
-            {facilityCategories.map((category, index) => (
-              <button
-                key={category.id}
-                onClick={() => handleCategoryChange(index)}
-                className={`flex items-start gap-4 p-6 rounded-2xl text-left transition-all duration-300 ${
-                  index === activeCategory 
-                    ? 'bg-white shadow-lg border-2 border-primary/20' 
-                    : 'bg-white/50 hover:bg-white border-2 border-transparent'
-                }`}
-              >
-                <div className={`w-14 h-14 rounded-xl flex items-center justify-center shrink-0 transition-colors duration-300 ${
-                  index === activeCategory ? 'bg-primary text-primary-foreground' : 'bg-primary/10 text-primary'
-                }`}>
-                  <category.icon className="w-7 h-7" />
-                </div>
-                <div>
-                  <h4 className="font-semibold text-foreground text-lg mb-1">{category.title}</h4>
-                  <p className="text-muted-foreground text-sm">{category.description}</p>
-                </div>
-              </button>
-            ))}
           </div>
         </div>
       </div>
