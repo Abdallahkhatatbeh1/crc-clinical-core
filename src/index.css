@@ -1,96 +1,90 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
-All colors MUST be HSL.
-*/
-
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 222.2 84% 4.9%;
+    /* CRC Brand Colors - HSL format */
+    --crc-blue: 196 100% 42%;
+    --crc-blue-deep: 199 100% 31%;
+    --crc-blue-light: 199 74% 95%;
+    --crc-green: 90 55% 51%;
+    --crc-green-soft: 90 55% 44%;
+    --crc-charcoal: 219 15% 19%;
+    --crc-white: 0 0% 100%;
 
-    --card: 0 0% 100%;
-    --card-foreground: 222.2 84% 4.9%;
+    /* Semantic tokens */
+    --background: var(--crc-white);
+    --foreground: var(--crc-charcoal);
 
-    --popover: 0 0% 100%;
-    --popover-foreground: 222.2 84% 4.9%;
+    --card: var(--crc-white);
+    --card-foreground: var(--crc-charcoal);
 
-    --primary: 222.2 47.4% 11.2%;
-    --primary-foreground: 210 40% 98%;
+    --popover: var(--crc-white);
+    --popover-foreground: var(--crc-charcoal);
 
-    --secondary: 210 40% 96.1%;
-    --secondary-foreground: 222.2 47.4% 11.2%;
+    --primary: var(--crc-blue);
+    --primary-foreground: var(--crc-white);
+    --primary-deep: var(--crc-blue-deep);
 
-    --muted: 210 40% 96.1%;
-    --muted-foreground: 215.4 16.3% 46.9%;
+    --secondary: var(--crc-blue-light);
+    --secondary-foreground: var(--crc-charcoal);
 
-    --accent: 210 40% 96.1%;
-    --accent-foreground: 222.2 47.4% 11.2%;
+    --muted: var(--crc-blue-light);
+    --muted-foreground: 219 10% 45%;
 
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 40% 98%;
+    --accent: var(--crc-green);
+    --accent-foreground: var(--crc-white);
+    --accent-soft: var(--crc-green-soft);
 
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
-    --ring: 222.2 84% 4.9%;
+    --destructive: 0 84% 60%;
+    --destructive-foreground: var(--crc-white);
+
+    --border: 199 30% 85%;
+    --input: 199 30% 85%;
+    --ring: var(--crc-blue);
 
     --radius: 0.5rem;
 
-    --sidebar-background: 0 0% 98%;
+    /* Footer */
+    --footer-bg: var(--crc-charcoal);
+    --footer-foreground: var(--crc-white);
 
-    --sidebar-foreground: 240 5.3% 26.1%;
+    /* Gradients */
+    --gradient-brand: linear-gradient(135deg, hsl(var(--crc-blue)) 0%, hsl(var(--crc-blue-deep)) 100%);
+    --gradient-brand-horizontal: linear-gradient(90deg, hsl(var(--crc-blue)) 0%, hsl(var(--crc-blue-deep)) 100%);
 
-    --sidebar-primary: 240 5.9% 10%;
-
-    --sidebar-primary-foreground: 0 0% 98%;
-
-    --sidebar-accent: 240 4.8% 95.9%;
-
-    --sidebar-accent-foreground: 240 5.9% 10%;
-
-    --sidebar-border: 220 13% 91%;
-
-    --sidebar-ring: 217.2 91.2% 59.8%;
+    /* Sidebar (keeping for compatibility) */
+    --sidebar-background: var(--crc-white);
+    --sidebar-foreground: var(--crc-charcoal);
+    --sidebar-primary: var(--crc-blue);
+    --sidebar-primary-foreground: var(--crc-white);
+    --sidebar-accent: var(--crc-blue-light);
+    --sidebar-accent-foreground: var(--crc-charcoal);
+    --sidebar-border: 199 30% 85%;
+    --sidebar-ring: var(--crc-blue);
   }
 
   .dark {
-    --background: 222.2 84% 4.9%;
-    --foreground: 210 40% 98%;
-
-    --card: 222.2 84% 4.9%;
-    --card-foreground: 210 40% 98%;
-
-    --popover: 222.2 84% 4.9%;
-    --popover-foreground: 210 40% 98%;
-
-    --primary: 210 40% 98%;
-    --primary-foreground: 222.2 47.4% 11.2%;
-
-    --secondary: 217.2 32.6% 17.5%;
-    --secondary-foreground: 210 40% 98%;
-
-    --muted: 217.2 32.6% 17.5%;
-    --muted-foreground: 215 20.2% 65.1%;
-
-    --accent: 217.2 32.6% 17.5%;
-    --accent-foreground: 210 40% 98%;
-
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 210 40% 98%;
-
-    --border: 217.2 32.6% 17.5%;
-    --input: 217.2 32.6% 17.5%;
-    --ring: 212.7 26.8% 83.9%;
-    --sidebar-background: 240 5.9% 10%;
-    --sidebar-foreground: 240 4.8% 95.9%;
-    --sidebar-primary: 224.3 76.3% 48%;
-    --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 240 3.7% 15.9%;
-    --sidebar-accent-foreground: 240 4.8% 95.9%;
-    --sidebar-border: 240 3.7% 15.9%;
-    --sidebar-ring: 217.2 91.2% 59.8%;
+    --background: var(--crc-charcoal);
+    --foreground: var(--crc-white);
+    --card: 219 15% 24%;
+    --card-foreground: var(--crc-white);
+    --popover: 219 15% 24%;
+    --popover-foreground: var(--crc-white);
+    --primary: var(--crc-blue);
+    --primary-foreground: var(--crc-white);
+    --secondary: 219 15% 28%;
+    --secondary-foreground: var(--crc-white);
+    --muted: 219 15% 28%;
+    --muted-foreground: 199 20% 70%;
+    --accent: var(--crc-green);
+    --accent-foreground: var(--crc-white);
+    --border: 219 15% 28%;
+    --input: 219 15% 28%;
+    --ring: var(--crc-blue);
   }
 }
 
@@ -99,7 +93,50 @@ All colors MUST be HSL.
     @apply border-border;
   }
 
+  html {
+    font-family: 'Montserrat', sans-serif;
+    scroll-behavior: smooth;
+  }
+
   body {
-    @apply bg-background text-foreground;
+    @apply bg-background text-foreground antialiased;
+    font-family: 'Montserrat', sans-serif;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-semibold tracking-tight;
+  }
+
+  h1 {
+    @apply text-4xl md:text-5xl lg:text-6xl font-bold;
+  }
+
+  h2 {
+    @apply text-3xl md:text-4xl font-bold;
+  }
+
+  h3 {
+    @apply text-xl md:text-2xl font-semibold;
+  }
+
+  p {
+    @apply leading-relaxed;
+  }
+}
+
+@layer utilities {
+  .gradient-brand {
+    background: var(--gradient-brand);
+  }
+
+  .gradient-brand-horizontal {
+    background: var(--gradient-brand-horizontal);
+  }
+
+  .text-gradient-brand {
+    background: var(--gradient-brand);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
   }
 }
