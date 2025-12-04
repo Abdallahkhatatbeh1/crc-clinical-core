@@ -3,7 +3,8 @@ import {
   Users, 
   Building2, 
   Award, 
-  Globe 
+  Globe,
+  CheckCircle2
 } from "lucide-react";
 import BrandTag from "./BrandTag";
 
@@ -14,7 +15,8 @@ const trustReasons = [
     points: [
       "Extensive experience supporting worldwide clinical trials and multi-regional protocols.",
       "Full alignment with ICH-GCP, clinicaltrials.gov requirements, and international regulatory standards."
-    ]
+    ],
+    isExcellence: false
   },
   {
     icon: Users,
@@ -23,7 +25,8 @@ const trustReasons = [
       "Structured patient recruitment clinical trials algorithms.",
       "Large, diverse, treatment-naïve patient populations across Jordan.",
       "High show-up and retention rates aligned with best-practice trial management metrics."
-    ]
+    ],
+    isExcellence: false
   },
   {
     icon: Building2,
@@ -32,7 +35,8 @@ const trustReasons = [
       "Dedicated facilities equipped for protocol-driven research.",
       "On-site laboratories, calibrated equipment, medical device CRO capability, and IP storage.",
       "CRO-dedicated monitoring rooms to support oversight and contract research and development activities."
-    ]
+    ],
+    isExcellence: false
   },
   {
     icon: Award,
@@ -40,7 +44,8 @@ const trustReasons = [
     points: [
       "Expert investigators with extensive experience in CRO drug development pathways.",
       "Strong operational oversight, scientific governance, and quality systems."
-    ]
+    ],
+    isExcellence: true
   },
   {
     icon: Globe,
@@ -49,7 +54,8 @@ const trustReasons = [
       "Cost-efficient regional access point for global late phase CRO programs.",
       "Faster approval timelines compared to many regions.",
       "High feasibility for emerging indications, including the latest clinical trials on COVID-19."
-    ]
+    ],
+    isExcellence: false
   }
 ];
 
@@ -73,11 +79,15 @@ const WhyTrustSection = () => {
           {trustReasons.map((reason, index) => (
             <div
               key={reason.title}
-              className="group bg-card border border-border rounded-2xl p-8 hover:shadow-elegant transition-all duration-300 animate-fade-in-up opacity-0"
+              className={`group bg-card border rounded-2xl p-8 hover:shadow-elegant transition-all duration-300 animate-fade-in-up opacity-0 ${
+                reason.isExcellence ? 'border-accent/30' : 'border-border'
+              }`}
               style={{ animationDelay: `${0.2 + index * 0.1}s` }}
             >
-              <div className="w-14 h-14 rounded-xl bg-secondary flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
-                <reason.icon className="w-7 h-7 text-primary" />
+              <div className={`w-14 h-14 rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300 ${
+                reason.isExcellence ? 'bg-accent/10' : 'bg-secondary'
+              }`}>
+                <reason.icon className={`w-7 h-7 ${reason.isExcellence ? 'text-accent' : 'text-primary'}`} />
               </div>
               <h3 className="text-xl font-semibold text-foreground mb-4">
                 {reason.title}
@@ -85,7 +95,9 @@ const WhyTrustSection = () => {
               <ul className="space-y-3">
                 {reason.points.map((point, pointIndex) => (
                   <li key={pointIndex} className="flex items-start gap-3">
-                    <span className="w-1.5 h-1.5 rounded-full bg-primary mt-2.5 flex-shrink-0" />
+                    <CheckCircle2 className={`w-5 h-5 mt-0.5 flex-shrink-0 ${
+                      reason.isExcellence ? 'text-accent' : 'text-primary'
+                    }`} />
                     <span className="text-muted-foreground text-sm leading-relaxed">
                       {point}
                     </span>

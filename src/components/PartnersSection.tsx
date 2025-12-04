@@ -47,7 +47,7 @@ const PartnersSection = () => {
             {croPartners.map((partner, index) => (
               <div
                 key={partner}
-                className="px-6 py-3 bg-secondary rounded-full border border-border text-foreground font-medium hover:bg-primary hover:text-primary-foreground hover:border-primary transition-all duration-300 animate-fade-in-up opacity-0"
+                className="px-6 py-3 bg-secondary rounded-full border border-primary/20 text-foreground font-medium hover:bg-primary hover:text-primary-foreground hover:border-primary transition-all duration-300 animate-fade-in-up opacity-0"
                 style={{ animationDelay: `${0.3 + index * 0.05}s` }}
               >
                 {partner}
