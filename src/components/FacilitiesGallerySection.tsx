@@ -1,0 +1,113 @@
+import BrandTag from "./BrandTag";
+import useScrollAnimation from "@/hooks/useScrollAnimation";
+
+import examRoom1 from "@/assets/facilities/exam-room-1.jpg";
+import examRoom2 from "@/assets/facilities/exam-room-2.jpg";
+import labRoom from "@/assets/facilities/lab-room.jpg";
+import pharmacyDoor from "@/assets/facilities/pharmacy-door.jpg";
+import officeWorkspace from "@/assets/facilities/office-workspace.jpg";
+import centrifuge1 from "@/assets/facilities/centrifuge-1.jpg";
+import sampleRefrigerators from "@/assets/facilities/sample-refrigerators.jpg";
+import ecgMachine from "@/assets/facilities/ecg-machine.jpg";
+
+const facilities = [
+  {
+    image: examRoom1,
+    title: "Patient Procedure Room",
+    description: "Modern examination and procedure rooms"
+  },
+  {
+    image: examRoom2,
+    title: "Examination Room",
+    description: "Dedicated patient assessment areas"
+  },
+  {
+    image: labRoom,
+    title: "Laboratory",
+    description: "Sample processing and analysis"
+  },
+  {
+    image: pharmacyDoor,
+    title: "IP & Pharmacy Storage",
+    description: "Secure investigational product storage"
+  },
+  {
+    image: officeWorkspace,
+    title: "CRO Monitoring Space",
+    description: "Dedicated workspace for monitoring teams"
+  },
+  {
+    image: centrifuge1,
+    title: "Lab Equipment",
+    description: "Calibrated laboratory instruments"
+  },
+  {
+    image: sampleRefrigerators,
+    title: "Sample Storage",
+    description: "Temperature-controlled storage units"
+  },
+  {
+    image: ecgMachine,
+    title: "ECG Equipment",
+    description: "Cardiac monitoring capabilities"
+  }
+];
+
+const FacilitiesGallerySection = () => {
+  const { ref: sectionRef, isVisible } = useScrollAnimation({ threshold: 0.1 });
+
+  return (
+    <section ref={sectionRef} className="py-24 bg-background relative overflow-hidden">
+      <div className="container mx-auto px-4">
+        {/* Header */}
+        <div className="text-center mb-14">
+          <div className={`transition-all duration-700 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
+            <BrandTag className="mb-6">Our Facilities</BrandTag>
+          </div>
+          <h2 
+            className={`text-foreground mb-4 transition-all duration-700 delay-100 ${
+              isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
+            }`}
+          >
+            Our Research Environment
+          </h2>
+          <p 
+            className={`text-muted-foreground text-lg max-w-2xl mx-auto transition-all duration-700 delay-200 ${
+              isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
+            }`}
+          >
+            State-of-the-art facilities designed to support high-quality clinical research
+          </p>
+        </div>
+
+        {/* Gallery Grid */}
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+          {facilities.map((facility, index) => (
+            <div
+              key={facility.title}
+              className={`group relative overflow-hidden rounded-xl aspect-square transition-all duration-500 ${
+                isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'
+              }`}
+              style={{ transitionDelay: `${200 + index * 75}ms` }}
+            >
+              <img
+                src={facility.image}
+                alt={facility.title}
+                className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+              />
+              {/* Overlay */}
+              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-100 md:opacity-0 md:group-hover:opacity-100 transition-opacity duration-300">
+                <div className="absolute bottom-0 left-0 right-0 p-4">
+                  <h4 className="text-white font-semibold text-sm mb-1">{facility.title}</h4>
+                  <p className="text-white/70 text-xs">{facility.description}</p>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+};
+
+export default FacilitiesGallerySection;

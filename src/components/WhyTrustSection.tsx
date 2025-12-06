@@ -4,8 +4,7 @@ import {
   Building2, 
   Award, 
   Globe,
-  CheckCircle2,
-  ArrowRight
+  CheckCircle2
 } from "lucide-react";
 import BrandTag from "./BrandTag";
 import useScrollAnimation from "@/hooks/useScrollAnimation";
@@ -101,32 +100,30 @@ const WhyTrustSection = () => {
           </p>
         </div>
 
-        {/* Cards Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
+        {/* Cards Grid - Centered layout for 5 items */}
+        <div className="flex flex-wrap justify-center gap-6 lg:gap-8">
           {trustReasons.map((reason, index) => (
             <div
               key={reason.title}
-              className={`group bg-white rounded-3xl p-8 border border-border hover:border-${reason.color}/30 hover:shadow-xl transition-all duration-500 ${
+              className={`group bg-white rounded-3xl p-8 border border-border hover:border-${reason.color}/30 hover:shadow-xl transition-all duration-500 w-full sm:w-[calc(50%-12px)] lg:w-[calc(33.333%-22px)] max-w-[380px] ${
                 isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-16'
               }`}
               style={{ transitionDelay: `${300 + index * 100}ms` }}
             >
-              {/* Icon & Title */}
-              <div className="flex items-start gap-4 mb-6">
-                <div className={`w-14 h-14 rounded-2xl flex items-center justify-center flex-shrink-0 transition-transform duration-300 group-hover:scale-110 ${
+              {/* Icon & Title - Centered */}
+              <div className="text-center mb-6">
+                <div className={`w-14 h-14 rounded-2xl flex items-center justify-center mx-auto mb-4 transition-transform duration-300 group-hover:scale-110 ${
                   reason.color === 'accent' ? 'bg-accent/10' : 'bg-primary/10'
                 }`}>
                   <reason.icon className={`w-7 h-7 ${reason.color === 'accent' ? 'text-accent' : 'text-primary'}`} />
                 </div>
-                <div>
-                  <h3 className="text-xl font-bold text-foreground">{reason.title}</h3>
-                  <p className={`text-sm font-medium ${reason.color === 'accent' ? 'text-accent' : 'text-primary'}`}>
-                    {reason.subtitle}
-                  </p>
-                </div>
+                <h3 className="text-xl font-bold text-foreground">{reason.title}</h3>
+                <p className={`text-sm font-medium ${reason.color === 'accent' ? 'text-accent' : 'text-primary'}`}>
+                  {reason.subtitle}
+                </p>
               </div>
 
-              {/* Points */}
+              {/* Points - Centered */}
               <ul className="space-y-3">
                 {reason.points.map((point, pointIndex) => (
                   <li key={pointIndex} className="flex items-start gap-3 group/item">
@@ -137,13 +134,6 @@ const WhyTrustSection = () => {
                   </li>
                 ))}
               </ul>
-
-              {/* Hover Arrow */}
-              <div className="mt-6 pt-4 border-t border-border/50 opacity-0 group-hover:opacity-100 transition-opacity">
-                <span className="flex items-center gap-2 text-sm font-medium text-primary">
-                  Learn more <ArrowRight className="w-4 h-4" />
-                </span>
-              </div>
             </div>
           ))}
         </div>
