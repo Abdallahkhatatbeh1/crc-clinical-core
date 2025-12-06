@@ -3,11 +3,22 @@ import useScrollAnimation from "@/hooks/useScrollAnimation";
 import { Handshake, Building } from "lucide-react";
 
 const croPartners = [
-  "IQVIA", "Parexel", "Syneos Health", "ICON", "PPD", "Labcorp", "Medpace", "PSI", "MCT"
+  { name: "IQVIA", logo: null },
+  { name: "Parexel", logo: null },
+  { name: "Syneos Health", logo: null },
+  { name: "ICON", logo: null },
+  { name: "PPD", logo: null },
+  { name: "Labcorp", logo: null },
+  { name: "Medpace", logo: null },
+  { name: "PSI", logo: null },
+  { name: "MCT", logo: null }
 ];
 
 const pharmaPartners = [
-  "Johnson & Johnson", "Janssen", "New Amsterdam Pharma", "Sparta Biomedical"
+  { name: "Johnson & Johnson", logo: null },
+  { name: "Janssen", logo: null },
+  { name: "New Amsterdam Pharma", logo: null },
+  { name: "Sparta Biomedical", logo: null }
 ];
 
 const PartnersSection = () => {
@@ -46,17 +57,17 @@ const PartnersSection = () => {
           }`}>
             {croPartners.map((partner, index) => (
               <div
-                key={partner}
+                key={partner.name}
                 className="px-6 py-3 bg-white rounded-full border border-border text-foreground font-medium hover:bg-primary hover:text-white hover:border-primary hover:shadow-lg hover:scale-105 transition-all duration-300 cursor-default"
                 style={{ transitionDelay: `${400 + index * 50}ms` }}
               >
-                {partner}
+                {partner.name}
               </div>
             ))}
           </div>
         </div>
 
-        {/* Pharmaceutical Partners */}
+        {/* Pharmaceutical Sponsor Partnerships */}
         <div>
           <div className="text-center mb-14">
             <div className={`transition-all duration-700 delay-500 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
@@ -66,7 +77,7 @@ const PartnersSection = () => {
               isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
             }`}>
               <Building className="w-8 h-8 text-accent" />
-              <h2 className="text-foreground">Pharmaceutical Partners</h2>
+              <h2 className="text-foreground">Pharmaceutical Sponsor Partnerships</h2>
             </div>
             <p className={`text-muted-foreground max-w-2xl mx-auto transition-all duration-700 delay-700 ${
               isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
@@ -78,14 +89,14 @@ const PartnersSection = () => {
           <div className={`grid grid-cols-2 md:grid-cols-4 gap-4 max-w-4xl mx-auto transition-all duration-700 delay-800 ${
             isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
           }`}>
-            {pharmaPartners.map((partner, index) => (
+            {pharmaPartners.map((partner) => (
               <div
-                key={partner}
+                key={partner.name}
                 className="group relative bg-gradient-to-br from-accent/5 to-accent/10 rounded-2xl p-6 border border-accent/20 hover:border-accent hover:shadow-xl transition-all duration-300 overflow-hidden"
               >
                 <div className="absolute inset-0 bg-gradient-to-br from-accent to-accent-deep opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                 <span className="relative z-10 block text-center font-semibold text-foreground group-hover:text-white transition-colors">
-                  {partner}
+                  {partner.name}
                 </span>
               </div>
             ))}

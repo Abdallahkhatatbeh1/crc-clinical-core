@@ -1,6 +1,8 @@
 import BrandTag from "./BrandTag";
 import useScrollAnimation from "@/hooks/useScrollAnimation";
-import { MapPin, Award, FileCheck } from "lucide-react";
+import { MapPin, Award, FileCheck, ArrowRight } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { Link } from "react-router-dom";
 
 const WhoWeAreSection = () => {
   const { ref: sectionRef, isVisible } = useScrollAnimation({ threshold: 0.2 });
@@ -52,7 +54,7 @@ const WhoWeAreSection = () => {
           </div>
 
           {/* Content Cards */}
-          <div className="grid md:grid-cols-3 gap-6">
+          <div className="grid md:grid-cols-3 gap-6 mb-12">
             <div 
               className={`bg-white rounded-2xl p-8 shadow-sm border border-border hover:shadow-lg transition-all duration-500 delay-300 ${
                 isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'
@@ -91,6 +93,20 @@ const WhoWeAreSection = () => {
                 As a scientifically driven investigator site, CRC integrates <span className="text-primary font-semibold">validated workflows</span>, controlled documentation environments, calibrated medical systems, and modern clinical trial management systems.
               </p>
             </div>
+          </div>
+
+          {/* Learn More Button */}
+          <div 
+            className={`text-center transition-all duration-700 delay-600 ${
+              isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
+            }`}
+          >
+            <Link to="/about">
+              <Button variant="outline" size="lg" className="group">
+                Learn More
+                <ArrowRight size={18} className="ml-2 group-hover:translate-x-1 transition-transform" />
+              </Button>
+            </Link>
           </div>
         </div>
       </div>
