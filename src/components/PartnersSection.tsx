@@ -7,6 +7,9 @@ import sareptaLogo from "@/assets/partners/sarepta.png";
 import newAmsterdamLogo from "@/assets/partners/new-amsterdam-pharma.png";
 import argenxLogo from "@/assets/partners/argenx.png";
 import immunicLogo from "@/assets/partners/immunic.png";
+import janssenLogo from "@/assets/partners/janssen.svg";
+import johnsonLogo from "@/assets/partners/johnson-johnson.png";
+import spartaLogo from "@/assets/partners/sparta-biomedical.png";
 
 const croPartners = [
   { name: "IQVIA", logo: null },
@@ -21,13 +24,13 @@ const croPartners = [
 ];
 
 const pharmaPartners = [
-  { name: "Johnson & Johnson", logo: null },
-  { name: "Janssen", logo: null },
+  { name: "Johnson & Johnson", logo: johnsonLogo },
+  { name: "Janssen", logo: janssenLogo },
   { name: "New Amsterdam Pharma", logo: newAmsterdamLogo },
   { name: "Sarepta Therapeutics", logo: sareptaLogo },
   { name: "Argenx", logo: argenxLogo },
   { name: "Immunic Therapeutics", logo: immunicLogo },
-  { name: "Sparta Biomedical", logo: null }
+  { name: "Sparta Biomedical", logo: spartaLogo }
 ];
 
 const PartnersSection = () => {
