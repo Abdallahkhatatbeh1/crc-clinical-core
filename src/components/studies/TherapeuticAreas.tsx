@@ -1,7 +1,8 @@
 import { useState } from "react";
-import { ChevronDown } from "lucide-react";
+import { ChevronDown, X } from "lucide-react";
 import BrandTag from "@/components/BrandTag";
 import useScrollAnimation from "@/hooks/useScrollAnimation";
+import { Dialog, DialogContent } from "@/components/ui/dialog";
 
 // Import images
 import gastroenterologyImg from "@/assets/studies/gastroenterology.png";
@@ -183,11 +184,17 @@ const therapeuticAreas = [
 const TherapeuticAreas = () => {
   const { ref: sectionRef, isVisible } = useScrollAnimation({ threshold: 0.05 });
   const [expandedCards, setExpandedCards] = useState<number[]>([]);
+  const [selectedImage, setSelectedImage] = useState<{ src: string; title: string } | null>(null);
 
   const toggleCard = (id: number) => {
     setExpandedCards(prev => 
       prev.includes(id) ? prev.filter(x => x !== id) : [...prev, id]
     );
+  };
+
+  const handleImageClick = (e: React.MouseEvent, image: string, title: string) => {
+    e.stopPropagation();
+    setSelectedImage({ src: image, title });
   };
 
   return (
@@ -235,9 +242,12 @@ const TherapeuticAreas = () => {
                 >
                   <div className="flex items-center justify-between">
                     <div className="flex items-center gap-3">
-                      <div className={`w-11 h-11 rounded-xl flex items-center justify-center overflow-hidden transition-transform duration-300 group-hover:scale-110 ${
-                        area.color === 'accent' ? 'bg-accent/10' : 'bg-primary/10'
-                      }`}>
+                      <div 
+                        className={`w-11 h-11 rounded-xl flex items-center justify-center overflow-hidden transition-transform duration-300 group-hover:scale-110 cursor-zoom-in ${
+                          area.color === 'accent' ? 'bg-accent/10' : 'bg-primary/10'
+                        }`}
+                        onClick={(e) => handleImageClick(e, area.image, area.title)}
+                      >
                         <img 
                           src={area.image} 
                           alt={area.title} 
@@ -299,6 +309,32 @@ const TherapeuticAreas = () => {
           </div>
         </div>
       </div>
+
+      {/* Image Lightbox Modal */}
+      <Dialog open={!!selectedImage} onOpenChange={() => setSelectedImage(null)}>
+        <DialogContent className="sm:max-w-md p-0 bg-white border-0 overflow-hidden">
+          <button
+            onClick={() => setSelectedImage(null)}
+            className="absolute top-3 right-3 z-10 w-8 h-8 rounded-full bg-foreground/80 hover:bg-foreground text-white flex items-center justify-center transition-colors"
+          >
+            <X className="w-4 h-4" />
+          </button>
+          {selectedImage && (
+            <div className="p-8 flex flex-col items-center">
+              <div className="w-48 h-48 flex items-center justify-center mb-4">
+                <img 
+                  src={selectedImage.src} 
+                  alt={selectedImage.title} 
+                  className="max-w-full max-h-full object-contain"
+                />
+              </div>
+              <h3 className="text-lg font-semibold text-foreground text-center">
+                {selectedImage.title}
+              </h3>
+            </div>
+          )}
+        </DialogContent>
+      </Dialog>
     </section>
   );
 };
