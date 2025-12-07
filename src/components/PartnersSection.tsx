@@ -8,6 +8,10 @@ import parexelLogo from "@/assets/partners/parexel.png";
 import syneosLogo from "@/assets/partners/syneos-health.svg";
 import ppdLogo from "@/assets/partners/ppd.png";
 import medpaceLogo from "@/assets/partners/medpace.png";
+import labcorpLogo from "@/assets/partners/labcorp.png";
+import psiLogo from "@/assets/partners/psi.png";
+import mctLogo from "@/assets/partners/mct.png";
+import iconLogo from "@/assets/partners/icon.png";
 
 // Import partner logos - Pharma
 import sareptaLogo from "@/assets/partners/sarepta.png";
@@ -22,12 +26,12 @@ const croPartners = [
   { name: "IQVIA", logo: iqviaLogo },
   { name: "Parexel", logo: parexelLogo },
   { name: "Syneos Health", logo: syneosLogo },
-  { name: "ICON", logo: null },
+  { name: "ICON", logo: iconLogo },
   { name: "PPD", logo: ppdLogo },
-  { name: "Labcorp", logo: null },
+  { name: "Labcorp", logo: labcorpLogo },
   { name: "Medpace", logo: medpaceLogo },
-  { name: "PSI", logo: null },
-  { name: "MCT", logo: null }
+  { name: "PSI", logo: psiLogo },
+  { name: "MCT", logo: mctLogo }
 ];
 
 const pharmaPartners = [
@@ -80,17 +84,11 @@ const PartnersSection = () => {
                 className="group relative bg-white rounded-xl p-4 border border-border hover:border-primary hover:shadow-lg transition-all duration-300 flex items-center justify-center min-h-[80px]"
                 style={{ transitionDelay: `${400 + index * 50}ms` }}
               >
-                {partner.logo ? (
-                  <img 
-                    src={partner.logo} 
-                    alt={partner.name} 
-                    className="max-h-10 max-w-full object-contain group-hover:scale-105 transition-transform duration-300"
-                  />
-                ) : (
-                  <span className="text-center font-semibold text-foreground group-hover:text-primary transition-colors text-sm">
-                    {partner.name}
-                  </span>
-                )}
+                <img 
+                  src={partner.logo} 
+                  alt={partner.name} 
+                  className="max-h-10 max-w-full object-contain group-hover:scale-105 transition-transform duration-300"
+                />
               </div>
             ))}
           </div>
@@ -121,19 +119,13 @@ const PartnersSection = () => {
             {pharmaPartners.map((partner) => (
               <div
                 key={partner.name}
-                className="group relative bg-white rounded-2xl p-6 border border-border hover:border-accent hover:shadow-xl transition-all duration-300 flex flex-col items-center justify-center min-h-[120px]"
+                className="group relative bg-white rounded-2xl p-6 border border-border hover:border-accent hover:shadow-xl transition-all duration-300 flex items-center justify-center min-h-[120px]"
               >
-                {partner.logo ? (
-                  <img 
-                    src={partner.logo} 
-                    alt={partner.name} 
-                    className="max-h-16 max-w-full object-contain group-hover:scale-105 transition-transform duration-300"
-                  />
-                ) : (
-                  <span className="text-center font-semibold text-foreground group-hover:text-accent transition-colors">
-                    {partner.name}
-                  </span>
-                )}
+                <img 
+                  src={partner.logo} 
+                  alt={partner.name} 
+                  className="max-h-16 max-w-full object-contain group-hover:scale-105 transition-transform duration-300"
+                />
               </div>
             ))}
           </div>
