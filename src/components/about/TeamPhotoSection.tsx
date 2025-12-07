@@ -1,7 +1,7 @@
 import BrandTag from "@/components/BrandTag";
 import useScrollAnimation from "@/hooks/useScrollAnimation";
 import teamPhoto from "@/assets/facilities/team-photo.jpg";
-import directorOffice from "@/assets/facilities/director-office.jpg";
+
 
 const TeamPhotoSection = () => {
   const { ref: sectionRef, isVisible } = useScrollAnimation({ threshold: 0.1 });
@@ -25,15 +25,14 @@ const TeamPhotoSection = () => {
           </p>
         </div>
 
-        {/* Team Photo Grid */}
-        <div className="grid md:grid-cols-3 gap-6 max-w-6xl mx-auto">
-          {/* Main Team Photo - Larger */}
+        {/* Team Photo */}
+        <div className="max-w-5xl mx-auto">
           <div 
-            className={`md:col-span-2 relative group overflow-hidden rounded-3xl transition-all duration-700 delay-300 ${
+            className={`relative group overflow-hidden rounded-3xl transition-all duration-700 delay-300 ${
               isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
             }`}
           >
-            <div className="aspect-[16/10] relative">
+            <div className="aspect-[16/9] relative">
               <img
                 src={teamPhoto}
                 alt="CRC Research Team"
@@ -48,32 +47,6 @@ const TeamPhotoSection = () => {
                 <p className="text-white/80 text-sm md:text-base max-w-lg">
                   A diverse team of clinical research professionals committed to advancing medical science
                 </p>
-              </div>
-            </div>
-          </div>
-
-          {/* Director Photo */}
-          <div 
-            className={`relative group overflow-hidden rounded-3xl transition-all duration-700 delay-400 ${
-              isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
-            }`}
-          >
-            <div className="aspect-[3/4] md:aspect-auto md:h-full relative">
-              <img
-                src={directorOffice}
-                alt="Dr. Sabeha Malkawi - Director"
-                className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-              />
-              {/* Gradient Overlay */}
-              <div className="absolute inset-0 bg-gradient-to-t from-foreground/70 via-foreground/20 to-transparent" />
-              
-              {/* Content */}
-              <div className="absolute bottom-0 left-0 right-0 p-6">
-                <span className="text-xs text-white/80 bg-primary/80 px-3 py-1 rounded-full mb-3 inline-block">
-                  Leadership
-                </span>
-                <h4 className="text-white text-xl font-bold mb-1">Dr. Sabeha Malkawi</h4>
-                <p className="text-white/80 text-sm">Founder & Director</p>
               </div>
             </div>
           </div>
