@@ -1,16 +1,30 @@
 import { useState } from "react";
-import { 
-  Stethoscope, Heart, Brain, Activity, Syringe, Dna, 
-  Scale, Bone, Pill, Eye, Ear, Baby, Users, HeartPulse,
-  Sparkles, ChevronDown, ChevronUp
-} from "lucide-react";
+import { ChevronDown } from "lucide-react";
 import BrandTag from "@/components/BrandTag";
 import useScrollAnimation from "@/hooks/useScrollAnimation";
+
+// Import images
+import gastroenterologyImg from "@/assets/studies/gastroenterology.png";
+import cardiovascularImg from "@/assets/studies/cardiovascular.png";
+import neurologyImg from "@/assets/studies/neurology.png";
+import urologyImg from "@/assets/studies/urology.png";
+import rheumatologyImg from "@/assets/studies/rheumatology.png";
+import vaccinesImg from "@/assets/studies/vaccines.png";
+import geneticDiseasesImg from "@/assets/studies/genetic-diseases.png";
+import metabolicDisordersImg from "@/assets/studies/metabolic-disorders.png";
+import musculoskeletalImg from "@/assets/studies/musculoskeletal.png";
+import endocrinologyImg from "@/assets/studies/endocrinology.png";
+import ophthalmologyImg from "@/assets/studies/ophthalmology.png";
+import entImg from "@/assets/studies/ent.png";
+import pediatricsImg from "@/assets/studies/pediatrics.png";
+import geriatricsImg from "@/assets/studies/geriatrics.png";
+import maternityImg from "@/assets/studies/maternity-womens-health.png";
+import psychiatryImg from "@/assets/studies/psychiatry.png";
 
 const therapeuticAreas = [
   {
     id: 1,
-    icon: Stethoscope,
+    image: gastroenterologyImg,
     title: "Gastroenterology (GI)",
     color: "primary",
     conditions: [
@@ -23,7 +37,7 @@ const therapeuticAreas = [
   },
   {
     id: 2,
-    icon: Heart,
+    image: cardiovascularImg,
     title: "Cardiovascular",
     color: "accent",
     conditions: [
@@ -36,7 +50,7 @@ const therapeuticAreas = [
   },
   {
     id: 3,
-    icon: Brain,
+    image: neurologyImg,
     title: "Neurology",
     color: "primary",
     conditions: [
@@ -48,7 +62,7 @@ const therapeuticAreas = [
   },
   {
     id: 4,
-    icon: Activity,
+    image: urologyImg,
     title: "Urology",
     color: "accent",
     conditions: [
@@ -59,7 +73,7 @@ const therapeuticAreas = [
   },
   {
     id: 5,
-    icon: Bone,
+    image: rheumatologyImg,
     title: "Rheumatology",
     color: "primary",
     conditions: [
@@ -70,7 +84,7 @@ const therapeuticAreas = [
   },
   {
     id: 6,
-    icon: Syringe,
+    image: vaccinesImg,
     title: "Vaccines",
     color: "accent",
     conditions: [
@@ -81,14 +95,14 @@ const therapeuticAreas = [
   },
   {
     id: 7,
-    icon: Dna,
+    image: geneticDiseasesImg,
     title: "Genetic Diseases",
     color: "primary",
     conditions: ["Rare genetic conditions", "Hereditary disorders"]
   },
   {
     id: 8,
-    icon: Scale,
+    image: metabolicDisordersImg,
     title: "Metabolic Disorders",
     color: "accent",
     conditions: [
@@ -100,7 +114,7 @@ const therapeuticAreas = [
   },
   {
     id: 9,
-    icon: Bone,
+    image: musculoskeletalImg,
     title: "Musculoskeletal",
     color: "primary",
     conditions: [
@@ -110,7 +124,7 @@ const therapeuticAreas = [
   },
   {
     id: 10,
-    icon: Pill,
+    image: endocrinologyImg,
     title: "Endocrinology",
     color: "accent",
     conditions: [
@@ -120,42 +134,42 @@ const therapeuticAreas = [
   },
   {
     id: 11,
-    icon: Eye,
+    image: ophthalmologyImg,
     title: "Ophthalmology",
     color: "primary",
     conditions: ["Eye disorders", "Vision conditions"]
   },
   {
     id: 12,
-    icon: Ear,
+    image: entImg,
     title: "ENT",
     color: "accent",
     conditions: ["Ear, nose, and throat disorders"]
   },
   {
     id: 13,
-    icon: Baby,
+    image: pediatricsImg,
     title: "Pediatrics",
     color: "primary",
     conditions: ["Childhood diseases", "Pediatric conditions"]
   },
   {
     id: 14,
-    icon: Users,
+    image: geriatricsImg,
     title: "Geriatrics",
     color: "accent",
     conditions: ["Age-related conditions", "Elderly care"]
   },
   {
     id: 15,
-    icon: HeartPulse,
+    image: maternityImg,
     title: "Maternity & Women's Health",
     color: "primary",
     conditions: ["Maternal health", "Women's health conditions"]
   },
   {
     id: 16,
-    icon: Sparkles,
+    image: psychiatryImg,
     title: "Psychiatry",
     color: "accent",
     conditions: [
@@ -212,7 +226,7 @@ const TherapeuticAreas = () => {
                 }`}
                 style={{ transitionDelay: `${200 + (index % 8) * 50}ms` }}
               >
-                {/* Header */}
+                {/* Header with Image */}
                 <div 
                   className={`p-5 cursor-pointer transition-colors ${
                     area.color === 'accent' ? 'hover:bg-accent/5' : 'hover:bg-primary/5'
@@ -221,10 +235,14 @@ const TherapeuticAreas = () => {
                 >
                   <div className="flex items-center justify-between">
                     <div className="flex items-center gap-3">
-                      <div className={`w-11 h-11 rounded-xl flex items-center justify-center transition-transform duration-300 group-hover:scale-110 ${
+                      <div className={`w-11 h-11 rounded-xl flex items-center justify-center overflow-hidden transition-transform duration-300 group-hover:scale-110 ${
                         area.color === 'accent' ? 'bg-accent/10' : 'bg-primary/10'
                       }`}>
-                        <area.icon className={`w-5 h-5 ${area.color === 'accent' ? 'text-accent' : 'text-primary'}`} />
+                        <img 
+                          src={area.image} 
+                          alt={area.title} 
+                          className="w-8 h-8 object-contain"
+                        />
                       </div>
                       <div>
                         <h3 className="font-semibold text-foreground text-sm leading-tight">{area.title}</h3>
