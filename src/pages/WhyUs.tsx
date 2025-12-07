@@ -1,7 +1,6 @@
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import WhyUsHero from "@/components/whyus/WhyUsHero";
-import WhyUsFeatures from "@/components/whyus/WhyUsFeatures";
 import OfferSection from "@/components/whyus/OfferSection";
 import FacilitiesShowcase from "@/components/whyus/FacilitiesShowcase";
 import PartnersShowcase from "@/components/whyus/PartnersShowcase";
@@ -13,7 +12,6 @@ const WhyUs = () => {
       <Header />
       <main className="flex-grow pt-20">
         <WhyUsHero />
-        <WhyUsFeatures />
         <OfferSection />
         <FacilitiesShowcase />
         <PartnersShowcase />

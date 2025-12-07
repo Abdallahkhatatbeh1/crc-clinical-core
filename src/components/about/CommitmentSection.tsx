@@ -71,7 +71,7 @@ const CommitmentSection = () => {
             <p className="text-white/70 mb-6">
               CRC strives to be a trusted, dependable, and high-performing research partner for global organizations seeking clinical trial sites in Jordan and the Middle East.
             </p>
-            <Link to="/contact">
+            <Link to="/why-us">
               <Button variant="hero" size="xl" className="group">
                 Partner With Us
                 <ArrowRight size={20} className="group-hover:translate-x-1 transition-transform" />

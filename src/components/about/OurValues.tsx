@@ -58,14 +58,14 @@ const OurValues = () => {
           </p>
         </div>
 
-        {/* Values Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
+        {/* Values Grid - Centered */}
+        <div className="flex flex-wrap justify-center gap-6 max-w-6xl mx-auto">
           {values.map((value, index) => (
             <div
               key={value.title}
-              className={`group bg-white rounded-2xl p-8 border border-border hover:shadow-xl transition-all duration-500 ${
+              className={`group bg-white rounded-2xl p-8 border border-border hover:shadow-xl transition-all duration-500 w-full md:w-[calc(50%-12px)] lg:w-[calc(33.333%-16px)] ${
                 isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'
-              } ${index === 4 ? 'md:col-span-2 lg:col-span-1 lg:col-start-2' : ''}`}
+              }`}
               style={{ transitionDelay: `${300 + index * 100}ms` }}
             >
               <div className={`w-14 h-14 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300 ${
