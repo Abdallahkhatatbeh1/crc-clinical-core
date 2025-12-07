@@ -2,7 +2,14 @@ import BrandTag from "./BrandTag";
 import useScrollAnimation from "@/hooks/useScrollAnimation";
 import { Handshake, Building } from "lucide-react";
 
-// Import partner logos
+// Import partner logos - CRO
+import iqviaLogo from "@/assets/partners/iqvia.png";
+import parexelLogo from "@/assets/partners/parexel.png";
+import syneosLogo from "@/assets/partners/syneos-health.svg";
+import ppdLogo from "@/assets/partners/ppd.png";
+import medpaceLogo from "@/assets/partners/medpace.png";
+
+// Import partner logos - Pharma
 import sareptaLogo from "@/assets/partners/sarepta.png";
 import newAmsterdamLogo from "@/assets/partners/new-amsterdam-pharma.png";
 import argenxLogo from "@/assets/partners/argenx.png";
@@ -12,13 +19,13 @@ import johnsonLogo from "@/assets/partners/johnson-johnson.png";
 import spartaLogo from "@/assets/partners/sparta-biomedical.png";
 
 const croPartners = [
-  { name: "IQVIA", logo: null },
-  { name: "Parexel", logo: null },
-  { name: "Syneos Health", logo: null },
+  { name: "IQVIA", logo: iqviaLogo },
+  { name: "Parexel", logo: parexelLogo },
+  { name: "Syneos Health", logo: syneosLogo },
   { name: "ICON", logo: null },
-  { name: "PPD", logo: null },
+  { name: "PPD", logo: ppdLogo },
   { name: "Labcorp", logo: null },
-  { name: "Medpace", logo: null },
+  { name: "Medpace", logo: medpaceLogo },
   { name: "PSI", logo: null },
   { name: "MCT", logo: null }
 ];
@@ -64,16 +71,26 @@ const PartnersSection = () => {
             </p>
           </div>
 
-          <div className={`flex flex-wrap justify-center gap-3 max-w-4xl mx-auto transition-all duration-700 delay-300 ${
+          <div className={`grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 max-w-5xl mx-auto transition-all duration-700 delay-300 ${
             isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
           }`}>
             {croPartners.map((partner, index) => (
               <div
                 key={partner.name}
-                className="px-6 py-3 bg-white rounded-full border border-border text-foreground font-medium hover:bg-primary hover:text-white hover:border-primary hover:shadow-lg hover:scale-105 transition-all duration-300 cursor-default"
+                className="group relative bg-white rounded-xl p-4 border border-border hover:border-primary hover:shadow-lg transition-all duration-300 flex items-center justify-center min-h-[80px]"
                 style={{ transitionDelay: `${400 + index * 50}ms` }}
               >
-                {partner.name}
+                {partner.logo ? (
+                  <img 
+                    src={partner.logo} 
+                    alt={partner.name} 
+                    className="max-h-10 max-w-full object-contain group-hover:scale-105 transition-transform duration-300"
+                  />
+                ) : (
+                  <span className="text-center font-semibold text-foreground group-hover:text-primary transition-colors text-sm">
+                    {partner.name}
+                  </span>
+                )}
               </div>
             ))}
           </div>
