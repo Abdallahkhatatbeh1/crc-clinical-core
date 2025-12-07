@@ -291,20 +291,20 @@ const TherapeuticAreas = () => {
 
         {/* Summary */}
         <div className={`mt-16 text-center transition-all duration-700 delay-500 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
-          <div className="inline-flex items-center gap-4 px-6 py-4 bg-crc-light-bg rounded-2xl border border-border">
-            <div className="text-center">
-              <div className="text-3xl font-bold text-primary">16+</div>
-              <div className="text-xs text-muted-foreground">Therapeutic Areas</div>
+          <div className="inline-flex flex-wrap justify-center items-center gap-4 px-4 sm:px-6 py-4 bg-crc-light-bg rounded-2xl border border-border">
+            <div className="text-center px-2">
+              <div className="text-2xl sm:text-3xl font-bold text-primary">16+</div>
+              <div className="text-[10px] sm:text-xs text-muted-foreground">Therapeutic Areas</div>
             </div>
-            <div className="w-px h-10 bg-border" />
-            <div className="text-center">
-              <div className="text-3xl font-bold text-accent">50+</div>
-              <div className="text-xs text-muted-foreground">Conditions Covered</div>
+            <div className="hidden sm:block w-px h-10 bg-border" />
+            <div className="text-center px-2">
+              <div className="text-2xl sm:text-3xl font-bold text-accent">50+</div>
+              <div className="text-[10px] sm:text-xs text-muted-foreground">Conditions Covered</div>
             </div>
-            <div className="w-px h-10 bg-border" />
-            <div className="text-center">
-              <div className="text-3xl font-bold text-primary">I-IV</div>
-              <div className="text-xs text-muted-foreground">All Trial Phases</div>
+            <div className="hidden sm:block w-px h-10 bg-border" />
+            <div className="text-center px-2">
+              <div className="text-2xl sm:text-3xl font-bold text-primary">I-IV</div>
+              <div className="text-[10px] sm:text-xs text-muted-foreground">All Trial Phases</div>
             </div>
           </div>
         </div>
@@ -312,7 +312,7 @@ const TherapeuticAreas = () => {
 
       {/* Image Lightbox Modal */}
       <Dialog open={!!selectedImage} onOpenChange={() => setSelectedImage(null)}>
-        <DialogContent className="sm:max-w-md p-0 bg-white border-0 overflow-hidden">
+        <DialogContent className="sm:max-w-sm p-0 bg-white border-0 overflow-hidden">
           <button
             onClick={() => setSelectedImage(null)}
             className="absolute top-3 right-3 z-10 w-8 h-8 rounded-full bg-foreground/80 hover:bg-foreground text-white flex items-center justify-center transition-colors"
@@ -320,12 +320,12 @@ const TherapeuticAreas = () => {
             <X className="w-4 h-4" />
           </button>
           {selectedImage && (
-            <div className="p-8 flex flex-col items-center">
-              <div className="w-48 h-48 flex items-center justify-center mb-4">
+            <div className="p-6 sm:p-8 flex flex-col items-center">
+              <div className="w-full flex items-center justify-center mb-4 bg-crc-light-bg rounded-2xl p-6">
                 <img 
                   src={selectedImage.src} 
                   alt={selectedImage.title} 
-                  className="max-w-full max-h-full object-contain"
+                  className="w-full h-auto max-h-64 object-contain"
                 />
               </div>
               <h3 className="text-lg font-semibold text-foreground text-center">
