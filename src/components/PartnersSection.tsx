@@ -2,6 +2,12 @@ import BrandTag from "./BrandTag";
 import useScrollAnimation from "@/hooks/useScrollAnimation";
 import { Handshake, Building } from "lucide-react";
 
+// Import partner logos
+import sareptaLogo from "@/assets/partners/sarepta.png";
+import newAmsterdamLogo from "@/assets/partners/new-amsterdam-pharma.png";
+import argenxLogo from "@/assets/partners/argenx.png";
+import immunicLogo from "@/assets/partners/immunic.png";
+
 const croPartners = [
   { name: "IQVIA", logo: null },
   { name: "Parexel", logo: null },
@@ -17,7 +23,10 @@ const croPartners = [
 const pharmaPartners = [
   { name: "Johnson & Johnson", logo: null },
   { name: "Janssen", logo: null },
-  { name: "New Amsterdam Pharma", logo: null },
+  { name: "New Amsterdam Pharma", logo: newAmsterdamLogo },
+  { name: "Sarepta Therapeutics", logo: sareptaLogo },
+  { name: "Argenx", logo: argenxLogo },
+  { name: "Immunic Therapeutics", logo: immunicLogo },
   { name: "Sparta Biomedical", logo: null }
 ];
 
@@ -86,18 +95,25 @@ const PartnersSection = () => {
             </p>
           </div>
 
-          <div className={`grid grid-cols-2 md:grid-cols-4 gap-4 max-w-4xl mx-auto transition-all duration-700 delay-800 ${
+          <div className={`grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 max-w-5xl mx-auto transition-all duration-700 delay-800 ${
             isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
           }`}>
             {pharmaPartners.map((partner) => (
               <div
                 key={partner.name}
-                className="group relative bg-gradient-to-br from-accent/5 to-accent/10 rounded-2xl p-6 border border-accent/20 hover:border-accent hover:shadow-xl transition-all duration-300 overflow-hidden"
+                className="group relative bg-white rounded-2xl p-6 border border-border hover:border-accent hover:shadow-xl transition-all duration-300 flex flex-col items-center justify-center min-h-[120px]"
               >
-                <div className="absolute inset-0 bg-gradient-to-br from-accent to-accent-deep opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                <span className="relative z-10 block text-center font-semibold text-foreground group-hover:text-white transition-colors">
-                  {partner.name}
-                </span>
+                {partner.logo ? (
+                  <img 
+                    src={partner.logo} 
+                    alt={partner.name} 
+                    className="max-h-16 max-w-full object-contain group-hover:scale-105 transition-transform duration-300"
+                  />
+                ) : (
+                  <span className="text-center font-semibold text-foreground group-hover:text-accent transition-colors">
+                    {partner.name}
+                  </span>
+                )}
               </div>
             ))}
           </div>
