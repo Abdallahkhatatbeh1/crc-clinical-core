@@ -2,8 +2,10 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import WhyUsHero from "@/components/whyus/WhyUsHero";
 import OfferSection from "@/components/whyus/OfferSection";
-import FacilitiesShowcase from "@/components/whyus/FacilitiesShowcase";
+import VideoSection from "@/components/whyus/VideoSection";
 import PartnersShowcase from "@/components/whyus/PartnersShowcase";
+import TeamBriefSection from "@/components/whyus/TeamBriefSection";
+import FacilitiesShowcase from "@/components/whyus/FacilitiesShowcase";
 import WhyUsCTA from "@/components/whyus/WhyUsCTA";
 
 const WhyUs = () => {
@@ -13,8 +15,10 @@ const WhyUs = () => {
       <main className="flex-grow pt-20">
         <WhyUsHero />
         <OfferSection />
-        <FacilitiesShowcase />
+        <VideoSection />
         <PartnersShowcase />
+        <TeamBriefSection />
+        <FacilitiesShowcase />
         <WhyUsCTA />
       </main>
       <Footer />

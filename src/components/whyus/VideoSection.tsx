@@ -1,4 +1,6 @@
-import { Play, PlayCircle } from "lucide-react";
+import { Play, PlayCircle, Calendar, ArrowRight } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { Link } from "react-router-dom";
 import useScrollAnimation from "@/hooks/useScrollAnimation";
 import BrandTag from "@/components/BrandTag";
 
@@ -57,6 +59,29 @@ const VideoSection = () => {
               <div className="absolute bottom-0 left-0 right-0 h-1/3 bg-gradient-to-t from-primary/10 to-transparent" />
               <div className="absolute top-10 right-10 w-32 h-32 bg-accent/20 rounded-full blur-2xl" />
               <div className="absolute bottom-10 left-10 w-40 h-40 bg-primary/20 rounded-full blur-2xl" />
+            </div>
+          </div>
+
+          {/* Schedule Meeting Button */}
+          <div className={`text-center mt-12 transition-all duration-700 delay-400 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
+            <Link to="/contact">
+              <Button size="lg" className="group">
+                <Calendar className="w-5 h-5 mr-2" />
+                Schedule a Meeting
+                <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
+              </Button>
+            </Link>
+          </div>
+
+          {/* Capabilities Text */}
+          <div className={`mt-16 max-w-4xl mx-auto transition-all duration-700 delay-500 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
+            <div className="bg-crc-light-bg rounded-3xl p-8 lg:p-12 border border-border">
+              <p className="text-muted-foreground text-lg leading-relaxed mb-6">
+                Our capabilities enable us to support both <span className="text-primary font-semibold">early-phase development</span> and <span className="text-accent font-semibold">large-scale, late-phase clinical programs</span> requiring strict procedural compliance, comprehensive risk management, and high-fidelity data capture.
+              </p>
+              <p className="text-muted-foreground text-lg leading-relaxed">
+                CRC is strategically positioned to serve as a <span className="text-primary font-semibold">leading clinical research site</span> for organizations seeking reliable research partners in Jordan.
+              </p>
             </div>
           </div>
         </div>
