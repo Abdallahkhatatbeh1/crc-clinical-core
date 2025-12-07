@@ -1,4 +1,4 @@
-import { ArrowRight, Microscope, Heart, Pill, Activity, Stethoscope, Dna } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
@@ -10,48 +10,12 @@ const HeroSection = () => {
     setIsLoaded(true);
   }, []);
 
-  // Floating medical icons configuration
-  const floatingIcons = [
-    { Icon: Microscope, top: "15%", left: "8%", delay: "0s", size: 24 },
-    { Icon: Heart, top: "25%", right: "12%", delay: "0.5s", size: 20 },
-    { Icon: Pill, bottom: "30%", left: "15%", delay: "1s", size: 18 },
-    { Icon: Activity, top: "60%", right: "8%", delay: "1.5s", size: 22 },
-    { Icon: Stethoscope, top: "40%", left: "5%", delay: "2s", size: 20 },
-    { Icon: Dna, bottom: "25%", right: "15%", delay: "2.5s", size: 24 },
-  ];
-
   return (
-    <section className="relative min-h-[75vh] flex items-center gradient-brand overflow-hidden">
-      {/* Enhanced Background Elements */}
+    <section className="relative min-h-[70vh] flex items-center gradient-brand overflow-hidden">
+      {/* Subtle Background Elements */}
       <div className="absolute inset-0">
-        {/* Gradient orbs */}
-        <div className="absolute top-10 left-10 w-96 h-96 rounded-full bg-white/5 blur-3xl animate-pulse" />
-        <div className="absolute bottom-10 right-10 w-80 h-80 rounded-full bg-accent/10 blur-3xl animate-pulse" style={{ animationDelay: "1s" }} />
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full bg-white/3 blur-3xl" />
-        
-        {/* Grid pattern overlay */}
-        <div 
-          className="absolute inset-0 opacity-[0.03]"
-          style={{
-            backgroundImage: `linear-gradient(rgba(255,255,255,0.1) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.1) 1px, transparent 1px)`,
-            backgroundSize: '60px 60px'
-          }}
-        />
-
-        {/* Floating medical icons */}
-        {floatingIcons.map(({ Icon, delay, size, ...position }, index) => (
-          <div
-            key={index}
-            className="absolute text-white/10 animate-float hidden md:block"
-            style={{
-              ...position,
-              animationDelay: delay,
-              animationDuration: "6s"
-            }}
-          >
-            <Icon size={size} />
-          </div>
-        ))}
+        <div className="absolute top-20 left-10 w-72 h-72 rounded-full bg-white/5 blur-3xl" />
+        <div className="absolute bottom-20 right-20 w-64 h-64 rounded-full bg-white/5 blur-3xl" />
       </div>
 
       {/* Gradient Overlay */}
@@ -103,16 +67,12 @@ const HeroSection = () => {
             }`}
           >
             <p className="text-white/50 text-sm mb-3">Trusted by leading organizations</p>
-            <div className="flex flex-wrap justify-center gap-4 md:gap-6">
-              {["IQVIA", "Parexel", "ICON", "PPD", "Medpace"].map((name, i) => (
-                <span 
-                  key={name}
-                  className="text-white/60 text-sm font-medium hover:text-white transition-all duration-300 hover:scale-105 px-3 py-1 rounded-full hover:bg-white/5"
-                  style={{ animationDelay: `${i * 0.1}s` }}
-                >
-                  {name}
-                </span>
-              ))}
+            <div className="flex flex-wrap justify-center gap-6 text-white/60 text-sm font-medium">
+              <span className="hover:text-white transition-colors">IQVIA</span>
+              <span className="hover:text-white transition-colors">Parexel</span>
+              <span className="hover:text-white transition-colors">ICON</span>
+              <span className="hover:text-white transition-colors">PPD</span>
+              <span className="hover:text-white transition-colors">Medpace</span>
             </div>
           </div>
         </div>

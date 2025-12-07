@@ -186,20 +186,4 @@
   .animate-logo-pulse {
     animation: logo-pulse 2s ease-in-out infinite;
   }
-
-  /* Floating animation for hero icons */
-  @keyframes float {
-    0%, 100% {
-      transform: translateY(0) rotate(0deg);
-      opacity: 0.1;
-    }
-    50% {
-      transform: translateY(-15px) rotate(5deg);
-      opacity: 0.15;
-    }
-  }
-
-  .animate-float {
-    animation: float 6s ease-in-out infinite;
-  }
 }
