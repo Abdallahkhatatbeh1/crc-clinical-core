@@ -75,13 +75,13 @@ const PartnersSection = () => {
             </p>
           </div>
 
-          <div className={`grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 max-w-5xl mx-auto transition-all duration-700 delay-300 ${
+          <div className={`flex flex-wrap justify-center gap-4 max-w-5xl mx-auto transition-all duration-700 delay-300 ${
             isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
           }`}>
             {croPartners.map((partner, index) => (
               <div
                 key={partner.name}
-                className="group relative bg-white rounded-xl p-4 border border-border hover:border-primary hover:shadow-lg transition-all duration-300 flex items-center justify-center min-h-[80px]"
+                className="group relative bg-white rounded-xl p-4 border border-border hover:border-primary hover:shadow-lg transition-all duration-300 flex items-center justify-center min-h-[80px] w-[calc(50%-8px)] md:w-[calc(33.333%-11px)] lg:w-[calc(20%-13px)]"
                 style={{ transitionDelay: `${400 + index * 50}ms` }}
               >
                 <img 
@@ -113,13 +113,13 @@ const PartnersSection = () => {
             </p>
           </div>
 
-          <div className={`grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 max-w-5xl mx-auto transition-all duration-700 delay-800 ${
+          <div className={`flex flex-wrap justify-center gap-6 max-w-5xl mx-auto transition-all duration-700 delay-800 ${
             isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
           }`}>
             {pharmaPartners.map((partner) => (
               <div
                 key={partner.name}
-                className="group relative bg-white rounded-2xl p-6 border border-border hover:border-accent hover:shadow-xl transition-all duration-300 flex items-center justify-center min-h-[120px]"
+                className="group relative bg-white rounded-2xl p-6 border border-border hover:border-accent hover:shadow-xl transition-all duration-300 flex items-center justify-center min-h-[120px] w-[calc(50%-12px)] md:w-[calc(33.333%-16px)] lg:w-[calc(25%-18px)]"
               >
                 <img 
                   src={partner.logo} 
