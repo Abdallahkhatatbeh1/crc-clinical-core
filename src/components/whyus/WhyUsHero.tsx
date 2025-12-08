@@ -38,25 +38,50 @@ const WhyUsHero = () => {
             {content.title || "Why Choose"} <span className="text-accent">{content.title_highlight || "CRC"}</span>
           </h1>
 
-          <p 
-            className={`text-lg md:text-xl text-white/85 mb-6 leading-relaxed max-w-3xl mx-auto transition-all duration-1000 delay-300 ${
-              isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
-            }`}
-          >
-            {content.subtitle || "The Clinical Research Center (CRC) provides a scientifically rigorous environment for high-quality clinical trials in Jordan and the Middle East, built upon internationally recognized research standards and precise operational workflows."}
-          </p>
+          <div className={`space-y-6 mb-12 transition-all duration-1000 delay-300 ${isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
+            <p className="text-lg md:text-xl text-white/85 leading-relaxed max-w-3xl mx-auto">
+              {content.subtitle || "The Clinical Research Center (CRC) provides a scientifically rigorous environment for high-quality clinical trials in Jordan and the Middle East."}
+            </p>
+            <p className="text-base md:text-lg text-white/80 leading-relaxed max-w-3xl mx-auto">
+              Our site is built upon internationally recognized research standards, precise operational workflows, controlled documentation systems, and an unwavering commitment to methodological accuracy.
+            </p>
+          </div>
 
-          <p 
-            className={`text-base text-white/70 mb-12 leading-relaxed max-w-2xl mx-auto transition-all duration-1000 delay-400 ${
-              isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
-            }`}
-          >
-            {content.description || "We ensure each protocol is executed with scientific rigor, operational precision, and complete adherence to ICH-GCP and international regulatory expectations."}
-          </p>
+          {/* CRC Combines List */}
+          <div className={`bg-white/10 backdrop-blur-sm rounded-2xl p-6 md:p-8 border border-white/20 max-w-3xl mx-auto mb-8 transition-all duration-1000 delay-400 ${isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
+            <p className="text-white font-semibold mb-4">CRC combines:</p>
+            <div className="grid md:grid-cols-2 gap-3 text-left">
+              {[
+                "GCP-compliant scientific governance",
+                "Robust clinical trial management systems",
+                "Accurate endpoint assessment processes",
+                "Highly trained investigators and clinical operations teams",
+                "Validated patient recruitment frameworks",
+                "Reliable infrastructure for monitoring, IP control, and data integrity"
+              ].map((item, index) => (
+                <div key={index} className="flex items-start gap-2">
+                  <span className="w-1.5 h-1.5 rounded-full bg-accent mt-2 flex-shrink-0" />
+                  <span className="text-sm text-white/90">{item}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <div className={`space-y-4 mb-8 transition-all duration-1000 delay-500 ${isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
+            <p className="text-base text-white/80 leading-relaxed max-w-3xl mx-auto">
+              As an investigator site partnering with both global CROs and pharmaceutical sponsors, CRC ensures that each protocol is executed with scientific rigor, operational precision, and complete adherence to ICH-GCP and international regulatory expectations.
+            </p>
+            <p className="text-base text-white/80 leading-relaxed max-w-3xl mx-auto">
+              Our capabilities enable us to support both early-phase development and large-scale, late-phase clinical programs requiring strict procedural compliance, comprehensive risk management, and high-fidelity data capture.
+            </p>
+            <p className="text-base text-white/80 leading-relaxed max-w-3xl mx-auto">
+              CRC is strategically positioned to serve as a leading clinical research site for organizations seeking reliable research partners in Jordan, backed by strong access to treatment-naïve populations and regional feasibility advantages.
+            </p>
+          </div>
 
           {/* Trust Badges */}
           <div 
-            className={`flex flex-wrap justify-center gap-4 transition-all duration-1000 delay-500 ${
+            className={`flex flex-wrap justify-center gap-4 transition-all duration-1000 delay-600 ${
               isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
             }`}
           >
