@@ -68,10 +68,10 @@ const PartnersSection = () => {
               <Handshake className="w-8 h-8 text-primary" />
               <h2 className="text-foreground">CRO Partners</h2>
             </div>
-            <p className={`text-muted-foreground max-w-2xl mx-auto transition-all duration-700 delay-200 ${
+            <p className={`text-muted-foreground max-w-3xl mx-auto transition-all duration-700 delay-200 ${
               isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
             }`}>
-              Collaborating with <span className="text-primary font-semibold">top-tier contract research organizations</span> to deliver <span className="text-accent font-semibold">high-quality data</span>
+              CRC collaborates with major CRO partners, including IQVIA, Parexel, Syneos Health, ICON, PPD, Labcorp, Medpace, PSI, and MCT — demonstrating our capacity to align with top-tier contract research organizations and deliver high-quality data.
             </p>
           </div>
 
@@ -106,10 +106,10 @@ const PartnersSection = () => {
               <Building className="w-8 h-8 text-accent" />
               <h2 className="text-foreground">Pharmaceutical Sponsor Partnerships</h2>
             </div>
-            <p className={`text-muted-foreground max-w-2xl mx-auto transition-all duration-700 delay-700 ${
+            <p className={`text-muted-foreground max-w-3xl mx-auto transition-all duration-700 delay-700 ${
               isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
             }`}>
-              Supporting research programs for global leaders with <span className="text-accent font-semibold">scientific reliability</span>
+              CRC supports research programs for global pharmaceutical leaders including Johnson & Johnson, Janssen, New Amsterdam Pharma, and Sparta Biomedical, reflecting strong scientific reliability and alignment with rigorous clinical trial site expectations.
             </p>
           </div>
 

@@ -36,7 +36,7 @@ const HeroSection = () => {
 
           {/* Main Heading */}
           <h1 
-            className={`text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold text-white mb-10 leading-tight transition-all duration-1000 delay-200 ${
+            className={`text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold text-white mb-6 leading-tight transition-all duration-1000 delay-200 ${
               isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
             }`}
           >
@@ -45,6 +45,15 @@ const HeroSection = () => {
               <span className="text-white/90">|</span> <span className="text-accent">Trusted Phase I–IV Trial Site</span>
             </span>
           </h1>
+
+          {/* Sub-Headline */}
+          <p 
+            className={`text-base md:text-lg text-white/85 mb-10 leading-relaxed max-w-3xl mx-auto transition-all duration-1000 delay-300 ${
+              isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
+            }`}
+          >
+            CRC is a GCP-compliant clinical research center delivering reliable, high-quality Phase I, Phase II, Phase III, and Phase IV studies in Jordan and the Middle East. We collaborate with global CROs, pharmaceutical CROs, and scientific sponsors to ensure precise clinical trial management, optimized clinical operations, and accelerated patient recruitment supported by experienced investigators and research professionals.
+          </p>
 
           {/* CTA Button */}
           <div
