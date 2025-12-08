@@ -47,40 +47,63 @@ const pharmaPartners = [
 
 const PartnersSection = () => {
   const { ref: sectionRef, isVisible } = useScrollAnimation({ threshold: 0.2 });
-  const scrollRef = useRef<HTMLDivElement>(null);
-  const [isPaused, setIsPaused] = useState(false);
+  const croScrollRef = useRef<HTMLDivElement>(null);
+  const pharmaScrollRef = useRef<HTMLDivElement>(null);
+  const [isCroPaused, setIsCroPaused] = useState(false);
+  const [isPharmaPaused, setIsPharmaPaused] = useState(false);
 
   // Auto-scroll effect for CRO partners
   useEffect(() => {
-    const scrollContainer = scrollRef.current;
-    if (!scrollContainer || isPaused) return;
+    const scrollContainer = croScrollRef.current;
+    if (!scrollContainer || isCroPaused) return;
 
     let animationId: number;
-    let scrollPosition = 0;
-    const scrollSpeed = 0.5; // pixels per frame
+    let scrollPosition = scrollContainer.scrollLeft || 0;
+    const scrollSpeed = 0.5;
 
     const scroll = () => {
       scrollPosition += scrollSpeed;
-      
-      // Reset scroll when we've scrolled through half the content (since it's duplicated)
       const halfWidth = scrollContainer.scrollWidth / 2;
       if (scrollPosition >= halfWidth) {
         scrollPosition = 0;
       }
-      
       scrollContainer.scrollLeft = scrollPosition;
       animationId = requestAnimationFrame(scroll);
     };
 
     animationId = requestAnimationFrame(scroll);
+    return () => cancelAnimationFrame(animationId);
+  }, [isCroPaused]);
 
-    return () => {
-      cancelAnimationFrame(animationId);
+  // Auto-scroll effect for Pharma partners (opposite direction)
+  useEffect(() => {
+    const scrollContainer = pharmaScrollRef.current;
+    if (!scrollContainer || isPharmaPaused) return;
+
+    let animationId: number;
+    // Start from the middle for reverse scroll
+    let scrollPosition = scrollContainer.scrollLeft || scrollContainer.scrollWidth / 2;
+    const scrollSpeed = 0.4;
+
+    const scroll = () => {
+      scrollPosition -= scrollSpeed;
+      const halfWidth = scrollContainer.scrollWidth / 2;
+      if (scrollPosition <= 0) {
+        scrollPosition = halfWidth;
+      }
+      scrollContainer.scrollLeft = scrollPosition;
+      animationId = requestAnimationFrame(scroll);
     };
-  }, [isPaused]);
 
-  // Duplicate CRO partners for seamless infinite scroll
+    // Initialize position
+    scrollContainer.scrollLeft = scrollContainer.scrollWidth / 2;
+    animationId = requestAnimationFrame(scroll);
+    return () => cancelAnimationFrame(animationId);
+  }, [isPharmaPaused]);
+
+  // Duplicate partners for seamless infinite scroll
   const duplicatedCroPartners = [...croPartners, ...croPartners];
+  const duplicatedPharmaPartners = [...pharmaPartners, ...pharmaPartners];
 
   return (
     <section ref={sectionRef} className="py-16 md:py-24 lg:py-32 bg-background relative overflow-hidden">
@@ -110,28 +133,28 @@ const PartnersSection = () => {
             </p>
           </div>
 
-          {/* Auto-scrolling Carousel */}
+          {/* Auto-scrolling Carousel - CRO */}
           <div 
             className={`relative overflow-hidden transition-all duration-700 delay-300 ${
               isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
             }`}
-            onMouseEnter={() => setIsPaused(true)}
-            onMouseLeave={() => setIsPaused(false)}
-            onTouchStart={() => setIsPaused(true)}
-            onTouchEnd={() => setIsPaused(false)}
+            onMouseEnter={() => setIsCroPaused(true)}
+            onMouseLeave={() => setIsCroPaused(false)}
+            onTouchStart={() => setIsCroPaused(true)}
+            onTouchEnd={() => setIsCroPaused(false)}
           >
             {/* Gradient Masks */}
             <div className="absolute left-0 top-0 bottom-0 w-16 md:w-32 bg-gradient-to-r from-background to-transparent z-10 pointer-events-none" />
             <div className="absolute right-0 top-0 bottom-0 w-16 md:w-32 bg-gradient-to-l from-background to-transparent z-10 pointer-events-none" />
             
             <div 
-              ref={scrollRef}
+              ref={croScrollRef}
               className="flex gap-4 overflow-x-hidden"
               style={{ scrollBehavior: 'auto' }}
             >
               {duplicatedCroPartners.map((partner, index) => (
                 <div
-                  key={`${partner.name}-${index}`}
+                  key={`cro-${partner.name}-${index}`}
                   className="group relative bg-white rounded-xl p-4 border border-border hover:border-primary hover:shadow-lg transition-all duration-300 flex items-center justify-center min-h-[80px] min-w-[140px] md:min-w-[180px] flex-shrink-0"
                 >
                   <img 
@@ -164,21 +187,38 @@ const PartnersSection = () => {
             </p>
           </div>
 
-          <div className={`flex flex-wrap justify-center gap-6 max-w-5xl mx-auto transition-all duration-700 delay-800 ${
-            isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
-          }`}>
-            {pharmaPartners.map((partner) => (
-              <div
-                key={partner.name}
-                className="group relative bg-white rounded-2xl p-6 border border-border hover:border-accent hover:shadow-xl transition-all duration-300 flex items-center justify-center min-h-[120px] w-[calc(50%-12px)] md:w-[calc(33.333%-16px)] lg:w-[calc(25%-18px)]"
-              >
-                <img 
-                  src={partner.logo} 
-                  alt={partner.name} 
-                  className="max-h-16 max-w-full object-contain group-hover:scale-105 transition-transform duration-300"
-                />
-              </div>
-            ))}
+          {/* Auto-scrolling Carousel - Pharma (opposite direction) */}
+          <div 
+            className={`relative overflow-hidden transition-all duration-700 delay-800 ${
+              isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
+            }`}
+            onMouseEnter={() => setIsPharmaPaused(true)}
+            onMouseLeave={() => setIsPharmaPaused(false)}
+            onTouchStart={() => setIsPharmaPaused(true)}
+            onTouchEnd={() => setIsPharmaPaused(false)}
+          >
+            {/* Gradient Masks */}
+            <div className="absolute left-0 top-0 bottom-0 w-16 md:w-32 bg-gradient-to-r from-background to-transparent z-10 pointer-events-none" />
+            <div className="absolute right-0 top-0 bottom-0 w-16 md:w-32 bg-gradient-to-l from-background to-transparent z-10 pointer-events-none" />
+            
+            <div 
+              ref={pharmaScrollRef}
+              className="flex gap-4 overflow-x-hidden"
+              style={{ scrollBehavior: 'auto' }}
+            >
+              {duplicatedPharmaPartners.map((partner, index) => (
+                <div
+                  key={`pharma-${partner.name}-${index}`}
+                  className="group relative bg-white rounded-2xl p-6 border border-border hover:border-accent hover:shadow-xl transition-all duration-300 flex items-center justify-center min-h-[100px] min-w-[160px] md:min-w-[200px] flex-shrink-0"
+                >
+                  <img 
+                    src={partner.logo} 
+                    alt={partner.name} 
+                    className="max-h-14 max-w-full object-contain group-hover:scale-105 transition-transform duration-300"
+                  />
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       </div>
