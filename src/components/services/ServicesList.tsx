@@ -21,13 +21,13 @@ const services: Service[] = [
     id: 1,
     icon: FileCheck,
     title: "Regulatory & Clinical Trial Ethics Support",
-    description: "Full regulatory and ethics management ensuring national and international compliance.",
+    description: "CRC provides full regulatory and ethics management, ensuring that all clinical studies meet national and international compliance standards.",
     services: [
       "Preparation and submission of IRB/EC applications",
-      "Managing regulatory submissions to JFDA",
+      "Managing regulatory submissions to health authorities such as the Jordan Food and Drug Administration (JFDA)",
       "Maintaining and updating essential documents (TMF/ISF)",
-      "Comprehensive safety reporting (AEs, SAEs, SUSARs)",
-      "Alignment with clinicaltrials.gov and ICH-GCP requirements"
+      "Comprehensive safety reporting, including AEs, SAEs, SUSARs, and expedited notifications",
+      "Ensuring alignment with clinicaltrials.gov and ICH-GCP requirements"
     ],
     color: "primary"
   },
@@ -35,27 +35,27 @@ const services: Service[] = [
     id: 2,
     icon: Rocket,
     title: "Clinical Trial Start-Up Services",
-    description: "Efficient, structured start-up processes optimized for rapid study activation and Site Initiation Visit (SIV) readiness.",
+    description: "CRC supports sponsors and CROs through efficient, structured start-up processes optimized for rapid study activation.",
     services: [
-      "Detailed feasibility assessments",
+      "Detailed feasibility assessments based on population availability, standard-of-care practices, and site capabilities",
       "Budget development and contract negotiation",
       "Site Qualification Visit (SQV) preparation and Site Initiation Visit (SIV) readiness",
-      "Protocol training and staff competency verification",
-      "Fast FPI (First Patient In) activation support"
+      "Protocol training, staff competency verification, and SOP-aligned onboarding",
+      "Activation support to achieve fast FPI (First Patient In)"
     ],
     color: "accent"
   },
   {
     id: 3,
     icon: Users,
-    title: "Patient Recruitment & Enrollment",
-    description: "Highly reliable recruitment frameworks with validated screening methods.",
+    title: "Patient Recruitment & Enrollment Solutions",
+    description: "CRC maintains highly reliable patient recruitment frameworks supported by validated screening methods and regional population access advantages.",
     services: [
-      "Protocol-specific participant identification",
-      "Community outreach and digital engagement",
-      "Pre-screening and full clinical screening",
-      "Informed consent management",
-      "Multi-therapeutic area recruitment capabilities"
+      "Identification of eligible participants using targeted, protocol-specific criteria",
+      "(Where permitted) advertising, community outreach, and digital engagement strategies",
+      "Pre-screening and full clinical screening procedures",
+      "Informed consent management using IRB-approved documentation",
+      "Inclusion of patients across therapeutic areas including depression clinical trials, metabolic disorders, cardiology, GI, neurology, and latest clinical trials on COVID-19"
     ],
     color: "primary"
   },
@@ -63,27 +63,29 @@ const services: Service[] = [
     id: 4,
     icon: Stethoscope,
     title: "Clinical Trial Conduct & Patient Management",
-    description: "All clinical visits with scientific accuracy and strict protocol adherence.",
+    description: "CRC conducts all clinical visits and procedural requirements with scientific accuracy and strict protocol adherence.",
     services: [
-      "Full study visits per protocol and SOPs",
-      "Safety and efficacy data collection",
-      "IP dispensing and accountability",
-      "Patient compliance monitoring",
-      "Continuous retention management and follow-up"
+      "Conducting full study visits in accordance with protocol, visit windows, and SOPs",
+      "Collecting safety and efficacy data, including vital signs, AE assessments, and endpoint measurements",
+      "Dispensing Investigational Product (IP) and performing full IP accountability",
+      "Managing IP storage under controlled conditions",
+      "Monitoring patient compliance and reporting deviations",
+      "Providing continuous patient support, retention management, and follow-up care"
     ],
     color: "accent"
   },
   {
     id: 5,
     icon: FlaskConical,
-    title: "Medical & Laboratory Support",
-    description: "Medically supervised procedures and sample handling meeting international standards.",
+    title: "Medical & Laboratory Support Services",
+    description: "CRC provides medically supervised clinical procedures, laboratory processing, and sample handling that meet international research standards.",
     services: [
-      "Comprehensive physical examinations",
-      "ECGs, vital signs, imaging, pulmonary function testing",
-      "On-site sample collection and processing",
-      "Temperature-controlled storage (including −80°C)",
-      "IATA/ICH compliant sample shipment"
+      "Comprehensive physical examinations and physician-led medical evaluations",
+      "ECGs, vital signs, imaging (where applicable), and pulmonary function testing",
+      "On-site laboratory sample collection",
+      "Sample processing, centrifugation, aliquoting, labeling, and temperature-controlled storage (including −80°C freezer)",
+      "Packaging and shipment of biological samples to central laboratories following IATA/ICH guidelines",
+      "Support for medical device CRO partners requiring device training and device-related procedures"
     ],
     color: "primary"
   },
@@ -91,13 +93,14 @@ const services: Service[] = [
     id: 6,
     icon: Database,
     title: "Clinical Data Management & Documentation",
-    description: "Accurate, compliant, audit-ready data supporting dependable clinical evidence.",
+    description: "CRC ensures accurate, compliant, audit-ready data supporting dependable clinical evidence.",
     services: [
-      "eCRF completion in sponsor EDC systems",
-      "Query resolution and data cleaning",
-      "Comprehensive source documentation",
-      "GCP-compliant data integrity and archival",
-      "CTMS integration"
+      "Completion of eCRFs in sponsor-provided EDC systems",
+      "Query resolution and timely data cleaning",
+      "Comprehensive source documentation and verification",
+      "Maintaining secure, compliant electronic and paper patient records",
+      "Adherence to GCP standards for data integrity and archival",
+      "Integration with clinical trial management systems (CTMS)"
     ],
     color: "accent"
   },
@@ -105,27 +108,27 @@ const services: Service[] = [
     id: 7,
     icon: Search,
     title: "Monitoring, Auditing & CRO Collaboration",
-    description: "Full transparency and operational readiness for on-site and remote monitoring.",
+    description: "CRC supports on-site and remote monitoring activities with full transparency and operational readiness.",
     services: [
       "Dedicated monitoring rooms for CRA visits",
-      "Remote monitoring and secure document sharing",
-      "Sponsor audit preparation and hosting",
-      "JFDA regulatory inspection readiness",
-      "Ongoing communication with global CRO teams"
+      "Remote monitoring support, including secure document sharing",
+      "Preparing and hosting sponsor audits",
+      "Regulatory inspection readiness, including JFDA compliance",
+      "Ongoing communication with global CRO teams for aligned trial oversight"
     ],
     color: "primary"
   },
   {
     id: 8,
     icon: Pill,
-    title: "Investigational Product (IP) Management",
-    description: "Qualified pharmacists trained in blinded and unblinded drug management.",
+    title: "Investigational Product (IP) Management & Pharmacy Services",
+    description: "IP handling is performed by qualified pharmacists trained in blinded and unblinded drug management.",
     services: [
-      "Temperature-controlled storage (refrigerated, frozen, ambient)",
-      "Daily temperature logs and alarm systems",
-      "IP dispensing, returns, and reconciliation",
-      "Controlled access and double-verification",
-      "Destruction or return per sponsor SOPs"
+      "Temperature-controlled storage (refrigerated, frozen, and ambient)",
+      "Daily temperature logs, alarm systems, and deviation management",
+      "IP dispensing, returns, reconciliation, and documentation",
+      "Destruction or return according to sponsor SOPs",
+      "Controlled access and double-verification for blinded studies"
     ],
     color: "accent"
   },
@@ -133,13 +136,13 @@ const services: Service[] = [
     id: 9,
     icon: Package,
     title: "Study Close-Out Services",
-    description: "Complete final regulatory and operational requirements for study closure.",
+    description: "CRC completes all final regulatory and operational requirements for study closure.",
     services: [
-      "Final IP accountability and destruction/return",
+      "Final IP accountability, destruction, or return",
       "Complete data reconciliation and query closure",
-      "Essential document archiving",
-      "Site close-out with sponsors and ethics committees",
-      "Secure long-term storage transfer"
+      "Archiving essential documents per sponsor and regulatory guidelines",
+      "Site close-out with sponsor representatives and ethics committees",
+      "Transfer of archived data into secure long-term storage"
     ],
     color: "primary"
   }

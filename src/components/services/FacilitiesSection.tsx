@@ -1,19 +1,17 @@
 import { 
-  Building2, Activity, Wind, AlertTriangle, 
-  Archive, Lock, Monitor, Thermometer
+  Building2, Activity, AlertTriangle, 
+  Archive, Lock, Monitor
 } from "lucide-react";
 import BrandTag from "@/components/BrandTag";
 import useScrollAnimation from "@/hooks/useScrollAnimation";
 
 const facilities = [
-  { icon: Building2, name: "Dedicated study rooms", desc: "Screening, randomization, and follow-ups" },
-  { icon: Activity, name: "Medical equipment", desc: "ECG, ultrasound, spirometry, vital-sign monitoring" },
-  { icon: AlertTriangle, name: "Emergency equipment", desc: "Crash carts and oxygen" },
-  { icon: Archive, name: "Secure archival storage", desc: "Long-term essential document retention" },
-  { icon: Lock, name: "Private CRA rooms", desc: "Access-controlled monitoring visits" },
-  { icon: Monitor, name: "Data security systems", desc: "GCP and privacy compliance" },
-  { icon: Thermometer, name: "Temperature control", desc: "Refrigerated, frozen, and ambient storage" },
-  { icon: Wind, name: "Climate controlled", desc: "Optimal research environment" }
+  { icon: Building2, name: "Dedicated study rooms", desc: "For screening, randomization, and follow-ups" },
+  { icon: Activity, name: "ECG, ultrasound, spirometry", desc: "And vital-sign monitoring equipment" },
+  { icon: AlertTriangle, name: "Emergency equipment", desc: "Including crash carts and oxygen" },
+  { icon: Archive, name: "Secure archival storage", desc: "For long-term retention of essential documents" },
+  { icon: Lock, name: "Private, access-controlled rooms", desc: "For CRA monitoring visits" },
+  { icon: Monitor, name: "Robust data security systems", desc: "For compliance with GCP and privacy standards" }
 ];
 
 const FacilitiesSection = () => {
@@ -34,8 +32,8 @@ const FacilitiesSection = () => {
           <h2 className={`text-foreground mb-4 transition-all duration-700 delay-100 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
             Clinical Trial <span className="text-primary">Facilities</span> & Equipment
           </h2>
-          <p className={`text-muted-foreground text-lg max-w-2xl mx-auto transition-all duration-700 delay-200 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
-            Clinical-grade infrastructure suitable for multi-phase and complex clinical studies
+          <p className={`text-muted-foreground text-lg max-w-3xl mx-auto transition-all duration-700 delay-200 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
+            CRC provides clinical-grade infrastructure suitable for multi-phase and complex clinical studies.
           </p>
         </div>
 
