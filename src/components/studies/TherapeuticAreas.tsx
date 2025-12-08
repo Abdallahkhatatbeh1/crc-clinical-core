@@ -262,8 +262,8 @@ const TherapeuticAreas = () => {
         {/* Scroll target ref */}
         <div ref={sectionTopRef} className="absolute -top-20" />
 
-        {/* Slider with Arrows */}
-        <div className={`mb-8 transition-all duration-700 delay-300 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
+        {/* Slider with Arrows - Hidden on Mobile */}
+        <div className={`mb-8 transition-all duration-700 delay-300 hidden md:block ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
           <div className="relative flex items-center gap-2 max-w-5xl mx-auto">
             {/* Left Arrow */}
             <button 
@@ -297,8 +297,9 @@ const TherapeuticAreas = () => {
                       src={area.image} 
                       alt="" 
                       className={`w-6 h-6 object-contain ${selectedIndex === index ? 'brightness-0 invert' : ''}`}
+                      loading="lazy"
                     />
-                    <span className="text-sm font-medium hidden sm:inline">{area.shortTitle}</span>
+                    <span className="text-sm font-medium">{area.shortTitle}</span>
                   </button>
                 ))}
               </div>
@@ -313,13 +314,13 @@ const TherapeuticAreas = () => {
               <ChevronRight className="w-5 h-5" />
             </button>
           </div>
+        </div>
 
-          {/* Mobile indicator */}
-          <div className="flex justify-center items-center gap-2 mt-4 sm:hidden">
-            <span className="text-sm text-muted-foreground">
-              {selectedIndex + 1} / {therapeuticAreas.length}
-            </span>
-          </div>
+        {/* Mobile indicator - shown only on mobile */}
+        <div className={`flex justify-center items-center gap-2 mb-6 md:hidden ${isVisible ? 'opacity-100' : 'opacity-0'}`}>
+          <span className="text-sm font-medium text-primary bg-primary/10 px-4 py-2 rounded-full">
+            {selectedArea.shortTitle} ({selectedIndex + 1}/{therapeuticAreas.length})
+          </span>
         </div>
 
         {/* Selected Area Display with Navigation */}
@@ -335,7 +336,8 @@ const TherapeuticAreas = () => {
                   <img 
                     src={selectedArea.image} 
                     alt={selectedArea.title} 
-                    className="absolute inset-0 w-full h-full object-contain p-4 transition-all duration-500"
+                    className="absolute inset-0 w-full h-full object-contain p-4 transition-all duration-300"
+                    loading="eager"
                   />
                   
                   {/* Navigation Arrows on Image - Mobile */}
