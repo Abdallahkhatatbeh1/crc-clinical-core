@@ -37,8 +37,8 @@ const TeamSection = () => {
           <h2 className={`text-foreground mb-4 transition-all duration-700 delay-100 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
             Our <span className="text-primary">Multidisciplinary</span> Team
           </h2>
-          <p className={`text-muted-foreground text-lg max-w-2xl mx-auto transition-all duration-700 delay-200 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
-            Supporting protocol compliance, data validity, and the scientific rigor required for worldwide clinical trials
+          <p className={`text-muted-foreground text-lg max-w-3xl mx-auto transition-all duration-700 delay-200 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
+            CRC's multidisciplinary team supports protocol compliance, data validity, and the scientific rigor required for worldwide clinical trials and investigator site excellence.
           </p>
         </div>
 
@@ -62,15 +62,6 @@ const TeamSection = () => {
           ))}
         </div>
 
-        {/* Team Summary */}
-        <div className={`text-center transition-all duration-700 delay-700 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
-          <div className="inline-flex items-center gap-3 px-6 py-4 bg-white rounded-2xl shadow-sm border border-border">
-            <Users className="w-6 h-6 text-primary" />
-            <span className="text-muted-foreground">
-              This team supports <span className="text-primary font-semibold">protocol compliance</span>, <span className="text-accent font-semibold">data validity</span>, and investigator site excellence.
-            </span>
-          </div>
-        </div>
       </div>
     </section>
   );

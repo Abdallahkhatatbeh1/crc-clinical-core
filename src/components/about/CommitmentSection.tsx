@@ -43,8 +43,8 @@ const CommitmentSection = () => {
             <h2 className={`text-white mb-4 transition-all duration-700 delay-100 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
               Commitment to <span className="text-accent">Excellence</span>
             </h2>
-            <p className={`text-white/80 text-lg max-w-2xl mx-auto transition-all duration-700 delay-200 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
-              CRC integrates international scientific standards, rigorous feasibility assessment, and community-driven patient recruitment to deliver ethical, high-quality research.
+            <p className={`text-white/80 text-lg max-w-3xl mx-auto transition-all duration-700 delay-200 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
+              CRC integrates international scientific standards, rigorous feasibility assessment, calibrated equipment, and community-network-driven patient recruitment clinical trials to deliver ethical, high-quality research across the region.
             </p>
           </div>
 
