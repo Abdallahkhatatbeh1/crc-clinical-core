@@ -5,8 +5,8 @@ const contactDetails = [
   {
     icon: Mail,
     title: "Email",
-    value: "support@crcjo.com",
-    href: "mailto:support@crcjo.com",
+    value: "info@crcjo.com",
+    href: "mailto:info@crcjo.com",
     color: "primary"
   },
   {

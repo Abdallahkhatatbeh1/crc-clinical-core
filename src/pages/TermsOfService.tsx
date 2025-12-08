@@ -23,7 +23,7 @@ const TermsOfService = () => {
               </p>
               <h2 className="text-2xl font-semibold text-foreground mt-8 mb-4">Contact Us</h2>
               <p className="mb-6">
-                If you have any questions about these Terms of Service, please contact us at support@crcjo.com.
+                If you have any questions about these Terms of Service, please contact us at info@crcjo.com.
               </p>
             </div>
           </div>
