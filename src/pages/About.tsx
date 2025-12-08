@@ -3,6 +3,7 @@ import Footer from "@/components/Footer";
 import AboutHero from "@/components/about/AboutHero";
 import VisionMission from "@/components/about/VisionMission";
 import OurValues from "@/components/about/OurValues";
+import FounderSection from "@/components/about/FounderSection";
 import TeamSection from "@/components/about/TeamSection";
 import TeamPhotoSection from "@/components/about/TeamPhotoSection";
 import CommitmentSection from "@/components/about/CommitmentSection";
@@ -15,6 +16,7 @@ const About = () => {
         <AboutHero />
         <VisionMission />
         <OurValues />
+        <FounderSection />
         <TeamPhotoSection />
         <TeamSection />
         <CommitmentSection />
