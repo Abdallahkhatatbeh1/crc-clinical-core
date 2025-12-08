@@ -50,21 +50,17 @@ const StudiesHero = () => {
             {content.title || "Our"} <span className="text-accent">{content.title_highlight || "Studies"}</span> {content.title_suffix || "& Research"}
           </h1>
 
-          <p 
-            className={`text-lg md:text-xl text-white/85 mb-6 leading-relaxed max-w-3xl mx-auto transition-all duration-1000 delay-300 ${
-              isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
-            }`}
-          >
-            {content.subtitle || "CRC conducts a wide spectrum of scientifically rigorous clinical trials across all phases and numerous therapeutic areas."}
-          </p>
-
-          <p 
-            className={`text-base text-white/70 mb-12 leading-relaxed max-w-2xl mx-auto transition-all duration-1000 delay-400 ${
-              isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
-            }`}
-          >
-            {content.description || "Our treatment-naïve populations support studies including depression clinical trials, metabolic disorders, and infectious diseases. We maintain strong alignment with ICH-GCP and clinicaltrials.gov transparency standards."}
-          </p>
+          <div className={`space-y-4 mb-12 transition-all duration-1000 delay-300 ${isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
+            <p className="text-lg md:text-xl text-white/85 leading-relaxed max-w-3xl mx-auto">
+              {content.subtitle || "CRC conducts a wide spectrum of scientifically rigorous clinical trials, including Phase I clinical trials, Phase II clinical trials, Phase III, and Phase IV programs."}
+            </p>
+            <p className="text-base md:text-lg text-white/80 leading-relaxed max-w-3xl mx-auto">
+              Our treatment-naïve populations support studies across numerous therapeutic areas, including depression clinical trials, metabolic disorders, and infectious diseases such as the latest clinical trials on COVID-19.
+            </p>
+            <p className="text-base md:text-lg text-white/80 leading-relaxed max-w-3xl mx-auto">
+              We maintain strong alignment with ICH-GCP and clinicaltrials.gov transparency standards.
+            </p>
+          </div>
 
           {/* Phase Cards */}
           <div 

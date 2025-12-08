@@ -28,7 +28,7 @@ const StudiesCTA = () => {
               isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
             }`}
           >
-            A trusted clinical trial site for global CROs and sponsors seeking excellence in the Middle East.
+            A trusted clinical trial site for global CROs and sponsors.
           </p>
 
           {/* Trust Points */}
