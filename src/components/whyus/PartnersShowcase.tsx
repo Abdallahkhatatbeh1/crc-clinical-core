@@ -14,7 +14,7 @@ const croCapabilities = [
   "Multinational protocol execution",
   "High-complexity operational oversight",
   "Scientific, regulatory, and data-management alignment",
-  "Global late-phase CRO programs and early-phase feasibility assessments"
+  "Both global late-phase CRO programs and early-phase feasibility assessments"
 ];
 
 const sponsorDemonstrations = [
