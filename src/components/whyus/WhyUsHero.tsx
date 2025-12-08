@@ -11,7 +11,7 @@ const WhyUsHero = () => {
   }, []);
 
   return (
-    <section className="relative pt-32 pb-24 gradient-brand overflow-hidden">
+    <section className="relative pt-24 md:pt-32 pb-16 md:pb-24 gradient-brand overflow-hidden">
       {/* Background Elements */}
       <div className="absolute inset-0">
         <div className="absolute top-20 left-10 w-72 h-72 rounded-full bg-white/5 blur-3xl animate-pulse" />

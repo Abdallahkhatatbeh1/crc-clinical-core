@@ -11,7 +11,7 @@ const ContactHero = () => {
   }, []);
 
   return (
-    <section className="relative pt-32 pb-20 gradient-brand overflow-hidden">
+    <section className="relative pt-24 md:pt-32 pb-12 md:pb-20 gradient-brand overflow-hidden">
       <div className="absolute inset-0">
         <div className="absolute top-20 left-10 w-72 h-72 rounded-full bg-white/5 blur-3xl animate-pulse" />
         <div className="absolute bottom-20 right-20 w-96 h-96 rounded-full bg-white/5 blur-3xl animate-pulse" style={{ animationDelay: "1s" }} />
