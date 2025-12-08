@@ -13,10 +13,10 @@ const trustReasons = [
   {
     icon: FlaskConical,
     title: "Proven Expertise",
-    subtitle: "Clinical Trials",
+    subtitle: "in Clinical Trials",
     points: [
-      "Worldwide clinical trials and multi-regional protocols",
-      "ICH-GCP, clinicaltrials.gov alignment"
+      "Extensive experience supporting worldwide clinical trials and multi-regional protocols.",
+      "Full alignment with ICH-GCP, clinicaltrials.gov requirements, and international regulatory standards."
     ],
     color: "primary"
   },
@@ -25,41 +25,41 @@ const trustReasons = [
     title: "Fast & Reliable",
     subtitle: "Patient Recruitment",
     points: [
-      "Structured recruitment algorithms",
-      "Large, diverse patient populations",
-      "High retention rates"
+      "Structured patient recruitment clinical trials algorithms.",
+      "Large, diverse, treatment-naïve patient populations across Jordan.",
+      "High show-up and retention rates aligned with best-practice trial management metrics."
     ],
     color: "primary"
   },
   {
     icon: Building2,
-    title: "Robust Infrastructure",
-    subtitle: "Operational Excellence",
+    title: "Robust Operational",
+    subtitle: "Infrastructure",
     points: [
-      "Protocol-driven research facilities",
-      "On-site laboratories & IP storage",
-      "CRO-dedicated monitoring rooms"
+      "Dedicated facilities equipped for protocol-driven research.",
+      "On-site laboratories, calibrated equipment, medical device CRO capability, and IP storage.",
+      "CRO-dedicated monitoring rooms to support oversight and contract research and development activities."
     ],
     color: "accent"
   },
   {
     icon: Award,
-    title: "Expert Leadership",
-    subtitle: "Research Teams",
+    title: "Experienced Leadership",
+    subtitle: "& Research Teams",
     points: [
-      "Extensive CRO drug development experience",
-      "Strong scientific governance"
+      "Expert investigators with extensive experience in CRO drug development pathways.",
+      "Strong operational oversight, scientific governance, and quality systems."
     ],
     color: "accent"
   },
   {
     icon: Globe,
-    title: "Strategic Location",
-    subtitle: "Middle East Hub",
+    title: "Strategic Middle East",
+    subtitle: "Location",
     points: [
-      "Cost-efficient regional access",
-      "Faster approval timelines",
-      "High feasibility for emerging indications"
+      "Cost-efficient regional access point for global late phase CRO programs.",
+      "Faster approval timelines compared to many regions.",
+      "High feasibility for emerging indications, including the latest clinical trials on COVID-19."
     ],
     color: "primary"
   }

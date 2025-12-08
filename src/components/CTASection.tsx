@@ -32,14 +32,14 @@ const CTASection = () => {
                 isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
               }`}
             >
-              Ready to Partner With <span className="text-accent">Us</span>?
+              Work With <span className="text-accent">Us</span>
             </h2>
             <p 
               className={`text-xl text-white/85 leading-relaxed max-w-2xl mx-auto transition-all duration-700 delay-200 ${
                 isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
               }`}
             >
-              Conduct your next clinical study in Jordan with confidence, efficiency, and internationally aligned quality.
+              Partner with CRC to conduct your next clinical study in Jordan with confidence, efficiency, and internationally aligned quality.
             </p>
           </div>
 
