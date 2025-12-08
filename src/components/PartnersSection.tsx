@@ -1,3 +1,4 @@
+import { useEffect, useRef, useState } from "react";
 import BrandTag from "./BrandTag";
 import useScrollAnimation from "@/hooks/useScrollAnimation";
 import { Handshake, Building } from "lucide-react";
@@ -46,6 +47,40 @@ const pharmaPartners = [
 
 const PartnersSection = () => {
   const { ref: sectionRef, isVisible } = useScrollAnimation({ threshold: 0.2 });
+  const scrollRef = useRef<HTMLDivElement>(null);
+  const [isPaused, setIsPaused] = useState(false);
+
+  // Auto-scroll effect for CRO partners
+  useEffect(() => {
+    const scrollContainer = scrollRef.current;
+    if (!scrollContainer || isPaused) return;
+
+    let animationId: number;
+    let scrollPosition = 0;
+    const scrollSpeed = 0.5; // pixels per frame
+
+    const scroll = () => {
+      scrollPosition += scrollSpeed;
+      
+      // Reset scroll when we've scrolled through half the content (since it's duplicated)
+      const halfWidth = scrollContainer.scrollWidth / 2;
+      if (scrollPosition >= halfWidth) {
+        scrollPosition = 0;
+      }
+      
+      scrollContainer.scrollLeft = scrollPosition;
+      animationId = requestAnimationFrame(scroll);
+    };
+
+    animationId = requestAnimationFrame(scroll);
+
+    return () => {
+      cancelAnimationFrame(animationId);
+    };
+  }, [isPaused]);
+
+  // Duplicate CRO partners for seamless infinite scroll
+  const duplicatedCroPartners = [...croPartners, ...croPartners];
 
   return (
     <section ref={sectionRef} className="py-16 md:py-24 lg:py-32 bg-background relative overflow-hidden">
@@ -75,22 +110,38 @@ const PartnersSection = () => {
             </p>
           </div>
 
-          <div className={`flex flex-wrap justify-center gap-4 max-w-5xl mx-auto transition-all duration-700 delay-300 ${
-            isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
-          }`}>
-            {croPartners.map((partner, index) => (
-              <div
-                key={partner.name}
-                className="group relative bg-white rounded-xl p-4 border border-border hover:border-primary hover:shadow-lg transition-all duration-300 flex items-center justify-center min-h-[80px] w-[calc(50%-8px)] md:w-[calc(33.333%-11px)] lg:w-[calc(20%-13px)]"
-                style={{ transitionDelay: `${400 + index * 50}ms` }}
-              >
-                <img 
-                  src={partner.logo} 
-                  alt={partner.name} 
-                  className="max-h-10 max-w-full object-contain group-hover:scale-105 transition-transform duration-300"
-                />
-              </div>
-            ))}
+          {/* Auto-scrolling Carousel */}
+          <div 
+            className={`relative overflow-hidden transition-all duration-700 delay-300 ${
+              isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
+            }`}
+            onMouseEnter={() => setIsPaused(true)}
+            onMouseLeave={() => setIsPaused(false)}
+            onTouchStart={() => setIsPaused(true)}
+            onTouchEnd={() => setIsPaused(false)}
+          >
+            {/* Gradient Masks */}
+            <div className="absolute left-0 top-0 bottom-0 w-16 md:w-32 bg-gradient-to-r from-background to-transparent z-10 pointer-events-none" />
+            <div className="absolute right-0 top-0 bottom-0 w-16 md:w-32 bg-gradient-to-l from-background to-transparent z-10 pointer-events-none" />
+            
+            <div 
+              ref={scrollRef}
+              className="flex gap-4 overflow-x-hidden"
+              style={{ scrollBehavior: 'auto' }}
+            >
+              {duplicatedCroPartners.map((partner, index) => (
+                <div
+                  key={`${partner.name}-${index}`}
+                  className="group relative bg-white rounded-xl p-4 border border-border hover:border-primary hover:shadow-lg transition-all duration-300 flex items-center justify-center min-h-[80px] min-w-[140px] md:min-w-[180px] flex-shrink-0"
+                >
+                  <img 
+                    src={partner.logo} 
+                    alt={partner.name} 
+                    className="max-h-10 max-w-full object-contain group-hover:scale-105 transition-transform duration-300"
+                  />
+                </div>
+              ))}
+            </div>
           </div>
         </div>
 
