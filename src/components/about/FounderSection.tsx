@@ -41,7 +41,7 @@ const FounderSection = () => {
                 Dr. Malkawi has over 15 years of experience collaborating with contract research organizations, global CROs, and major industry sponsors.
               </p>
               <p className="text-muted-foreground leading-relaxed text-lg">
-                She has overseen more than 40 Phase I–IV studies, including early development and CRO drug development-supporting trials.
+                She has overseen more than 40 Phase I–IV studies, including early development and drug development-supporting trials.
               </p>
               <p className="text-muted-foreground leading-relaxed text-lg">
                 Her expertise spans protocol governance, patient safety, endpoint measurement, and advanced clinical trial management oversight.
