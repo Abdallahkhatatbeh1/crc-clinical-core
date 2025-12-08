@@ -256,13 +256,13 @@ const TherapeuticAreas = () => {
           <div className="bg-white rounded-3xl border border-border overflow-hidden shadow-lg max-w-4xl mx-auto">
             <div className="grid md:grid-cols-2 gap-0">
               {/* Image Side */}
-              <div className={`flex items-center justify-center p-6 md:p-8 min-h-[280px] md:min-h-[350px] ${
+              <div className={`relative aspect-square md:aspect-auto md:min-h-[400px] overflow-hidden ${
                 selectedArea.color === 'accent' ? 'bg-accent/5' : 'bg-primary/5'
               }`}>
                 <img 
                   src={selectedArea.image} 
                   alt={selectedArea.title} 
-                  className="w-full h-full max-w-[250px] max-h-[250px] md:max-w-[300px] md:max-h-[300px] object-contain transition-all duration-500"
+                  className="absolute inset-0 w-full h-full object-contain p-4 transition-all duration-500"
                 />
               </div>
 
