@@ -37,12 +37,12 @@ const FacilitiesSection = () => {
           </p>
         </div>
 
-        {/* Facilities Grid */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-5xl mx-auto">
+        {/* Facilities Grid - Centered */}
+        <div className="flex flex-wrap justify-center gap-4 max-w-5xl mx-auto">
           {facilities.map((facility, index) => (
             <div
               key={facility.name}
-              className={`group bg-white rounded-2xl p-5 border border-border hover:shadow-lg hover:border-primary/30 transition-all duration-500 ${
+              className={`group bg-white rounded-2xl p-5 border border-border hover:shadow-lg hover:border-primary/30 transition-all duration-500 w-[calc(50%-0.5rem)] md:w-[calc(25%-0.75rem)] ${
                 isVisible ? 'opacity-100 translate-y-0 scale-100' : 'opacity-0 translate-y-8 scale-95'
               }`}
               style={{ transitionDelay: `${300 + index * 75}ms` }}
