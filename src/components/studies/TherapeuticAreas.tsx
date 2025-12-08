@@ -200,8 +200,15 @@ const TherapeuticAreas = () => {
   const { ref: sectionRef, isVisible } = useScrollAnimation({ threshold: 0.05 });
   const [selectedIndex, setSelectedIndex] = useState(0);
   const sliderRef = useRef<HTMLDivElement>(null);
+  const sectionTopRef = useRef<HTMLDivElement>(null);
   
   const selectedArea = therapeuticAreas[selectedIndex];
+
+  const scrollToSectionTop = () => {
+    if (sectionTopRef.current) {
+      sectionTopRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  };
 
   const scrollSlider = (direction: 'left' | 'right') => {
     if (sliderRef.current) {
@@ -213,12 +220,19 @@ const TherapeuticAreas = () => {
     }
   };
 
+  const handleTabClick = (index: number) => {
+    setSelectedIndex(index);
+    scrollToSectionTop();
+  };
+
   const goToPrev = () => {
     setSelectedIndex(prev => prev === 0 ? therapeuticAreas.length - 1 : prev - 1);
+    scrollToSectionTop();
   };
 
   const goToNext = () => {
     setSelectedIndex(prev => prev === therapeuticAreas.length - 1 ? 0 : prev + 1);
+    scrollToSectionTop();
   };
 
   return (
@@ -245,6 +259,9 @@ const TherapeuticAreas = () => {
           </p>
         </div>
 
+        {/* Scroll target ref */}
+        <div ref={sectionTopRef} className="absolute -top-20" />
+
         {/* Slider with Arrows */}
         <div className={`mb-8 transition-all duration-700 delay-300 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
           <div className="relative flex items-center gap-2 max-w-5xl mx-auto">
@@ -267,7 +284,7 @@ const TherapeuticAreas = () => {
                 {therapeuticAreas.map((area, index) => (
                   <button
                     key={area.id}
-                    onClick={() => setSelectedIndex(index)}
+                    onClick={() => handleTabClick(index)}
                     className={`flex items-center gap-2 px-3 py-2 rounded-xl transition-all duration-300 whitespace-nowrap flex-shrink-0 ${
                       selectedIndex === index
                         ? area.color === 'accent'
