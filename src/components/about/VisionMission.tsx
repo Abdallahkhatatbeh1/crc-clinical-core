@@ -22,11 +22,7 @@ const VisionMission = () => {
             </div>
             <BrandTag className="mb-4">{content.vision_tag || "Our Vision"}</BrandTag>
             <p className="text-muted-foreground leading-relaxed text-lg">
-              {content.vision_text || (
-                <>
-                  To be the most <span className="text-primary font-semibold">scientifically trusted</span> and <span className="text-primary font-semibold">operationally reliable</span> clinical study site in Jordan and the Middle East, serving as a preferred collaborator for Contract Research Organizations, CRO Jordan partners, and global sponsors.
-                </>
-              )}
+              {content.vision_text || "To be the most scientifically trusted and operationally reliable clinical study site in Jordan and the Middle East, serving as a preferred collaborator for Contract Research Organizations, CRO Jordan partners, and global sponsors."}
             </p>
           </div>
 
@@ -41,11 +37,7 @@ const VisionMission = () => {
             </div>
             <BrandTag variant="green" className="mb-4">{content.mission_tag || "Our Mission"}</BrandTag>
             <p className="text-muted-foreground leading-relaxed text-lg">
-              {content.mission_text || (
-                <>
-                  To conduct <span className="text-accent font-semibold">ethically governed</span>, protocol-driven, and scientifically validated research that accelerates drug development, ensures <span className="text-accent font-semibold">patient safety</span>, and supports both early-stage and global late phase CRO studies.
-                </>
-              )}
+              {content.mission_text || "To conduct ethically governed, protocol-driven, and scientifically validated research that accelerates drug development, ensures patient safety, and supports both early-stage and global late phase CRO studies."}
             </p>
           </div>
         </div>

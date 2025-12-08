@@ -28,12 +28,8 @@ const AboutHero = () => {
             {content.title || "About"} <span className="text-accent">{content.title_highlight || "CRC"}</span>
           </h1>
 
-          <p className={`text-lg md:text-xl text-white/85 mb-8 leading-relaxed max-w-3xl mx-auto transition-all duration-1000 delay-300 ${isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
-            {content.subtitle || "The Clinical Research Center (CRC) is a GCP-compliant, academically oriented clinical research site based in Irbid, Jordan."}
-          </p>
-
-          <p className={`text-base md:text-lg text-white/70 mb-12 leading-relaxed max-w-2xl mx-auto transition-all duration-1000 delay-400 ${isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
-            {content.description || "We deliver scientifically rigorous Phase I, Phase II, Phase III, and Phase IV clinical trials, supported by validated screening processes, robust clinical operations, and precise clinical trial management."}
+          <p className={`text-lg md:text-xl text-white/85 mb-12 leading-relaxed max-w-3xl mx-auto transition-all duration-1000 delay-300 ${isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
+            {content.subtitle || "The Clinical Research Center (CRC) is a GCP-compliant, academically oriented clinical research site based in Irbid, Jordan. We deliver scientifically rigorous Phase I, Phase II, Phase III, and Phase IV clinical trials, supported by validated screening processes, robust clinical operations, and precise clinical trial management. CRC serves as a trusted regional institution for global CROs, pharmaceutical CROs, and sponsors seeking clinical research Jordan and clinical research Middle East expertise."}
           </p>
 
           <div className={`grid grid-cols-3 gap-6 max-w-2xl mx-auto transition-all duration-1000 delay-500 ${isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
