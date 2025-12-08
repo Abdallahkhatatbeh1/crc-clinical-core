@@ -1,4 +1,5 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 import BrandTag from "@/components/BrandTag";
 import useScrollAnimation from "@/hooks/useScrollAnimation";
 
@@ -197,7 +198,28 @@ const therapeuticAreas = [
 
 const TherapeuticAreas = () => {
   const { ref: sectionRef, isVisible } = useScrollAnimation({ threshold: 0.05 });
-  const [selectedArea, setSelectedArea] = useState(therapeuticAreas[0]);
+  const [selectedIndex, setSelectedIndex] = useState(0);
+  const sliderRef = useRef<HTMLDivElement>(null);
+  
+  const selectedArea = therapeuticAreas[selectedIndex];
+
+  const scrollSlider = (direction: 'left' | 'right') => {
+    if (sliderRef.current) {
+      const scrollAmount = 200;
+      sliderRef.current.scrollBy({
+        left: direction === 'left' ? -scrollAmount : scrollAmount,
+        behavior: 'smooth'
+      });
+    }
+  };
+
+  const goToPrev = () => {
+    setSelectedIndex(prev => prev === 0 ? therapeuticAreas.length - 1 : prev - 1);
+  };
+
+  const goToNext = () => {
+    setSelectedIndex(prev => prev === therapeuticAreas.length - 1 ? 0 : prev + 1);
+  };
 
   return (
     <section ref={sectionRef} className="py-24 bg-background relative">
@@ -223,69 +245,138 @@ const TherapeuticAreas = () => {
           </p>
         </div>
 
-        {/* Tabs - Horizontal Scrollable */}
+        {/* Slider with Arrows */}
         <div className={`mb-8 transition-all duration-700 delay-300 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
-          <div className="overflow-x-auto pb-2 -mx-4 px-4 scrollbar-hide">
-            <div className="flex gap-2 min-w-max justify-center">
-              {therapeuticAreas.map((area) => (
-                <button
-                  key={area.id}
-                  onClick={() => setSelectedArea(area)}
-                  className={`flex items-center gap-2 px-4 py-2.5 rounded-full transition-all duration-300 whitespace-nowrap ${
-                    selectedArea.id === area.id
-                      ? area.color === 'accent'
-                        ? 'bg-accent text-white shadow-lg'
-                        : 'bg-primary text-white shadow-lg'
-                      : 'bg-white border border-border hover:border-primary/30 hover:bg-primary/5'
-                  }`}
-                >
-                  <img 
-                    src={area.image} 
-                    alt="" 
-                    className={`w-5 h-5 object-contain ${selectedArea.id === area.id ? 'brightness-0 invert' : ''}`}
-                  />
-                  <span className="text-sm font-medium">{area.shortTitle}</span>
-                </button>
-              ))}
+          <div className="relative flex items-center gap-2 max-w-5xl mx-auto">
+            {/* Left Arrow */}
+            <button 
+              onClick={() => scrollSlider('left')}
+              className="flex-shrink-0 w-10 h-10 rounded-full bg-white border border-border shadow-md flex items-center justify-center hover:bg-primary hover:text-white hover:border-primary transition-all"
+              aria-label="Scroll left"
+            >
+              <ChevronLeft className="w-5 h-5" />
+            </button>
+
+            {/* Scrollable Tabs */}
+            <div 
+              ref={sliderRef}
+              className="flex-1 overflow-x-auto scrollbar-hide"
+              style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
+            >
+              <div className="flex gap-2 py-2 px-1">
+                {therapeuticAreas.map((area, index) => (
+                  <button
+                    key={area.id}
+                    onClick={() => setSelectedIndex(index)}
+                    className={`flex items-center gap-2 px-3 py-2 rounded-xl transition-all duration-300 whitespace-nowrap flex-shrink-0 ${
+                      selectedIndex === index
+                        ? area.color === 'accent'
+                          ? 'bg-accent text-white shadow-lg scale-105'
+                          : 'bg-primary text-white shadow-lg scale-105'
+                        : 'bg-white border border-border hover:border-primary/30 hover:bg-primary/5'
+                    }`}
+                  >
+                    <img 
+                      src={area.image} 
+                      alt="" 
+                      className={`w-6 h-6 object-contain ${selectedIndex === index ? 'brightness-0 invert' : ''}`}
+                    />
+                    <span className="text-sm font-medium hidden sm:inline">{area.shortTitle}</span>
+                  </button>
+                ))}
+              </div>
             </div>
+
+            {/* Right Arrow */}
+            <button 
+              onClick={() => scrollSlider('right')}
+              className="flex-shrink-0 w-10 h-10 rounded-full bg-white border border-border shadow-md flex items-center justify-center hover:bg-primary hover:text-white hover:border-primary transition-all"
+              aria-label="Scroll right"
+            >
+              <ChevronRight className="w-5 h-5" />
+            </button>
+          </div>
+
+          {/* Mobile indicator */}
+          <div className="flex justify-center items-center gap-2 mt-4 sm:hidden">
+            <span className="text-sm text-muted-foreground">
+              {selectedIndex + 1} / {therapeuticAreas.length}
+            </span>
           </div>
         </div>
 
-        {/* Selected Area Display */}
+        {/* Selected Area Display with Navigation */}
         <div className={`transition-all duration-700 delay-400 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
-          <div className="bg-white rounded-3xl border border-border overflow-hidden shadow-lg max-w-4xl mx-auto">
-            <div className="grid md:grid-cols-2 gap-0">
-              {/* Image Side */}
-              <div className={`relative aspect-square md:aspect-auto md:min-h-[400px] overflow-hidden ${
-                selectedArea.color === 'accent' ? 'bg-accent/5' : 'bg-primary/5'
-              }`}>
-                <img 
-                  src={selectedArea.image} 
-                  alt={selectedArea.title} 
-                  className="absolute inset-0 w-full h-full object-contain p-4 transition-all duration-500"
-                />
-              </div>
+          <div className="relative max-w-4xl mx-auto">
+            {/* Main Card */}
+            <div className="bg-white rounded-3xl border border-border overflow-hidden shadow-lg">
+              <div className="grid md:grid-cols-2 gap-0">
+                {/* Image Side */}
+                <div className={`relative aspect-square md:aspect-auto md:min-h-[400px] overflow-hidden ${
+                  selectedArea.color === 'accent' ? 'bg-accent/5' : 'bg-primary/5'
+                }`}>
+                  <img 
+                    src={selectedArea.image} 
+                    alt={selectedArea.title} 
+                    className="absolute inset-0 w-full h-full object-contain p-4 transition-all duration-500"
+                  />
+                  
+                  {/* Navigation Arrows on Image - Mobile */}
+                  <div className="absolute inset-y-0 left-0 right-0 flex items-center justify-between px-2 md:hidden">
+                    <button 
+                      onClick={goToPrev}
+                      className="w-10 h-10 rounded-full bg-white/90 shadow-lg flex items-center justify-center hover:bg-white transition-all"
+                      aria-label="Previous area"
+                    >
+                      <ChevronLeft className="w-5 h-5 text-foreground" />
+                    </button>
+                    <button 
+                      onClick={goToNext}
+                      className="w-10 h-10 rounded-full bg-white/90 shadow-lg flex items-center justify-center hover:bg-white transition-all"
+                      aria-label="Next area"
+                    >
+                      <ChevronRight className="w-5 h-5 text-foreground" />
+                    </button>
+                  </div>
+                </div>
 
-              {/* Content Side */}
-              <div className="p-6 md:p-8 flex flex-col justify-center">
-                <h3 className="text-2xl font-bold text-foreground mb-4">
-                  {selectedArea.title}
-                </h3>
-                <p className="text-sm text-muted-foreground mb-4">
-                  Conditions & Focus Areas:
-                </p>
-                <ul className="space-y-3">
-                  {selectedArea.conditions.map((condition, idx) => (
-                    <li key={idx} className="flex items-start gap-3 text-muted-foreground">
-                      <span className={`w-2 h-2 rounded-full mt-2 flex-shrink-0 ${
-                        selectedArea.color === 'accent' ? 'bg-accent' : 'bg-primary'
-                      }`} />
-                      <span>{condition}</span>
-                    </li>
-                  ))}
-                </ul>
+                {/* Content Side */}
+                <div className="p-6 md:p-8 flex flex-col justify-center">
+                  <h3 className="text-xl md:text-2xl font-bold text-foreground mb-4">
+                    {selectedArea.title}
+                  </h3>
+                  <p className="text-sm text-muted-foreground mb-4">
+                    Conditions & Focus Areas:
+                  </p>
+                  <ul className="space-y-2 md:space-y-3">
+                    {selectedArea.conditions.map((condition, idx) => (
+                      <li key={idx} className="flex items-start gap-3 text-sm md:text-base text-muted-foreground">
+                        <span className={`w-2 h-2 rounded-full mt-1.5 md:mt-2 flex-shrink-0 ${
+                          selectedArea.color === 'accent' ? 'bg-accent' : 'bg-primary'
+                        }`} />
+                        <span>{condition}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
               </div>
             </div>
+
+            {/* Desktop Side Navigation */}
+            <button 
+              onClick={goToPrev}
+              className="hidden md:flex absolute -left-16 top-1/2 -translate-y-1/2 w-12 h-12 rounded-full bg-white border border-border shadow-lg items-center justify-center hover:bg-primary hover:text-white hover:border-primary transition-all"
+              aria-label="Previous area"
+            >
+              <ChevronLeft className="w-6 h-6" />
+            </button>
+            <button 
+              onClick={goToNext}
+              className="hidden md:flex absolute -right-16 top-1/2 -translate-y-1/2 w-12 h-12 rounded-full bg-white border border-border shadow-lg items-center justify-center hover:bg-primary hover:text-white hover:border-primary transition-all"
+              aria-label="Next area"
+            >
+              <ChevronRight className="w-6 h-6" />
+            </button>
           </div>
         </div>
 
