@@ -1,8 +1,7 @@
 import { useState } from "react";
-import { ChevronDown, X } from "lucide-react";
+import { ChevronDown } from "lucide-react";
 import BrandTag from "@/components/BrandTag";
 import useScrollAnimation from "@/hooks/useScrollAnimation";
-import { Dialog, DialogContent } from "@/components/ui/dialog";
 
 // Import images
 import gastroenterologyImg from "@/assets/studies/gastroenterology.png";
@@ -184,17 +183,11 @@ const therapeuticAreas = [
 const TherapeuticAreas = () => {
   const { ref: sectionRef, isVisible } = useScrollAnimation({ threshold: 0.05 });
   const [expandedCards, setExpandedCards] = useState<number[]>([]);
-  const [selectedImage, setSelectedImage] = useState<{ src: string; title: string } | null>(null);
 
   const toggleCard = (id: number) => {
     setExpandedCards(prev => 
       prev.includes(id) ? prev.filter(x => x !== id) : [...prev, id]
     );
-  };
-
-  const handleImageClick = (e: React.MouseEvent, image: string, title: string) => {
-    e.stopPropagation();
-    setSelectedImage({ src: image, title });
   };
 
   return (
@@ -221,67 +214,66 @@ const TherapeuticAreas = () => {
           </p>
         </div>
 
-        {/* Therapeutic Areas Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+        {/* Therapeutic Areas Grid - New Design with Large Images */}
+        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-6">
           {therapeuticAreas.map((area, index) => {
             const isExpanded = expandedCards.includes(area.id);
             return (
               <div
                 key={area.id}
-                className={`group bg-white rounded-2xl border border-border overflow-hidden hover:shadow-xl transition-all duration-500 ${
+                className={`group transition-all duration-500 ${
                   isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'
                 }`}
                 style={{ transitionDelay: `${200 + (index % 8) * 50}ms` }}
               >
-                {/* Header with Image */}
-                <div 
-                  className={`p-5 cursor-pointer transition-colors ${
-                    area.color === 'accent' ? 'hover:bg-accent/5' : 'hover:bg-primary/5'
-                  }`}
-                  onClick={() => toggleCard(area.id)}
-                >
-                  <div className="flex items-center justify-between">
-                    <div className="flex items-center gap-3">
-                      <div 
-                        className={`w-11 h-11 rounded-xl flex items-center justify-center overflow-hidden transition-transform duration-300 group-hover:scale-110 cursor-zoom-in ${
-                          area.color === 'accent' ? 'bg-accent/10' : 'bg-primary/10'
-                        }`}
-                        onClick={(e) => handleImageClick(e, area.image, area.title)}
-                      >
-                        <img 
-                          src={area.image} 
-                          alt={area.title} 
-                          className="w-8 h-8 object-contain"
-                        />
+                {/* Card */}
+                <div className="bg-white rounded-2xl border border-border overflow-hidden hover:shadow-xl transition-all duration-300">
+                  {/* Large Image Container */}
+                  <div className={`aspect-square p-6 flex items-center justify-center transition-colors ${
+                    area.color === 'accent' ? 'bg-accent/5 group-hover:bg-accent/10' : 'bg-primary/5 group-hover:bg-primary/10'
+                  }`}>
+                    <img 
+                      src={area.image} 
+                      alt={area.title} 
+                      className="w-full h-full max-w-[120px] max-h-[120px] object-contain transition-transform duration-300 group-hover:scale-110"
+                    />
+                  </div>
+
+                  {/* Title and Expand Button */}
+                  <div 
+                    className="p-4 cursor-pointer border-t border-border/50 hover:bg-muted/50 transition-colors"
+                    onClick={() => toggleCard(area.id)}
+                  >
+                    <div className="flex items-center justify-between gap-2">
+                      <h3 className="font-semibold text-foreground text-sm leading-tight line-clamp-2">
+                        {area.title}
+                      </h3>
+                      <div className={`w-7 h-7 rounded-full flex items-center justify-center flex-shrink-0 transition-all duration-300 ${
+                        isExpanded 
+                          ? area.color === 'accent' ? 'bg-accent text-white rotate-180' : 'bg-primary text-white rotate-180'
+                          : 'bg-muted text-muted-foreground'
+                      }`}>
+                        <ChevronDown className="w-4 h-4" />
                       </div>
-                      <div>
-                        <h3 className="font-semibold text-foreground text-sm leading-tight">{area.title}</h3>
-                        <span className="text-xs text-muted-foreground">{area.conditions.length} conditions</span>
-                      </div>
-                    </div>
-                    <div className={`w-8 h-8 rounded-lg flex items-center justify-center transition-all ${
-                      isExpanded ? 'bg-primary/10 rotate-180' : 'bg-muted'
-                    }`}>
-                      <ChevronDown className={`w-4 h-4 ${isExpanded ? 'text-primary' : 'text-muted-foreground'}`} />
                     </div>
                   </div>
-                </div>
 
-                {/* Expanded Content */}
-                <div className={`overflow-hidden transition-all duration-300 ${
-                  isExpanded ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'
-                }`}>
-                  <div className="px-5 pb-5 pt-2 border-t border-border/50">
-                    <ul className="space-y-2">
-                      {area.conditions.map((condition, idx) => (
-                        <li key={idx} className="flex items-start gap-2 text-sm text-muted-foreground">
-                          <span className={`w-1.5 h-1.5 rounded-full mt-2 flex-shrink-0 ${
-                            area.color === 'accent' ? 'bg-accent' : 'bg-primary'
-                          }`} />
-                          <span>{condition}</span>
-                        </li>
-                      ))}
-                    </ul>
+                  {/* Expanded Content - Conditions List */}
+                  <div className={`overflow-hidden transition-all duration-300 ${
+                    isExpanded ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'
+                  }`}>
+                    <div className="px-4 pb-4 pt-2 border-t border-border/30 bg-muted/30">
+                      <ul className="space-y-2">
+                        {area.conditions.map((condition, idx) => (
+                          <li key={idx} className="flex items-start gap-2 text-xs text-muted-foreground">
+                            <span className={`w-1.5 h-1.5 rounded-full mt-1.5 flex-shrink-0 ${
+                              area.color === 'accent' ? 'bg-accent' : 'bg-primary'
+                            }`} />
+                            <span>{condition}</span>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -309,32 +301,6 @@ const TherapeuticAreas = () => {
           </div>
         </div>
       </div>
-
-      {/* Image Lightbox Modal */}
-      <Dialog open={!!selectedImage} onOpenChange={() => setSelectedImage(null)}>
-        <DialogContent className="sm:max-w-sm p-0 bg-white border-0 overflow-hidden">
-          <button
-            onClick={() => setSelectedImage(null)}
-            className="absolute top-3 right-3 z-10 w-8 h-8 rounded-full bg-foreground/80 hover:bg-foreground text-white flex items-center justify-center transition-colors"
-          >
-            <X className="w-4 h-4" />
-          </button>
-          {selectedImage && (
-            <div className="p-6 sm:p-8 flex flex-col items-center">
-              <div className="w-full flex items-center justify-center mb-4 bg-crc-light-bg rounded-2xl p-6">
-                <img 
-                  src={selectedImage.src} 
-                  alt={selectedImage.title} 
-                  className="w-full h-auto max-h-64 object-contain"
-                />
-              </div>
-              <h3 className="text-lg font-semibold text-foreground text-center">
-                {selectedImage.title}
-              </h3>
-            </div>
-          )}
-        </DialogContent>
-      </Dialog>
     </section>
   );
 };
