@@ -72,9 +72,9 @@ const StudiesCTA = () => {
               isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
             }`}
           >
-            <a href="mailto:studies@crc-jordan.com" className="flex items-center gap-2 text-white/80 hover:text-white transition-colors">
+            <a href="mailto:info@crcjo.com" className="flex items-center gap-2 text-white/80 hover:text-white transition-colors">
               <Mail className="w-5 h-5" />
-              <span>studies@crc-jordan.com</span>
+              <span>info@crcjo.com</span>
             </a>
             <a href="tel:+962123456789" className="flex items-center gap-2 text-white/80 hover:text-white transition-colors">
               <Phone className="w-5 h-5" />
