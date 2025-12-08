@@ -33,8 +33,8 @@ const JoinTeam = () => {
             <h2 className={`text-white mb-4 transition-all duration-700 delay-100 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
               Join Our <span className="text-accent">Team</span>
             </h2>
-            <p className={`text-white/80 text-lg max-w-2xl mx-auto transition-all duration-700 delay-200 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
-              We welcome skilled professionals interested in becoming part of a scientifically advanced clinical operations team.
+            <p className={`text-white/80 text-lg max-w-3xl mx-auto transition-all duration-700 delay-200 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
+              We welcome skilled professionals interested in becoming part of a scientifically advanced clinical operations team, including investigators, scientists, pharmacists, clinical research coordinators, and specialists in data management and clinical trials methodology.
             </p>
           </div>
 

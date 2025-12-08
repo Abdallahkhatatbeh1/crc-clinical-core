@@ -29,7 +29,7 @@ const ContactHero = () => {
           </h1>
 
           <p className={`text-lg md:text-xl text-white/85 mb-10 leading-relaxed max-w-3xl mx-auto transition-all duration-1000 delay-300 ${isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
-            {content.subtitle || "Whether you represent a CRO, a pharmaceutical company, a biotech company, or a global sponsor seeking a scientifically robust clinical trial site in Jordan, our team is prepared to support compliant clinical trial management and evidence-driven research execution."}
+            {content.subtitle || "Whether you represent a CRO, a pharmaceutical CRO, a biotech company, or a global sponsor seeking a scientifically robust clinical trial site in Jordan, our team is prepared to support compliant clinical trial management and evidence-driven research execution."}
           </p>
 
           <div className={`grid grid-cols-2 md:grid-cols-4 gap-4 max-w-3xl mx-auto transition-all duration-1000 delay-400 ${isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
