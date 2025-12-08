@@ -38,6 +38,13 @@ const ContactInfo = () => {
   return (
     <section ref={sectionRef} className="py-20 bg-crc-light-bg">
       <div className="container mx-auto px-4">
+        {/* Description */}
+        <div className={`text-center mb-12 transition-all duration-700 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
+          <p className="text-muted-foreground text-lg max-w-3xl mx-auto">
+            CRC is a GCP-compliant clinical research center in Jordan, partnering with global CROs and sponsors to conduct high-quality Phase I–IV clinical trials.
+          </p>
+        </div>
+        
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-4xl mx-auto">
           {contactDetails.map((item, index) => (
             <a
