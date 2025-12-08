@@ -25,16 +25,17 @@ const ServicesHero = () => {
           </div>
 
           <h1 className={`text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-8 transition-all duration-1000 delay-200 ${isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
-            {content.title || "Clinical Trial"} <span className="text-accent">{content.title_highlight || "Services"}</span>
+            {content.title || "Clinical Trial Services"} <span className="text-accent">{content.title_highlight || "Provided by CRC"}</span>
           </h1>
 
-          <p className={`text-lg md:text-xl text-white/85 mb-6 leading-relaxed max-w-3xl mx-auto transition-all duration-1000 delay-300 ${isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
-            {content.subtitle || "CRC offers a comprehensive suite of scientifically rigorous, GCP-compliant clinical trial services designed to support global CROs, pharmaceutical sponsors, and biotech partners."}
-          </p>
-
-          <p className={`text-base text-white/70 mb-12 leading-relaxed max-w-2xl mx-auto transition-all duration-1000 delay-400 ${isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
-            {content.description || "Our capabilities span regulatory support, study start-up, patient recruitment, clinical operations, data management, monitoring readiness, and investigational product management."}
-          </p>
+          <div className={`space-y-4 mb-12 transition-all duration-1000 delay-300 ${isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
+            <p className="text-lg md:text-xl text-white/85 leading-relaxed max-w-4xl mx-auto">
+              {content.subtitle || "CRC offers a comprehensive suite of scientifically rigorous, GCP-compliant clinical trial services designed to support global CROs, pharmaceutical sponsors, and biotech partners conducting Phase I–IV clinical trials in Jordan and the Middle East."}
+            </p>
+            <p className="text-base md:text-lg text-white/80 leading-relaxed max-w-4xl mx-auto">
+              Our capabilities span regulatory support, study start-up, patient recruitment, clinical operations, data management, monitoring readiness, and investigational product management, ensuring high-quality, audit-ready research execution.
+            </p>
+          </div>
 
           <div className={`flex flex-wrap justify-center gap-4 transition-all duration-1000 delay-500 ${isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
             {[
