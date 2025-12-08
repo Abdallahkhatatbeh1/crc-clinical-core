@@ -48,7 +48,7 @@ const PartnersSection = () => {
   const { ref: sectionRef, isVisible } = useScrollAnimation({ threshold: 0.2 });
 
   return (
-    <section ref={sectionRef} className="py-32 bg-background relative overflow-hidden">
+    <section ref={sectionRef} className="py-16 md:py-24 lg:py-32 bg-background relative overflow-hidden">
       {/* Background Pattern */}
       <div className="absolute inset-0">
         <div className="absolute top-20 right-20 w-64 h-64 bg-primary/3 rounded-full blur-3xl" />
@@ -57,7 +57,7 @@ const PartnersSection = () => {
 
       <div className="container mx-auto px-4 relative z-10">
         {/* CRO Partners */}
-        <div className="mb-24">
+        <div className="mb-16 md:mb-20 lg:mb-24">
           <div className="text-center mb-14">
             <div className={`transition-all duration-700 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
               <BrandTag className="mb-6">Our Network</BrandTag>

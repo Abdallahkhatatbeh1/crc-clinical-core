@@ -222,7 +222,7 @@ const TherapeuticAreas = () => {
   };
 
   return (
-    <section ref={sectionRef} className="py-24 bg-background relative">
+    <section ref={sectionRef} className="py-16 md:py-20 lg:py-24 bg-background relative">
       {/* Background Pattern */}
       <div className="absolute inset-0 opacity-30">
         <div className="absolute top-0 left-0 w-full h-full" style={{

@@ -26,7 +26,7 @@ const CommitmentSection = () => {
   const { ref: sectionRef, isVisible } = useScrollAnimation({ threshold: 0.2 });
 
   return (
-    <section ref={sectionRef} className="py-24 gradient-brand relative overflow-hidden">
+    <section ref={sectionRef} className="py-16 md:py-20 lg:py-24 gradient-brand relative overflow-hidden">
       {/* Background Elements */}
       <div className="absolute inset-0">
         <div className="absolute top-10 right-20 w-72 h-72 rounded-full bg-white/5 blur-3xl animate-pulse" />
@@ -36,7 +36,7 @@ const CommitmentSection = () => {
       <div className="container mx-auto px-4 relative z-10">
         <div className="max-w-5xl mx-auto">
           {/* Header */}
-          <div className="text-center mb-16">
+          <div className="text-center mb-10 md:mb-16">
             <div className={`transition-all duration-700 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
               <BrandTag variant="green" className="mb-6">Excellence</BrandTag>
             </div>
@@ -49,7 +49,7 @@ const CommitmentSection = () => {
           </div>
 
           {/* Commitments Grid */}
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4 mb-16">
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4 mb-10 md:mb-16">
             {commitments.map((item, index) => (
               <div
                 key={item.text}

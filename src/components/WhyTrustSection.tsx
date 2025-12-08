@@ -69,7 +69,7 @@ const WhyTrustSection = () => {
   const { ref: sectionRef, isVisible } = useScrollAnimation({ threshold: 0.1 });
 
   return (
-    <section ref={sectionRef} className="py-32 bg-background relative">
+    <section ref={sectionRef} className="py-16 md:py-24 lg:py-32 bg-background relative">
       {/* Background Pattern */}
       <div className="absolute inset-0 opacity-30">
         <div className="absolute top-0 left-0 w-full h-full" style={{
@@ -80,7 +80,7 @@ const WhyTrustSection = () => {
       
       <div className="container mx-auto px-4 relative z-10">
         {/* Header */}
-        <div className="text-center mb-20">
+        <div className="text-center mb-12 md:mb-16 lg:mb-20">
           <div className={`transition-all duration-700 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
             <BrandTag variant="green" className="mb-6">Our Expertise</BrandTag>
           </div>

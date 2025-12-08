@@ -7,7 +7,7 @@ const CTASection = () => {
   const { ref: sectionRef, isVisible } = useScrollAnimation({ threshold: 0.3 });
 
   return (
-    <section ref={sectionRef} className="py-32 gradient-brand relative overflow-hidden">
+    <section ref={sectionRef} className="py-16 md:py-24 lg:py-32 gradient-brand relative overflow-hidden">
       {/* Animated Background */}
       <div className="absolute inset-0">
         <div className="absolute top-0 left-0 w-full h-full opacity-10">

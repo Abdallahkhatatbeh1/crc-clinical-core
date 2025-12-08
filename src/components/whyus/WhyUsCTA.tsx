@@ -7,7 +7,7 @@ const WhyUsCTA = () => {
   const { ref: sectionRef, isVisible } = useScrollAnimation({ threshold: 0.3 });
 
   return (
-    <section ref={sectionRef} className="py-24 relative overflow-hidden">
+    <section ref={sectionRef} className="py-16 md:py-20 lg:py-24 relative overflow-hidden">
       {/* Background Gradient */}
       <div className="absolute inset-0 bg-gradient-to-br from-primary via-primary-deep to-primary" />
       

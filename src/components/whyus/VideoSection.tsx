@@ -8,7 +8,7 @@ const VideoSection = () => {
   const { ref: sectionRef, isVisible } = useScrollAnimation({ threshold: 0.2 });
 
   return (
-    <section ref={sectionRef} className="py-24 bg-background relative">
+    <section ref={sectionRef} className="py-16 md:py-20 lg:py-24 bg-background relative">
       <div className="container mx-auto px-4">
         <div className="max-w-5xl mx-auto">
           {/* Header */}

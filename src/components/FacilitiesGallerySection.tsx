@@ -57,7 +57,7 @@ const FacilitiesGallerySection = () => {
   const { ref: sectionRef, isVisible } = useScrollAnimation({ threshold: 0.1 });
 
   return (
-    <section ref={sectionRef} className="py-24 bg-background relative overflow-hidden">
+    <section ref={sectionRef} className="py-16 md:py-20 lg:py-24 bg-background relative overflow-hidden">
       <div className="container mx-auto px-4">
         {/* Header */}
         <div className="text-center mb-14">

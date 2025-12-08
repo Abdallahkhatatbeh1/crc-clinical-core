@@ -8,7 +8,7 @@ const VisionMission = () => {
   const { content } = useSiteContent("about", "mission");
 
   return (
-    <section ref={sectionRef} className="py-24 bg-background relative">
+    <section ref={sectionRef} className="py-16 md:py-20 lg:py-24 bg-background relative">
       <div className="container mx-auto px-4">
         <div className="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto">
           {/* Vision */}

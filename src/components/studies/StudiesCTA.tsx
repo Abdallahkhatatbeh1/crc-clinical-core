@@ -7,7 +7,7 @@ const StudiesCTA = () => {
   const { ref: sectionRef, isVisible } = useScrollAnimation({ threshold: 0.3 });
 
   return (
-    <section ref={sectionRef} className="py-24 gradient-brand relative overflow-hidden">
+    <section ref={sectionRef} className="py-16 md:py-20 lg:py-24 gradient-brand relative overflow-hidden">
       {/* Background */}
       <div className="absolute inset-0">
         <div className="absolute top-10 right-20 w-72 h-72 rounded-full bg-white/5 blur-3xl animate-pulse" />
