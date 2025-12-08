@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { ChevronDown } from "lucide-react";
 import BrandTag from "@/components/BrandTag";
 import useScrollAnimation from "@/hooks/useScrollAnimation";
 
@@ -26,6 +25,7 @@ const therapeuticAreas = [
     id: 1,
     image: gastroenterologyImg,
     title: "Gastroenterology (GI)",
+    shortTitle: "GI",
     color: "primary",
     conditions: [
       "Inflammatory Bowel Disease (IBD): Crohn's disease, Ulcerative colitis",
@@ -39,6 +39,7 @@ const therapeuticAreas = [
     id: 2,
     image: cardiovascularImg,
     title: "Cardiovascular",
+    shortTitle: "Cardio",
     color: "accent",
     conditions: [
       "ASCVD",
@@ -52,6 +53,7 @@ const therapeuticAreas = [
     id: 3,
     image: neurologyImg,
     title: "Neurology",
+    shortTitle: "Neuro",
     color: "primary",
     conditions: [
       "Multiple Sclerosis (MS)",
@@ -64,6 +66,7 @@ const therapeuticAreas = [
     id: 4,
     image: urologyImg,
     title: "Urology",
+    shortTitle: "Urology",
     color: "accent",
     conditions: [
       "Overactive bladder (OAB)",
@@ -75,6 +78,7 @@ const therapeuticAreas = [
     id: 5,
     image: rheumatologyImg,
     title: "Rheumatology",
+    shortTitle: "Rheum",
     color: "primary",
     conditions: [
       "Rheumatoid arthritis",
@@ -86,6 +90,7 @@ const therapeuticAreas = [
     id: 6,
     image: vaccinesImg,
     title: "Vaccines",
+    shortTitle: "Vaccines",
     color: "accent",
     conditions: [
       "MERS-CoV",
@@ -97,6 +102,7 @@ const therapeuticAreas = [
     id: 7,
     image: geneticDiseasesImg,
     title: "Genetic Diseases",
+    shortTitle: "Genetic",
     color: "primary",
     conditions: ["Rare genetic conditions", "Hereditary disorders"]
   },
@@ -104,6 +110,7 @@ const therapeuticAreas = [
     id: 8,
     image: metabolicDisordersImg,
     title: "Metabolic Disorders",
+    shortTitle: "Metabolic",
     color: "accent",
     conditions: [
       "Diabetes",
@@ -116,6 +123,7 @@ const therapeuticAreas = [
     id: 9,
     image: musculoskeletalImg,
     title: "Musculoskeletal",
+    shortTitle: "MSK",
     color: "primary",
     conditions: [
       "Chronic and acute pain",
@@ -126,6 +134,7 @@ const therapeuticAreas = [
     id: 10,
     image: endocrinologyImg,
     title: "Endocrinology",
+    shortTitle: "Endo",
     color: "accent",
     conditions: [
       "Thyroid disorders",
@@ -136,6 +145,7 @@ const therapeuticAreas = [
     id: 11,
     image: ophthalmologyImg,
     title: "Ophthalmology",
+    shortTitle: "Ophthal",
     color: "primary",
     conditions: ["Eye disorders", "Vision conditions"]
   },
@@ -143,6 +153,7 @@ const therapeuticAreas = [
     id: 12,
     image: entImg,
     title: "ENT",
+    shortTitle: "ENT",
     color: "accent",
     conditions: ["Ear, nose, and throat disorders"]
   },
@@ -150,6 +161,7 @@ const therapeuticAreas = [
     id: 13,
     image: pediatricsImg,
     title: "Pediatrics",
+    shortTitle: "Peds",
     color: "primary",
     conditions: ["Childhood diseases", "Pediatric conditions"]
   },
@@ -157,6 +169,7 @@ const therapeuticAreas = [
     id: 14,
     image: geriatricsImg,
     title: "Geriatrics",
+    shortTitle: "Geriatrics",
     color: "accent",
     conditions: ["Age-related conditions", "Elderly care"]
   },
@@ -164,6 +177,7 @@ const therapeuticAreas = [
     id: 15,
     image: maternityImg,
     title: "Maternity & Women's Health",
+    shortTitle: "Women's",
     color: "primary",
     conditions: ["Maternal health", "Women's health conditions"]
   },
@@ -171,6 +185,7 @@ const therapeuticAreas = [
     id: 16,
     image: psychiatryImg,
     title: "Psychiatry",
+    shortTitle: "Psych",
     color: "accent",
     conditions: [
       "Depression",
@@ -182,13 +197,7 @@ const therapeuticAreas = [
 
 const TherapeuticAreas = () => {
   const { ref: sectionRef, isVisible } = useScrollAnimation({ threshold: 0.05 });
-  const [expandedCards, setExpandedCards] = useState<number[]>([]);
-
-  const toggleCard = (id: number) => {
-    setExpandedCards(prev => 
-      prev.includes(id) ? prev.filter(x => x !== id) : [...prev, id]
-    );
-  };
+  const [selectedArea, setSelectedArea] = useState(therapeuticAreas[0]);
 
   return (
     <section ref={sectionRef} className="py-24 bg-background relative">
@@ -202,7 +211,7 @@ const TherapeuticAreas = () => {
 
       <div className="container mx-auto px-4 relative z-10">
         {/* Header */}
-        <div className="text-center mb-16">
+        <div className="text-center mb-12">
           <div className={`transition-all duration-700 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
             <BrandTag variant="green" className="mb-6">Research Areas</BrandTag>
           </div>
@@ -214,71 +223,70 @@ const TherapeuticAreas = () => {
           </p>
         </div>
 
-        {/* Therapeutic Areas Grid - New Design with Large Images */}
-        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-6">
-          {therapeuticAreas.map((area, index) => {
-            const isExpanded = expandedCards.includes(area.id);
-            return (
-              <div
-                key={area.id}
-                className={`group transition-all duration-500 ${
-                  isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'
-                }`}
-                style={{ transitionDelay: `${200 + (index % 8) * 50}ms` }}
-              >
-                {/* Card */}
-                <div className="bg-white rounded-2xl border border-border overflow-hidden hover:shadow-xl transition-all duration-300">
-                  {/* Large Image Container */}
-                  <div className={`aspect-square p-6 flex items-center justify-center transition-colors ${
-                    area.color === 'accent' ? 'bg-accent/5 group-hover:bg-accent/10' : 'bg-primary/5 group-hover:bg-primary/10'
-                  }`}>
-                    <img 
-                      src={area.image} 
-                      alt={area.title} 
-                      className="w-full h-full max-w-[120px] max-h-[120px] object-contain transition-transform duration-300 group-hover:scale-110"
-                    />
-                  </div>
+        {/* Tabs - Horizontal Scrollable */}
+        <div className={`mb-8 transition-all duration-700 delay-300 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
+          <div className="overflow-x-auto pb-2 -mx-4 px-4 scrollbar-hide">
+            <div className="flex gap-2 min-w-max justify-center">
+              {therapeuticAreas.map((area) => (
+                <button
+                  key={area.id}
+                  onClick={() => setSelectedArea(area)}
+                  className={`flex items-center gap-2 px-4 py-2.5 rounded-full transition-all duration-300 whitespace-nowrap ${
+                    selectedArea.id === area.id
+                      ? area.color === 'accent'
+                        ? 'bg-accent text-white shadow-lg'
+                        : 'bg-primary text-white shadow-lg'
+                      : 'bg-white border border-border hover:border-primary/30 hover:bg-primary/5'
+                  }`}
+                >
+                  <img 
+                    src={area.image} 
+                    alt="" 
+                    className={`w-5 h-5 object-contain ${selectedArea.id === area.id ? 'brightness-0 invert' : ''}`}
+                  />
+                  <span className="text-sm font-medium">{area.shortTitle}</span>
+                </button>
+              ))}
+            </div>
+          </div>
+        </div>
 
-                  {/* Title and Expand Button */}
-                  <div 
-                    className="p-4 cursor-pointer border-t border-border/50 hover:bg-muted/50 transition-colors"
-                    onClick={() => toggleCard(area.id)}
-                  >
-                    <div className="flex items-center justify-between gap-2">
-                      <h3 className="font-semibold text-foreground text-sm leading-tight line-clamp-2">
-                        {area.title}
-                      </h3>
-                      <div className={`w-7 h-7 rounded-full flex items-center justify-center flex-shrink-0 transition-all duration-300 ${
-                        isExpanded 
-                          ? area.color === 'accent' ? 'bg-accent text-white rotate-180' : 'bg-primary text-white rotate-180'
-                          : 'bg-muted text-muted-foreground'
-                      }`}>
-                        <ChevronDown className="w-4 h-4" />
-                      </div>
-                    </div>
-                  </div>
-
-                  {/* Expanded Content - Conditions List */}
-                  <div className={`overflow-hidden transition-all duration-300 ${
-                    isExpanded ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'
-                  }`}>
-                    <div className="px-4 pb-4 pt-2 border-t border-border/30 bg-muted/30">
-                      <ul className="space-y-2">
-                        {area.conditions.map((condition, idx) => (
-                          <li key={idx} className="flex items-start gap-2 text-xs text-muted-foreground">
-                            <span className={`w-1.5 h-1.5 rounded-full mt-1.5 flex-shrink-0 ${
-                              area.color === 'accent' ? 'bg-accent' : 'bg-primary'
-                            }`} />
-                            <span>{condition}</span>
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
-                  </div>
-                </div>
+        {/* Selected Area Display */}
+        <div className={`transition-all duration-700 delay-400 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
+          <div className="bg-white rounded-3xl border border-border overflow-hidden shadow-lg max-w-4xl mx-auto">
+            <div className="grid md:grid-cols-2 gap-0">
+              {/* Image Side */}
+              <div className={`flex items-center justify-center p-8 md:p-12 ${
+                selectedArea.color === 'accent' ? 'bg-accent/5' : 'bg-primary/5'
+              }`}>
+                <img 
+                  src={selectedArea.image} 
+                  alt={selectedArea.title} 
+                  className="w-40 h-40 md:w-56 md:h-56 object-contain transition-all duration-500"
+                />
               </div>
-            );
-          })}
+
+              {/* Content Side */}
+              <div className="p-6 md:p-8 flex flex-col justify-center">
+                <h3 className="text-2xl font-bold text-foreground mb-4">
+                  {selectedArea.title}
+                </h3>
+                <p className="text-sm text-muted-foreground mb-4">
+                  Conditions & Focus Areas:
+                </p>
+                <ul className="space-y-3">
+                  {selectedArea.conditions.map((condition, idx) => (
+                    <li key={idx} className="flex items-start gap-3 text-muted-foreground">
+                      <span className={`w-2 h-2 rounded-full mt-2 flex-shrink-0 ${
+                        selectedArea.color === 'accent' ? 'bg-accent' : 'bg-primary'
+                      }`} />
+                      <span>{condition}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </div>
+          </div>
         </div>
 
         {/* Summary */}
