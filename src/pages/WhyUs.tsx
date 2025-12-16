@@ -10,8 +10,8 @@ const WhyUs = () => {
     <div className="min-h-screen flex flex-col">
       <Header />
       <main className="flex-grow pt-20">
-        <WhyUsHero />
         <OfferVideoSection />
+        <WhyUsHero />
         <PartnersShowcase />
         <WhyUsCTA />
       </main>
