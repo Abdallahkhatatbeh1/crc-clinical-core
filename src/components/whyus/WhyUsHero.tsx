@@ -47,9 +47,9 @@ const WhyUsHero = () => {
             </p>
           </div>
 
-          {/* Trust Badges */}
+          {/* Trust Badges + Location */}
           <div 
-            className={`flex flex-wrap justify-center gap-4 mb-8 transition-all duration-1000 delay-400 ${
+            className={`flex flex-wrap justify-center items-center gap-3 md:gap-4 transition-all duration-1000 delay-400 ${
               isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
             }`}
           >
@@ -65,17 +65,9 @@ const WhyUsHero = () => {
               <Globe className="w-4 h-4 text-accent" />
               <span className="text-sm text-white/90">Global Standards</span>
             </div>
-          </div>
-
-          {/* Center Location */}
-          <div 
-            className={`text-center transition-all duration-1000 delay-500 ${
-              isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
-            }`}
-          >
-            <p className="text-lg md:text-xl text-white/90 font-medium">
-              Clinical Research Center – Amman, Jordan
-            </p>
+            <div className="flex items-center gap-2 px-4 py-2 bg-accent/20 rounded-full border border-accent/30">
+              <span className="text-sm text-white font-medium">📍 CRC – Irbid, Jordan</span>
+            </div>
           </div>
         </div>
       </div>

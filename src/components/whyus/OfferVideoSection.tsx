@@ -1,5 +1,6 @@
-import { TrendingUp, Users, Globe, Award } from "lucide-react";
+import { TrendingUp, Users, Globe, Award, Calendar } from "lucide-react";
 import useScrollAnimation from "@/hooks/useScrollAnimation";
+import { Button } from "@/components/ui/button";
 import BrandTag from "@/components/BrandTag";
 
 const OfferVideoSection = () => {
@@ -53,6 +54,18 @@ const OfferVideoSection = () => {
                 className="absolute inset-0 w-full h-full"
               />
             </div>
+          </div>
+
+          {/* CTA Button */}
+          <div className={`text-center mt-8 transition-all duration-700 delay-400 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
+            <Button 
+              size="lg"
+              className="bg-accent hover:bg-accent/90 text-white px-8 py-6 text-lg font-semibold rounded-full shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105"
+              onClick={() => window.open('https://calendly.com/sh-crc2021/30min', '_blank')}
+            >
+              <Calendar className="w-5 h-5 mr-2" />
+              Book a Meeting
+            </Button>
           </div>
         </div>
       </div>
