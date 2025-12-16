@@ -14,19 +14,32 @@ const OfferVideoSection = () => {
 
       <div className="container mx-auto px-4 relative z-10">
         <div className="max-w-5xl mx-auto">
+          {/* YouTube Video Embed - First at top */}
+          <div className={`mb-16 transition-all duration-700 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'}`}>
+            <div className="relative aspect-video rounded-3xl overflow-hidden shadow-2xl border border-border">
+              <iframe
+                src="https://www.youtube.com/embed/Yu9R_hJ9QZk?rel=0&modestbranding=1"
+                title="CRC Clinical Research Center"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                allowFullScreen
+                className="absolute inset-0 w-full h-full"
+              />
+            </div>
+          </div>
+
           {/* Header */}
           <div className="text-center mb-8">
-            <div className={`transition-all duration-700 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
+            <div className={`transition-all duration-700 delay-100 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
               <BrandTag variant="green" className="mb-6">Top Recruiters Around The World</BrandTag>
             </div>
             
-            <h2 className={`text-foreground mb-8 transition-all duration-700 delay-100 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
+            <h2 className={`text-foreground mb-8 transition-all duration-700 delay-200 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
               Guaranteed <span className="text-accent">High Recruitment</span>
             </h2>
           </div>
 
           {/* Stats Grid */}
-          <div className={`grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6 mb-12 transition-all duration-700 delay-200 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
+          <div className={`grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6 mb-12 transition-all duration-700 delay-300 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
             {[
               { icon: Users, value: "500+", label: "Patients Enrolled" },
               { icon: TrendingUp, value: "95%", label: "Retention Rate" },
@@ -43,8 +56,8 @@ const OfferVideoSection = () => {
             ))}
           </div>
 
-          {/* Capabilities Text - Moved before video */}
-          <div className={`mb-12 max-w-4xl mx-auto transition-all duration-700 delay-300 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
+          {/* Capabilities Text */}
+          <div className={`mb-12 max-w-4xl mx-auto transition-all duration-700 delay-400 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
             <div className="bg-white rounded-3xl p-8 lg:p-12 border border-border">
               <p className="text-muted-foreground text-lg leading-relaxed mb-6">
                 Our capabilities enable us to support both <span className="text-primary font-semibold">early-phase development</span> and <span className="text-accent font-semibold">large-scale, late-phase clinical programs</span> requiring strict procedural compliance, comprehensive risk management, and high-fidelity data capture.
@@ -55,21 +68,8 @@ const OfferVideoSection = () => {
             </div>
           </div>
 
-          {/* YouTube Video Embed - Moved after capabilities */}
-          <div className={`transition-all duration-700 delay-400 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'}`}>
-            <div className="relative aspect-video rounded-3xl overflow-hidden shadow-2xl border border-border">
-              <iframe
-                src="https://www.youtube.com/embed/Yu9R_hJ9QZk?rel=0&modestbranding=1"
-                title="CRC Clinical Research Center"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                allowFullScreen
-                className="absolute inset-0 w-full h-full"
-              />
-            </div>
-          </div>
-
           {/* Schedule Meeting Button - Calendly */}
-          <div className={`text-center mt-10 transition-all duration-700 delay-500 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
+          <div className={`text-center transition-all duration-700 delay-500 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
             <a href="https://calendly.com/sh-crc2021/30min" target="_blank" rel="noopener noreferrer">
               <Button size="lg" className="group">
                 <Calendar className="w-5 h-5 mr-2" />
