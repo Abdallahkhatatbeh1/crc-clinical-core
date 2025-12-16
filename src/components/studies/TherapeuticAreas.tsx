@@ -20,6 +20,7 @@ import pediatricsImg from "@/assets/studies/pediatrics.png";
 import geriatricsImg from "@/assets/studies/geriatrics.png";
 import maternityImg from "@/assets/studies/maternity-womens-health.png";
 import psychiatryImg from "@/assets/studies/psychiatry.png";
+import dermatologyImg from "@/assets/studies/dermatology.png";
 
 const therapeuticAreas = [
   {
@@ -196,7 +197,7 @@ const therapeuticAreas = [
   },
   {
     id: 17,
-    image: cardiovascularImg, // Temporary placeholder until Dermatology image is provided
+    image: dermatologyImg,
     title: "Dermatology",
     shortTitle: "Derm",
     color: "primary",
