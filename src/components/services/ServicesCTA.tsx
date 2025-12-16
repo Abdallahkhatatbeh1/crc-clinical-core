@@ -51,7 +51,7 @@ const ServicesCTA = () => {
               isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
             }`}
           >
-            <Link to="/why-us">
+            <Link to="/contact">
               <Button variant="hero" size="xl" className="group min-w-[220px]">
                 Get Started
                 <ArrowRight size={20} className="group-hover:translate-x-1 transition-transform" />

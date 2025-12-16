@@ -35,6 +35,9 @@ const AboutHero = () => {
             <p className="text-base md:text-lg text-white/80 leading-relaxed max-w-3xl mx-auto">
               We deliver scientifically rigorous Phase I, Phase II, Phase III, and Phase IV clinical trials, supported by validated screening processes, robust clinical operations, and precise clinical trial management.
             </p>
+            <p className="text-base md:text-lg text-white/80 leading-relaxed max-w-3xl mx-auto">
+              CRC serves as a trusted regional institution for global CROs, pharmaceutical CROs, and sponsors seeking clinical research Jordan and clinical research Middle East expertise.
+            </p>
           </div>
 
           <div className={`grid grid-cols-3 gap-6 max-w-2xl mx-auto transition-all duration-1000 delay-500 ${isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>

@@ -1,83 +1,55 @@
 import BrandTag from "./BrandTag";
 import useScrollAnimation from "@/hooks/useScrollAnimation";
 
-// Import new facility images
-import labEquipment1 from "@/assets/facilities/lab-equipment-1.jpg";
-import examinationEquipment1 from "@/assets/facilities/examination-equipment-1.jpg";
-import patientCareNew from "@/assets/facilities/patient-care-new.jpg";
-import emergencyTrolley from "@/assets/facilities/emergency-trolley.jpg";
-import patientRooms from "@/assets/facilities/patient-rooms.jpg";
-import ipPharmacyStorage from "@/assets/facilities/ip-pharmacy-storage.jpg";
-import freezer70 from "@/assets/facilities/freezer-70.jpg";
-import labKitsStorage from "@/assets/facilities/lab-kits-storage.jpg";
-import labEquipment2 from "@/assets/facilities/lab-equipment-2.jpg";
-import vitalSigns from "@/assets/facilities/vital-signs.jpg";
-import labEquipment3 from "@/assets/facilities/lab-equipment-3.jpg";
-import patientProcedureRoom from "@/assets/facilities/patient-procedure-room.jpg";
-import coordinatorsOffices from "@/assets/facilities/coordinators-offices.jpg";
-import ecgEquipment from "@/assets/facilities/ecg-equipment.jpg";
-import examinationRoom from "@/assets/facilities/examination-room.jpg";
+import examRoom1 from "@/assets/facilities/exam-room-1.jpg";
+import examRoom2 from "@/assets/facilities/exam-room-2.jpg";
+import labRoom from "@/assets/facilities/lab-room.jpg";
+import pharmacyDoor from "@/assets/facilities/pharmacy-door.jpg";
+import officeWorkspace from "@/assets/facilities/office-workspace.jpg";
+import centrifuge1 from "@/assets/facilities/centrifuge-1.jpg";
+import sampleRefrigerators from "@/assets/facilities/sample-refrigerators.jpg";
+import ecgMachine from "@/assets/facilities/ecg-machine.jpg";
 
 const facilities = [
   {
-    image: patientProcedureRoom,
+    image: examRoom1,
     title: "Patient Procedure Room",
     description: "Modern examination and procedure rooms"
   },
   {
-    image: patientRooms,
-    title: "Patient Rooms",
-    description: "Comfortable patient care areas"
-  },
-  {
-    image: examinationRoom,
+    image: examRoom2,
     title: "Examination Room",
     description: "Dedicated patient assessment areas"
   },
   {
-    image: labEquipment1,
-    title: "Laboratory Equipment",
-    description: "Advanced centrifuge systems"
+    image: labRoom,
+    title: "Laboratory",
+    description: "Sample processing and analysis"
   },
   {
-    image: labEquipment2,
-    title: "Lab Processing",
-    description: "Sample processing equipment"
+    image: pharmacyDoor,
+    title: "IP & Pharmacy Storage",
+    description: "Secure investigational product storage"
   },
   {
-    image: labEquipment3,
-    title: "Centrifuge Systems",
+    image: officeWorkspace,
+    title: "CRO Monitoring Space",
+    description: "Dedicated workspace for monitoring teams"
+  },
+  {
+    image: centrifuge1,
+    title: "Lab Equipment",
     description: "Calibrated laboratory instruments"
   },
   {
-    image: ipPharmacyStorage,
-    title: "IP & Pharmacy Storage",
-    description: "Temperature-controlled medication storage"
+    image: sampleRefrigerators,
+    title: "Sample Storage",
+    description: "Temperature-controlled storage units"
   },
   {
-    image: freezer70,
-    title: "-70°C Freezer",
-    description: "Ultra-low temperature sample storage"
-  },
-  {
-    image: vitalSigns,
-    title: "Vital Signs Monitor",
-    description: "Patient monitoring equipment"
-  },
-  {
-    image: ecgEquipment,
+    image: ecgMachine,
     title: "ECG Equipment",
-    description: "Cardiac monitoring devices"
-  },
-  {
-    image: coordinatorsOffices,
-    title: "Coordinators Office",
-    description: "Study coordination workspace"
-  },
-  {
-    image: labKitsStorage,
-    title: "Lab Kits Storage",
-    description: "Organized clinical supplies"
+    description: "Cardiac monitoring capabilities"
   }
 ];
 
@@ -121,7 +93,6 @@ const FacilitiesGallerySection = () => {
               <img
                 src={facility.image}
                 alt={facility.title}
-                loading="lazy"
                 className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
               />
               {/* Overlay */}

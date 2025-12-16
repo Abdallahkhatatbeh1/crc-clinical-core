@@ -22,7 +22,7 @@ const VisionMission = () => {
             </div>
             <BrandTag className="mb-4">{content.vision_tag || "Our Vision"}</BrandTag>
             <p className="text-muted-foreground leading-relaxed text-lg">
-              {content.vision_text || "To be the most scientifically trusted and operationally reliable clinical study site in Jordan and the Middle East, serving as a preferred collaborator for Contract Research Organizations and global sponsors."}
+              {content.vision_text || "To be the most scientifically trusted and operationally reliable clinical study site in Jordan and the Middle East, serving as a preferred collaborator for Contract Research Organizations, CRO Jordan partners, and global sponsors."}
             </p>
           </div>
 

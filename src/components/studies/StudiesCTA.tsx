@@ -45,18 +45,25 @@ const StudiesCTA = () => {
             ))}
           </div>
 
-          {/* CTA Button */}
+          {/* CTA Buttons */}
           <div 
-            className={`flex justify-center items-center transition-all duration-700 delay-400 ${
+            className={`flex flex-col sm:flex-row gap-4 justify-center items-center transition-all duration-700 delay-400 ${
               isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
             }`}
           >
-            <Link to="/why-us">
+            <Link to="/contact">
               <Button variant="hero" size="xl" className="group min-w-[220px]">
                 Start a Study
                 <ArrowRight size={20} className="group-hover:translate-x-1 transition-transform" />
               </Button>
             </Link>
+            <Button 
+              variant="ghost" 
+              size="xl" 
+              className="text-white border border-white/30 hover:bg-white/10 hover:text-white"
+            >
+              Download Brochure
+            </Button>
           </div>
 
           {/* Contact */}

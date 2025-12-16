@@ -2,6 +2,7 @@ import {
   FlaskConical, 
   Users, 
   Building2, 
+  Award, 
   Globe,
   CheckCircle2
 } from "lucide-react";
@@ -38,6 +39,16 @@ const trustReasons = [
       "Dedicated facilities equipped for protocol-driven research.",
       "On-site laboratories, calibrated equipment, medical device CRO capability, and IP storage.",
       "CRO-dedicated monitoring rooms to support oversight and contract research and development activities."
+    ],
+    color: "accent"
+  },
+  {
+    icon: Award,
+    title: "Experienced Leadership",
+    subtitle: "& Research Teams",
+    points: [
+      "Expert investigators with extensive experience in CRO drug development pathways.",
+      "Strong operational oversight, scientific governance, and quality systems."
     ],
     color: "accent"
   },
