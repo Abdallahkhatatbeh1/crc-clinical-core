@@ -1,4 +1,4 @@
-import { ArrowRight, Users, Stethoscope, FlaskConical, Database, ClipboardList, Pill } from "lucide-react";
+import { Users, Stethoscope, FlaskConical, Database, ClipboardList, Pill, FileText } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import BrandTag from "@/components/BrandTag";
 import useScrollAnimation from "@/hooks/useScrollAnimation";
@@ -57,15 +57,18 @@ const JoinTeam = () => {
             ))}
           </div>
 
-          {/* CTA */}
+          {/* Our Rules Button */}
           <div className={`text-center transition-all duration-700 delay-700 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
-            <p className="text-white/70 mb-6">
-              Ready to make an impact in clinical research? Join CRC and be part of groundbreaking medical discoveries.
-            </p>
-            <Button variant="hero" size="xl" className="group">
-              View Open Positions
-              <ArrowRight size={20} className="group-hover:translate-x-1 transition-transform" />
-            </Button>
+            <a 
+              href="/files/crc-rules.pdf" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-3 px-8 py-4 bg-white text-primary font-semibold rounded-xl hover:bg-white/90 transition-all duration-300 shadow-lg hover:shadow-xl"
+            >
+              <FileText className="w-5 h-5" />
+              Our Rules
+            </a>
+            <p className="text-white/50 text-sm mt-4">Download our guidelines and policies</p>
           </div>
         </div>
       </div>
