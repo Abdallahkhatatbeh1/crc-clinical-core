@@ -1,4 +1,4 @@
-import { ArrowRight, Users, Stethoscope, FlaskConical, Database, ClipboardList, Pill } from "lucide-react";
+import { Users, Stethoscope, FlaskConical, Database, ClipboardList, Pill, FileDown } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import BrandTag from "@/components/BrandTag";
 import useScrollAnimation from "@/hooks/useScrollAnimation";
@@ -14,6 +14,9 @@ const positions = [
 
 const JoinTeam = () => {
   const { ref: sectionRef, isVisible } = useScrollAnimation({ threshold: 0.2 });
+
+  // Placeholder URL - will be replaced with actual PDF URL
+  const rulesFileUrl = "#";
 
   return (
     <section ref={sectionRef} className="py-24 gradient-brand relative overflow-hidden">
@@ -62,10 +65,12 @@ const JoinTeam = () => {
             <p className="text-white/70 mb-6">
               Ready to make an impact in clinical research? Join CRC and be part of groundbreaking medical discoveries.
             </p>
-            <Button variant="hero" size="xl" className="group">
-              View Open Positions
-              <ArrowRight size={20} className="group-hover:translate-x-1 transition-transform" />
-            </Button>
+            <a href={rulesFileUrl} target="_blank" rel="noopener noreferrer">
+              <Button variant="hero" size="xl" className="group">
+                <FileDown size={20} className="mr-2" />
+                Our Rules
+              </Button>
+            </a>
           </div>
         </div>
       </div>
