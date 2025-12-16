@@ -51,19 +51,12 @@ const StudiesCTA = () => {
               isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
             }`}
           >
-            <Link to="/contact">
+            <Link to="/why-us">
               <Button variant="hero" size="xl" className="group min-w-[220px]">
                 Start a Study
                 <ArrowRight size={20} className="group-hover:translate-x-1 transition-transform" />
               </Button>
             </Link>
-            <Button 
-              variant="ghost" 
-              size="xl" 
-              className="text-white border border-white/30 hover:bg-white/10 hover:text-white"
-            >
-              Download Brochure
-            </Button>
           </div>
 
           {/* Contact */}
