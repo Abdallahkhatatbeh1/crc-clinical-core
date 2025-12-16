@@ -51,21 +51,56 @@ const Footer = () => {
             </p>
             {/* Social Links */}
             <div className="flex gap-3">
-              <a href="https://www.linkedin.com/company/crc-2021/" target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-lg bg-white/5 hover:bg-primary flex items-center justify-center transition-all duration-300">
+              <a
+                href="https://www.linkedin.com/company/crc-2021/"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="CRC on LinkedIn"
+                title="LinkedIn"
+                className="w-10 h-10 rounded-lg bg-white/5 hover:bg-primary flex items-center justify-center transition-all duration-300"
+              >
                 <Linkedin className="w-5 h-5" />
               </a>
-              <a href="https://www.youtube.com/@CRCJo" target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-lg bg-white/5 hover:bg-primary flex items-center justify-center transition-all duration-300">
+              <a
+                href="https://www.youtube.com/@CRCJo"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="CRC on YouTube"
+                title="YouTube"
+                className="w-10 h-10 rounded-lg bg-white/5 hover:bg-primary flex items-center justify-center transition-all duration-300"
+              >
                 <Youtube className="w-5 h-5" />
               </a>
-              <a href="https://www.instagram.com/_crcjo" target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-lg bg-white/5 hover:bg-primary flex items-center justify-center transition-all duration-300">
+              <a
+                href="https://www.instagram.com/_crcjo?igsh=bmp3aDNuMGJob2pj&utm_source=qr"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="CRC on Instagram"
+                title="Instagram"
+                className="w-10 h-10 rounded-lg bg-white/5 hover:bg-primary flex items-center justify-center transition-all duration-300"
+              >
                 <Instagram className="w-5 h-5" />
               </a>
-              <a href="https://x.com/_crcjo" target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-lg bg-white/5 hover:bg-primary flex items-center justify-center transition-all duration-300">
+              <a
+                href="https://x.com/_crcjo?s=21"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="CRC on X"
+                title="X"
+                className="w-10 h-10 rounded-lg bg-white/5 hover:bg-primary flex items-center justify-center transition-all duration-300"
+              >
                 <svg className="w-5 h-5" viewBox="0 0 24 24" fill="currentColor">
                   <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
                 </svg>
               </a>
-              <a href="https://www.facebook.com/people/Crcjo/61584550395082/" target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-lg bg-white/5 hover:bg-primary flex items-center justify-center transition-all duration-300">
+              <a
+                href="https://www.facebook.com/people/Crcjo/61584550395082/?mibextid=wwXIfr&rdid=VTxPjzUoPUc38yFd&share_url=https%3A%2F%2Fwww.facebook.com%2Fshare%2F1BvLnZdexc%2F%3Fmibextid%3DwwXIfr%26ref%3Dwaios.fb_links_xma_control"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="CRC on Facebook"
+                title="Facebook"
+                className="w-10 h-10 rounded-lg bg-white/5 hover:bg-primary flex items-center justify-center transition-all duration-300"
+              >
                 <Facebook className="w-5 h-5" />
               </a>
             </div>
