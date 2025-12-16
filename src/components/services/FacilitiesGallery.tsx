@@ -4,33 +4,41 @@ import useScrollAnimation from "@/hooks/useScrollAnimation";
 import { Dialog, DialogContent } from "@/components/ui/dialog";
 import { X, ZoomIn } from "lucide-react";
 
-// Import facility images
-import examRoom1 from "@/assets/facilities/exam-room-1.jpg";
-import ecgMachine from "@/assets/facilities/ecg-machine.jpg";
-import ecgBedside from "@/assets/facilities/ecg-bedside.jpg";
-import ultrasound from "@/assets/facilities/ultrasound.jpg";
-import vitalsMonitor from "@/assets/facilities/vitals-monitor.jpg";
-import centrifuge1 from "@/assets/facilities/centrifuge-1.jpg";
-import centrifuge2 from "@/assets/facilities/centrifuge-2.jpg";
-import ultraLowFreezer from "@/assets/facilities/ultra-low-freezer.jpg";
-import sampleRefrigerators from "@/assets/facilities/sample-refrigerators.jpg";
-import labRoom from "@/assets/facilities/lab-room.jpg";
-import storageShelves from "@/assets/facilities/storage-shelves.jpg";
-import patientCare from "@/assets/facilities/patient-care.jpg";
+// Import all facility images
+import patientRooms from "@/assets/facilities/patient-rooms.jpg";
+import labEquipment from "@/assets/facilities/lab-equipment.jpg";
+import ipPharmacyStorage from "@/assets/facilities/ip-pharmacy-storage.jpg";
+import examinationRoom from "@/assets/facilities/examination-room.jpg";
+import vitalSigns from "@/assets/facilities/vital-signs.jpg";
+import coordinatorsOffices from "@/assets/facilities/coordinators-offices.jpg";
+import labEquipment2 from "@/assets/facilities/lab-equipment-2.jpg";
+import labEquipment3 from "@/assets/facilities/lab-equipment-3.jpg";
+import labKitsStorage from "@/assets/facilities/lab-kits-storage.jpg";
+import freezer70 from "@/assets/facilities/freezer-70.jpg";
+import patientExamination from "@/assets/facilities/patient-examination.jpg";
+import emergencyTrolley from "@/assets/facilities/emergency-trolley.jpg";
+import procedureRoom from "@/assets/facilities/procedure-room.jpg";
+import examinationEquipment from "@/assets/facilities/examination-equipment.jpg";
+import ecgEquipment from "@/assets/facilities/ecg-equipment.jpg";
+import teamPhoto from "@/assets/facilities/team-photo-new.jpg";
 
 const galleryImages = [
-  { src: patientCare, title: "Patient Care", category: "Clinical Care" },
-  { src: examRoom1, title: "Examination Room", category: "Patient Rooms" },
-  { src: ecgMachine, title: "ECG Machine", category: "Medical Equipment" },
-  { src: ultrasound, title: "Ultrasound System", category: "Diagnostic" },
-  { src: labRoom, title: "Laboratory", category: "Laboratory" },
-  { src: sampleRefrigerators, title: "Sample Storage", category: "Storage" },
-  { src: centrifuge1, title: "Centrifuge", category: "Laboratory" },
-  { src: vitalsMonitor, title: "Vitals Monitor", category: "Monitoring" },
-  { src: ultraLowFreezer, title: "Ultra-Low Freezer", category: "Storage" },
-  { src: ecgBedside, title: "Bedside ECG", category: "Medical Equipment" },
-  { src: storageShelves, title: "Supplies Storage", category: "Storage" },
-  { src: centrifuge2, title: "Centrifuge MPW", category: "Laboratory" },
+  { src: patientRooms, title: "Patient Rooms", category: "Clinical Care" },
+  { src: patientExamination, title: "Patient Examination", category: "Clinical Care" },
+  { src: examinationRoom, title: "Examination Room", category: "Patient Rooms" },
+  { src: procedureRoom, title: "Procedure Room", category: "Patient Rooms" },
+  { src: labEquipment, title: "Lab Centrifuge", category: "Laboratory" },
+  { src: labEquipment2, title: "Lab Equipment MPW", category: "Laboratory" },
+  { src: labEquipment3, title: "Lab Centrifuge LC-04L", category: "Laboratory" },
+  { src: vitalSigns, title: "Vital Signs Monitor", category: "Monitoring" },
+  { src: ecgEquipment, title: "ECG Equipment", category: "Medical Equipment" },
+  { src: examinationEquipment, title: "Examination Equipment", category: "Medical Equipment" },
+  { src: ipPharmacyStorage, title: "IP Pharmacy Storage", category: "Storage" },
+  { src: freezer70, title: "-70°C Freezer", category: "Storage" },
+  { src: labKitsStorage, title: "Lab Kits Storage", category: "Storage" },
+  { src: emergencyTrolley, title: "Emergency Trolley", category: "Equipment" },
+  { src: coordinatorsOffices, title: "Coordinators Offices", category: "Administration" },
+  { src: teamPhoto, title: "Our Team", category: "Team" },
 ];
 
 const FacilitiesGallery = () => {

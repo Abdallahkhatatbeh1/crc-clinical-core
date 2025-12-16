@@ -1,17 +1,21 @@
 import { useState } from "react";
 import BrandTag from "@/components/BrandTag";
 import useScrollAnimation from "@/hooks/useScrollAnimation";
-import { Building2, Microscope, Thermometer, Archive, Shield, ChevronLeft, ChevronRight } from "lucide-react";
+import { Building2, Microscope, Thermometer, Shield, ChevronLeft, ChevronRight } from "lucide-react";
 
 // Import facility images
-import examRoom1 from "@/assets/facilities/exam-room-1.jpg";
-import labRoom from "@/assets/facilities/lab-room.jpg";
-import sampleRefrigerators from "@/assets/facilities/sample-refrigerators.jpg";
-import storageShelves from "@/assets/facilities/storage-shelves.jpg";
-import patientCare from "@/assets/facilities/patient-care.jpg";
-import centerEntrance from "@/assets/facilities/center-entrance.jpg";
-import ultrasound from "@/assets/facilities/ultrasound.jpg";
-import ecgMachine from "@/assets/facilities/ecg-machine.jpg";
+import patientRooms from "@/assets/facilities/patient-rooms.jpg";
+import procedureRoom from "@/assets/facilities/procedure-room.jpg";
+import patientExamination from "@/assets/facilities/patient-examination.jpg";
+import labEquipment from "@/assets/facilities/lab-equipment.jpg";
+import labEquipment2 from "@/assets/facilities/lab-equipment-2.jpg";
+import labEquipment3 from "@/assets/facilities/lab-equipment-3.jpg";
+import ipPharmacyStorage from "@/assets/facilities/ip-pharmacy-storage.jpg";
+import freezer70 from "@/assets/facilities/freezer-70.jpg";
+import labKitsStorage from "@/assets/facilities/lab-kits-storage.jpg";
+import vitalSigns from "@/assets/facilities/vital-signs.jpg";
+import ecgEquipment from "@/assets/facilities/ecg-equipment.jpg";
+import examinationEquipment from "@/assets/facilities/examination-equipment.jpg";
 
 const facilityCategories = [
   {
@@ -19,28 +23,28 @@ const facilityCategories = [
     icon: Building2,
     title: "Clinical Rooms",
     description: "Dedicated examination and patient care rooms",
-    images: [examRoom1, patientCare],
+    images: [patientRooms, procedureRoom, patientExamination],
   },
   {
     id: "laboratory",
     icon: Microscope,
     title: "Laboratory",
     description: "Fully equipped research laboratory",
-    images: [labRoom, ultrasound],
+    images: [labEquipment, labEquipment2, labEquipment3],
   },
   {
     id: "storage",
     icon: Thermometer,
-    title: "Sample Storage",
+    title: "Storage Systems",
     description: "Temperature-controlled storage systems",
-    images: [sampleRefrigerators, storageShelves],
+    images: [ipPharmacyStorage, freezer70, labKitsStorage],
   },
   {
     id: "equipment",
     icon: Shield,
     title: "Medical Equipment",
     description: "State-of-the-art diagnostic equipment",
-    images: [ecgMachine, centerEntrance],
+    images: [vitalSigns, ecgEquipment, examinationEquipment],
   },
 ];
 
