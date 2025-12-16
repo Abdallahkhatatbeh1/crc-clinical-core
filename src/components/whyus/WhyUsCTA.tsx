@@ -41,7 +41,7 @@ const WhyUsCTA = () => {
 
           {/* CTA Button */}
           <div className="flex justify-center">
-            <a href="https://calendly.com" target="_blank" rel="noopener noreferrer">
+            <a href="https://calendly.com/sh-crc2021/30min" target="_blank" rel="noopener noreferrer">
               <Button size="lg" variant="secondary" className="group text-primary hover:text-primary bg-white hover:bg-white/90 min-w-[200px]">
                 Start Partnership
                 <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
