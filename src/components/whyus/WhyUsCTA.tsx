@@ -1,6 +1,5 @@
 import { ArrowRight, Handshake } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Link } from "react-router-dom";
 import useScrollAnimation from "@/hooks/useScrollAnimation";
 
 const WhyUsCTA = () => {
@@ -40,19 +39,14 @@ const WhyUsCTA = () => {
             committed to high-quality execution and global research standards.
           </p>
 
-          {/* CTA Buttons */}
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Link to="/contact">
+          {/* CTA Button */}
+          <div className="flex justify-center">
+            <a href="https://calendly.com" target="_blank" rel="noopener noreferrer">
               <Button size="lg" variant="secondary" className="group text-primary hover:text-primary bg-white hover:bg-white/90 min-w-[200px]">
                 Start Partnership
                 <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
               </Button>
-            </Link>
-            <Link to="/services">
-              <Button size="lg" variant="outline" className="group border-white/30 text-white hover:bg-white/10 min-w-[200px]">
-                View Our Services
-              </Button>
-            </Link>
+            </a>
           </div>
         </div>
       </div>

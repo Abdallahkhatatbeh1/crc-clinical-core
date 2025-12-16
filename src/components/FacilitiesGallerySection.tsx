@@ -40,16 +40,6 @@ const facilities = [
     image: centrifuge1,
     title: "Lab Equipment",
     description: "Calibrated laboratory instruments"
-  },
-  {
-    image: sampleRefrigerators,
-    title: "Sample Storage",
-    description: "Temperature-controlled storage units"
-  },
-  {
-    image: ecgMachine,
-    title: "ECG Equipment",
-    description: "Cardiac monitoring capabilities"
   }
 ];
 
