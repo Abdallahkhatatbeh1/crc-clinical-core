@@ -1,55 +1,44 @@
 import BrandTag from "./BrandTag";
 import useScrollAnimation from "@/hooks/useScrollAnimation";
 
-import examRoom1 from "@/assets/facilities/exam-room-1.jpg";
-import examRoom2 from "@/assets/facilities/exam-room-2.jpg";
-import labRoom from "@/assets/facilities/lab-room.jpg";
-import pharmacyDoor from "@/assets/facilities/pharmacy-door.jpg";
-import officeWorkspace from "@/assets/facilities/office-workspace.jpg";
-import centrifuge1 from "@/assets/facilities/centrifuge-1.jpg";
-import sampleRefrigerators from "@/assets/facilities/sample-refrigerators.jpg";
-import ecgMachine from "@/assets/facilities/ecg-machine.jpg";
+// Import new facility images
+import patientRooms from "@/assets/facilities/patient-rooms.jpg";
+import labEquipment from "@/assets/facilities/lab-equipment.jpg";
+import ipPharmacyStorage from "@/assets/facilities/ip-pharmacy-storage.jpg";
+import examinationRoom from "@/assets/facilities/examination-room.jpg";
+import vitalSigns from "@/assets/facilities/vital-signs.jpg";
+import coordinatorsOffices from "@/assets/facilities/coordinators-offices.jpg";
 
 const facilities = [
   {
-    image: examRoom1,
-    title: "Patient Procedure Room",
-    description: "Modern examination and procedure rooms"
+    image: patientRooms,
+    title: "Patient Rooms",
+    description: "Dedicated patient care and procedure rooms"
   },
   {
-    image: examRoom2,
-    title: "Examination Room",
-    description: "Dedicated patient assessment areas"
-  },
-  {
-    image: labRoom,
-    title: "Laboratory",
-    description: "Sample processing and analysis"
-  },
-  {
-    image: pharmacyDoor,
-    title: "IP & Pharmacy Storage",
-    description: "Secure investigational product storage"
-  },
-  {
-    image: officeWorkspace,
-    title: "CRO Monitoring Space",
-    description: "Dedicated workspace for monitoring teams"
-  },
-  {
-    image: centrifuge1,
+    image: labEquipment,
     title: "Lab Equipment",
     description: "Calibrated laboratory instruments"
   },
   {
-    image: sampleRefrigerators,
-    title: "Sample Storage",
-    description: "Temperature-controlled storage units"
+    image: ipPharmacyStorage,
+    title: "IP & Pharmacy Storage",
+    description: "Secure investigational product storage"
   },
   {
-    image: ecgMachine,
-    title: "ECG Equipment",
-    description: "Cardiac monitoring capabilities"
+    image: examinationRoom,
+    title: "Examination Room",
+    description: "Modern patient assessment areas"
+  },
+  {
+    image: vitalSigns,
+    title: "Vital Signs Monitor",
+    description: "Advanced patient monitoring systems"
+  },
+  {
+    image: coordinatorsOffices,
+    title: "Coordinators Offices",
+    description: "Dedicated workspace for research coordinators"
   }
 ];
 
@@ -80,8 +69,8 @@ const FacilitiesGallerySection = () => {
           </p>
         </div>
 
-        {/* Gallery Grid */}
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+        {/* Gallery Grid - 6 images */}
+        <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
           {facilities.map((facility, index) => (
             <div
               key={facility.title}
