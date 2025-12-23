@@ -326,6 +326,74 @@ const keyNames: { [key: string]: string } = {
   feature6_title: "Feature 6 - Title",
   feature6_description: "Feature 6 - Description",
   bottom_text: "Bottom Text",
+  // Therapeutic Areas - Area 1
+  area1_title: "Area 1 - Title (Gastroenterology)",
+  area1_short_title: "Area 1 - Short Title",
+  area1_conditions: "Area 1 - Conditions (separated by |)",
+  // Therapeutic Areas - Area 2
+  area2_title: "Area 2 - Title (Cardiovascular)",
+  area2_short_title: "Area 2 - Short Title",
+  area2_conditions: "Area 2 - Conditions (separated by |)",
+  // Therapeutic Areas - Area 3
+  area3_title: "Area 3 - Title (Neurology)",
+  area3_short_title: "Area 3 - Short Title",
+  area3_conditions: "Area 3 - Conditions (separated by |)",
+  // Therapeutic Areas - Area 4
+  area4_title: "Area 4 - Title (Urology)",
+  area4_short_title: "Area 4 - Short Title",
+  area4_conditions: "Area 4 - Conditions (separated by |)",
+  // Therapeutic Areas - Area 5
+  area5_title: "Area 5 - Title (Rheumatology)",
+  area5_short_title: "Area 5 - Short Title",
+  area5_conditions: "Area 5 - Conditions (separated by |)",
+  // Therapeutic Areas - Area 6
+  area6_title: "Area 6 - Title (Vaccines)",
+  area6_short_title: "Area 6 - Short Title",
+  area6_conditions: "Area 6 - Conditions (separated by |)",
+  // Therapeutic Areas - Area 7
+  area7_title: "Area 7 - Title (Genetic Diseases)",
+  area7_short_title: "Area 7 - Short Title",
+  area7_conditions: "Area 7 - Conditions (separated by |)",
+  // Therapeutic Areas - Area 8
+  area8_title: "Area 8 - Title (Metabolic Disorders)",
+  area8_short_title: "Area 8 - Short Title",
+  area8_conditions: "Area 8 - Conditions (separated by |)",
+  // Therapeutic Areas - Area 9
+  area9_title: "Area 9 - Title (Musculoskeletal)",
+  area9_short_title: "Area 9 - Short Title",
+  area9_conditions: "Area 9 - Conditions (separated by |)",
+  // Therapeutic Areas - Area 10
+  area10_title: "Area 10 - Title (Endocrinology)",
+  area10_short_title: "Area 10 - Short Title",
+  area10_conditions: "Area 10 - Conditions (separated by |)",
+  // Therapeutic Areas - Area 11
+  area11_title: "Area 11 - Title (Ophthalmology)",
+  area11_short_title: "Area 11 - Short Title",
+  area11_conditions: "Area 11 - Conditions (separated by |)",
+  // Therapeutic Areas - Area 12
+  area12_title: "Area 12 - Title (ENT)",
+  area12_short_title: "Area 12 - Short Title",
+  area12_conditions: "Area 12 - Conditions (separated by |)",
+  // Therapeutic Areas - Area 13
+  area13_title: "Area 13 - Title (Pediatrics)",
+  area13_short_title: "Area 13 - Short Title",
+  area13_conditions: "Area 13 - Conditions (separated by |)",
+  // Therapeutic Areas - Area 14
+  area14_title: "Area 14 - Title (Geriatrics)",
+  area14_short_title: "Area 14 - Short Title",
+  area14_conditions: "Area 14 - Conditions (separated by |)",
+  // Therapeutic Areas - Area 15
+  area15_title: "Area 15 - Title (Women's Health)",
+  area15_short_title: "Area 15 - Short Title",
+  area15_conditions: "Area 15 - Conditions (separated by |)",
+  // Therapeutic Areas - Area 16
+  area16_title: "Area 16 - Title (Psychiatry)",
+  area16_short_title: "Area 16 - Short Title",
+  area16_conditions: "Area 16 - Conditions (separated by |)",
+  // Therapeutic Areas - Area 17
+  area17_title: "Area 17 - Title (Dermatology)",
+  area17_short_title: "Area 17 - Short Title",
+  area17_conditions: "Area 17 - Conditions (separated by |)",
 };
 
 const ContentEditor = ({ content, pages, updateContent, session }: ContentEditorProps) => {
