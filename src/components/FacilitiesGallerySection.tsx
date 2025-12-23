@@ -1,8 +1,9 @@
 import BrandTag from "./BrandTag";
 import useScrollAnimation from "@/hooks/useScrollAnimation";
 import { useSiteContent } from "@/hooks/useSiteContent";
+import { useSectionImages } from "@/hooks/useSectionImages";
 
-// Import new facility images
+// Import fallback facility images
 import patientRooms from "@/assets/facilities/patient-rooms.jpg";
 import labEquipment from "@/assets/facilities/lab-equipment.jpg";
 import ipPharmacyStorage from "@/assets/facilities/ip-pharmacy-storage.jpg";
@@ -10,7 +11,7 @@ import examinationRoom from "@/assets/facilities/examination-room.jpg";
 import vitalSigns from "@/assets/facilities/vital-signs.jpg";
 import coordinatorsOffices from "@/assets/facilities/coordinators-offices.jpg";
 
-const facilityImages = [
+const fallbackImages = [
   patientRooms,
   labEquipment,
   ipPharmacyStorage,
@@ -22,35 +23,36 @@ const facilityImages = [
 const FacilitiesGallerySection = () => {
   const { ref: sectionRef, isVisible } = useScrollAnimation({ threshold: 0.1 });
   const { content } = useSiteContent("home", "facilities");
+  const { images, getImageUrl } = useSectionImages("home", "facilities");
 
   const facilities = [
     {
-      image: facilityImages[0],
+      image: getImageUrl("facility1_image", fallbackImages[0]),
       title: content.facility1_title || "Patient Rooms",
       description: content.facility1_description || "Dedicated patient care and procedure rooms"
     },
     {
-      image: facilityImages[1],
+      image: getImageUrl("facility2_image", fallbackImages[1]),
       title: content.facility2_title || "Lab Equipment",
       description: content.facility2_description || "Calibrated laboratory instruments"
     },
     {
-      image: facilityImages[2],
+      image: getImageUrl("facility3_image", fallbackImages[2]),
       title: content.facility3_title || "IP & Pharmacy Storage",
       description: content.facility3_description || "Secure investigational product storage"
     },
     {
-      image: facilityImages[3],
+      image: getImageUrl("facility4_image", fallbackImages[3]),
       title: content.facility4_title || "Examination Room",
       description: content.facility4_description || "Modern patient assessment areas"
     },
     {
-      image: facilityImages[4],
+      image: getImageUrl("facility5_image", fallbackImages[4]),
       title: content.facility5_title || "Vital Signs Monitor",
       description: content.facility5_description || "Advanced patient monitoring systems"
     },
     {
-      image: facilityImages[5],
+      image: getImageUrl("facility6_image", fallbackImages[5]),
       title: content.facility6_title || "Coordinators Offices",
       description: content.facility6_description || "Dedicated workspace for research coordinators"
     }

@@ -5,11 +5,12 @@ import { Textarea } from "@/components/ui/textarea";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useToast } from "@/hooks/use-toast";
-import { FileText, Save, Home, Info, Briefcase, FlaskConical, Phone, HelpCircle, Globe, Image, Upload, X, Copy, ImageIcon } from "lucide-react";
+import { FileText, Save, Home, Info, Briefcase, FlaskConical, Phone, HelpCircle, Globe, ImageIcon, RefreshCw } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { Session } from "@supabase/supabase-js";
+import ImageUploader from "./ImageUploader";
 
-// Import facility images for preview
+// Import fallback images
 import patientRooms from "@/assets/facilities/patient-rooms.jpg";
 import labEquipment from "@/assets/facilities/lab-equipment.jpg";
 import ipPharmacyStorage from "@/assets/facilities/ip-pharmacy-storage.jpg";
@@ -26,8 +27,6 @@ import procedureRoom from "@/assets/facilities/procedure-room.jpg";
 import examinationEquipment from "@/assets/facilities/examination-equipment.jpg";
 import ecgEquipment from "@/assets/facilities/ecg-equipment.jpg";
 import teamPhotoNew from "@/assets/facilities/team-photo-new.jpg";
-
-// Import partner logos
 import iqviaLogo from "@/assets/partners/iqvia.png";
 import parexelLogo from "@/assets/partners/parexel.png";
 import syneosLogo from "@/assets/partners/syneos-health.svg";
@@ -53,11 +52,6 @@ interface ContentItem {
   image_url: string | null;
 }
 
-interface SiteImage {
-  name: string;
-  url: string;
-}
-
 interface ContentEditorProps {
   content: ContentItem[];
   pages: string[];
@@ -65,59 +59,49 @@ interface ContentEditorProps {
   session: Session | null;
 }
 
-// Section images mapping
-const sectionImages: { [page: string]: { [section: string]: { name: string; src: string; description: string }[] } } = {
-  home: {
-    facilities: [
-      { name: "Patient Rooms", src: patientRooms, description: "Dedicated patient care rooms" },
-      { name: "Lab Equipment", src: labEquipment, description: "Laboratory instruments" },
-      { name: "IP Pharmacy Storage", src: ipPharmacyStorage, description: "Secure storage" },
-      { name: "Examination Room", src: examinationRoom, description: "Patient assessment" },
-      { name: "Vital Signs Monitor", src: vitalSigns, description: "Monitoring systems" },
-      { name: "Coordinators Offices", src: coordinatorsOffices, description: "Research workspace" },
-    ],
-    partners: [
-      { name: "IQVIA", src: iqviaLogo, description: "CRO Partner" },
-      { name: "Parexel", src: parexelLogo, description: "CRO Partner" },
-      { name: "Syneos Health", src: syneosLogo, description: "CRO Partner" },
-      { name: "ICON", src: iconLogo, description: "CRO Partner" },
-      { name: "PPD", src: ppdLogo, description: "CRO Partner" },
-      { name: "Labcorp", src: labcorpLogo, description: "CRO Partner" },
-      { name: "Medpace", src: medpaceLogo, description: "CRO Partner" },
-      { name: "PSI", src: psiLogo, description: "CRO Partner" },
-      { name: "MCT", src: mctLogo, description: "CRO Partner" },
-      { name: "Johnson & Johnson", src: johnsonLogo, description: "Pharma Partner" },
-      { name: "New Amsterdam Pharma", src: newAmsterdamLogo, description: "Pharma Partner" },
-      { name: "Sarepta", src: sareptaLogo, description: "Pharma Partner" },
-      { name: "Argenx", src: argenxLogo, description: "Pharma Partner" },
-      { name: "Immunic", src: immunicLogo, description: "Pharma Partner" },
-    ],
-  },
-  services: {
-    gallery: [
-      { name: "Patient Rooms", src: patientRooms, description: "Clinical Care" },
-      { name: "Patient Examination", src: patientExamination, description: "Clinical Care" },
-      { name: "Examination Room", src: examinationRoom, description: "Patient Rooms" },
-      { name: "Procedure Room", src: procedureRoom, description: "Patient Rooms" },
-      { name: "Lab Centrifuge", src: labEquipment, description: "Laboratory" },
-      { name: "Lab Equipment MPW", src: labEquipment2, description: "Laboratory" },
-      { name: "Lab Centrifuge LC-04L", src: labEquipment3, description: "Laboratory" },
-      { name: "Vital Signs Monitor", src: vitalSigns, description: "Monitoring" },
-      { name: "ECG Equipment", src: ecgEquipment, description: "Medical Equipment" },
-      { name: "Examination Equipment", src: examinationEquipment, description: "Medical Equipment" },
-      { name: "IP Pharmacy Storage", src: ipPharmacyStorage, description: "Storage" },
-      { name: "-70°C Freezer", src: freezer70, description: "Storage" },
-      { name: "Lab Kits Storage", src: labKitsStorage, description: "Storage" },
-      { name: "Emergency Trolley", src: emergencyTrolley, description: "Equipment" },
-      { name: "Coordinators Offices", src: coordinatorsOffices, description: "Administration" },
-      { name: "Our Team", src: teamPhotoNew, description: "Team" },
-    ],
-  },
-  about: {
-    team_photo: [
-      { name: "Team Photo", src: teamPhotoNew, description: "CRC Team" },
-    ],
-  },
+// Fallback images mapping
+const fallbackImages: { [key: string]: string } = {
+  // Home facilities
+  facility1_image: patientRooms,
+  facility2_image: labEquipment,
+  facility3_image: ipPharmacyStorage,
+  facility4_image: examinationRoom,
+  facility5_image: vitalSigns,
+  facility6_image: coordinatorsOffices,
+  // Services gallery
+  gallery_image1: patientRooms,
+  gallery_image2: patientExamination,
+  gallery_image3: examinationRoom,
+  gallery_image4: procedureRoom,
+  gallery_image5: labEquipment,
+  gallery_image6: labEquipment2,
+  gallery_image7: labEquipment3,
+  gallery_image8: vitalSigns,
+  gallery_image9: ecgEquipment,
+  gallery_image10: examinationEquipment,
+  gallery_image11: ipPharmacyStorage,
+  gallery_image12: freezer70,
+  gallery_image13: labKitsStorage,
+  gallery_image14: emergencyTrolley,
+  gallery_image15: coordinatorsOffices,
+  gallery_image16: teamPhotoNew,
+  // About team
+  team_image: teamPhotoNew,
+  // Partner logos
+  cro_logo1: iqviaLogo,
+  cro_logo2: parexelLogo,
+  cro_logo3: syneosLogo,
+  cro_logo4: iconLogo,
+  cro_logo5: ppdLogo,
+  cro_logo6: labcorpLogo,
+  cro_logo7: medpaceLogo,
+  cro_logo8: psiLogo,
+  cro_logo9: mctLogo,
+  pharma_logo1: johnsonLogo,
+  pharma_logo2: newAmsterdamLogo,
+  pharma_logo3: sareptaLogo,
+  pharma_logo4: argenxLogo,
+  pharma_logo5: immunicLogo,
 };
 
 const pageNames: { [key: string]: { name: string; icon: React.ElementType } } = {
@@ -140,9 +124,6 @@ const sectionNames: { [key: string]: string } = {
   features: "Features",
   vision: "Vision",
   mission: "Mission",
-  service1: "Service 1",
-  service2: "Service 2",
-  service3: "Service 3",
   info: "Contact Info",
   footer: "Footer",
   team: "Team",
@@ -150,8 +131,6 @@ const sectionNames: { [key: string]: string } = {
   values: "Core Values",
   founder: "Founder",
   commitment: "Commitment",
-  list: "Services List",
-  areas: "Therapeutic Areas",
   services_list: "Services List",
   facilities_section: "Facilities Overview",
   gallery: "Facilities Gallery",
@@ -170,7 +149,7 @@ const keyNames: { [key: string]: string } = {
   badge: "Badge",
   button_text: "Button Text",
   trust_label: "Trust Label",
-  trust_indicators: "Trust Indicators (comma separated)",
+  trust_indicators: "Trust Indicators",
   tag: "Tag",
   highlight1: "Highlight 1",
   highlight2: "Highlight 2",
@@ -192,19 +171,19 @@ const keyNames: { [key: string]: string } = {
   facility6_description: "Facility 6 - Description",
   card1_title: "Card 1 - Title",
   card1_subtitle: "Card 1 - Subtitle",
-  card1_points: "Card 1 - Points (use | separator)",
+  card1_points: "Card 1 - Points",
   card2_title: "Card 2 - Title",
   card2_subtitle: "Card 2 - Subtitle",
-  card2_points: "Card 2 - Points (use | separator)",
+  card2_points: "Card 2 - Points",
   card3_title: "Card 3 - Title",
   card3_subtitle: "Card 3 - Subtitle",
-  card3_points: "Card 3 - Points (use | separator)",
+  card3_points: "Card 3 - Points",
   card4_title: "Card 4 - Title",
   card4_subtitle: "Card 4 - Subtitle",
-  card4_points: "Card 4 - Points (use | separator)",
-  cro_description: "CRO Section - Description",
-  pharma_tag: "Pharma Section - Tag",
-  pharma_description: "Pharma Section - Description",
+  card4_points: "Card 4 - Points",
+  cro_description: "CRO Description",
+  pharma_tag: "Pharma Tag",
+  pharma_description: "Pharma Description",
   cta_text: "CTA Text",
   cta_primary: "Primary CTA",
   cta_secondary: "Secondary CTA",
@@ -230,14 +209,14 @@ const keyNames: { [key: string]: string } = {
   paragraph2: "Paragraph 2",
   paragraph3: "Paragraph 3",
   highlight4: "Highlight 4",
-  role1: "Role 1",
-  role2: "Role 2",
-  role3: "Role 3",
-  role4: "Role 4",
-  role5: "Role 5",
-  role6: "Role 6",
   photo_title: "Photo Title",
   photo_description: "Photo Description",
+  stat1_value: "Stat 1 - Value",
+  stat1_label: "Stat 1 - Label",
+  stat2_value: "Stat 2 - Value",
+  stat2_label: "Stat 2 - Label",
+  stat3_value: "Stat 3 - Value",
+  stat3_label: "Stat 3 - Label",
   stat4_value: "Stat 4 - Value",
   stat4_label: "Stat 4 - Label",
   item1: "Item 1",
@@ -251,83 +230,22 @@ const keyNames: { [key: string]: string } = {
   badge1: "Badge 1",
   badge2: "Badge 2",
   badge3: "Badge 3",
-  service1_title: "Service 1 - Title",
-  service1_description: "Service 1 - Description",
-  service2_title: "Service 2 - Title",
-  service2_description: "Service 2 - Description",
-  service3_title: "Service 3 - Title",
-  service3_description: "Service 3 - Description",
-  service4_title: "Service 4 - Title",
-  service4_description: "Service 4 - Description",
-  service5_title: "Service 5 - Title",
-  service5_description: "Service 5 - Description",
-  service6_title: "Service 6 - Title",
-  service6_description: "Service 6 - Description",
-  service7_title: "Service 7 - Title",
-  service7_description: "Service 7 - Description",
-  service8_title: "Service 8 - Title",
-  service8_description: "Service 8 - Description",
-  service9_title: "Service 9 - Title",
-  service9_description: "Service 9 - Description",
-  facility1_name: "Facility 1 - Name",
-  facility1_desc: "Facility 1 - Description",
-  facility2_name: "Facility 2 - Name",
-  facility2_desc: "Facility 2 - Description",
-  facility3_name: "Facility 3 - Name",
-  facility3_desc: "Facility 3 - Description",
-  facility4_name: "Facility 4 - Name",
-  facility4_desc: "Facility 4 - Description",
-  facility5_name: "Facility 5 - Name",
-  facility5_desc: "Facility 5 - Description",
-  facility6_name: "Facility 6 - Name",
-  facility6_desc: "Facility 6 - Description",
   feature1: "Feature 1",
   feature2: "Feature 2",
   feature3: "Feature 3",
   button_primary: "Primary Button",
   button_secondary: "Secondary Button",
-  description3: "Description 3",
-  phase1_title: "Phase 1 - Title",
-  phase1_desc: "Phase 1 - Description",
-  phase2_title: "Phase 2 - Title",
-  phase2_desc: "Phase 2 - Description",
-  phase3_title: "Phase 3 - Title",
-  phase3_desc: "Phase 3 - Description",
-  phase4_title: "Phase 4 - Title",
-  phase4_desc: "Phase 4 - Description",
-  compliance1: "Compliance Badge 1",
-  compliance2: "Compliance Badge 2",
-  trust1: "Trust Point 1",
-  trust2: "Trust Point 2",
-  trust3: "Trust Point 3",
-  card1_label: "Card 1 - Label",
-  card2_label: "Card 2 - Label",
-  card3_label: "Card 3 - Label",
-  card4_label: "Card 4 - Label",
-  email_label: "Email Label",
-  location_detail: "Location Detail",
-  location_label: "Location Label",
-  form_title: "Form Title",
-  submit_button: "Submit Button",
-  success_title: "Success Title",
-  success_message: "Success Message",
-  position1_title: "Position 1 - Title",
-  position1_desc: "Position 1 - Description",
-  position2_title: "Position 2 - Title",
-  position2_desc: "Position 2 - Description",
-  position3_title: "Position 3 - Title",
-  position3_desc: "Position 3 - Description",
-  position4_title: "Position 4 - Title",
-  position4_desc: "Position 4 - Description",
-  position5_title: "Position 5 - Title",
-  position5_desc: "Position 5 - Description",
-  position6_title: "Position 6 - Title",
-  position6_desc: "Position 6 - Description",
-  button_subtitle: "Button Subtitle",
-  vision_tag: "Vision Tag",
-  vision_text: "Vision Text",
-  mission_tag: "Mission Tag",
-  mission_text: "Mission Text",
+  trust_badge1: "Trust Badge 1",
+  trust_badge2: "Trust Badge 2",
+  trust_badge3: "Trust Badge 3",
+  location_badge: "Location Badge",
+  video_url: "Video URL",
+  cro_title: "CRO Title",
+  cro_subtitle: "CRO Subtitle",
+  cro_partners: "CRO Partners",
+  pharma_title: "Pharma Title",
+  pharma_subtitle: "Pharma Subtitle",
+  pharma_sponsors: "Pharma Sponsors",
   feature1_title: "Feature 1 - Title",
   feature1_description: "Feature 1 - Description",
   feature2_title: "Feature 2 - Title",
@@ -341,45 +259,14 @@ const keyNames: { [key: string]: string } = {
   feature6_title: "Feature 6 - Title",
   feature6_description: "Feature 6 - Description",
   bottom_text: "Bottom Text",
-  stat1_value: "Stat 1 - Value",
-  stat1_label: "Stat 1 - Label",
-  stat2_value: "Stat 2 - Value",
-  stat2_label: "Stat 2 - Label",
-  stat3_value: "Stat 3 - Value",
-  stat3_label: "Stat 3 - Label",
-  trust_badge1: "Trust Badge 1",
-  trust_badge2: "Trust Badge 2",
-  trust_badge3: "Trust Badge 3",
-  location_badge: "Location Badge",
-  video_url: "Video URL",
-  cro_title: "CRO Title",
-  cro_subtitle: "CRO Subtitle",
-  cro_partners: "CRO Partners (comma separated)",
-  cro_capabilities_label: "CRO Capabilities Label",
-  cro_capability1: "CRO Capability 1",
-  cro_capability2: "CRO Capability 2",
-  cro_capability3: "CRO Capability 3",
-  cro_capability4: "CRO Capability 4",
-  pharma_title: "Pharma Title",
-  pharma_subtitle: "Pharma Subtitle",
-  pharma_sponsors: "Pharma Sponsors (comma separated)",
-  pharma_demo_label: "Pharma Demo Label",
-  pharma_demo1: "Pharma Demo 1",
-  pharma_demo2: "Pharma Demo 2",
-  pharma_demo3: "Pharma Demo 3",
-  pharma_demo4: "Pharma Demo 4",
-  card1_description: "Card 1 - Description",
-  card2_description: "Card 2 - Description",
-  card3_description: "Card 3 - Description",
 };
 
 const ContentEditor = ({ content, pages, updateContent, session }: ContentEditorProps) => {
   const [editedContent, setEditedContent] = useState<{ [key: string]: string }>({});
   const [savingId, setSavingId] = useState<string | null>(null);
   const [activePageTab, setActivePageTab] = useState("home");
-  const [uploadedImages, setUploadedImages] = useState<SiteImage[]>([]);
-  const [loadingImages, setLoadingImages] = useState(false);
-  const [uploadingImage, setUploadingImage] = useState(false);
+  const [imageItems, setImageItems] = useState<ContentItem[]>([]);
+  const [refreshKey, setRefreshKey] = useState(0);
   const { toast } = useToast();
 
   useEffect(() => {
@@ -390,83 +277,21 @@ const ContentEditor = ({ content, pages, updateContent, session }: ContentEditor
     setEditedContent(initial);
   }, [content]);
 
-  // Fetch uploaded images from storage
-  const fetchUploadedImages = async () => {
-    setLoadingImages(true);
-    try {
-      const { data, error } = await supabase.storage.from('site-images').list('', { limit: 100 });
-      if (error) throw error;
-      
-      const images = await Promise.all(
-        (data || []).filter(item => !item.id.endsWith('/')).map(async (item) => {
-          const { data: { publicUrl } } = supabase.storage.from('site-images').getPublicUrl(item.name);
-          return { name: item.name, url: publicUrl };
-        })
-      );
-      setUploadedImages(images);
-    } catch (error) {
-      console.error('Error fetching images:', error);
+  // Fetch image content items
+  const fetchImageItems = async () => {
+    const { data, error } = await supabase
+      .from("site_content")
+      .select("*")
+      .eq("content_type", "image");
+    
+    if (!error && data) {
+      setImageItems(data as ContentItem[]);
     }
-    setLoadingImages(false);
   };
 
   useEffect(() => {
-    if (session) {
-      fetchUploadedImages();
-    }
-  }, [session]);
-
-  const handleImageUpload = async (event: React.ChangeEvent<HTMLInputElement>) => {
-    const file = event.target.files?.[0];
-    if (!file) return;
-
-    setUploadingImage(true);
-    try {
-      const formData = new FormData();
-      formData.append('file', file);
-      formData.append('image_type', 'site');
-
-      const { error } = await supabase.functions.invoke('upload-image', {
-        body: formData,
-      });
-
-      if (error) throw error;
-
-      toast({
-        title: "Success",
-        description: "Image uploaded successfully",
-      });
-      fetchUploadedImages();
-    } catch (error: unknown) {
-      const errorMessage = error instanceof Error ? error.message : 'Upload failed';
-      toast({
-        title: "Error",
-        description: errorMessage,
-        variant: "destructive",
-      });
-    }
-    setUploadingImage(false);
-  };
-
-  const handleDeleteUploadedImage = async (imageName: string) => {
-    try {
-      const { error } = await supabase.storage.from('site-images').remove([imageName]);
-      if (error) throw error;
-
-      toast({
-        title: "Success",
-        description: "Image deleted successfully",
-      });
-      fetchUploadedImages();
-    } catch (error: unknown) {
-      const errorMessage = error instanceof Error ? error.message : 'Delete failed';
-      toast({
-        title: "Error",
-        description: errorMessage,
-        variant: "destructive",
-      });
-    }
-  };
+    fetchImageItems();
+  }, [refreshKey]);
 
   const handleSave = async (id: string) => {
     setSavingId(id);
@@ -488,7 +313,11 @@ const ContentEditor = ({ content, pages, updateContent, session }: ContentEditor
   };
 
   const getPageContent = (page: string) => {
-    return content.filter(item => item.page === page);
+    return content.filter(item => item.page === page && item.content_type !== "image");
+  };
+
+  const getPageImages = (page: string, section: string) => {
+    return imageItems.filter(item => item.page === page && item.section === section);
   };
 
   const groupContentBySections = (pageContent: ContentItem[]) => {
@@ -509,146 +338,54 @@ const ContentEditor = ({ content, pages, updateContent, session }: ContentEditor
            key.includes("points");
   };
 
-  // Get section images for current page/section
-  const getSectionImages = (page: string, section: string) => {
-    return sectionImages[page]?.[section] || [];
+  const handleImageUpdated = () => {
+    setRefreshKey(prev => prev + 1);
   };
 
-  // Section Images Preview Component
-  const SectionImagesPreview = ({ page, section }: { page: string; section: string }) => {
-    const images = getSectionImages(page, section);
+  // Image Grid Component for sections with images
+  const SectionImageGrid = ({ page, section }: { page: string; section: string }) => {
+    const sectionImages = getPageImages(page, section);
     
-    if (images.length === 0) return null;
+    if (sectionImages.length === 0) return null;
 
     return (
       <div className="mb-6 bg-gradient-to-r from-primary/5 to-accent/5 rounded-xl p-5 border border-border/50">
-        <div className="flex items-center gap-2 mb-4">
-          <ImageIcon className="h-5 w-5 text-primary" />
-          <h4 className="font-semibold text-foreground">Section Images</h4>
-          <span className="text-xs text-muted-foreground bg-muted px-2 py-0.5 rounded-full">
-            {images.length} images
-          </span>
+        <div className="flex items-center justify-between mb-4">
+          <div className="flex items-center gap-2">
+            <ImageIcon className="h-5 w-5 text-primary" />
+            <h4 className="font-semibold text-foreground">Section Images</h4>
+            <span className="text-xs text-muted-foreground bg-muted px-2 py-0.5 rounded-full">
+              {sectionImages.length} images
+            </span>
+          </div>
+          <Button 
+            size="sm" 
+            variant="ghost" 
+            onClick={handleImageUpdated}
+            className="text-muted-foreground"
+          >
+            <RefreshCw className="h-4 w-4 mr-1" />
+            Refresh
+          </Button>
         </div>
         <p className="text-sm text-muted-foreground mb-4">
-          These images are currently displayed in this section. To replace them, update the source files in the project.
+          Click on any image to replace it. Custom images will be saved and shown on the website.
         </p>
         <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-3">
-          {images.map((image, index) => (
-            <div 
-              key={index} 
-              className="group relative rounded-lg overflow-hidden border border-border bg-white shadow-sm hover:shadow-md transition-shadow"
-            >
-              <div className="aspect-square">
-                <img 
-                  src={image.src} 
-                  alt={image.name}
-                  className="w-full h-full object-cover"
-                />
-              </div>
-              <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity">
-                <div className="absolute bottom-0 left-0 right-0 p-2">
-                  <p className="text-white text-xs font-medium truncate">{image.name}</p>
-                  <p className="text-white/70 text-[10px] truncate">{image.description}</p>
-                </div>
-              </div>
-            </div>
+          {sectionImages.map((image) => (
+            <ImageUploader
+              key={image.id}
+              imageId={image.id}
+              imageName={image.content_value || image.content_key}
+              currentUrl={image.image_url}
+              fallbackUrl={fallbackImages[image.content_key] || ""}
+              onImageUpdated={handleImageUpdated}
+            />
           ))}
         </div>
       </div>
     );
   };
-
-  // Uploaded Images Manager Component
-  const UploadedImagesManager = () => (
-    <div className="bg-muted/30 rounded-xl p-5 border border-border/50">
-      <div className="flex items-center justify-between mb-4">
-        <div className="flex items-center gap-2">
-          <Image className="h-5 w-5 text-primary" />
-          <h4 className="font-semibold text-foreground">Uploaded Images</h4>
-          <span className="text-xs text-muted-foreground bg-muted px-2 py-0.5 rounded-full">
-            Storage
-          </span>
-        </div>
-        <label className="cursor-pointer">
-          <input
-            type="file"
-            accept="image/*"
-            className="hidden"
-            onChange={handleImageUpload}
-            disabled={uploadingImage}
-          />
-          <Button asChild size="sm" disabled={uploadingImage}>
-            <span>
-              {uploadingImage ? (
-                <>
-                  <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white mr-2"></div>
-                  Uploading...
-                </>
-              ) : (
-                <>
-                  <Upload className="h-4 w-4 mr-2" />
-                  Upload
-                </>
-              )}
-            </span>
-          </Button>
-        </label>
-      </div>
-
-      <p className="text-sm text-muted-foreground mb-4">
-        Upload custom images here. You can use the URL in content fields or reference them in the code.
-      </p>
-
-      {loadingImages ? (
-        <div className="flex justify-center py-8">
-          <div className="animate-spin rounded-full h-6 w-6 border-b-2 border-primary"></div>
-        </div>
-      ) : uploadedImages.length === 0 ? (
-        <div className="text-center py-8 bg-white/50 rounded-lg border border-dashed border-border">
-          <Image className="h-10 w-10 text-muted-foreground mx-auto mb-2 opacity-50" />
-          <p className="text-muted-foreground text-sm">No images uploaded yet</p>
-        </div>
-      ) : (
-        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3">
-          {uploadedImages.map((image) => (
-            <div key={image.name} className="group relative rounded-lg overflow-hidden border border-border bg-white shadow-sm">
-              <div className="aspect-square">
-                <img 
-                  src={image.url} 
-                  alt={image.name}
-                  className="w-full h-full object-cover"
-                />
-              </div>
-              <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center gap-1">
-                <Button
-                  size="sm"
-                  variant="secondary"
-                  className="h-7 px-2 text-xs"
-                  onClick={() => {
-                    navigator.clipboard.writeText(image.url);
-                    toast({ title: "Copied", description: "Image URL copied" });
-                  }}
-                >
-                  <Copy className="h-3 w-3" />
-                </Button>
-                <Button
-                  size="sm"
-                  variant="destructive"
-                  className="h-7 px-2"
-                  onClick={() => handleDeleteUploadedImage(image.name)}
-                >
-                  <X className="h-3 w-3" />
-                </Button>
-              </div>
-              <div className="p-1.5 bg-white">
-                <p className="text-xs text-muted-foreground truncate">{image.name}</p>
-              </div>
-            </div>
-          ))}
-        </div>
-      )}
-    </div>
-  );
 
   return (
     <Card className="border-0 shadow-sm">
@@ -659,7 +396,7 @@ const ContentEditor = ({ content, pages, updateContent, session }: ContentEditor
           </div>
           <div>
             <CardTitle>Site Content</CardTitle>
-            <CardDescription>Edit content and view section images for all pages</CardDescription>
+            <CardDescription>Edit text content and replace section images</CardDescription>
           </div>
         </div>
       </CardHeader>
@@ -690,29 +427,25 @@ const ContentEditor = ({ content, pages, updateContent, session }: ContentEditor
               <TabsContent key={page} value={page}>
                 <Tabs defaultValue={Object.keys(groupedContent)[0]} className="w-full">
                   <TabsList className="w-full flex-wrap h-auto gap-2 mb-6 bg-white p-2 border">
-                    {Object.keys(groupedContent).map((section) => (
-                      <TabsTrigger 
-                        key={section} 
-                        value={section} 
-                        className="flex-1 min-w-fit flex items-center gap-1.5"
-                      >
-                        {getSectionImages(page, section).length > 0 && (
-                          <ImageIcon className="h-3 w-3 text-primary" />
-                        )}
-                        {sectionNames[section] || section}
-                      </TabsTrigger>
-                    ))}
+                    {Object.keys(groupedContent).map((section) => {
+                      const hasImages = getPageImages(page, section).length > 0;
+                      return (
+                        <TabsTrigger 
+                          key={section} 
+                          value={section} 
+                          className="flex-1 min-w-fit flex items-center gap-1.5"
+                        >
+                          {hasImages && <ImageIcon className="h-3 w-3 text-primary" />}
+                          {sectionNames[section] || section}
+                        </TabsTrigger>
+                      );
+                    })}
                   </TabsList>
 
                   {Object.entries(groupedContent).map(([section, items]) => (
                     <TabsContent key={section} value={section} className="space-y-4">
-                      {/* Section Images Preview */}
-                      <SectionImagesPreview page={page} section={section} />
-
-                      {/* Uploaded Images Manager (show only in relevant sections) */}
-                      {(section === "facilities" || section === "gallery" || section === "partners") && (
-                        <UploadedImagesManager />
-                      )}
+                      {/* Section Images Grid */}
+                      <SectionImageGrid page={page} section={section} />
 
                       {/* Content Fields */}
                       <div className="space-y-4">
@@ -764,7 +497,7 @@ const ContentEditor = ({ content, pages, updateContent, session }: ContentEditor
                             )}
                             {item.content_key === "trust_indicators" && (
                               <p className="text-xs text-muted-foreground">
-                                Separate company names with commas (e.g., IQVIA,Parexel,ICON)
+                                Separate company names with commas
                               </p>
                             )}
                           </div>
