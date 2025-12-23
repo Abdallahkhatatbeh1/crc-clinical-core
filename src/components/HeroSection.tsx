@@ -2,13 +2,19 @@ import { ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import { useSiteContent } from "@/hooks/useSiteContent";
 
 const HeroSection = () => {
   const [isLoaded, setIsLoaded] = useState(false);
+  const { content, isLoading } = useSiteContent("home", "hero");
 
   useEffect(() => {
     setIsLoaded(true);
   }, []);
+
+  const trustIndicators = content.trust_indicators 
+    ? content.trust_indicators.split(',').map(s => s.trim()) 
+    : ['IQVIA', 'Parexel', 'ICON', 'PPD', 'Medpace'];
 
   return (
     <section className="relative min-h-[70vh] flex items-center gradient-brand overflow-hidden">
@@ -31,7 +37,9 @@ const HeroSection = () => {
             }`}
           >
             <span className="w-2 h-2 bg-accent rounded-full animate-pulse" />
-            <span className="text-sm font-medium text-white/90">GCP-Compliant Research Center</span>
+            <span className="text-sm font-medium text-white/90">
+              {content.badge || "GCP-Compliant Research Center"}
+            </span>
           </div>
 
           {/* Main Heading */}
@@ -40,9 +48,12 @@ const HeroSection = () => {
               isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
             }`}
           >
-            Clinical Research Excellence
+            {content.title || "Clinical Research Excellence"}
             <span className="block mt-2">
-              <span className="text-white/90">|</span> <span className="text-accent">Trusted Phase I–IV Trial Site</span>
+              <span className="text-white/90">|</span>{" "}
+              <span className="text-accent">
+                {content.title_highlight || "Trusted Phase I–IV Trial Site"}
+              </span>
             </span>
           </h1>
 
@@ -54,7 +65,7 @@ const HeroSection = () => {
           >
             <Link to="/why-us">
               <Button variant="hero" size="xl" className="group">
-                Work With Us
+                {content.button_text || "Work With Us"}
                 <ArrowRight size={20} className="group-hover:translate-x-1 transition-transform" />
               </Button>
             </Link>
@@ -66,13 +77,15 @@ const HeroSection = () => {
               isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
             }`}
           >
-            <p className="text-white/50 text-sm mb-3">Trusted by leading organizations</p>
+            <p className="text-white/50 text-sm mb-3">
+              {content.trust_label || "Trusted by leading organizations"}
+            </p>
             <div className="flex flex-wrap justify-center gap-6 text-white/60 text-sm font-medium">
-              <span className="hover:text-white transition-colors">IQVIA</span>
-              <span className="hover:text-white transition-colors">Parexel</span>
-              <span className="hover:text-white transition-colors">ICON</span>
-              <span className="hover:text-white transition-colors">PPD</span>
-              <span className="hover:text-white transition-colors">Medpace</span>
+              {trustIndicators.map((indicator) => (
+                <span key={indicator} className="hover:text-white transition-colors">
+                  {indicator}
+                </span>
+              ))}
             </div>
           </div>
         </div>

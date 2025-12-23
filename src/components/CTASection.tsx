@@ -2,9 +2,11 @@ import { ArrowRight, Mail, Phone } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import useScrollAnimation from "@/hooks/useScrollAnimation";
 import { Link } from "react-router-dom";
+import { useSiteContent } from "@/hooks/useSiteContent";
 
 const CTASection = () => {
   const { ref: sectionRef, isVisible } = useScrollAnimation({ threshold: 0.3 });
+  const { content } = useSiteContent("home", "cta");
 
   return (
     <section ref={sectionRef} className="py-16 md:py-24 lg:py-32 gradient-brand relative overflow-hidden">
@@ -32,14 +34,14 @@ const CTASection = () => {
                 isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
               }`}
             >
-              Work With <span className="text-accent">Us</span>
+              {content.title || "Work With"} <span className="text-accent">{content.title_highlight || "Us"}</span>
             </h2>
             <p 
               className={`text-xl text-white/85 leading-relaxed max-w-2xl mx-auto transition-all duration-700 delay-200 ${
                 isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
               }`}
             >
-              Partner with CRC to conduct your next clinical study in Jordan with confidence, efficiency, and internationally aligned quality.
+              {content.description || "Partner with CRC to conduct your next clinical study in Jordan with confidence, efficiency, and internationally aligned quality."}
             </p>
           </div>
 
@@ -51,7 +53,7 @@ const CTASection = () => {
           >
             <Link to="/why-us">
               <Button variant="hero" size="xl" className="group min-w-[280px]">
-                Partner With Us
+                {content.button_text || "Partner With Us"}
                 <ArrowRight size={20} className="group-hover:translate-x-1 transition-transform" />
               </Button>
             </Link>
@@ -63,13 +65,13 @@ const CTASection = () => {
               isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
             }`}
           >
-            <a href="mailto:info@crcjo.com" className="flex items-center gap-2 text-white/80 hover:text-white transition-colors">
+            <a href={`mailto:${content.email || "info@crcjo.com"}`} className="flex items-center gap-2 text-white/80 hover:text-white transition-colors">
               <Mail className="w-5 h-5" />
-              <span>info@crcjo.com</span>
+              <span>{content.email || "info@crcjo.com"}</span>
             </a>
-            <a href="tel:+962123456789" className="flex items-center gap-2 text-white/80 hover:text-white transition-colors">
+            <a href={`tel:${(content.phone || "+962 123 456 789").replace(/\s/g, '')}`} className="flex items-center gap-2 text-white/80 hover:text-white transition-colors">
               <Phone className="w-5 h-5" />
-              <span>+962 123 456 789</span>
+              <span>{content.phone || "+962 123 456 789"}</span>
             </a>
           </div>
         </div>

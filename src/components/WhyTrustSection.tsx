@@ -7,55 +7,49 @@ import {
 } from "lucide-react";
 import BrandTag from "./BrandTag";
 import useScrollAnimation from "@/hooks/useScrollAnimation";
+import { useSiteContent } from "@/hooks/useSiteContent";
 
-const trustReasons = [
-  {
-    icon: FlaskConical,
-    title: "Proven Expertise",
-    subtitle: "in Clinical Trials",
-    points: [
-      "Extensive experience supporting worldwide clinical trials and multi-regional protocols.",
-      "Full alignment with ICH-GCP, clinicaltrials.gov requirements, and international regulatory standards."
-    ],
-    color: "primary"
-  },
-  {
-    icon: Users,
-    title: "Fast & Reliable",
-    subtitle: "Patient Recruitment",
-    points: [
-      "Structured patient recruitment clinical trials algorithms.",
-      "Large, diverse, treatment-naïve patient populations across Jordan.",
-      "High show-up and retention rates aligned with best-practice trial management metrics."
-    ],
-    color: "primary"
-  },
-  {
-    icon: Building2,
-    title: "Robust Operational",
-    subtitle: "Infrastructure",
-    points: [
-      "Dedicated facilities equipped for protocol-driven research.",
-      "On-site laboratories, calibrated equipment, medical device CRO capability, and IP storage.",
-      "CRO-dedicated monitoring rooms to support oversight and contract research and development activities."
-    ],
-    color: "accent"
-  },
-  {
-    icon: Globe,
-    title: "Strategic Middle East",
-    subtitle: "Location",
-    points: [
-      "Cost-efficient regional access point for global late phase CRO programs.",
-      "Faster approval timelines compared to many regions.",
-      "High feasibility for emerging indications, including the latest clinical trials on COVID-19."
-    ],
-    color: "primary"
-  }
-];
+const iconMap: { [key: number]: React.ElementType } = {
+  0: FlaskConical,
+  1: Users,
+  2: Building2,
+  3: Globe
+};
 
 const WhyTrustSection = () => {
   const { ref: sectionRef, isVisible } = useScrollAnimation({ threshold: 0.1 });
+  const { content } = useSiteContent("home", "why_trust");
+
+  const trustReasons = [
+    {
+      icon: iconMap[0],
+      title: content.card1_title || "Proven Expertise",
+      subtitle: content.card1_subtitle || "in Clinical Trials",
+      points: (content.card1_points || "Extensive experience supporting worldwide clinical trials and multi-regional protocols.|Full alignment with ICH-GCP, clinicaltrials.gov requirements, and international regulatory standards.").split('|'),
+      color: "primary"
+    },
+    {
+      icon: iconMap[1],
+      title: content.card2_title || "Fast & Reliable",
+      subtitle: content.card2_subtitle || "Patient Recruitment",
+      points: (content.card2_points || "Structured patient recruitment clinical trials algorithms.|Large, diverse, treatment-naïve patient populations across Jordan.|High show-up and retention rates aligned with best-practice trial management metrics.").split('|'),
+      color: "primary"
+    },
+    {
+      icon: iconMap[2],
+      title: content.card3_title || "Robust Operational",
+      subtitle: content.card3_subtitle || "Infrastructure",
+      points: (content.card3_points || "Dedicated facilities equipped for protocol-driven research.|On-site laboratories, calibrated equipment, medical device CRO capability, and IP storage.|CRO-dedicated monitoring rooms to support oversight and contract research and development activities.").split('|'),
+      color: "accent"
+    },
+    {
+      icon: iconMap[3],
+      title: content.card4_title || "Strategic Middle East",
+      subtitle: content.card4_subtitle || "Location",
+      points: (content.card4_points || "Cost-efficient regional access point for global late phase CRO programs.|Faster approval timelines compared to many regions.|High feasibility for emerging indications, including the latest clinical trials on COVID-19.").split('|'),
+      color: "primary"
+    }
+  ];
 
   return (
     <section ref={sectionRef} className="py-16 md:py-24 lg:py-32 bg-background relative">
@@ -71,21 +65,21 @@ const WhyTrustSection = () => {
         {/* Header */}
         <div className="text-center mb-12 md:mb-16 lg:mb-20">
           <div className={`transition-all duration-700 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
-            <BrandTag variant="green" className="mb-6">Our Expertise</BrandTag>
+            <BrandTag variant="green" className="mb-6">{content.tag || "Our Expertise"}</BrandTag>
           </div>
           <h2 
             className={`text-foreground mb-4 transition-all duration-700 delay-100 ${
               isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
             }`}
           >
-            Why Global CROs <span className="text-accent">Trust</span> CRC
+            {content.title || "Why Global CROs"} <span className="text-accent">{content.title_highlight || "Trust"}</span> {content.title_suffix || "CRC"}
           </h2>
           <p 
             className={`text-muted-foreground text-lg max-w-2xl mx-auto transition-all duration-700 delay-200 ${
               isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
             }`}
           >
-            Delivering excellence at every stage of clinical research
+            {content.subtitle || "Delivering excellence at every stage of clinical research"}
           </p>
         </div>
 

@@ -1,5 +1,6 @@
 import BrandTag from "./BrandTag";
 import useScrollAnimation from "@/hooks/useScrollAnimation";
+import { useSiteContent } from "@/hooks/useSiteContent";
 
 // Import new facility images
 import patientRooms from "@/assets/facilities/patient-rooms.jpg";
@@ -9,41 +10,51 @@ import examinationRoom from "@/assets/facilities/examination-room.jpg";
 import vitalSigns from "@/assets/facilities/vital-signs.jpg";
 import coordinatorsOffices from "@/assets/facilities/coordinators-offices.jpg";
 
-const facilities = [
-  {
-    image: patientRooms,
-    title: "Patient Rooms",
-    description: "Dedicated patient care and procedure rooms"
-  },
-  {
-    image: labEquipment,
-    title: "Lab Equipment",
-    description: "Calibrated laboratory instruments"
-  },
-  {
-    image: ipPharmacyStorage,
-    title: "IP & Pharmacy Storage",
-    description: "Secure investigational product storage"
-  },
-  {
-    image: examinationRoom,
-    title: "Examination Room",
-    description: "Modern patient assessment areas"
-  },
-  {
-    image: vitalSigns,
-    title: "Vital Signs Monitor",
-    description: "Advanced patient monitoring systems"
-  },
-  {
-    image: coordinatorsOffices,
-    title: "Coordinators Offices",
-    description: "Dedicated workspace for research coordinators"
-  }
+const facilityImages = [
+  patientRooms,
+  labEquipment,
+  ipPharmacyStorage,
+  examinationRoom,
+  vitalSigns,
+  coordinatorsOffices
 ];
 
 const FacilitiesGallerySection = () => {
   const { ref: sectionRef, isVisible } = useScrollAnimation({ threshold: 0.1 });
+  const { content } = useSiteContent("home", "facilities");
+
+  const facilities = [
+    {
+      image: facilityImages[0],
+      title: content.facility1_title || "Patient Rooms",
+      description: content.facility1_description || "Dedicated patient care and procedure rooms"
+    },
+    {
+      image: facilityImages[1],
+      title: content.facility2_title || "Lab Equipment",
+      description: content.facility2_description || "Calibrated laboratory instruments"
+    },
+    {
+      image: facilityImages[2],
+      title: content.facility3_title || "IP & Pharmacy Storage",
+      description: content.facility3_description || "Secure investigational product storage"
+    },
+    {
+      image: facilityImages[3],
+      title: content.facility4_title || "Examination Room",
+      description: content.facility4_description || "Modern patient assessment areas"
+    },
+    {
+      image: facilityImages[4],
+      title: content.facility5_title || "Vital Signs Monitor",
+      description: content.facility5_description || "Advanced patient monitoring systems"
+    },
+    {
+      image: facilityImages[5],
+      title: content.facility6_title || "Coordinators Offices",
+      description: content.facility6_description || "Dedicated workspace for research coordinators"
+    }
+  ];
 
   return (
     <section ref={sectionRef} className="py-16 md:py-20 lg:py-24 bg-background relative overflow-hidden">
@@ -51,21 +62,21 @@ const FacilitiesGallerySection = () => {
         {/* Header */}
         <div className="text-center mb-14">
           <div className={`transition-all duration-700 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
-            <BrandTag className="mb-6">Our Facilities</BrandTag>
+            <BrandTag className="mb-6">{content.tag || "Our Facilities"}</BrandTag>
           </div>
           <h2 
             className={`text-foreground mb-4 transition-all duration-700 delay-100 ${
               isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
             }`}
           >
-            Our Research Environment
+            {content.title || "Our Research Environment"}
           </h2>
           <p 
             className={`text-muted-foreground text-lg max-w-2xl mx-auto transition-all duration-700 delay-200 ${
               isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
             }`}
           >
-            State-of-the-art facilities designed to support high-quality clinical research
+            {content.subtitle || "State-of-the-art facilities designed to support high-quality clinical research"}
           </p>
         </div>
 
