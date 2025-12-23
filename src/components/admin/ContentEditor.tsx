@@ -59,6 +59,8 @@ const sectionNames: { [key: string]: string } = {
   facilities_section: "Facilities Overview",
   gallery: "Facilities Gallery",
   therapeutic_areas: "Therapeutic Areas",
+  form: "Contact Form",
+  join_team: "Join Team",
 };
 
 const keyNames: { [key: string]: string } = {
@@ -231,6 +233,32 @@ const keyNames: { [key: string]: string } = {
   trust1: "Trust Point 1",
   trust2: "Trust Point 2",
   trust3: "Trust Point 3",
+  
+  // Contact page
+  card1_label: "Card 1 - Label",
+  card2_label: "Card 2 - Label",
+  card3_label: "Card 3 - Label",
+  card4_label: "Card 4 - Label",
+  email_label: "Email Label",
+  location_detail: "Location Detail",
+  location_label: "Location Label",
+  form_title: "Form Title",
+  submit_button: "Submit Button",
+  success_title: "Success Title",
+  success_message: "Success Message",
+  position1_title: "Position 1 - Title",
+  position1_desc: "Position 1 - Description",
+  position2_title: "Position 2 - Title",
+  position2_desc: "Position 2 - Description",
+  position3_title: "Position 3 - Title",
+  position3_desc: "Position 3 - Description",
+  position4_title: "Position 4 - Title",
+  position4_desc: "Position 4 - Description",
+  position5_title: "Position 5 - Title",
+  position5_desc: "Position 5 - Description",
+  position6_title: "Position 6 - Title",
+  position6_desc: "Position 6 - Description",
+  button_subtitle: "Button Subtitle",
   // Vision & Mission
   vision_tag: "Vision Tag",
   vision_text: "Vision Text",

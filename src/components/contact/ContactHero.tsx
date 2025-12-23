@@ -35,19 +35,19 @@ const ContactHero = () => {
           <div className={`grid grid-cols-2 md:grid-cols-4 gap-4 max-w-3xl mx-auto transition-all duration-1000 delay-400 ${isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
             <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-4 border border-white/20 hover:bg-white/15 transition-all">
               <Mail className="w-6 h-6 text-accent mx-auto mb-2" />
-              <div className="text-xs text-white/60">Email Us</div>
+              <div className="text-xs text-white/60">{content.card1_label || "Email Us"}</div>
             </div>
             <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-4 border border-white/20 hover:bg-white/15 transition-all">
               <Phone className="w-6 h-6 text-white mx-auto mb-2" />
-              <div className="text-xs text-white/60">Call Us</div>
+              <div className="text-xs text-white/60">{content.card2_label || "Call Us"}</div>
             </div>
             <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-4 border border-white/20 hover:bg-white/15 transition-all">
               <MapPin className="w-6 h-6 text-accent mx-auto mb-2" />
-              <div className="text-xs text-white/60">Visit Us</div>
+              <div className="text-xs text-white/60">{content.card3_label || "Visit Us"}</div>
             </div>
             <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-4 border border-white/20 hover:bg-white/15 transition-all">
               <Clock className="w-6 h-6 text-white mx-auto mb-2" />
-              <div className="text-xs text-white/60">24/7 Support</div>
+              <div className="text-xs text-white/60">{content.card4_label || "24/7 Support"}</div>
             </div>
           </div>
         </div>
