@@ -52,7 +52,7 @@ const Footer = () => {
             {/* Social Links */}
             <div className="flex gap-3">
               <a
-                href="https://www.linkedin.com/company/crc-2021/"
+                href={content.linkedin_url || "https://www.linkedin.com/company/crc-2021/"}
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="CRC on LinkedIn"
@@ -62,7 +62,7 @@ const Footer = () => {
                 <Linkedin className="w-5 h-5" />
               </a>
               <a
-                href="https://www.youtube.com/@CRCJo"
+                href={content.youtube_url || "https://www.youtube.com/@CRCJo"}
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="CRC on YouTube"
@@ -72,7 +72,7 @@ const Footer = () => {
                 <Youtube className="w-5 h-5" />
               </a>
               <a
-                href="https://www.instagram.com/_crcjo?igsh=bmp3aDNuMGJob2pj&utm_source=qr"
+                href={content.instagram_url || "https://www.instagram.com/_crcjo"}
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="CRC on Instagram"
@@ -82,7 +82,7 @@ const Footer = () => {
                 <Instagram className="w-5 h-5" />
               </a>
               <a
-                href="https://x.com/_crcjo?s=21"
+                href={content.x_url || "https://x.com/_crcjo"}
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="CRC on X"
@@ -94,7 +94,7 @@ const Footer = () => {
                 </svg>
               </a>
               <a
-                href="https://www.facebook.com/people/Crcjo/61584550395082/?mibextid=wwXIfr&rdid=VTxPjzUoPUc38yFd&share_url=https%3A%2F%2Fwww.facebook.com%2Fshare%2F1BvLnZdexc%2F%3Fmibextid%3DwwXIfr%26ref%3Dwaios.fb_links_xma_control"
+                href={content.facebook_url || "https://www.facebook.com/people/Crcjo/61584550395082/"}
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="CRC on Facebook"
@@ -175,8 +175,8 @@ const Footer = () => {
                 <div className="w-8 h-8 rounded-lg bg-white/5 group-hover:bg-primary/20 flex items-center justify-center flex-shrink-0 transition-colors">
                   <Mail size={14} className="text-primary" />
                 </div>
-                <a href="mailto:info@crcjo.com" className="text-footer-foreground/60 hover:text-primary text-sm transition-colors">
-                  info@crcjo.com
+                <a href={`mailto:${content.email || "info@crcjo.com"}`} className="text-footer-foreground/60 hover:text-primary text-sm transition-colors">
+                  {content.email || "info@crcjo.com"}
                 </a>
               </li>
             </ul>
@@ -187,7 +187,7 @@ const Footer = () => {
         <div className="mt-16 pt-8 border-t border-white/10">
           <div className="flex flex-col md:flex-row justify-between items-center gap-4">
             <p className="text-footer-foreground/40 text-sm">
-              © {new Date().getFullYear()} Clinical Research Center. All rights reserved.
+              © {new Date().getFullYear()} {content.copyright_text || "Clinical Research Center. All rights reserved."}
             </p>
             <div className="flex gap-8">
               <Link to="/privacy-policy" className="text-footer-foreground/40 hover:text-primary text-sm transition-colors">

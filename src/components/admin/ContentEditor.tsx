@@ -10,7 +10,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { Session } from "@supabase/supabase-js";
 import ImageUploader from "./ImageUploader";
 
-// Import fallback images
+// Import fallback images - Facilities
 import patientRooms from "@/assets/facilities/patient-rooms.jpg";
 import labEquipment from "@/assets/facilities/lab-equipment.jpg";
 import ipPharmacyStorage from "@/assets/facilities/ip-pharmacy-storage.jpg";
@@ -27,6 +27,10 @@ import procedureRoom from "@/assets/facilities/procedure-room.jpg";
 import examinationEquipment from "@/assets/facilities/examination-equipment.jpg";
 import ecgEquipment from "@/assets/facilities/ecg-equipment.jpg";
 import teamPhotoNew from "@/assets/facilities/team-photo-new.jpg";
+import teamPhoto from "@/assets/facilities/team-photo.jpg";
+import directorOffice from "@/assets/facilities/director-office.jpg";
+
+// Import partner logos
 import iqviaLogo from "@/assets/partners/iqvia.png";
 import parexelLogo from "@/assets/partners/parexel.png";
 import syneosLogo from "@/assets/partners/syneos-health.svg";
@@ -41,6 +45,25 @@ import newAmsterdamLogo from "@/assets/partners/new-amsterdam-pharma.png";
 import argenxLogo from "@/assets/partners/argenx.png";
 import immunicLogo from "@/assets/partners/immunic.png";
 import johnsonLogo from "@/assets/partners/johnson-johnson.png";
+
+// Import therapeutic area images
+import gastroenterologyImg from "@/assets/studies/gastroenterology.png";
+import cardiovascularImg from "@/assets/studies/cardiovascular.png";
+import neurologyImg from "@/assets/studies/neurology.png";
+import urologyImg from "@/assets/studies/urology.png";
+import rheumatologyImg from "@/assets/studies/rheumatology.png";
+import vaccinesImg from "@/assets/studies/vaccines.png";
+import geneticDiseasesImg from "@/assets/studies/genetic-diseases.png";
+import metabolicDisordersImg from "@/assets/studies/metabolic-disorders.png";
+import musculoskeletalImg from "@/assets/studies/musculoskeletal.png";
+import endocrinologyImg from "@/assets/studies/endocrinology.png";
+import ophthalmologyImg from "@/assets/studies/ophthalmology.png";
+import entImg from "@/assets/studies/ent.png";
+import pediatricsImg from "@/assets/studies/pediatrics.png";
+import geriatricsImg from "@/assets/studies/geriatrics.png";
+import maternityImg from "@/assets/studies/maternity-womens-health.png";
+import psychiatryImg from "@/assets/studies/psychiatry.png";
+import dermatologyImg from "@/assets/studies/dermatology.png";
 
 interface ContentItem {
   id: string;
@@ -86,7 +109,11 @@ const fallbackImages: { [key: string]: string } = {
   gallery_image15: coordinatorsOffices,
   gallery_image16: teamPhotoNew,
   // About team
-  team_image: teamPhotoNew,
+  team_image: teamPhoto,
+  main_team_image: teamPhoto,
+  // Home team preview
+  team_photo_image: teamPhoto,
+  director_office_image: directorOffice,
   // Partner logos
   cro_logo1: iqviaLogo,
   cro_logo2: parexelLogo,
@@ -102,6 +129,37 @@ const fallbackImages: { [key: string]: string } = {
   pharma_logo3: sareptaLogo,
   pharma_logo4: argenxLogo,
   pharma_logo5: immunicLogo,
+  // Why Us facilities showcase
+  showcase_image1: patientRooms,
+  showcase_image2: procedureRoom,
+  showcase_image3: patientExamination,
+  showcase_image4: labEquipment,
+  showcase_image5: labEquipment2,
+  showcase_image6: labEquipment3,
+  showcase_image7: ipPharmacyStorage,
+  showcase_image8: freezer70,
+  showcase_image9: labKitsStorage,
+  showcase_image10: vitalSigns,
+  showcase_image11: ecgEquipment,
+  showcase_image12: examinationEquipment,
+  // Studies therapeutic areas
+  area_image1: gastroenterologyImg,
+  area_image2: cardiovascularImg,
+  area_image3: neurologyImg,
+  area_image4: urologyImg,
+  area_image5: rheumatologyImg,
+  area_image6: vaccinesImg,
+  area_image7: geneticDiseasesImg,
+  area_image8: metabolicDisordersImg,
+  area_image9: musculoskeletalImg,
+  area_image10: endocrinologyImg,
+  area_image11: ophthalmologyImg,
+  area_image12: entImg,
+  area_image13: pediatricsImg,
+  area_image14: geriatricsImg,
+  area_image15: maternityImg,
+  area_image16: psychiatryImg,
+  area_image17: dermatologyImg,
 };
 
 const pageNames: { [key: string]: { name: string; icon: React.ElementType } } = {
@@ -128,11 +186,13 @@ const sectionNames: { [key: string]: string } = {
   footer: "Footer",
   team: "Team",
   team_photo: "Team Photo",
+  team_preview: "Team Preview",
   values: "Core Values",
   founder: "Founder",
   commitment: "Commitment",
   services_list: "Services List",
   facilities_section: "Facilities Overview",
+  facilities_showcase: "Facilities Showcase",
   gallery: "Facilities Gallery",
   therapeutic_areas: "Therapeutic Areas",
   form: "Contact Form",
@@ -151,6 +211,13 @@ const keyNames: { [key: string]: string } = {
   trust_label: "Trust Label",
   trust_indicators: "Trust Indicators",
   tag: "Tag",
+  // Footer social links
+  linkedin_url: "LinkedIn URL",
+  youtube_url: "YouTube URL",
+  instagram_url: "Instagram URL",
+  x_url: "X (Twitter) URL",
+  facebook_url: "Facebook URL",
+  copyright_text: "Copyright Text",
   highlight1: "Highlight 1",
   highlight2: "Highlight 2",
   highlight3: "Highlight 3",

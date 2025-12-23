@@ -2,8 +2,10 @@ import { useState } from "react";
 import BrandTag from "@/components/BrandTag";
 import useScrollAnimation from "@/hooks/useScrollAnimation";
 import { Building2, Microscope, Thermometer, Shield, ChevronLeft, ChevronRight } from "lucide-react";
+import { useSiteContent } from "@/hooks/useSiteContent";
+import { useSectionImages } from "@/hooks/useSectionImages";
 
-// Import facility images
+// Import fallback facility images
 import patientRooms from "@/assets/facilities/patient-rooms.jpg";
 import procedureRoom from "@/assets/facilities/procedure-room.jpg";
 import patientExamination from "@/assets/facilities/patient-examination.jpg";
@@ -17,41 +19,59 @@ import vitalSigns from "@/assets/facilities/vital-signs.jpg";
 import ecgEquipment from "@/assets/facilities/ecg-equipment.jpg";
 import examinationEquipment from "@/assets/facilities/examination-equipment.jpg";
 
-const facilityCategories = [
-  {
-    id: "clinical",
-    icon: Building2,
-    title: "Clinical Rooms",
-    description: "Dedicated examination and patient care rooms",
-    images: [patientRooms, procedureRoom, patientExamination],
-  },
-  {
-    id: "laboratory",
-    icon: Microscope,
-    title: "Laboratory",
-    description: "Fully equipped research laboratory",
-    images: [labEquipment, labEquipment2, labEquipment3],
-  },
-  {
-    id: "storage",
-    icon: Thermometer,
-    title: "Storage Systems",
-    description: "Temperature-controlled storage systems",
-    images: [ipPharmacyStorage, freezer70, labKitsStorage],
-  },
-  {
-    id: "equipment",
-    icon: Shield,
-    title: "Medical Equipment",
-    description: "State-of-the-art diagnostic equipment",
-    images: [vitalSigns, ecgEquipment, examinationEquipment],
-  },
-];
-
 const FacilitiesShowcase = () => {
   const { ref: sectionRef, isVisible } = useScrollAnimation({ threshold: 0.1 });
   const [activeCategory, setActiveCategory] = useState(0);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  const { content } = useSiteContent("whyus", "facilities_showcase");
+  const { getImageUrl } = useSectionImages("whyus", "facilities_showcase");
+
+  const facilityCategories = [
+    {
+      id: "clinical",
+      icon: Building2,
+      title: "Clinical Rooms",
+      description: "Dedicated examination and patient care rooms",
+      images: [
+        getImageUrl("showcase_image1", patientRooms),
+        getImageUrl("showcase_image2", procedureRoom),
+        getImageUrl("showcase_image3", patientExamination),
+      ],
+    },
+    {
+      id: "laboratory",
+      icon: Microscope,
+      title: "Laboratory",
+      description: "Fully equipped research laboratory",
+      images: [
+        getImageUrl("showcase_image4", labEquipment),
+        getImageUrl("showcase_image5", labEquipment2),
+        getImageUrl("showcase_image6", labEquipment3),
+      ],
+    },
+    {
+      id: "storage",
+      icon: Thermometer,
+      title: "Storage Systems",
+      description: "Temperature-controlled storage systems",
+      images: [
+        getImageUrl("showcase_image7", ipPharmacyStorage),
+        getImageUrl("showcase_image8", freezer70),
+        getImageUrl("showcase_image9", labKitsStorage),
+      ],
+    },
+    {
+      id: "equipment",
+      icon: Shield,
+      title: "Medical Equipment",
+      description: "State-of-the-art diagnostic equipment",
+      images: [
+        getImageUrl("showcase_image10", vitalSigns),
+        getImageUrl("showcase_image11", ecgEquipment),
+        getImageUrl("showcase_image12", examinationEquipment),
+      ],
+    },
+  ];
 
   const currentCategory = facilityCategories[activeCategory];
 
@@ -82,13 +102,13 @@ const FacilitiesShowcase = () => {
         {/* Header */}
         <div className="text-center mb-10 md:mb-16">
           <div className={`transition-all duration-700 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
-            <BrandTag className="mb-4 md:mb-6">Infrastructure</BrandTag>
+            <BrandTag className="mb-4 md:mb-6">{content.tag || "Infrastructure"}</BrandTag>
           </div>
           <h2 className={`text-2xl md:text-3xl lg:text-4xl text-foreground mb-3 md:mb-4 transition-all duration-700 delay-100 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
-            World-Class <span className="text-primary">Research Facilities</span>
+            {content.title || "World-Class"} <span className="text-primary">{content.title_highlight || "Research Facilities"}</span>
           </h2>
           <p className={`text-muted-foreground text-base md:text-lg max-w-2xl mx-auto transition-all duration-700 delay-200 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
-            Our clinical-grade infrastructure supports all phases of clinical research
+            {content.description || "Our clinical-grade infrastructure supports all phases of clinical research"}
           </p>
         </div>
 
