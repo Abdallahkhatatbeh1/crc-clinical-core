@@ -61,6 +61,7 @@ const sectionNames: { [key: string]: string } = {
   therapeutic_areas: "Therapeutic Areas",
   form: "Contact Form",
   join_team: "Join Team",
+  video: "Video Section",
 };
 
 const keyNames: { [key: string]: string } = {
@@ -112,11 +113,9 @@ const keyNames: { [key: string]: string } = {
   card4_subtitle: "Card 4 - Subtitle",
   card4_points: "Card 4 - Points (use | separator)",
   
-  // Partners
-  cro_title: "CRO Section - Title",
+  // Partners (deprecated - use new whyus partners section)
   cro_description: "CRO Section - Description",
   pharma_tag: "Pharma Section - Tag",
-  pharma_title: "Pharma Section - Title",
   pharma_description: "Pharma Section - Description",
   
   // CTA
@@ -272,6 +271,13 @@ const keyNames: { [key: string]: string } = {
   feature2_description: "Feature 2 - Description",
   feature3_title: "Feature 3 - Title",
   feature3_description: "Feature 3 - Description",
+  feature4_title: "Feature 4 - Title",
+  feature4_description: "Feature 4 - Description",
+  feature5_title: "Feature 5 - Title",
+  feature5_description: "Feature 5 - Description",
+  feature6_title: "Feature 6 - Title",
+  feature6_description: "Feature 6 - Description",
+  bottom_text: "Bottom Text",
   
   // Stats
   stat1_value: "Stat 1 - Value",
@@ -280,6 +286,33 @@ const keyNames: { [key: string]: string } = {
   stat2_label: "Stat 2 - Label",
   stat3_value: "Stat 3 - Value",
   stat3_label: "Stat 3 - Label",
+  
+  // Why Us Hero
+  trust_badge1: "Trust Badge 1",
+  trust_badge2: "Trust Badge 2",
+  trust_badge3: "Trust Badge 3",
+  location_badge: "Location Badge",
+  
+  // Why Us Video
+  video_url: "Video URL",
+  
+  // Why Us Partners
+  cro_title: "CRO Title",
+  cro_subtitle: "CRO Subtitle",
+  cro_partners: "CRO Partners (comma separated)",
+  cro_capabilities_label: "CRO Capabilities Label",
+  cro_capability1: "CRO Capability 1",
+  cro_capability2: "CRO Capability 2",
+  cro_capability3: "CRO Capability 3",
+  cro_capability4: "CRO Capability 4",
+  pharma_title: "Pharma Title",
+  pharma_subtitle: "Pharma Subtitle",
+  pharma_sponsors: "Pharma Sponsors (comma separated)",
+  pharma_demo_label: "Pharma Demo Label",
+  pharma_demo1: "Pharma Demo 1",
+  pharma_demo2: "Pharma Demo 2",
+  pharma_demo3: "Pharma Demo 3",
+  pharma_demo4: "Pharma Demo 4",
   
   // Cards (deprecated)
   card1_description: "Card 1 - Description",

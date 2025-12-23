@@ -1,10 +1,11 @@
 import { ArrowRight, Handshake } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Link } from "react-router-dom";
 import useScrollAnimation from "@/hooks/useScrollAnimation";
+import { useSiteContent } from "@/hooks/useSiteContent";
 
 const WhyUsCTA = () => {
   const { ref: sectionRef, isVisible } = useScrollAnimation({ threshold: 0.3 });
+  const { content } = useSiteContent("whyus", "cta");
 
   return (
     <section ref={sectionRef} className="py-16 md:py-20 lg:py-24 relative overflow-hidden">
@@ -33,18 +34,17 @@ const WhyUsCTA = () => {
 
           {/* Content */}
           <h2 className="text-white mb-6">
-            Partner With <span className="text-accent">CRC</span>
+            {content.title || "Partner With"} <span className="text-accent">{content.title_highlight || "CRC"}</span>
           </h2>
           <p className="text-white/80 text-lg lg:text-xl leading-relaxed mb-10 max-w-2xl mx-auto">
-            Collaborate with a scientifically driven, GCP-adherent clinical research site 
-            committed to high-quality execution and global research standards.
+            {content.description || "Collaborate with a scientifically driven, GCP-adherent clinical research site committed to high-quality execution and global research standards."}
           </p>
 
           {/* CTA Button */}
           <div className="flex justify-center">
             <a href="https://calendly.com/sh-crc2021/30min" target="_blank" rel="noopener noreferrer">
               <Button size="lg" variant="secondary" className="group text-primary hover:text-primary bg-white hover:bg-white/90 min-w-[200px]">
-                Start Partnership
+                {content.button_text || "Start Partnership"}
                 <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
               </Button>
             </a>

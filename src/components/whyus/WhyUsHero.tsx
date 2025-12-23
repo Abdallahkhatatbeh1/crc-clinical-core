@@ -43,7 +43,7 @@ const WhyUsHero = () => {
               {content.subtitle || "The Clinical Research Center (CRC) provides a scientifically rigorous environment for high-quality clinical trials in Jordan and the Middle East."}
             </p>
             <p className="text-base md:text-lg text-white/80 leading-relaxed max-w-3xl mx-auto">
-              Our site is built upon internationally recognized research standards, precise operational workflows, controlled documentation systems, and an unwavering commitment to methodological accuracy.
+              {content.description2 || "Our site is built upon internationally recognized research standards, precise operational workflows, controlled documentation systems, and an unwavering commitment to methodological accuracy."}
             </p>
           </div>
 
@@ -55,18 +55,18 @@ const WhyUsHero = () => {
           >
             <div className="flex items-center gap-2 px-4 py-2 bg-white/10 rounded-full border border-white/20">
               <Shield className="w-4 h-4 text-accent" />
-              <span className="text-sm text-white/90">ICH-GCP Compliant</span>
+              <span className="text-sm text-white/90">{content.trust_badge1 || "ICH-GCP Compliant"}</span>
             </div>
             <div className="flex items-center gap-2 px-4 py-2 bg-white/10 rounded-full border border-white/20">
               <Award className="w-4 h-4 text-accent" />
-              <span className="text-sm text-white/90">Scientific Excellence</span>
+              <span className="text-sm text-white/90">{content.trust_badge2 || "Scientific Excellence"}</span>
             </div>
             <div className="flex items-center gap-2 px-4 py-2 bg-white/10 rounded-full border border-white/20">
               <Globe className="w-4 h-4 text-accent" />
-              <span className="text-sm text-white/90">Global Standards</span>
+              <span className="text-sm text-white/90">{content.trust_badge3 || "Global Standards"}</span>
             </div>
             <div className="flex items-center gap-2 px-4 py-2 bg-accent/20 rounded-full border border-accent/30">
-              <span className="text-sm text-white font-medium">📍 CRC – Irbid, Jordan</span>
+              <span className="text-sm text-white font-medium">📍 {content.location_badge || "CRC – Irbid, Jordan"}</span>
             </div>
           </div>
         </div>
