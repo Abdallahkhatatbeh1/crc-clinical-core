@@ -2,6 +2,8 @@ import { useEffect, useState } from "react";
 import { Settings, CheckCircle2, Shield, Globe } from "lucide-react";
 import { useSiteContent } from "@/hooks/useSiteContent";
 
+const badgeIcons = [Shield, CheckCircle2, Globe];
+
 const ServicesHero = () => {
   const [isLoaded, setIsLoaded] = useState(false);
   const { content } = useSiteContent("services", "hero");
@@ -9,6 +11,12 @@ const ServicesHero = () => {
   useEffect(() => {
     setIsLoaded(true);
   }, []);
+
+  const badges = [
+    { icon: badgeIcons[0], text: content.badge1 || "GCP Compliant" },
+    { icon: badgeIcons[1], text: content.badge2 || "Audit-Ready" },
+    { icon: badgeIcons[2], text: content.badge3 || "Phase I-IV" }
+  ];
 
   return (
     <section className="relative pt-24 md:pt-32 pb-16 md:pb-24 gradient-brand overflow-hidden">
@@ -33,16 +41,12 @@ const ServicesHero = () => {
               {content.subtitle || "CRC offers a comprehensive suite of scientifically rigorous, GCP-compliant clinical trial services designed to support global CROs, pharmaceutical sponsors, and biotech partners conducting Phase I–IV clinical trials in Jordan and the Middle East."}
             </p>
             <p className="text-base md:text-lg text-white/80 leading-relaxed max-w-4xl mx-auto">
-              Our capabilities span regulatory support, study start-up, patient recruitment, clinical operations, data management, monitoring readiness, and investigational product management, ensuring high-quality, audit-ready research execution.
+              {content.description2 || "Our capabilities span regulatory support, study start-up, patient recruitment, clinical operations, data management, monitoring readiness, and investigational product management, ensuring high-quality, audit-ready research execution."}
             </p>
           </div>
 
           <div className={`flex flex-wrap justify-center gap-4 transition-all duration-1000 delay-500 ${isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
-            {[
-              { icon: Shield, text: "GCP Compliant" },
-              { icon: CheckCircle2, text: "Audit-Ready" },
-              { icon: Globe, text: "Phase I-IV" }
-            ].map((item) => (
+            {badges.map((item) => (
               <div key={item.text} className="flex items-center gap-2 px-4 py-2 bg-white/10 rounded-full">
                 <item.icon className="w-4 h-4 text-accent" />
                 <span className="text-sm text-white/90">{item.text}</span>

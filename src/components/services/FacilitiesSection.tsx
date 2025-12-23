@@ -4,18 +4,22 @@ import {
 } from "lucide-react";
 import BrandTag from "@/components/BrandTag";
 import useScrollAnimation from "@/hooks/useScrollAnimation";
+import { useSiteContent } from "@/hooks/useSiteContent";
 
-const facilities = [
-  { icon: Building2, name: "Dedicated study rooms", desc: "For screening, randomization, and follow-ups" },
-  { icon: Activity, name: "ECG, ultrasound, spirometry", desc: "And vital-sign monitoring equipment" },
-  { icon: AlertTriangle, name: "Emergency equipment", desc: "Including crash carts and oxygen" },
-  { icon: Archive, name: "Secure archival storage", desc: "For long-term retention of essential documents" },
-  { icon: Lock, name: "Private, access-controlled rooms", desc: "For CRA monitoring visits" },
-  { icon: Monitor, name: "Robust data security systems", desc: "For compliance with GCP and privacy standards" }
-];
+const facilityIcons = [Building2, Activity, AlertTriangle, Archive, Lock, Monitor];
 
 const FacilitiesSection = () => {
   const { ref: sectionRef, isVisible } = useScrollAnimation({ threshold: 0.2 });
+  const { content } = useSiteContent("services", "facilities_section");
+
+  const facilities = [
+    { icon: facilityIcons[0], name: content.facility1_name || "Dedicated study rooms", desc: content.facility1_desc || "For screening, randomization, and follow-ups" },
+    { icon: facilityIcons[1], name: content.facility2_name || "ECG, ultrasound, spirometry", desc: content.facility2_desc || "And vital-sign monitoring equipment" },
+    { icon: facilityIcons[2], name: content.facility3_name || "Emergency equipment", desc: content.facility3_desc || "Including crash carts and oxygen" },
+    { icon: facilityIcons[3], name: content.facility4_name || "Secure archival storage", desc: content.facility4_desc || "For long-term retention of essential documents" },
+    { icon: facilityIcons[4], name: content.facility5_name || "Private, access-controlled rooms", desc: content.facility5_desc || "For CRA monitoring visits" },
+    { icon: facilityIcons[5], name: content.facility6_name || "Robust data security systems", desc: content.facility6_desc || "For compliance with GCP and privacy standards" }
+  ];
 
   return (
     <section ref={sectionRef} className="py-24 bg-crc-light-bg relative overflow-hidden">
@@ -27,13 +31,13 @@ const FacilitiesSection = () => {
         {/* Header */}
         <div className="text-center mb-16">
           <div className={`transition-all duration-700 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
-            <BrandTag className="mb-6">Infrastructure</BrandTag>
+            <BrandTag className="mb-6">{content.tag || "Infrastructure"}</BrandTag>
           </div>
           <h2 className={`text-foreground mb-4 transition-all duration-700 delay-100 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
-            Clinical Trial <span className="text-primary">Facilities</span> & Equipment
+            {content.title || "Clinical Trial"} <span className="text-primary">{content.title_highlight || "Facilities"}</span> {content.title_suffix || "& Equipment"}
           </h2>
           <p className={`text-muted-foreground text-lg max-w-3xl mx-auto transition-all duration-700 delay-200 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
-            CRC provides clinical-grade infrastructure suitable for multi-phase and complex clinical studies.
+            {content.description || "CRC provides clinical-grade infrastructure suitable for multi-phase and complex clinical studies."}
           </p>
         </div>
 
