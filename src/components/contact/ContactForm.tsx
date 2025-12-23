@@ -6,6 +6,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/hooks/use-toast";
 import BrandTag from "@/components/BrandTag";
 import useScrollAnimation from "@/hooks/useScrollAnimation";
+import { useSiteContent } from "@/hooks/useSiteContent";
 import { z } from "zod";
 
 const contactSchema = z.object({
@@ -29,6 +30,7 @@ const inquiryTypes = [
 const ContactForm = () => {
   const { ref: sectionRef, isVisible } = useScrollAnimation({ threshold: 0.1 });
   const { toast } = useToast();
+  const { content } = useSiteContent("contact", "form");
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [formData, setFormData] = useState<ContactFormData>({
     name: "",
@@ -92,12 +94,12 @@ const ContactForm = () => {
         <div className="grid lg:grid-cols-5 gap-12 max-w-6xl mx-auto">
           {/* Contact Info Side */}
           <div className={`lg:col-span-2 transition-all duration-700 ${isVisible ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-12'}`}>
-            <BrandTag className="mb-6">Contact Us</BrandTag>
+            <BrandTag className="mb-6">{content.tag || "Contact Us"}</BrandTag>
             <h2 className="text-foreground mb-6">
-              Let's Start a <span className="text-primary">Conversation</span>
+              {content.title || "Let's Start a"} <span className="text-primary">{content.title_highlight || "Conversation"}</span>
             </h2>
             <p className="text-muted-foreground mb-8 leading-relaxed">
-              CRC is a GCP-compliant clinical research center in Jordan, partnering with global CROs and sponsors to conduct high-quality Phase I–IV clinical trials.
+              {content.description || "CRC is a GCP-compliant clinical research center in Jordan, partnering with global CROs and sponsors to conduct high-quality Phase I–IV clinical trials."}
             </p>
 
             {/* Contact Details */}
@@ -107,9 +109,9 @@ const ContactForm = () => {
                   <Mail className="w-5 h-5 text-primary" />
                 </div>
                 <div>
-                  <h4 className="font-semibold text-foreground mb-1">Email</h4>
-                  <a href="mailto:info@crcjo.com" className="text-muted-foreground hover:text-primary transition-colors">
-                    info@crcjo.com
+                  <h4 className="font-semibold text-foreground mb-1">{content.email_label || "Email"}</h4>
+                  <a href={`mailto:${content.email || "info@crcjo.com"}`} className="text-muted-foreground hover:text-primary transition-colors">
+                    {content.email || "info@crcjo.com"}
                   </a>
                 </div>
               </div>
@@ -119,10 +121,10 @@ const ContactForm = () => {
                   <Building2 className="w-5 h-5 text-accent" />
                 </div>
                 <div>
-                  <h4 className="font-semibold text-foreground mb-1">Location</h4>
+                  <h4 className="font-semibold text-foreground mb-1">{content.location_label || "Location"}</h4>
                   <p className="text-muted-foreground">
-                    Irbid, Jordan<br />
-                    Clinical Research District
+                    {content.location || "Irbid, Jordan"}<br />
+                    {content.location_detail || "Clinical Research District"}
                   </p>
                 </div>
               </div>
@@ -130,7 +132,7 @@ const ContactForm = () => {
               {/* Trust Badges */}
               <div className="pt-6 border-t border-border">
                 <div className="flex flex-wrap gap-2">
-                  {["GCP Compliant", "Phase I-IV", "Global Partners"].map((badge) => (
+                  {[content.badge1 || "GCP Compliant", content.badge2 || "Phase I-IV", content.badge3 || "Global Partners"].map((badge) => (
                     <span key={badge} className="px-3 py-1 bg-secondary rounded-full text-xs font-medium text-foreground">
                       {badge}
                     </span>
@@ -143,7 +145,7 @@ const ContactForm = () => {
           {/* Form Side */}
           <div className={`lg:col-span-3 transition-all duration-700 delay-200 ${isVisible ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-12'}`}>
             <div className="bg-white rounded-3xl p-8 md:p-10 shadow-xl border border-border">
-              <h3 className="text-xl font-bold text-foreground mb-6">Send Us a Message</h3>
+              <h3 className="text-xl font-bold text-foreground mb-6">{content.form_title || "Send Us a Message"}</h3>
               
               <form onSubmit={handleSubmit} className="space-y-5">
                 <div className="grid sm:grid-cols-2 gap-5">
@@ -254,7 +256,7 @@ const ContactForm = () => {
                     </>
                   ) : (
                     <>
-                      Send Message
+                      {content.submit_button || "Send Message"}
                       <Send className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" />
                     </>
                   )}
