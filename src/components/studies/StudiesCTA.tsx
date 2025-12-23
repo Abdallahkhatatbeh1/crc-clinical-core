@@ -2,9 +2,17 @@ import { ArrowRight, Mail, Phone, CheckCircle2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import useScrollAnimation from "@/hooks/useScrollAnimation";
 import { Link } from "react-router-dom";
+import { useSiteContent } from "@/hooks/useSiteContent";
 
 const StudiesCTA = () => {
   const { ref: sectionRef, isVisible } = useScrollAnimation({ threshold: 0.3 });
+  const { content } = useSiteContent("studies", "cta");
+
+  const trustPoints = [
+    content.trust1 || "GCP Compliant",
+    content.trust2 || "Treatment-Naïve Populations",
+    content.trust3 || "Fast Recruitment"
+  ];
 
   return (
     <section ref={sectionRef} className="py-16 md:py-20 lg:py-24 gradient-brand relative overflow-hidden">
@@ -21,14 +29,14 @@ const StudiesCTA = () => {
               isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
             }`}
           >
-            Partner with <span className="text-accent">CRC</span>
+            {content.title || "Partner with"} <span className="text-accent">{content.title_highlight || "CRC"}</span>
           </h2>
           <p 
             className={`text-xl text-white/85 leading-relaxed max-w-2xl mx-auto mb-8 transition-all duration-700 delay-200 ${
               isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
             }`}
           >
-            A trusted clinical trial site for global CROs and sponsors.
+            {content.description || "A trusted clinical trial site for global CROs and sponsors."}
           </p>
 
           {/* Trust Points */}
@@ -37,7 +45,7 @@ const StudiesCTA = () => {
               isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
             }`}
           >
-            {["GCP Compliant", "Treatment-Naïve Populations", "Fast Recruitment"].map((item) => (
+            {trustPoints.map((item) => (
               <div key={item} className="flex items-center gap-2 px-4 py-2 bg-white/10 rounded-full">
                 <CheckCircle2 className="w-4 h-4 text-accent" />
                 <span className="text-sm text-white/90">{item}</span>
@@ -53,7 +61,7 @@ const StudiesCTA = () => {
           >
             <Link to="/why-us">
               <Button variant="hero" size="xl" className="group min-w-[220px]">
-                Start a Study
+                {content.button_text || "Start a Study"}
                 <ArrowRight size={20} className="group-hover:translate-x-1 transition-transform" />
               </Button>
             </Link>
@@ -65,13 +73,13 @@ const StudiesCTA = () => {
               isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
             }`}
           >
-            <a href="mailto:info@crcjo.com" className="flex items-center gap-2 text-white/80 hover:text-white transition-colors">
+            <a href={`mailto:${content.email || "info@crcjo.com"}`} className="flex items-center gap-2 text-white/80 hover:text-white transition-colors">
               <Mail className="w-5 h-5" />
-              <span>info@crcjo.com</span>
+              <span>{content.email || "info@crcjo.com"}</span>
             </a>
-            <a href="tel:+962123456789" className="flex items-center gap-2 text-white/80 hover:text-white transition-colors">
+            <a href={`tel:${(content.phone || "+962 123 456 789").replace(/\s/g, '')}`} className="flex items-center gap-2 text-white/80 hover:text-white transition-colors">
               <Phone className="w-5 h-5" />
-              <span>+962 123 456 789</span>
+              <span>{content.phone || "+962 123 456 789"}</span>
             </a>
           </div>
         </div>

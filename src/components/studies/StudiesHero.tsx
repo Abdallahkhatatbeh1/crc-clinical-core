@@ -2,13 +2,6 @@ import { useEffect, useState } from "react";
 import { FlaskConical, CheckCircle2, Globe } from "lucide-react";
 import { useSiteContent } from "@/hooks/useSiteContent";
 
-const phases = [
-  { phase: "Phase I", desc: "Safety & Dosage" },
-  { phase: "Phase II", desc: "Efficacy Testing" },
-  { phase: "Phase III", desc: "Large-Scale Trials" },
-  { phase: "Phase IV", desc: "Post-Market Studies" }
-];
-
 const StudiesHero = () => {
   const [isLoaded, setIsLoaded] = useState(false);
   const { content } = useSiteContent("studies", "hero");
@@ -16,6 +9,13 @@ const StudiesHero = () => {
   useEffect(() => {
     setIsLoaded(true);
   }, []);
+
+  const phases = [
+    { phase: content.phase1_title || "Phase I", desc: content.phase1_desc || "Safety & Dosage" },
+    { phase: content.phase2_title || "Phase II", desc: content.phase2_desc || "Efficacy Testing" },
+    { phase: content.phase3_title || "Phase III", desc: content.phase3_desc || "Large-Scale Trials" },
+    { phase: content.phase4_title || "Phase IV", desc: content.phase4_desc || "Post-Market Studies" }
+  ];
 
   return (
     <section className="relative pt-24 md:pt-32 pb-16 md:pb-24 gradient-brand overflow-hidden">
@@ -55,10 +55,10 @@ const StudiesHero = () => {
               {content.subtitle || "CRC conducts a wide spectrum of scientifically rigorous clinical trials, including Phase I clinical trials, Phase II clinical trials, Phase III, and Phase IV programs."}
             </p>
             <p className="text-base md:text-lg text-white/80 leading-relaxed max-w-3xl mx-auto">
-              Our treatment-naïve populations support studies across numerous therapeutic areas, including depression clinical trials, metabolic disorders, and infectious diseases such as the latest clinical trials on COVID-19.
+              {content.description2 || "Our treatment-naïve populations support studies across numerous therapeutic areas, including depression clinical trials, metabolic disorders, and infectious diseases such as the latest clinical trials on COVID-19."}
             </p>
             <p className="text-base md:text-lg text-white/80 leading-relaxed max-w-3xl mx-auto">
-              We maintain strong alignment with ICH-GCP and clinicaltrials.gov transparency standards.
+              {content.description3 || "We maintain strong alignment with ICH-GCP and clinicaltrials.gov transparency standards."}
             </p>
           </div>
 
@@ -68,7 +68,7 @@ const StudiesHero = () => {
               isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
             }`}
           >
-            {phases.map((item, index) => (
+            {phases.map((item) => (
               <div 
                 key={item.phase}
                 className="bg-white/10 backdrop-blur-sm rounded-2xl p-4 border border-white/20 hover:bg-white/15 transition-all duration-300"
@@ -87,11 +87,11 @@ const StudiesHero = () => {
           >
             <div className="flex items-center gap-2 px-4 py-2 bg-accent/20 rounded-full">
               <CheckCircle2 className="w-4 h-4 text-accent" />
-              <span className="text-sm text-white/90">ICH-GCP Compliant</span>
+              <span className="text-sm text-white/90">{content.compliance1 || "ICH-GCP Compliant"}</span>
             </div>
             <div className="flex items-center gap-2 px-4 py-2 bg-white/10 rounded-full">
               <Globe className="w-4 h-4 text-white/80" />
-              <span className="text-sm text-white/90">ClinicalTrials.gov Registered</span>
+              <span className="text-sm text-white/90">{content.compliance2 || "ClinicalTrials.gov Registered"}</span>
             </div>
           </div>
         </div>

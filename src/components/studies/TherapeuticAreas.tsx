@@ -2,6 +2,7 @@ import { useState, useRef } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import BrandTag from "@/components/BrandTag";
 import useScrollAnimation from "@/hooks/useScrollAnimation";
+import { useSiteContent } from "@/hooks/useSiteContent";
 
 // Import images
 import gastroenterologyImg from "@/assets/studies/gastroenterology.png";
@@ -221,6 +222,7 @@ const TherapeuticAreas = () => {
   const [selectedIndex, setSelectedIndex] = useState(0);
   const sliderRef = useRef<HTMLDivElement>(null);
   const sectionTopRef = useRef<HTMLDivElement>(null);
+  const { content } = useSiteContent("studies", "therapeutic_areas");
   
   const selectedArea = therapeuticAreas[selectedIndex];
 
@@ -269,13 +271,13 @@ const TherapeuticAreas = () => {
         {/* Header */}
         <div className="text-center mb-12">
           <div className={`transition-all duration-700 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
-            <BrandTag variant="green" className="mb-6">Research Areas</BrandTag>
+            <BrandTag variant="green" className="mb-6">{content.tag || "Research Areas"}</BrandTag>
           </div>
           <h2 className={`text-foreground mb-4 transition-all duration-700 delay-100 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
-            Therapeutic Areas <span className="text-accent">Covered</span>
+            {content.title || "Therapeutic Areas"} <span className="text-accent">{content.title_highlight || "Covered"}</span>
           </h2>
           <p className={`text-muted-foreground text-lg max-w-4xl mx-auto transition-all duration-700 delay-200 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
-            CRC supports clinical operations across GI, cardiovascular, neurology, urology, rheumatology, vaccines, genetic diseases, metabolic disorders, musculoskeletal health, endocrinology, ophthalmology, ENT, pediatrics, geriatrics, maternity health, psychiatry, and dermatology, enabling both early development and contract research and development initiatives.
+            {content.description || "CRC supports clinical operations across GI, cardiovascular, neurology, urology, rheumatology, vaccines, genetic diseases, metabolic disorders, musculoskeletal health, endocrinology, ophthalmology, ENT, pediatrics, geriatrics, maternity health, psychiatry, and dermatology, enabling both early development and contract research and development initiatives."}
           </p>
         </div>
 
@@ -423,18 +425,18 @@ const TherapeuticAreas = () => {
         <div className={`mt-16 text-center transition-all duration-700 delay-500 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
           <div className="inline-flex flex-wrap justify-center items-center gap-4 px-4 sm:px-6 py-4 bg-crc-light-bg rounded-2xl border border-border">
             <div className="text-center px-2">
-              <div className="text-2xl sm:text-3xl font-bold text-primary">17+</div>
-              <div className="text-[10px] sm:text-xs text-muted-foreground">Therapeutic Areas</div>
+              <div className="text-2xl sm:text-3xl font-bold text-primary">{content.stat1_value || "17+"}</div>
+              <div className="text-[10px] sm:text-xs text-muted-foreground">{content.stat1_label || "Therapeutic Areas"}</div>
             </div>
             <div className="hidden sm:block w-px h-10 bg-border" />
             <div className="text-center px-2">
-              <div className="text-2xl sm:text-3xl font-bold text-accent">50+</div>
-              <div className="text-[10px] sm:text-xs text-muted-foreground">Conditions Covered</div>
+              <div className="text-2xl sm:text-3xl font-bold text-accent">{content.stat2_value || "50+"}</div>
+              <div className="text-[10px] sm:text-xs text-muted-foreground">{content.stat2_label || "Conditions Covered"}</div>
             </div>
             <div className="hidden sm:block w-px h-10 bg-border" />
             <div className="text-center px-2">
-              <div className="text-2xl sm:text-3xl font-bold text-primary">I-IV</div>
-              <div className="text-[10px] sm:text-xs text-muted-foreground">All Trial Phases</div>
+              <div className="text-2xl sm:text-3xl font-bold text-primary">{content.stat3_value || "I-IV"}</div>
+              <div className="text-[10px] sm:text-xs text-muted-foreground">{content.stat3_label || "All Trial Phases"}</div>
             </div>
           </div>
         </div>
