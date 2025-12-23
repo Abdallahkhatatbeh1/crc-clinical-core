@@ -58,6 +58,7 @@ const sectionNames: { [key: string]: string } = {
   services_list: "Services List",
   facilities_section: "Facilities Overview",
   gallery: "Facilities Gallery",
+  therapeutic_areas: "Therapeutic Areas",
 };
 
 const keyNames: { [key: string]: string } = {
@@ -215,6 +216,21 @@ const keyNames: { [key: string]: string } = {
   button_primary: "Primary Button",
   button_secondary: "Secondary Button",
   
+  // Studies page
+  description3: "Description 3",
+  phase1_title: "Phase 1 - Title",
+  phase1_desc: "Phase 1 - Description",
+  phase2_title: "Phase 2 - Title",
+  phase2_desc: "Phase 2 - Description",
+  phase3_title: "Phase 3 - Title",
+  phase3_desc: "Phase 3 - Description",
+  phase4_title: "Phase 4 - Title",
+  phase4_desc: "Phase 4 - Description",
+  compliance1: "Compliance Badge 1",
+  compliance2: "Compliance Badge 2",
+  trust1: "Trust Point 1",
+  trust2: "Trust Point 2",
+  trust3: "Trust Point 3",
   // Vision & Mission
   vision_tag: "Vision Tag",
   vision_text: "Vision Text",
