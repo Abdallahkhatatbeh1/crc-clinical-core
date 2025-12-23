@@ -211,19 +211,26 @@ const keyNames: { [key: string]: string } = {
   trust_label: "Trust Label",
   trust_indicators: "Trust Indicators",
   tag: "Tag",
-  // Footer social links
+  
+  // Footer & Social Links
   linkedin_url: "LinkedIn URL",
   youtube_url: "YouTube URL",
   instagram_url: "Instagram URL",
   x_url: "X (Twitter) URL",
   facebook_url: "Facebook URL",
   copyright_text: "Copyright Text",
+  company_description: "Company Description",
+  
+  // General
   highlight1: "Highlight 1",
   highlight2: "Highlight 2",
   highlight3: "Highlight 3",
+  highlight4: "Highlight 4",
   card1_text: "Card 1 Text",
   card2_text: "Card 2 Text",
   card3_text: "Card 3 Text",
+  
+  // Home Facilities Gallery
   facility1_title: "Facility 1 - Title",
   facility1_description: "Facility 1 - Description",
   facility2_title: "Facility 2 - Title",
@@ -236,6 +243,22 @@ const keyNames: { [key: string]: string } = {
   facility5_description: "Facility 5 - Description",
   facility6_title: "Facility 6 - Title",
   facility6_description: "Facility 6 - Description",
+  
+  // Services Facilities Section
+  facility1_name: "Facility 1 - Name",
+  facility1_desc: "Facility 1 - Description",
+  facility2_name: "Facility 2 - Name",
+  facility2_desc: "Facility 2 - Description",
+  facility3_name: "Facility 3 - Name",
+  facility3_desc: "Facility 3 - Description",
+  facility4_name: "Facility 4 - Name",
+  facility4_desc: "Facility 4 - Description",
+  facility5_name: "Facility 5 - Name",
+  facility5_desc: "Facility 5 - Description",
+  facility6_name: "Facility 6 - Name",
+  facility6_desc: "Facility 6 - Description",
+  
+  // Why Trust Us Cards
   card1_title: "Card 1 - Title",
   card1_subtitle: "Card 1 - Subtitle",
   card1_points: "Card 1 - Points",
@@ -248,18 +271,59 @@ const keyNames: { [key: string]: string } = {
   card4_title: "Card 4 - Title",
   card4_subtitle: "Card 4 - Subtitle",
   card4_points: "Card 4 - Points",
+  
+  // Contact Hero Cards
+  card1_label: "Card 1 - Label",
+  card2_label: "Card 2 - Label",
+  card3_label: "Card 3 - Label",
+  card4_label: "Card 4 - Label",
+  
+  // Partners
   cro_description: "CRO Description",
+  cro_title: "CRO Title",
+  cro_subtitle: "CRO Subtitle",
+  cro_partners: "CRO Partners (comma separated)",
+  cro_capabilities_label: "CRO Capabilities Label",
+  cro_capability1: "CRO Capability 1",
+  cro_capability2: "CRO Capability 2",
+  cro_capability3: "CRO Capability 3",
+  cro_capability4: "CRO Capability 4",
   pharma_tag: "Pharma Tag",
   pharma_description: "Pharma Description",
+  pharma_title: "Pharma Title",
+  pharma_subtitle: "Pharma Subtitle",
+  pharma_sponsors: "Pharma Sponsors (comma separated)",
+  pharma_demo_label: "Pharma Demonstrations Label",
+  pharma_demo1: "Pharma Demonstration 1",
+  pharma_demo2: "Pharma Demonstration 2",
+  pharma_demo3: "Pharma Demonstration 3",
+  pharma_demo4: "Pharma Demonstration 4",
+  bottom_text: "Bottom Text",
+  
+  // CTA
   cta_text: "CTA Text",
   cta_primary: "Primary CTA",
   cta_secondary: "Secondary CTA",
+  cta_button: "CTA Button",
+  
+  // Contact Info
   email: "Email",
+  email_label: "Email Label",
   phone: "Phone",
   address: "Address",
   hours: "Working Hours",
-  company_description: "Company Description",
   location: "Location",
+  location_label: "Location Label",
+  location_detail: "Location Detail",
+  
+  // Contact Form
+  form_title: "Form Title",
+  submit_button: "Submit Button",
+  badge1: "Badge 1",
+  badge2: "Badge 2",
+  badge3: "Badge 3",
+  
+  // About Values
   section_title: "Section Title",
   section_subtitle: "Section Subtitle",
   value1_title: "Value 1 - Title",
@@ -272,12 +336,17 @@ const keyNames: { [key: string]: string } = {
   value4_description: "Value 4 - Description",
   value5_title: "Value 5 - Title",
   value5_description: "Value 5 - Description",
+  
+  // Founder
   paragraph1: "Paragraph 1",
   paragraph2: "Paragraph 2",
   paragraph3: "Paragraph 3",
-  highlight4: "Highlight 4",
+  
+  // Team Photo
   photo_title: "Photo Title",
   photo_description: "Photo Description",
+  
+  // Stats
   stat1_value: "Stat 1 - Value",
   stat1_label: "Stat 1 - Label",
   stat2_value: "Stat 2 - Value",
@@ -286,33 +355,30 @@ const keyNames: { [key: string]: string } = {
   stat3_label: "Stat 3 - Label",
   stat4_value: "Stat 4 - Value",
   stat4_label: "Stat 4 - Label",
+  
+  // Commitment Items
   item1: "Item 1",
   item2: "Item 2",
   item3: "Item 3",
   item4: "Item 4",
   item5: "Item 5",
   item6: "Item 6",
-  cta_button: "CTA Button",
+  
+  // Misc
   description2: "Description 2",
-  badge1: "Badge 1",
-  badge2: "Badge 2",
-  badge3: "Badge 3",
   feature1: "Feature 1",
   feature2: "Feature 2",
   feature3: "Feature 3",
   button_primary: "Primary Button",
   button_secondary: "Secondary Button",
+  button_subtitle: "Button Subtitle",
   trust_badge1: "Trust Badge 1",
   trust_badge2: "Trust Badge 2",
   trust_badge3: "Trust Badge 3",
   location_badge: "Location Badge",
   video_url: "Video URL",
-  cro_title: "CRO Title",
-  cro_subtitle: "CRO Subtitle",
-  cro_partners: "CRO Partners",
-  pharma_title: "Pharma Title",
-  pharma_subtitle: "Pharma Subtitle",
-  pharma_sponsors: "Pharma Sponsors",
+  
+  // Features
   feature1_title: "Feature 1 - Title",
   feature1_description: "Feature 1 - Description",
   feature2_title: "Feature 2 - Title",
@@ -325,7 +391,47 @@ const keyNames: { [key: string]: string } = {
   feature5_description: "Feature 5 - Description",
   feature6_title: "Feature 6 - Title",
   feature6_description: "Feature 6 - Description",
-  bottom_text: "Bottom Text",
+  
+  // Services List (9 services)
+  service1_title: "Service 1 - Title",
+  service1_description: "Service 1 - Description",
+  service2_title: "Service 2 - Title",
+  service2_description: "Service 2 - Description",
+  service3_title: "Service 3 - Title",
+  service3_description: "Service 3 - Description",
+  service4_title: "Service 4 - Title",
+  service4_description: "Service 4 - Description",
+  service5_title: "Service 5 - Title",
+  service5_description: "Service 5 - Description",
+  service6_title: "Service 6 - Title",
+  service6_description: "Service 6 - Description",
+  service7_title: "Service 7 - Title",
+  service7_description: "Service 7 - Description",
+  service8_title: "Service 8 - Title",
+  service8_description: "Service 8 - Description",
+  service9_title: "Service 9 - Title",
+  service9_description: "Service 9 - Description",
+  
+  // Join Team Positions (6 positions)
+  position1_title: "Position 1 - Title",
+  position1_desc: "Position 1 - Description",
+  position2_title: "Position 2 - Title",
+  position2_desc: "Position 2 - Description",
+  position3_title: "Position 3 - Title",
+  position3_desc: "Position 3 - Description",
+  position4_title: "Position 4 - Title",
+  position4_desc: "Position 4 - Description",
+  position5_title: "Position 5 - Title",
+  position5_desc: "Position 5 - Description",
+  position6_title: "Position 6 - Title",
+  position6_desc: "Position 6 - Description",
+  
+  // Vision & Mission
+  vision_tag: "Vision Tag",
+  vision_text: "Vision Text",
+  mission_tag: "Mission Tag",
+  mission_text: "Mission Text",
+  
   // Therapeutic Areas - Area 1
   area1_title: "Area 1 - Title (Gastroenterology)",
   area1_short_title: "Area 1 - Short Title",
@@ -470,7 +576,12 @@ const ContentEditor = ({ content, pages, updateContent, session }: ContentEditor
            key.includes("subtitle") || 
            key.includes("address") || 
            key.includes("text") || 
-           key.includes("points");
+           key.includes("points") ||
+           key.includes("conditions") ||
+           key.includes("partners") ||
+           key.includes("sponsors") ||
+           key.includes("capability") ||
+           key.includes("demo");
   };
 
   const handleImageUpdated = () => {
