@@ -4,23 +4,27 @@ import {
   HeartPulse, 
   Pill, 
   Scale, 
-  Database,
-  Users
+  Database
 } from "lucide-react";
 import BrandTag from "@/components/BrandTag";
 import useScrollAnimation from "@/hooks/useScrollAnimation";
+import { useSiteContent } from "@/hooks/useSiteContent";
 
-const teamMembers = [
-  { icon: Stethoscope, title: "Principal & Sub-Investigators", color: "primary" },
-  { icon: ClipboardList, title: "Clinical Research Coordinators", color: "accent" },
-  { icon: HeartPulse, title: "Research Nurses", color: "primary" },
-  { icon: Pill, title: "Pharmacists & IP Specialists", color: "accent" },
-  { icon: Scale, title: "Regulatory & Ethics Experts", color: "primary" },
-  { icon: Database, title: "Data & Quality Managers", color: "accent" }
-];
+const roleIcons = [Stethoscope, ClipboardList, HeartPulse, Pill, Scale, Database];
+const roleColors = ["primary", "accent", "primary", "accent", "primary", "accent"];
 
 const TeamSection = () => {
   const { ref: sectionRef, isVisible } = useScrollAnimation({ threshold: 0.1 });
+  const { content } = useSiteContent("about", "team");
+
+  const teamMembers = [
+    { icon: roleIcons[0], title: content.role1 || "Principal & Sub-Investigators", color: roleColors[0] },
+    { icon: roleIcons[1], title: content.role2 || "Clinical Research Coordinators", color: roleColors[1] },
+    { icon: roleIcons[2], title: content.role3 || "Research Nurses", color: roleColors[2] },
+    { icon: roleIcons[3], title: content.role4 || "Pharmacists & IP Specialists", color: roleColors[3] },
+    { icon: roleIcons[4], title: content.role5 || "Regulatory & Ethics Experts", color: roleColors[4] },
+    { icon: roleIcons[5], title: content.role6 || "Data & Quality Managers", color: roleColors[5] }
+  ];
 
   return (
     <section ref={sectionRef} className="py-24 bg-crc-light-bg-alt relative overflow-hidden">
@@ -32,13 +36,13 @@ const TeamSection = () => {
         {/* Header */}
         <div className="text-center mb-16">
           <div className={`transition-all duration-700 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
-            <BrandTag className="mb-6">Our People</BrandTag>
+            <BrandTag className="mb-6">{content.tag || "Our People"}</BrandTag>
           </div>
           <h2 className={`text-foreground mb-4 transition-all duration-700 delay-100 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
-            Our <span className="text-primary">Multidisciplinary</span> Team
+            {content.title || "Our"} <span className="text-primary">{content.title_highlight || "Multidisciplinary"}</span> {content.title_suffix || "Team"}
           </h2>
           <p className={`text-muted-foreground text-lg max-w-3xl mx-auto transition-all duration-700 delay-200 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
-            CRC's multidisciplinary team supports protocol compliance, data validity, and the scientific rigor required for worldwide clinical trials and investigator site excellence.
+            {content.description || "CRC's multidisciplinary team supports protocol compliance, data validity, and the scientific rigor required for worldwide clinical trials and investigator site excellence."}
           </p>
         </div>
 

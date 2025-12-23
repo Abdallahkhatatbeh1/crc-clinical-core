@@ -1,42 +1,47 @@
 import { Shield, Award, Zap, Heart, Handshake } from "lucide-react";
 import BrandTag from "@/components/BrandTag";
 import useScrollAnimation from "@/hooks/useScrollAnimation";
+import { useSiteContent } from "@/hooks/useSiteContent";
 
-const values = [
-  {
-    icon: Shield,
-    title: "Integrity",
-    description: "Adherence to ICH-GCP, local regulatory structures, and internationally harmonized clinical trials frameworks.",
-    color: "primary"
-  },
-  {
-    icon: Award,
-    title: "Quality",
-    description: "Accurate data generation supported by audit-ready documentation, controlled workflows, and scientific discipline across all clinical trials phases.",
-    color: "accent"
-  },
-  {
-    icon: Zap,
-    title: "Efficiency",
-    description: "Streamlined trial management, strong patient recruitment, and operational excellence across all study visits.",
-    color: "primary"
-  },
-  {
-    icon: Heart,
-    title: "Patient-Centered Care",
-    description: "A commitment to scientifically grounded monitoring of safety signals, adverse events, and clinical outcomes.",
-    color: "accent"
-  },
-  {
-    icon: Handshake,
-    title: "Partnership",
-    description: "Collaborative engagement with CRO partners, investigators, and global scientific institutions.",
-    color: "primary"
-  }
-];
+const valueIcons = [Shield, Award, Zap, Heart, Handshake];
+const valueColors = ["primary", "accent", "primary", "accent", "primary"];
 
 const OurValues = () => {
   const { ref: sectionRef, isVisible } = useScrollAnimation({ threshold: 0.1 });
+  const { content } = useSiteContent("about", "values");
+
+  const values = [
+    {
+      icon: valueIcons[0],
+      title: content.value1_title || "Integrity",
+      description: content.value1_description || "Adherence to ICH-GCP, local regulatory structures, and internationally harmonized clinical trials frameworks.",
+      color: valueColors[0]
+    },
+    {
+      icon: valueIcons[1],
+      title: content.value2_title || "Quality",
+      description: content.value2_description || "Accurate data generation supported by audit-ready documentation, controlled workflows, and scientific discipline across all clinical trials phases.",
+      color: valueColors[1]
+    },
+    {
+      icon: valueIcons[2],
+      title: content.value3_title || "Efficiency",
+      description: content.value3_description || "Streamlined trial management, strong patient recruitment, and operational excellence across all study visits.",
+      color: valueColors[2]
+    },
+    {
+      icon: valueIcons[3],
+      title: content.value4_title || "Patient-Centered Care",
+      description: content.value4_description || "A commitment to scientifically grounded monitoring of safety signals, adverse events, and clinical outcomes.",
+      color: valueColors[3]
+    },
+    {
+      icon: valueIcons[4],
+      title: content.value5_title || "Partnership",
+      description: content.value5_description || "Collaborative engagement with CRO partners, investigators, and global scientific institutions.",
+      color: valueColors[4]
+    }
+  ];
 
   return (
     <section ref={sectionRef} className="py-16 md:py-20 lg:py-24 bg-crc-light-bg relative overflow-hidden">
@@ -48,13 +53,13 @@ const OurValues = () => {
         {/* Header */}
         <div className="text-center mb-10 md:mb-16">
           <div className={`transition-all duration-700 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
-            <BrandTag variant="green" className="mb-6">Our Foundation</BrandTag>
+            <BrandTag variant="green" className="mb-6">{content.tag || "Our Foundation"}</BrandTag>
           </div>
           <h2 className={`text-foreground mb-4 transition-all duration-700 delay-100 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
-            Our Core <span className="text-accent">Values</span>
+            {content.title || "Our Core"} <span className="text-accent">{content.title_highlight || "Values"}</span>
           </h2>
           <p className={`text-muted-foreground text-lg max-w-2xl mx-auto transition-all duration-700 delay-200 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
-            The principles that guide everything we do
+            {content.subtitle || "The principles that guide everything we do"}
           </p>
         </div>
 

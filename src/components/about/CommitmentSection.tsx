@@ -1,5 +1,4 @@
 import { 
-  CheckCircle2, 
   ArrowRight,
   Shield,
   MessageSquare,
@@ -12,18 +11,22 @@ import { Button } from "@/components/ui/button";
 import BrandTag from "@/components/BrandTag";
 import useScrollAnimation from "@/hooks/useScrollAnimation";
 import { Link } from "react-router-dom";
+import { useSiteContent } from "@/hooks/useSiteContent";
 
-const commitments = [
-  { icon: Shield, text: "Strict adherence to ICH-GCP guidelines" },
-  { icon: MessageSquare, text: "Transparent communication with sponsors" },
-  { icon: FileCheck, text: "High-quality documentation and audit readiness" },
-  { icon: GraduationCap, text: "Continuous staff training and competency development" },
-  { icon: Clock, text: "Efficient operational processes for timely milestone delivery" },
-  { icon: Users, text: "Robust patient recruitment driven by strong community networks" }
-];
+const commitmentIcons = [Shield, MessageSquare, FileCheck, GraduationCap, Clock, Users];
 
 const CommitmentSection = () => {
   const { ref: sectionRef, isVisible } = useScrollAnimation({ threshold: 0.2 });
+  const { content } = useSiteContent("about", "commitment");
+
+  const commitments = [
+    { icon: commitmentIcons[0], text: content.item1 || "Strict adherence to ICH-GCP guidelines" },
+    { icon: commitmentIcons[1], text: content.item2 || "Transparent communication with sponsors" },
+    { icon: commitmentIcons[2], text: content.item3 || "High-quality documentation and audit readiness" },
+    { icon: commitmentIcons[3], text: content.item4 || "Continuous staff training and competency development" },
+    { icon: commitmentIcons[4], text: content.item5 || "Efficient operational processes for timely milestone delivery" },
+    { icon: commitmentIcons[5], text: content.item6 || "Robust patient recruitment driven by strong community networks" }
+  ];
 
   return (
     <section ref={sectionRef} className="py-16 md:py-20 lg:py-24 gradient-brand relative overflow-hidden">
@@ -38,13 +41,13 @@ const CommitmentSection = () => {
           {/* Header */}
           <div className="text-center mb-10 md:mb-16">
             <div className={`transition-all duration-700 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
-              <BrandTag variant="green" className="mb-6">Excellence</BrandTag>
+              <BrandTag variant="green" className="mb-6">{content.tag || "Excellence"}</BrandTag>
             </div>
             <h2 className={`text-white mb-4 transition-all duration-700 delay-100 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
-              Commitment to <span className="text-accent">Excellence</span>
+              {content.title || "Commitment to"} <span className="text-accent">{content.title_highlight || "Excellence"}</span>
             </h2>
             <p className={`text-white/80 text-lg max-w-3xl mx-auto transition-all duration-700 delay-200 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
-              CRC integrates international scientific standards, rigorous feasibility assessment, calibrated equipment, and community-network-driven patient recruitment clinical trials to deliver ethical, high-quality research across the region.
+              {content.description || "CRC integrates international scientific standards, rigorous feasibility assessment, calibrated equipment, and community-network-driven patient recruitment clinical trials to deliver ethical, high-quality research across the region."}
             </p>
           </div>
 
@@ -69,11 +72,11 @@ const CommitmentSection = () => {
           {/* CTA */}
           <div className={`text-center transition-all duration-700 delay-700 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
             <p className="text-white/70 mb-6">
-              CRC strives to be a trusted, dependable, and high-performing research partner for global organizations seeking clinical trial sites in Jordan and the Middle East.
+              {content.cta_text || "CRC strives to be a trusted, dependable, and high-performing research partner for global organizations seeking clinical trial sites in Jordan and the Middle East."}
             </p>
             <Link to="/why-us">
               <Button variant="hero" size="xl" className="group">
-                Partner With Us
+                {content.cta_button || "Partner With Us"}
                 <ArrowRight size={20} className="group-hover:translate-x-1 transition-transform" />
               </Button>
             </Link>
