@@ -1,4 +1,4 @@
-import { useState, useRef } from "react";
+import { useState, useRef, useMemo } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import BrandTag from "@/components/BrandTag";
 import useScrollAnimation from "@/hooks/useScrollAnimation";
@@ -44,6 +44,27 @@ const fallbackImages = [
   dermatologyImg,
 ];
 
+// Default data for fallback
+const defaultAreas = [
+  { title: "Gastroenterology (GI)", shortTitle: "GI", color: "primary", conditions: "Inflammatory Bowel Disease (IBD)|Crohn's Disease|Ulcerative Colitis|IBS|GERD" },
+  { title: "Cardiovascular (Cardio)", shortTitle: "Cardio", color: "accent", conditions: "Hypertension|Coronary Artery Disease|Heart Failure|Arrhythmias" },
+  { title: "Neurology (Neuro)", shortTitle: "Neuro", color: "primary", conditions: "Multiple Sclerosis|Epilepsy|Parkinson's Disease|Migraine" },
+  { title: "Urology", shortTitle: "Urology", color: "accent", conditions: "Overactive Bladder|BPH|Prostatitis" },
+  { title: "Rheumatology (Rheum)", shortTitle: "Rheum", color: "primary", conditions: "Rheumatoid Arthritis|Osteoarthritis|Lupus" },
+  { title: "Vaccines", shortTitle: "Vaccines", color: "accent", conditions: "COVID-19|Influenza|Pneumococcal" },
+  { title: "Genetic Diseases (Genetic)", shortTitle: "Genetic", color: "primary", conditions: "Cystic Fibrosis|Sickle Cell|Muscular Dystrophy" },
+  { title: "Metabolic Disorders (Metabolic)", shortTitle: "Metabolic", color: "accent", conditions: "Diabetes|Obesity|Metabolic Syndrome" },
+  { title: "Musculoskeletal (MSK)", shortTitle: "MSK", color: "primary", conditions: "Osteoporosis|Chronic Pain|Sports Injuries" },
+  { title: "Endocrinology (Endo)", shortTitle: "Endo", color: "accent", conditions: "Thyroid Disorders|Diabetes|Hormonal Imbalances" },
+  { title: "Ophthalmology (Ophthal)", shortTitle: "Ophthal", color: "primary", conditions: "AMD|Glaucoma|Diabetic Retinopathy" },
+  { title: "ENT", shortTitle: "ENT", color: "accent", conditions: "Chronic Sinusitis|Hearing Loss|Sleep Apnea" },
+  { title: "Pediatrics (Peds)", shortTitle: "Peds", color: "primary", conditions: "Pediatric Asthma|ADHD|Childhood Obesity" },
+  { title: "Geriatrics", shortTitle: "Geriatrics", color: "accent", conditions: "Dementia|Frailty|Polypharmacy" },
+  { title: "Maternity & Women's Health (Women's)", shortTitle: "Women's", color: "primary", conditions: "Gestational Diabetes|Endometriosis|Menopause" },
+  { title: "Psychiatry (Psych)", shortTitle: "Psych", color: "accent", conditions: "Depression|Anxiety|Bipolar Disorder" },
+  { title: "Dermatology (Derm)", shortTitle: "Derm", color: "primary", conditions: "Psoriasis|Atopic Dermatitis|Acne|Vitiligo" },
+];
+
 const TherapeuticAreas = () => {
   const { ref: sectionRef, isVisible } = useScrollAnimation({ threshold: 0.05 });
   const [selectedIndex, setSelectedIndex] = useState(0);
@@ -52,199 +73,25 @@ const TherapeuticAreas = () => {
   const { content } = useSiteContent("studies", "therapeutic_areas");
   const { getImageUrl } = useSectionImages("studies", "therapeutic_areas");
 
-  const therapeuticAreas = [
-    {
-      id: 1,
-      image: getImageUrl("area_image1", fallbackImages[0]),
-      title: "Gastroenterology (GI)",
-      shortTitle: "GI",
-      color: "primary",
-      conditions: [
-        "Inflammatory Bowel Disease (IBD): Crohn's disease, Ulcerative colitis",
-        "NASH / MASH",
-        "Acute pancreatitis",
-        "GERD",
-        "IBS and functional GI disorders"
-      ]
-    },
-    {
-      id: 2,
-      image: getImageUrl("area_image2", fallbackImages[1]),
-      title: "Cardiovascular",
-      shortTitle: "Cardio",
-      color: "accent",
-      conditions: [
-        "ASCVD",
-        "Hypertriglyceridemia",
-        "Hypercholesterolemia",
-        "Hypertension",
-        "Heart failure"
-      ]
-    },
-    {
-      id: 3,
-      image: getImageUrl("area_image3", fallbackImages[2]),
-      title: "Neurology",
-      shortTitle: "Neuro",
-      color: "primary",
-      conditions: [
-        "Multiple Sclerosis (MS)",
-        "Epilepsy",
-        "Neuropathic pain",
-        "Movement disorders"
-      ]
-    },
-    {
-      id: 4,
-      image: getImageUrl("area_image4", fallbackImages[3]),
-      title: "Urology",
-      shortTitle: "Urology",
-      color: "accent",
-      conditions: [
-        "Overactive bladder (OAB)",
-        "Benign Prostatic Hyperplasia (BPH)",
-        "Prostatitis"
-      ]
-    },
-    {
-      id: 5,
-      image: getImageUrl("area_image5", fallbackImages[4]),
-      title: "Rheumatology",
-      shortTitle: "Rheum",
-      color: "primary",
-      conditions: [
-        "Rheumatoid arthritis",
-        "Osteoarthritis",
-        "Spondyloarthritis"
-      ]
-    },
-    {
-      id: 6,
-      image: getImageUrl("area_image6", fallbackImages[5]),
-      title: "Vaccines",
-      shortTitle: "Vaccines",
-      color: "accent",
-      conditions: [
-        "MERS-CoV",
-        "COVID-19",
-        "Additional emerging and routine vaccines"
-      ]
-    },
-    {
-      id: 7,
-      image: getImageUrl("area_image7", fallbackImages[6]),
-      title: "Genetic Diseases",
-      shortTitle: "Genetic",
-      color: "primary",
-      conditions: ["Rare genetic conditions", "Hereditary disorders"]
-    },
-    {
-      id: 8,
-      image: getImageUrl("area_image8", fallbackImages[7]),
-      title: "Metabolic Disorders",
-      shortTitle: "Metabolic",
-      color: "accent",
-      conditions: [
-        "Diabetes",
-        "Obesity",
-        "Insulin resistance",
-        "Lipid disorders"
-      ]
-    },
-    {
-      id: 9,
-      image: getImageUrl("area_image9", fallbackImages[8]),
-      title: "Musculoskeletal",
-      shortTitle: "MSK",
-      color: "primary",
-      conditions: [
-        "Chronic and acute pain",
-        "Bone and joint disorders"
-      ]
-    },
-    {
-      id: 10,
-      image: getImageUrl("area_image10", fallbackImages[9]),
-      title: "Endocrinology",
-      shortTitle: "Endo",
-      color: "accent",
-      conditions: [
-        "Thyroid disorders",
-        "Hormonal imbalances and endocrine conditions"
-      ]
-    },
-    {
-      id: 11,
-      image: getImageUrl("area_image11", fallbackImages[10]),
-      title: "Ophthalmology",
-      shortTitle: "Ophthal",
-      color: "primary",
-      conditions: ["Eye disorders", "Vision conditions"]
-    },
-    {
-      id: 12,
-      image: getImageUrl("area_image12", fallbackImages[11]),
-      title: "ENT",
-      shortTitle: "ENT",
-      color: "accent",
-      conditions: ["Ear, nose, and throat disorders"]
-    },
-    {
-      id: 13,
-      image: getImageUrl("area_image13", fallbackImages[12]),
-      title: "Pediatrics",
-      shortTitle: "Peds",
-      color: "primary",
-      conditions: ["Childhood diseases", "Pediatric conditions"]
-    },
-    {
-      id: 14,
-      image: getImageUrl("area_image14", fallbackImages[13]),
-      title: "Geriatrics",
-      shortTitle: "Geriatrics",
-      color: "accent",
-      conditions: ["Age-related conditions", "Elderly care"]
-    },
-    {
-      id: 15,
-      image: getImageUrl("area_image15", fallbackImages[14]),
-      title: "Maternity & Women's Health",
-      shortTitle: "Women's",
-      color: "primary",
-      conditions: ["Maternal health", "Women's health conditions"]
-    },
-    {
-      id: 16,
-      image: getImageUrl("area_image16", fallbackImages[15]),
-      title: "Psychiatry",
-      shortTitle: "Psych",
-      color: "accent",
-      conditions: [
-        "Depression",
-        "Anxiety",
-        "Sleep disorders"
-      ]
-    },
-    {
-      id: 17,
-      image: getImageUrl("area_image17", fallbackImages[16]),
-      title: "Dermatology",
-      shortTitle: "Derm",
-      color: "primary",
-      conditions: [
-        "Viral Warts",
-        "Psoriasis",
-        "Lichen Planus",
-        "Atopic Dermatitis",
-        "Acne",
-        "Leishmania",
-        "Scabies",
-        "Urticaria",
-        "Tinea Capitis",
-        "Vitiligo"
-      ]
-    }
-  ];
+  // Build therapeutic areas from database content or fallback
+  const therapeuticAreas = useMemo(() => {
+    return defaultAreas.map((defaultArea, index) => {
+      const areaNum = index + 1;
+      const title = content[`area${areaNum}_title`] || defaultArea.title;
+      const shortTitle = content[`area${areaNum}_short_title`] || defaultArea.shortTitle;
+      const conditionsStr = content[`area${areaNum}_conditions`] || defaultArea.conditions;
+      const conditions = conditionsStr.split('|').filter(c => c.trim());
+      
+      return {
+        id: areaNum,
+        image: getImageUrl(`area_image${areaNum}`, fallbackImages[index]),
+        title,
+        shortTitle,
+        color: index % 2 === 0 ? "primary" : "accent",
+        conditions
+      };
+    });
+  }, [content, getImageUrl]);
   
   const selectedArea = therapeuticAreas[selectedIndex];
 
@@ -457,8 +304,8 @@ const TherapeuticAreas = () => {
             </div>
             <div className="hidden sm:block w-px h-10 bg-border" />
             <div className="text-center px-2">
-              <div className="text-2xl sm:text-3xl font-bold text-primary">{content.stat3_value || "I-IV"}</div>
-              <div className="text-[10px] sm:text-xs text-muted-foreground">{content.stat3_label || "All Trial Phases"}</div>
+              <div className="text-2xl sm:text-3xl font-bold text-primary">{content.stat3_value || "100%"}</div>
+              <div className="text-[10px] sm:text-xs text-muted-foreground">{content.stat3_label || "Regulatory Expertise"}</div>
             </div>
           </div>
         </div>
