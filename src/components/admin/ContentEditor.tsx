@@ -5,9 +5,43 @@ import { Textarea } from "@/components/ui/textarea";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useToast } from "@/hooks/use-toast";
-import { FileText, Save, Home, Info, Briefcase, FlaskConical, Phone, HelpCircle, Globe, Image, Upload, X, Copy } from "lucide-react";
+import { FileText, Save, Home, Info, Briefcase, FlaskConical, Phone, HelpCircle, Globe, Image, Upload, X, Copy, ImageIcon } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { Session } from "@supabase/supabase-js";
+
+// Import facility images for preview
+import patientRooms from "@/assets/facilities/patient-rooms.jpg";
+import labEquipment from "@/assets/facilities/lab-equipment.jpg";
+import ipPharmacyStorage from "@/assets/facilities/ip-pharmacy-storage.jpg";
+import examinationRoom from "@/assets/facilities/examination-room.jpg";
+import vitalSigns from "@/assets/facilities/vital-signs.jpg";
+import coordinatorsOffices from "@/assets/facilities/coordinators-offices.jpg";
+import labEquipment2 from "@/assets/facilities/lab-equipment-2.jpg";
+import labEquipment3 from "@/assets/facilities/lab-equipment-3.jpg";
+import labKitsStorage from "@/assets/facilities/lab-kits-storage.jpg";
+import freezer70 from "@/assets/facilities/freezer-70.jpg";
+import patientExamination from "@/assets/facilities/patient-examination.jpg";
+import emergencyTrolley from "@/assets/facilities/emergency-trolley.jpg";
+import procedureRoom from "@/assets/facilities/procedure-room.jpg";
+import examinationEquipment from "@/assets/facilities/examination-equipment.jpg";
+import ecgEquipment from "@/assets/facilities/ecg-equipment.jpg";
+import teamPhotoNew from "@/assets/facilities/team-photo-new.jpg";
+
+// Import partner logos
+import iqviaLogo from "@/assets/partners/iqvia.png";
+import parexelLogo from "@/assets/partners/parexel.png";
+import syneosLogo from "@/assets/partners/syneos-health.svg";
+import ppdLogo from "@/assets/partners/ppd.png";
+import medpaceLogo from "@/assets/partners/medpace.png";
+import labcorpLogo from "@/assets/partners/labcorp.png";
+import psiLogo from "@/assets/partners/psi.png";
+import mctLogo from "@/assets/partners/mct.png";
+import iconLogo from "@/assets/partners/icon.png";
+import sareptaLogo from "@/assets/partners/sarepta.png";
+import newAmsterdamLogo from "@/assets/partners/new-amsterdam-pharma.png";
+import argenxLogo from "@/assets/partners/argenx.png";
+import immunicLogo from "@/assets/partners/immunic.png";
+import johnsonLogo from "@/assets/partners/johnson-johnson.png";
 
 interface ContentItem {
   id: string;
@@ -30,6 +64,61 @@ interface ContentEditorProps {
   updateContent: (id: string, newValue: string) => Promise<{ error: unknown }>;
   session: Session | null;
 }
+
+// Section images mapping
+const sectionImages: { [page: string]: { [section: string]: { name: string; src: string; description: string }[] } } = {
+  home: {
+    facilities: [
+      { name: "Patient Rooms", src: patientRooms, description: "Dedicated patient care rooms" },
+      { name: "Lab Equipment", src: labEquipment, description: "Laboratory instruments" },
+      { name: "IP Pharmacy Storage", src: ipPharmacyStorage, description: "Secure storage" },
+      { name: "Examination Room", src: examinationRoom, description: "Patient assessment" },
+      { name: "Vital Signs Monitor", src: vitalSigns, description: "Monitoring systems" },
+      { name: "Coordinators Offices", src: coordinatorsOffices, description: "Research workspace" },
+    ],
+    partners: [
+      { name: "IQVIA", src: iqviaLogo, description: "CRO Partner" },
+      { name: "Parexel", src: parexelLogo, description: "CRO Partner" },
+      { name: "Syneos Health", src: syneosLogo, description: "CRO Partner" },
+      { name: "ICON", src: iconLogo, description: "CRO Partner" },
+      { name: "PPD", src: ppdLogo, description: "CRO Partner" },
+      { name: "Labcorp", src: labcorpLogo, description: "CRO Partner" },
+      { name: "Medpace", src: medpaceLogo, description: "CRO Partner" },
+      { name: "PSI", src: psiLogo, description: "CRO Partner" },
+      { name: "MCT", src: mctLogo, description: "CRO Partner" },
+      { name: "Johnson & Johnson", src: johnsonLogo, description: "Pharma Partner" },
+      { name: "New Amsterdam Pharma", src: newAmsterdamLogo, description: "Pharma Partner" },
+      { name: "Sarepta", src: sareptaLogo, description: "Pharma Partner" },
+      { name: "Argenx", src: argenxLogo, description: "Pharma Partner" },
+      { name: "Immunic", src: immunicLogo, description: "Pharma Partner" },
+    ],
+  },
+  services: {
+    gallery: [
+      { name: "Patient Rooms", src: patientRooms, description: "Clinical Care" },
+      { name: "Patient Examination", src: patientExamination, description: "Clinical Care" },
+      { name: "Examination Room", src: examinationRoom, description: "Patient Rooms" },
+      { name: "Procedure Room", src: procedureRoom, description: "Patient Rooms" },
+      { name: "Lab Centrifuge", src: labEquipment, description: "Laboratory" },
+      { name: "Lab Equipment MPW", src: labEquipment2, description: "Laboratory" },
+      { name: "Lab Centrifuge LC-04L", src: labEquipment3, description: "Laboratory" },
+      { name: "Vital Signs Monitor", src: vitalSigns, description: "Monitoring" },
+      { name: "ECG Equipment", src: ecgEquipment, description: "Medical Equipment" },
+      { name: "Examination Equipment", src: examinationEquipment, description: "Medical Equipment" },
+      { name: "IP Pharmacy Storage", src: ipPharmacyStorage, description: "Storage" },
+      { name: "-70°C Freezer", src: freezer70, description: "Storage" },
+      { name: "Lab Kits Storage", src: labKitsStorage, description: "Storage" },
+      { name: "Emergency Trolley", src: emergencyTrolley, description: "Equipment" },
+      { name: "Coordinators Offices", src: coordinatorsOffices, description: "Administration" },
+      { name: "Our Team", src: teamPhotoNew, description: "Team" },
+    ],
+  },
+  about: {
+    team_photo: [
+      { name: "Team Photo", src: teamPhotoNew, description: "CRC Team" },
+    ],
+  },
+};
 
 const pageNames: { [key: string]: { name: string; icon: React.ElementType } } = {
   home: { name: "Home", icon: Home },
@@ -70,11 +159,9 @@ const sectionNames: { [key: string]: string } = {
   form: "Contact Form",
   join_team: "Join Team",
   video: "Video Section",
-  images: "Section Images",
 };
 
 const keyNames: { [key: string]: string } = {
-  // Hero Section
   title: "Title",
   title_highlight: "Title Highlight",
   title_suffix: "Title Suffix",
@@ -84,8 +171,6 @@ const keyNames: { [key: string]: string } = {
   button_text: "Button Text",
   trust_label: "Trust Label",
   trust_indicators: "Trust Indicators (comma separated)",
-  
-  // Who We Are
   tag: "Tag",
   highlight1: "Highlight 1",
   highlight2: "Highlight 2",
@@ -93,8 +178,6 @@ const keyNames: { [key: string]: string } = {
   card1_text: "Card 1 Text",
   card2_text: "Card 2 Text",
   card3_text: "Card 3 Text",
-  
-  // Facilities
   facility1_title: "Facility 1 - Title",
   facility1_description: "Facility 1 - Description",
   facility2_title: "Facility 2 - Title",
@@ -107,8 +190,6 @@ const keyNames: { [key: string]: string } = {
   facility5_description: "Facility 5 - Description",
   facility6_title: "Facility 6 - Title",
   facility6_description: "Facility 6 - Description",
-  
-  // Why Trust
   card1_title: "Card 1 - Title",
   card1_subtitle: "Card 1 - Subtitle",
   card1_points: "Card 1 - Points (use | separator)",
@@ -121,30 +202,20 @@ const keyNames: { [key: string]: string } = {
   card4_title: "Card 4 - Title",
   card4_subtitle: "Card 4 - Subtitle",
   card4_points: "Card 4 - Points (use | separator)",
-  
-  // Partners
   cro_description: "CRO Section - Description",
   pharma_tag: "Pharma Section - Tag",
   pharma_description: "Pharma Section - Description",
-  
-  // CTA
   cta_text: "CTA Text",
   cta_primary: "Primary CTA",
   cta_secondary: "Secondary CTA",
-  
-  // Contact
   email: "Email",
   phone: "Phone",
   address: "Address",
   hours: "Working Hours",
   company_description: "Company Description",
   location: "Location",
-  
-  // General
   section_title: "Section Title",
   section_subtitle: "Section Subtitle",
-  
-  // Values (About page)
   value1_title: "Value 1 - Title",
   value1_description: "Value 1 - Description",
   value2_title: "Value 2 - Title",
@@ -155,28 +226,20 @@ const keyNames: { [key: string]: string } = {
   value4_description: "Value 4 - Description",
   value5_title: "Value 5 - Title",
   value5_description: "Value 5 - Description",
-  
-  // Founder section
   paragraph1: "Paragraph 1",
   paragraph2: "Paragraph 2",
   paragraph3: "Paragraph 3",
   highlight4: "Highlight 4",
-  
-  // Team section
   role1: "Role 1",
   role2: "Role 2",
   role3: "Role 3",
   role4: "Role 4",
   role5: "Role 5",
   role6: "Role 6",
-  
-  // Team Photo section
   photo_title: "Photo Title",
   photo_description: "Photo Description",
   stat4_value: "Stat 4 - Value",
   stat4_label: "Stat 4 - Label",
-  
-  // Commitment section
   item1: "Item 1",
   item2: "Item 2",
   item3: "Item 3",
@@ -184,8 +247,6 @@ const keyNames: { [key: string]: string } = {
   item5: "Item 5",
   item6: "Item 6",
   cta_button: "CTA Button",
-  
-  // Services page
   description2: "Description 2",
   badge1: "Badge 1",
   badge2: "Badge 2",
@@ -225,8 +286,6 @@ const keyNames: { [key: string]: string } = {
   feature3: "Feature 3",
   button_primary: "Primary Button",
   button_secondary: "Secondary Button",
-  
-  // Studies page
   description3: "Description 3",
   phase1_title: "Phase 1 - Title",
   phase1_desc: "Phase 1 - Description",
@@ -241,8 +300,6 @@ const keyNames: { [key: string]: string } = {
   trust1: "Trust Point 1",
   trust2: "Trust Point 2",
   trust3: "Trust Point 3",
-  
-  // Contact page
   card1_label: "Card 1 - Label",
   card2_label: "Card 2 - Label",
   card3_label: "Card 3 - Label",
@@ -267,14 +324,10 @@ const keyNames: { [key: string]: string } = {
   position6_title: "Position 6 - Title",
   position6_desc: "Position 6 - Description",
   button_subtitle: "Button Subtitle",
-  
-  // Vision & Mission
   vision_tag: "Vision Tag",
   vision_text: "Vision Text",
   mission_tag: "Mission Tag",
   mission_text: "Mission Text",
-  
-  // Features
   feature1_title: "Feature 1 - Title",
   feature1_description: "Feature 1 - Description",
   feature2_title: "Feature 2 - Title",
@@ -288,25 +341,17 @@ const keyNames: { [key: string]: string } = {
   feature6_title: "Feature 6 - Title",
   feature6_description: "Feature 6 - Description",
   bottom_text: "Bottom Text",
-  
-  // Stats
   stat1_value: "Stat 1 - Value",
   stat1_label: "Stat 1 - Label",
   stat2_value: "Stat 2 - Value",
   stat2_label: "Stat 2 - Label",
   stat3_value: "Stat 3 - Value",
   stat3_label: "Stat 3 - Label",
-  
-  // Why Us Hero
   trust_badge1: "Trust Badge 1",
   trust_badge2: "Trust Badge 2",
   trust_badge3: "Trust Badge 3",
   location_badge: "Location Badge",
-  
-  // Why Us Video
   video_url: "Video URL",
-  
-  // Why Us Partners
   cro_title: "CRO Title",
   cro_subtitle: "CRO Subtitle",
   cro_partners: "CRO Partners (comma separated)",
@@ -323,8 +368,6 @@ const keyNames: { [key: string]: string } = {
   pharma_demo2: "Pharma Demo 2",
   pharma_demo3: "Pharma Demo 3",
   pharma_demo4: "Pharma Demo 4",
-  
-  // Cards
   card1_description: "Card 1 - Description",
   card2_description: "Card 2 - Description",
   card3_description: "Card 3 - Description",
@@ -334,7 +377,7 @@ const ContentEditor = ({ content, pages, updateContent, session }: ContentEditor
   const [editedContent, setEditedContent] = useState<{ [key: string]: string }>({});
   const [savingId, setSavingId] = useState<string | null>(null);
   const [activePageTab, setActivePageTab] = useState("home");
-  const [siteImages, setSiteImages] = useState<SiteImage[]>([]);
+  const [uploadedImages, setUploadedImages] = useState<SiteImage[]>([]);
   const [loadingImages, setLoadingImages] = useState(false);
   const [uploadingImage, setUploadingImage] = useState(false);
   const { toast } = useToast();
@@ -347,8 +390,8 @@ const ContentEditor = ({ content, pages, updateContent, session }: ContentEditor
     setEditedContent(initial);
   }, [content]);
 
-  // Fetch images
-  const fetchImages = async () => {
+  // Fetch uploaded images from storage
+  const fetchUploadedImages = async () => {
     setLoadingImages(true);
     try {
       const { data, error } = await supabase.storage.from('site-images').list('', { limit: 100 });
@@ -360,7 +403,7 @@ const ContentEditor = ({ content, pages, updateContent, session }: ContentEditor
           return { name: item.name, url: publicUrl };
         })
       );
-      setSiteImages(images);
+      setUploadedImages(images);
     } catch (error) {
       console.error('Error fetching images:', error);
     }
@@ -369,7 +412,7 @@ const ContentEditor = ({ content, pages, updateContent, session }: ContentEditor
 
   useEffect(() => {
     if (session) {
-      fetchImages();
+      fetchUploadedImages();
     }
   }, [session]);
 
@@ -393,7 +436,7 @@ const ContentEditor = ({ content, pages, updateContent, session }: ContentEditor
         title: "Success",
         description: "Image uploaded successfully",
       });
-      fetchImages();
+      fetchUploadedImages();
     } catch (error: unknown) {
       const errorMessage = error instanceof Error ? error.message : 'Upload failed';
       toast({
@@ -405,7 +448,7 @@ const ContentEditor = ({ content, pages, updateContent, session }: ContentEditor
     setUploadingImage(false);
   };
 
-  const handleDeleteImage = async (imageName: string) => {
+  const handleDeleteUploadedImage = async (imageName: string) => {
     try {
       const { error } = await supabase.storage.from('site-images').remove([imageName]);
       if (error) throw error;
@@ -414,7 +457,7 @@ const ContentEditor = ({ content, pages, updateContent, session }: ContentEditor
         title: "Success",
         description: "Image deleted successfully",
       });
-      fetchImages();
+      fetchUploadedImages();
     } catch (error: unknown) {
       const errorMessage = error instanceof Error ? error.message : 'Delete failed';
       toast({
@@ -466,13 +509,65 @@ const ContentEditor = ({ content, pages, updateContent, session }: ContentEditor
            key.includes("points");
   };
 
-  // Image Gallery Component
-  const ImageGallery = () => (
-    <div className="space-y-4">
+  // Get section images for current page/section
+  const getSectionImages = (page: string, section: string) => {
+    return sectionImages[page]?.[section] || [];
+  };
+
+  // Section Images Preview Component
+  const SectionImagesPreview = ({ page, section }: { page: string; section: string }) => {
+    const images = getSectionImages(page, section);
+    
+    if (images.length === 0) return null;
+
+    return (
+      <div className="mb-6 bg-gradient-to-r from-primary/5 to-accent/5 rounded-xl p-5 border border-border/50">
+        <div className="flex items-center gap-2 mb-4">
+          <ImageIcon className="h-5 w-5 text-primary" />
+          <h4 className="font-semibold text-foreground">Section Images</h4>
+          <span className="text-xs text-muted-foreground bg-muted px-2 py-0.5 rounded-full">
+            {images.length} images
+          </span>
+        </div>
+        <p className="text-sm text-muted-foreground mb-4">
+          These images are currently displayed in this section. To replace them, update the source files in the project.
+        </p>
+        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-3">
+          {images.map((image, index) => (
+            <div 
+              key={index} 
+              className="group relative rounded-lg overflow-hidden border border-border bg-white shadow-sm hover:shadow-md transition-shadow"
+            >
+              <div className="aspect-square">
+                <img 
+                  src={image.src} 
+                  alt={image.name}
+                  className="w-full h-full object-cover"
+                />
+              </div>
+              <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity">
+                <div className="absolute bottom-0 left-0 right-0 p-2">
+                  <p className="text-white text-xs font-medium truncate">{image.name}</p>
+                  <p className="text-white/70 text-[10px] truncate">{image.description}</p>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    );
+  };
+
+  // Uploaded Images Manager Component
+  const UploadedImagesManager = () => (
+    <div className="bg-muted/30 rounded-xl p-5 border border-border/50">
       <div className="flex items-center justify-between mb-4">
         <div className="flex items-center gap-2">
           <Image className="h-5 w-5 text-primary" />
-          <h3 className="font-semibold">Uploaded Images</h3>
+          <h4 className="font-semibold text-foreground">Uploaded Images</h4>
+          <span className="text-xs text-muted-foreground bg-muted px-2 py-0.5 rounded-full">
+            Storage
+          </span>
         </div>
         <label className="cursor-pointer">
           <input
@@ -500,24 +595,30 @@ const ContentEditor = ({ content, pages, updateContent, session }: ContentEditor
         </label>
       </div>
 
+      <p className="text-sm text-muted-foreground mb-4">
+        Upload custom images here. You can use the URL in content fields or reference them in the code.
+      </p>
+
       {loadingImages ? (
         <div className="flex justify-center py-8">
           <div className="animate-spin rounded-full h-6 w-6 border-b-2 border-primary"></div>
         </div>
-      ) : siteImages.length === 0 ? (
-        <div className="text-center py-8 bg-muted/30 rounded-xl">
-          <Image className="h-12 w-12 text-muted-foreground mx-auto mb-3 opacity-50" />
+      ) : uploadedImages.length === 0 ? (
+        <div className="text-center py-8 bg-white/50 rounded-lg border border-dashed border-border">
+          <Image className="h-10 w-10 text-muted-foreground mx-auto mb-2 opacity-50" />
           <p className="text-muted-foreground text-sm">No images uploaded yet</p>
         </div>
       ) : (
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3">
-          {siteImages.map((image) => (
-            <div key={image.name} className="relative group rounded-lg overflow-hidden border border-border bg-muted/30">
-              <img 
-                src={image.url} 
-                alt={image.name}
-                className="w-full h-24 object-cover"
-              />
+        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3">
+          {uploadedImages.map((image) => (
+            <div key={image.name} className="group relative rounded-lg overflow-hidden border border-border bg-white shadow-sm">
+              <div className="aspect-square">
+                <img 
+                  src={image.url} 
+                  alt={image.name}
+                  className="w-full h-full object-cover"
+                />
+              </div>
               <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center gap-1">
                 <Button
                   size="sm"
@@ -534,12 +635,12 @@ const ContentEditor = ({ content, pages, updateContent, session }: ContentEditor
                   size="sm"
                   variant="destructive"
                   className="h-7 px-2"
-                  onClick={() => handleDeleteImage(image.name)}
+                  onClick={() => handleDeleteUploadedImage(image.name)}
                 >
                   <X className="h-3 w-3" />
                 </Button>
               </div>
-              <div className="p-1.5">
+              <div className="p-1.5 bg-white">
                 <p className="text-xs text-muted-foreground truncate">{image.name}</p>
               </div>
             </div>
@@ -558,7 +659,7 @@ const ContentEditor = ({ content, pages, updateContent, session }: ContentEditor
           </div>
           <div>
             <CardTitle>Site Content</CardTitle>
-            <CardDescription>Edit content and manage images for all pages</CardDescription>
+            <CardDescription>Edit content and view section images for all pages</CardDescription>
           </div>
         </div>
       </CardHeader>
@@ -584,19 +685,20 @@ const ContentEditor = ({ content, pages, updateContent, session }: ContentEditor
           {pages.map((page) => {
             const pageContent = getPageContent(page);
             const groupedContent = groupContentBySections(pageContent);
-            const sectionKeys = [...Object.keys(groupedContent), "images"];
 
             return (
               <TabsContent key={page} value={page}>
                 <Tabs defaultValue={Object.keys(groupedContent)[0]} className="w-full">
                   <TabsList className="w-full flex-wrap h-auto gap-2 mb-6 bg-white p-2 border">
-                    {sectionKeys.map((section) => (
+                    {Object.keys(groupedContent).map((section) => (
                       <TabsTrigger 
                         key={section} 
                         value={section} 
                         className="flex-1 min-w-fit flex items-center gap-1.5"
                       >
-                        {section === "images" && <Image className="h-3.5 w-3.5" />}
+                        {getSectionImages(page, section).length > 0 && (
+                          <ImageIcon className="h-3 w-3 text-primary" />
+                        )}
                         {sectionNames[section] || section}
                       </TabsTrigger>
                     ))}
@@ -604,71 +706,72 @@ const ContentEditor = ({ content, pages, updateContent, session }: ContentEditor
 
                   {Object.entries(groupedContent).map(([section, items]) => (
                     <TabsContent key={section} value={section} className="space-y-4">
-                      {items.map((item) => (
-                        <div key={item.id} className="bg-muted/30 rounded-xl p-5 space-y-4 hover:bg-muted/50 transition-colors">
-                          <div className="flex items-center justify-between">
-                            <label className="font-semibold text-foreground">
-                              {keyNames[item.content_key] || item.content_key}
-                            </label>
-                            <Button
-                              size="sm"
-                              onClick={() => handleSave(item.id)}
-                              disabled={savingId === item.id || editedContent[item.id] === item.content_value}
-                              className="min-w-[100px]"
-                            >
-                              {savingId === item.id ? (
-                                <>
-                                  <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white mr-2"></div>
-                                  Saving...
-                                </>
-                              ) : (
-                                <>
-                                  <Save className="h-4 w-4 mr-2" />
-                                  Save
-                                </>
-                              )}
-                            </Button>
+                      {/* Section Images Preview */}
+                      <SectionImagesPreview page={page} section={section} />
+
+                      {/* Uploaded Images Manager (show only in relevant sections) */}
+                      {(section === "facilities" || section === "gallery" || section === "partners") && (
+                        <UploadedImagesManager />
+                      )}
+
+                      {/* Content Fields */}
+                      <div className="space-y-4">
+                        {items.map((item) => (
+                          <div key={item.id} className="bg-muted/30 rounded-xl p-5 space-y-4 hover:bg-muted/50 transition-colors">
+                            <div className="flex items-center justify-between">
+                              <label className="font-semibold text-foreground">
+                                {keyNames[item.content_key] || item.content_key}
+                              </label>
+                              <Button
+                                size="sm"
+                                onClick={() => handleSave(item.id)}
+                                disabled={savingId === item.id || editedContent[item.id] === item.content_value}
+                                className="min-w-[100px]"
+                              >
+                                {savingId === item.id ? (
+                                  <>
+                                    <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white mr-2"></div>
+                                    Saving...
+                                  </>
+                                ) : (
+                                  <>
+                                    <Save className="h-4 w-4 mr-2" />
+                                    Save
+                                  </>
+                                )}
+                              </Button>
+                            </div>
+                            {isLongField(item.content_key) ? (
+                              <Textarea
+                                value={editedContent[item.id] || ""}
+                                onChange={(e) => setEditedContent({ ...editedContent, [item.id]: e.target.value })}
+                                rows={4}
+                                className="bg-white border-border focus:border-primary resize-none"
+                                placeholder={`Enter ${keyNames[item.content_key] || item.content_key}...`}
+                              />
+                            ) : (
+                              <Input
+                                value={editedContent[item.id] || ""}
+                                onChange={(e) => setEditedContent({ ...editedContent, [item.id]: e.target.value })}
+                                className="bg-white border-border focus:border-primary"
+                                placeholder={`Enter ${keyNames[item.content_key] || item.content_key}...`}
+                              />
+                            )}
+                            {item.content_key.includes("points") && (
+                              <p className="text-xs text-muted-foreground">
+                                Separate multiple points with the | character
+                              </p>
+                            )}
+                            {item.content_key === "trust_indicators" && (
+                              <p className="text-xs text-muted-foreground">
+                                Separate company names with commas (e.g., IQVIA,Parexel,ICON)
+                              </p>
+                            )}
                           </div>
-                          {isLongField(item.content_key) ? (
-                            <Textarea
-                              value={editedContent[item.id] || ""}
-                              onChange={(e) => setEditedContent({ ...editedContent, [item.id]: e.target.value })}
-                              rows={4}
-                              className="bg-white border-border focus:border-primary resize-none"
-                              placeholder={`Enter ${keyNames[item.content_key] || item.content_key}...`}
-                            />
-                          ) : (
-                            <Input
-                              value={editedContent[item.id] || ""}
-                              onChange={(e) => setEditedContent({ ...editedContent, [item.id]: e.target.value })}
-                              className="bg-white border-border focus:border-primary"
-                              placeholder={`Enter ${keyNames[item.content_key] || item.content_key}...`}
-                            />
-                          )}
-                          {item.content_key.includes("points") && (
-                            <p className="text-xs text-muted-foreground">
-                              Separate multiple points with the | character
-                            </p>
-                          )}
-                          {item.content_key === "trust_indicators" && (
-                            <p className="text-xs text-muted-foreground">
-                              Separate company names with commas (e.g., IQVIA,Parexel,ICON)
-                            </p>
-                          )}
-                          {item.content_key.includes("text") && item.content_key.includes("card") && (
-                            <p className="text-xs text-muted-foreground">
-                              Use {"<highlight>text</highlight>"} to highlight words
-                            </p>
-                          )}
-                        </div>
-                      ))}
+                        ))}
+                      </div>
                     </TabsContent>
                   ))}
-
-                  {/* Images Tab for each page */}
-                  <TabsContent value="images" className="bg-muted/30 rounded-xl p-5">
-                    <ImageGallery />
-                  </TabsContent>
                 </Tabs>
               </TabsContent>
             );
