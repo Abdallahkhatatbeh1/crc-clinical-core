@@ -1,15 +1,19 @@
 import { Award, Briefcase, Shield, Target } from "lucide-react";
 import BrandTag from "@/components/BrandTag";
 import useScrollAnimation from "@/hooks/useScrollAnimation";
+import { useSiteContent } from "@/hooks/useSiteContent";
+
+const highlightIcons = [Briefcase, Award, Shield, Target];
 
 const FounderSection = () => {
   const { ref: sectionRef, isVisible } = useScrollAnimation({ threshold: 0.2 });
+  const { content } = useSiteContent("about", "founder");
 
   const highlights = [
-    { icon: Briefcase, text: "15+ years collaborating with CROs and sponsors" },
-    { icon: Award, text: "40+ Phase I–IV studies overseen" },
-    { icon: Shield, text: "Protocol governance & patient safety expertise" },
-    { icon: Target, text: "Advanced clinical trial management oversight" }
+    { icon: highlightIcons[0], text: content.highlight1 || "15+ years collaborating with CROs and sponsors" },
+    { icon: highlightIcons[1], text: content.highlight2 || "40+ Phase I–IV studies overseen" },
+    { icon: highlightIcons[2], text: content.highlight3 || "Protocol governance & patient safety expertise" },
+    { icon: highlightIcons[3], text: content.highlight4 || "Advanced clinical trial management oversight" }
   ];
 
   return (
@@ -23,10 +27,10 @@ const FounderSection = () => {
           {/* Header */}
           <div className="text-center mb-12">
             <div className={`transition-all duration-700 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
-              <BrandTag className="mb-6">Leadership</BrandTag>
+              <BrandTag className="mb-6">{content.tag || "Leadership"}</BrandTag>
             </div>
             <h2 className={`text-foreground mb-4 transition-all duration-700 delay-100 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
-              Founder & CEO – <span className="text-primary">Dr. Sabiha Malkawi</span>
+              {content.title || "Founder & CEO –"} <span className="text-primary">{content.title_highlight || "Dr. Sabiha Malkawi"}</span>
             </h2>
           </div>
 
@@ -38,13 +42,13 @@ const FounderSection = () => {
           >
             <div className="space-y-6">
               <p className="text-muted-foreground leading-relaxed text-lg">
-                Dr. Malkawi has over 15 years of experience collaborating with contract research organizations, global CROs, and major industry sponsors.
+                {content.paragraph1 || "Dr. Malkawi has over 15 years of experience collaborating with contract research organizations, global CROs, and major industry sponsors."}
               </p>
               <p className="text-muted-foreground leading-relaxed text-lg">
-                She has overseen more than 40 Phase I–IV studies, including early development and drug development-supporting trials.
+                {content.paragraph2 || "She has overseen more than 40 Phase I–IV studies, including early development and drug development-supporting trials."}
               </p>
               <p className="text-muted-foreground leading-relaxed text-lg">
-                Her expertise spans protocol governance, patient safety, endpoint measurement, and advanced clinical trial management oversight.
+                {content.paragraph3 || "Her expertise spans protocol governance, patient safety, endpoint measurement, and advanced clinical trial management oversight."}
               </p>
             </div>
 

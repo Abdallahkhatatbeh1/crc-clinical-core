@@ -49,7 +49,10 @@ const sectionNames: { [key: string]: string } = {
   info: "Contact Info",
   footer: "Footer",
   team: "Team",
-  values: "Values",
+  team_photo: "Team Photo",
+  values: "Core Values",
+  founder: "Founder",
+  commitment: "Commitment",
   list: "Services List",
   areas: "Therapeutic Areas",
 };
@@ -127,13 +130,46 @@ const keyNames: { [key: string]: string } = {
   section_title: "Section Title",
   section_subtitle: "Section Subtitle",
   
-  // Values
+  // Values (About page)
   value1_title: "Value 1 - Title",
   value1_description: "Value 1 - Description",
   value2_title: "Value 2 - Title",
   value2_description: "Value 2 - Description",
   value3_title: "Value 3 - Title",
   value3_description: "Value 3 - Description",
+  value4_title: "Value 4 - Title",
+  value4_description: "Value 4 - Description",
+  value5_title: "Value 5 - Title",
+  value5_description: "Value 5 - Description",
+  
+  // Founder section
+  paragraph1: "Paragraph 1",
+  paragraph2: "Paragraph 2",
+  paragraph3: "Paragraph 3",
+  highlight4: "Highlight 4",
+  
+  // Team section
+  role1: "Role 1",
+  role2: "Role 2",
+  role3: "Role 3",
+  role4: "Role 4",
+  role5: "Role 5",
+  role6: "Role 6",
+  
+  // Team Photo section
+  photo_title: "Photo Title",
+  photo_description: "Photo Description",
+  stat4_value: "Stat 4 - Value",
+  stat4_label: "Stat 4 - Label",
+  
+  // Commitment section
+  item1: "Item 1",
+  item2: "Item 2",
+  item3: "Item 3",
+  item4: "Item 4",
+  item5: "Item 5",
+  item6: "Item 6",
+  cta_button: "CTA Button",
   
   // Vision & Mission
   vision_tag: "Vision Tag",
