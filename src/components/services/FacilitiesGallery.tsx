@@ -3,6 +3,7 @@ import BrandTag from "@/components/BrandTag";
 import useScrollAnimation from "@/hooks/useScrollAnimation";
 import { Dialog, DialogContent } from "@/components/ui/dialog";
 import { X, ZoomIn } from "lucide-react";
+import { useSiteContent } from "@/hooks/useSiteContent";
 
 // Import all facility images
 import patientRooms from "@/assets/facilities/patient-rooms.jpg";
@@ -44,6 +45,7 @@ const galleryImages = [
 const FacilitiesGallery = () => {
   const { ref: sectionRef, isVisible } = useScrollAnimation({ threshold: 0.1 });
   const [selectedImage, setSelectedImage] = useState<typeof galleryImages[0] | null>(null);
+  const { content } = useSiteContent("services", "gallery");
 
   return (
     <section ref={sectionRef} className="py-16 md:py-24 bg-background relative overflow-hidden">
@@ -55,13 +57,13 @@ const FacilitiesGallery = () => {
         {/* Header */}
         <div className="text-center mb-10 md:mb-16">
           <div className={`transition-all duration-700 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
-            <BrandTag className="mb-4 md:mb-6">Our Facilities</BrandTag>
+            <BrandTag className="mb-4 md:mb-6">{content.tag || "Our Facilities"}</BrandTag>
           </div>
           <h2 className={`text-2xl md:text-3xl lg:text-4xl text-foreground mb-3 md:mb-4 transition-all duration-700 delay-100 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
-            State-of-the-Art <span className="text-primary">Research Facilities</span>
+            {content.title || "State-of-the-Art"} <span className="text-primary">{content.title_highlight || "Research Facilities"}</span>
           </h2>
           <p className={`text-muted-foreground text-base md:text-lg max-w-2xl mx-auto transition-all duration-700 delay-200 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
-            Explore our clinical-grade infrastructure designed for multi-phase and complex clinical studies
+            {content.description || "Explore our clinical-grade infrastructure designed for multi-phase and complex clinical studies"}
           </p>
         </div>
 

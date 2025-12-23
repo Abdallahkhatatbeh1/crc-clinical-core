@@ -2,9 +2,17 @@ import { ArrowRight, CheckCircle2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import useScrollAnimation from "@/hooks/useScrollAnimation";
 import { Link } from "react-router-dom";
+import { useSiteContent } from "@/hooks/useSiteContent";
 
 const ServicesCTA = () => {
   const { ref: sectionRef, isVisible } = useScrollAnimation({ threshold: 0.3 });
+  const { content } = useSiteContent("services", "cta");
+
+  const features = [
+    content.feature1 || "End-to-End Support",
+    content.feature2 || "Fast Start-Up",
+    content.feature3 || "Audit-Ready"
+  ];
 
   return (
     <section ref={sectionRef} className="py-16 md:py-20 lg:py-24 gradient-brand relative overflow-hidden">
@@ -21,14 +29,14 @@ const ServicesCTA = () => {
               isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
             }`}
           >
-            Ready to Start Your <span className="text-accent">Clinical Trial</span>?
+            {content.title || "Ready to Start Your"} <span className="text-accent">{content.title_highlight || "Clinical Trial"}</span>?
           </h2>
           <p 
             className={`text-xl text-white/85 leading-relaxed max-w-2xl mx-auto mb-8 transition-all duration-700 delay-200 ${
               isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
             }`}
           >
-            Partner with CRC for comprehensive, GCP-compliant clinical trial services in Jordan and the Middle East.
+            {content.description || "Partner with CRC for comprehensive, GCP-compliant clinical trial services in Jordan and the Middle East."}
           </p>
 
           {/* Features */}
@@ -37,7 +45,7 @@ const ServicesCTA = () => {
               isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
             }`}
           >
-            {["End-to-End Support", "Fast Start-Up", "Audit-Ready"].map((item) => (
+            {features.map((item) => (
               <div key={item} className="flex items-center gap-2 px-4 py-2 bg-white/10 rounded-full">
                 <CheckCircle2 className="w-4 h-4 text-accent" />
                 <span className="text-sm text-white/90">{item}</span>
@@ -53,7 +61,7 @@ const ServicesCTA = () => {
           >
             <Link to="/why-us">
               <Button variant="hero" size="xl" className="group min-w-[220px]">
-                Get Started
+                {content.button_primary || "Get Started"}
                 <ArrowRight size={20} className="group-hover:translate-x-1 transition-transform" />
               </Button>
             </Link>
@@ -63,7 +71,7 @@ const ServicesCTA = () => {
                 size="xl" 
                 className="text-white border border-white/30 hover:bg-white/10 hover:text-white"
               >
-                View Our Studies
+                {content.button_secondary || "View Our Studies"}
               </Button>
             </Link>
           </div>
