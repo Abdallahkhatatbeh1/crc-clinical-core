@@ -3,15 +3,33 @@ import useScrollAnimation from "@/hooks/useScrollAnimation";
 import { MapPin, Award, FileCheck, ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
+import { useSiteContent } from "@/hooks/useSiteContent";
 
 const WhoWeAreSection = () => {
   const { ref: sectionRef, isVisible } = useScrollAnimation({ threshold: 0.2 });
+  const { content } = useSiteContent("home", "who_we_are");
 
   const highlights = [
-    { icon: MapPin, text: "Irbid, Jordan" },
-    { icon: Award, text: "ICH-GCP Compliant" },
-    { icon: FileCheck, text: "Full Trial Support" }
+    { icon: MapPin, text: content.highlight1 || "Irbid, Jordan" },
+    { icon: Award, text: content.highlight2 || "ICH-GCP Compliant" },
+    { icon: FileCheck, text: content.highlight3 || "Full Trial Support" }
   ];
+
+  // Helper function to parse text with <highlight> tags
+  const parseHighlightedText = (text: string, highlightClass: string) => {
+    if (!text) return null;
+    const parts = text.split(/<highlight>|<\/highlight>/);
+    return parts.map((part, index) => {
+      if (index % 2 === 1) {
+        return <span key={index} className={highlightClass}>{part}</span>;
+      }
+      return part;
+    });
+  };
+
+  const card1Text = content.card1_text || "CRC is a specialized clinical study site located in <highlight>Irbid, Jordan</highlight>, providing end-to-end support for clinical trials phases across diverse therapeutic areas.";
+  const card2Text = content.card2_text || "Our investigators, sub-investigators, and clinical research coordinators work closely with Contract Research Organizations (CROs) and sponsors to ensure <highlight>methodological rigor</highlight>, accurate endpoint evaluation, and ethically sound execution.";
+  const card3Text = content.card3_text || "As a scientifically driven investigator site, CRC integrates <highlight>validated workflows</highlight>, controlled documentation environments, and calibrated medical systems including a modern clinical trial management system.";
 
   return (
     <section ref={sectionRef} className="py-16 md:py-24 lg:py-32 bg-crc-light-bg-alt relative overflow-hidden">
@@ -24,14 +42,14 @@ const WhoWeAreSection = () => {
           {/* Header */}
           <div className="text-center mb-16">
             <div className={`transition-all duration-700 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
-              <BrandTag className="mb-6">Who We Are</BrandTag>
+              <BrandTag className="mb-6">{content.tag || "Who We Are"}</BrandTag>
             </div>
             <h2 
               className={`text-foreground mb-6 transition-all duration-700 delay-100 ${
                 isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
               }`}
             >
-              A Specialized Clinical Study Site
+              {content.title || "A Specialized Clinical Study Site"}
             </h2>
           </div>
 
@@ -64,7 +82,7 @@ const WhoWeAreSection = () => {
                 <span className="text-2xl font-bold text-primary">1</span>
               </div>
               <p className="text-muted-foreground leading-relaxed">
-                CRC is a specialized clinical study site located in <span className="text-primary font-semibold">Irbid, Jordan</span>, providing end-to-end support for clinical trials phases across diverse therapeutic areas.
+                {parseHighlightedText(card1Text, "text-primary font-semibold")}
               </p>
             </div>
 
@@ -77,7 +95,7 @@ const WhoWeAreSection = () => {
                 <span className="text-2xl font-bold text-accent">2</span>
               </div>
               <p className="text-muted-foreground leading-relaxed">
-                Our investigators, sub-investigators, and clinical research coordinators work closely with Contract Research Organizations (CROs) and sponsors to ensure <span className="text-accent font-semibold">methodological rigor</span>, accurate endpoint evaluation, and ethically sound execution.
+                {parseHighlightedText(card2Text, "text-accent font-semibold")}
               </p>
             </div>
 
@@ -90,7 +108,7 @@ const WhoWeAreSection = () => {
                 <span className="text-2xl font-bold text-primary">3</span>
               </div>
               <p className="text-muted-foreground leading-relaxed">
-                As a scientifically driven investigator site, CRC integrates <span className="text-primary font-semibold">validated workflows</span>, controlled documentation environments, and calibrated medical systems including a modern clinical trial management system.
+                {parseHighlightedText(card3Text, "text-primary font-semibold")}
               </p>
             </div>
           </div>
@@ -103,7 +121,7 @@ const WhoWeAreSection = () => {
           >
             <Link to="/about">
               <Button variant="outline" size="lg" className="group">
-                Learn More
+                {content.button_text || "Learn More"}
                 <ArrowRight size={18} className="ml-2 group-hover:translate-x-1 transition-transform" />
               </Button>
             </Link>

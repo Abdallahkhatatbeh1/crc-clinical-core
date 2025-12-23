@@ -24,82 +24,143 @@ interface ContentEditorProps {
 }
 
 const pageNames: { [key: string]: { name: string; icon: React.ElementType } } = {
-  home: { name: "الصفحة الرئيسية", icon: Home },
-  about: { name: "من نحن", icon: Info },
-  services: { name: "الخدمات", icon: Briefcase },
-  studies: { name: "الدراسات", icon: FlaskConical },
-  contact: { name: "تواصل معنا", icon: Phone },
-  whyus: { name: "لماذا نحن", icon: HelpCircle },
+  home: { name: "Home Page", icon: Home },
+  about: { name: "About", icon: Info },
+  services: { name: "Services", icon: Briefcase },
+  studies: { name: "Studies", icon: FlaskConical },
+  contact: { name: "Contact", icon: Phone },
+  whyus: { name: "Why Us", icon: HelpCircle },
   global: { name: "Footer", icon: Globe },
 };
 
 const sectionNames: { [key: string]: string } = {
   hero: "Hero Section",
-  who_we_are: "من نحن",
-  features: "الميزات",
+  who_we_are: "Who We Are",
+  facilities: "Facilities Gallery",
+  why_trust: "Why Trust Us",
+  partners: "Partners",
   cta: "Call to Action",
-  vision: "الرؤية",
-  mission: "الرسالة",
-  service1: "الخدمة 1",
-  service2: "الخدمة 2",
-  service3: "الخدمة 3",
-  info: "معلومات التواصل",
+  features: "Features",
+  vision: "Vision",
+  mission: "Mission",
+  service1: "Service 1",
+  service2: "Service 2",
+  service3: "Service 3",
+  info: "Contact Info",
   footer: "Footer",
-  team: "الفريق",
-  values: "القيم",
-  list: "قائمة الخدمات",
-  areas: "المجالات العلاجية",
+  team: "Team",
+  values: "Values",
+  list: "Services List",
+  areas: "Therapeutic Areas",
 };
 
 const keyNames: { [key: string]: string } = {
-  title: "العنوان",
-  title_highlight: "العنوان المميز",
-  title_suffix: "نهاية العنوان",
-  subtitle: "العنوان الفرعي",
-  description: "الوصف",
+  // Hero Section
+  title: "Title",
+  title_highlight: "Title Highlight",
+  title_suffix: "Title Suffix",
+  subtitle: "Subtitle",
+  description: "Description",
   badge: "Badge",
-  cta_text: "نص الزر",
-  cta_primary: "الزر الرئيسي",
-  cta_secondary: "الزر الثانوي",
-  button_text: "نص الزر",
-  tag: "Tag",
-  location: "الموقع",
+  button_text: "Button Text",
   trust_label: "Trust Label",
-  stat1_value: "الإحصائية 1 - القيمة",
-  stat1_label: "الإحصائية 1 - العنوان",
-  stat2_value: "الإحصائية 2 - القيمة",
-  stat2_label: "الإحصائية 2 - العنوان",
-  stat3_value: "الإحصائية 3 - القيمة",
-  stat3_label: "الإحصائية 3 - العنوان",
-  card1_title: "البطاقة 1 - العنوان",
-  card1_description: "البطاقة 1 - الوصف",
-  card2_title: "البطاقة 2 - العنوان",
-  card2_description: "البطاقة 2 - الوصف",
-  card3_title: "البطاقة 3 - العنوان",
-  card3_description: "البطاقة 3 - الوصف",
-  feature1_title: "الميزة 1 - العنوان",
-  feature1_description: "الميزة 1 - الوصف",
-  feature2_title: "الميزة 2 - العنوان",
-  feature2_description: "الميزة 2 - الوصف",
-  feature3_title: "الميزة 3 - العنوان",
-  feature3_description: "الميزة 3 - الوصف",
-  email: "البريد الإلكتروني",
-  phone: "رقم الهاتف",
-  address: "العنوان",
-  hours: "ساعات العمل",
-  company_description: "وصف الشركة",
-  section_title: "عنوان القسم",
-  section_subtitle: "العنوان الفرعي للقسم",
-  value1_title: "القيمة 1 - العنوان",
-  value1_description: "القيمة 1 - الوصف",
-  value2_title: "القيمة 2 - العنوان",
-  value2_description: "القيمة 2 - الوصف",
-  value3_title: "القيمة 3 - العنوان",
-  value3_description: "القيمة 3 - الوصف",
+  trust_indicators: "Trust Indicators (comma separated)",
+  
+  // Who We Are
+  tag: "Tag",
+  highlight1: "Highlight 1",
+  highlight2: "Highlight 2",
+  highlight3: "Highlight 3",
+  card1_text: "Card 1 Text",
+  card2_text: "Card 2 Text",
+  card3_text: "Card 3 Text",
+  
+  // Facilities
+  facility1_title: "Facility 1 - Title",
+  facility1_description: "Facility 1 - Description",
+  facility2_title: "Facility 2 - Title",
+  facility2_description: "Facility 2 - Description",
+  facility3_title: "Facility 3 - Title",
+  facility3_description: "Facility 3 - Description",
+  facility4_title: "Facility 4 - Title",
+  facility4_description: "Facility 4 - Description",
+  facility5_title: "Facility 5 - Title",
+  facility5_description: "Facility 5 - Description",
+  facility6_title: "Facility 6 - Title",
+  facility6_description: "Facility 6 - Description",
+  
+  // Why Trust
+  card1_title: "Card 1 - Title",
+  card1_subtitle: "Card 1 - Subtitle",
+  card1_points: "Card 1 - Points (use | separator)",
+  card2_title: "Card 2 - Title",
+  card2_subtitle: "Card 2 - Subtitle",
+  card2_points: "Card 2 - Points (use | separator)",
+  card3_title: "Card 3 - Title",
+  card3_subtitle: "Card 3 - Subtitle",
+  card3_points: "Card 3 - Points (use | separator)",
+  card4_title: "Card 4 - Title",
+  card4_subtitle: "Card 4 - Subtitle",
+  card4_points: "Card 4 - Points (use | separator)",
+  
+  // Partners
+  cro_title: "CRO Section - Title",
+  cro_description: "CRO Section - Description",
+  pharma_tag: "Pharma Section - Tag",
+  pharma_title: "Pharma Section - Title",
+  pharma_description: "Pharma Section - Description",
+  
+  // CTA
+  cta_text: "CTA Text",
+  cta_primary: "Primary CTA",
+  cta_secondary: "Secondary CTA",
+  
+  // Contact
+  email: "Email",
+  phone: "Phone",
+  address: "Address",
+  hours: "Working Hours",
+  company_description: "Company Description",
+  location: "Location",
+  
+  // General
+  section_title: "Section Title",
+  section_subtitle: "Section Subtitle",
+  
+  // Values
+  value1_title: "Value 1 - Title",
+  value1_description: "Value 1 - Description",
+  value2_title: "Value 2 - Title",
+  value2_description: "Value 2 - Description",
+  value3_title: "Value 3 - Title",
+  value3_description: "Value 3 - Description",
+  
+  // Vision & Mission
   vision_tag: "Vision Tag",
-  vision_text: "نص الرؤية",
+  vision_text: "Vision Text",
   mission_tag: "Mission Tag",
-  mission_text: "نص الرسالة",
+  mission_text: "Mission Text",
+  
+  // Features
+  feature1_title: "Feature 1 - Title",
+  feature1_description: "Feature 1 - Description",
+  feature2_title: "Feature 2 - Title",
+  feature2_description: "Feature 2 - Description",
+  feature3_title: "Feature 3 - Title",
+  feature3_description: "Feature 3 - Description",
+  
+  // Stats
+  stat1_value: "Stat 1 - Value",
+  stat1_label: "Stat 1 - Label",
+  stat2_value: "Stat 2 - Value",
+  stat2_label: "Stat 2 - Label",
+  stat3_value: "Stat 3 - Value",
+  stat3_label: "Stat 3 - Label",
+  
+  // Cards (deprecated)
+  card1_description: "Card 1 - Description",
+  card2_description: "Card 2 - Description",
+  card3_description: "Card 3 - Description",
 };
 
 const ContentEditor = ({ content, pages, updateContent }: ContentEditorProps) => {
@@ -122,14 +183,14 @@ const ContentEditor = ({ content, pages, updateContent }: ContentEditorProps) =>
     
     if (error) {
       toast({
-        title: "خطأ",
-        description: "فشل في حفظ التغييرات",
+        title: "Error",
+        description: "Failed to save changes",
         variant: "destructive",
       });
     } else {
       toast({
-        title: "تم الحفظ",
-        description: "تم حفظ التغييرات بنجاح",
+        title: "Saved",
+        description: "Changes saved successfully",
       });
     }
     setSavingId(null);
@@ -149,6 +210,14 @@ const ContentEditor = ({ content, pages, updateContent }: ContentEditorProps) =>
     }, {} as { [key: string]: ContentItem[] });
   };
 
+  const isLongField = (key: string) => {
+    return key.includes("description") || 
+           key.includes("subtitle") || 
+           key.includes("address") || 
+           key.includes("text") || 
+           key.includes("points");
+  };
+
   return (
     <Card className="border-0 shadow-sm">
       <CardHeader className="border-b border-border bg-muted/30">
@@ -157,8 +226,8 @@ const ContentEditor = ({ content, pages, updateContent }: ContentEditorProps) =>
             <FileText className="h-5 w-5 text-primary" />
           </div>
           <div>
-            <CardTitle>محتوى الموقع</CardTitle>
-            <CardDescription>تعديل محتوى جميع الصفحات</CardDescription>
+            <CardTitle>Site Content</CardTitle>
+            <CardDescription>Edit content for all pages</CardDescription>
           </div>
         </div>
       </CardHeader>
@@ -217,29 +286,46 @@ const ContentEditor = ({ content, pages, updateContent }: ContentEditorProps) =>
                               {savingId === item.id ? (
                                 <>
                                   <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white mr-2"></div>
-                                  جاري الحفظ...
+                                  Saving...
                                 </>
                               ) : (
                                 <>
                                   <Save className="h-4 w-4 mr-2" />
-                                  حفظ
+                                  Save
                                 </>
                               )}
                             </Button>
                           </div>
-                          {item.content_key.includes("description") || item.content_key.includes("subtitle") || item.content_key.includes("address") ? (
+                          {isLongField(item.content_key) ? (
                             <Textarea
                               value={editedContent[item.id] || ""}
                               onChange={(e) => setEditedContent({ ...editedContent, [item.id]: e.target.value })}
                               rows={4}
                               className="bg-white border-border focus:border-primary resize-none"
+                              placeholder={`Enter ${keyNames[item.content_key] || item.content_key}...`}
                             />
                           ) : (
                             <Input
                               value={editedContent[item.id] || ""}
                               onChange={(e) => setEditedContent({ ...editedContent, [item.id]: e.target.value })}
                               className="bg-white border-border focus:border-primary"
+                              placeholder={`Enter ${keyNames[item.content_key] || item.content_key}...`}
                             />
+                          )}
+                          {item.content_key.includes("points") && (
+                            <p className="text-xs text-muted-foreground">
+                              Separate multiple points with the | character
+                            </p>
+                          )}
+                          {item.content_key === "trust_indicators" && (
+                            <p className="text-xs text-muted-foreground">
+                              Separate company names with commas (e.g., IQVIA,Parexel,ICON)
+                            </p>
+                          )}
+                          {item.content_key.includes("text") && item.content_key.includes("card") && (
+                            <p className="text-xs text-muted-foreground">
+                              Use {"<highlight>text</highlight>"} to highlight words
+                            </p>
                           )}
                         </div>
                       ))}

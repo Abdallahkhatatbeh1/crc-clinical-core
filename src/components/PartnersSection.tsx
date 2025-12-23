@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import BrandTag from "./BrandTag";
 import useScrollAnimation from "@/hooks/useScrollAnimation";
 import { Handshake, Building } from "lucide-react";
+import { useSiteContent } from "@/hooks/useSiteContent";
 
 // Import partner logos - CRO
 import iqviaLogo from "@/assets/partners/iqvia.png";
@@ -43,6 +44,7 @@ const pharmaPartners = [
 
 const PartnersSection = () => {
   const { ref: sectionRef, isVisible } = useScrollAnimation({ threshold: 0.2 });
+  const { content } = useSiteContent("home", "partners");
   const croScrollRef = useRef<HTMLDivElement>(null);
   const pharmaScrollRef = useRef<HTMLDivElement>(null);
   const [isCroPaused, setIsCroPaused] = useState(false);
@@ -114,18 +116,18 @@ const PartnersSection = () => {
         <div className="mb-16 md:mb-20 lg:mb-24">
           <div className="text-center mb-14">
             <div className={`transition-all duration-700 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
-              <BrandTag className="mb-6">Our Network</BrandTag>
+              <BrandTag className="mb-6">{content.tag || "Our Network"}</BrandTag>
             </div>
             <div className={`flex items-center justify-center gap-3 mb-4 transition-all duration-700 delay-100 ${
               isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
             }`}>
               <Handshake className="w-8 h-8 text-primary" />
-              <h2 className="text-foreground">CRO Partners</h2>
+              <h2 className="text-foreground">{content.cro_title || "CRO Partners"}</h2>
             </div>
             <p className={`text-muted-foreground max-w-3xl mx-auto transition-all duration-700 delay-200 ${
               isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
             }`}>
-              CRC collaborates with major CRO partners, including IQVIA, Parexel, Syneos Health, ICON, PPD, Labcorp, Medpace, PSI, and MCT — demonstrating our capacity to align with top-tier contract research organizations and deliver high-quality data.
+              {content.cro_description || "CRC collaborates with major CRO partners, including IQVIA, Parexel, Syneos Health, ICON, PPD, Labcorp, Medpace, PSI, and MCT — demonstrating our capacity to align with top-tier contract research organizations and deliver high-quality data."}
             </p>
           </div>
 
@@ -168,18 +170,18 @@ const PartnersSection = () => {
         <div>
           <div className="text-center mb-14">
             <div className={`transition-all duration-700 delay-500 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
-              <BrandTag variant="green" className="mb-6">Trusted By</BrandTag>
+              <BrandTag variant="green" className="mb-6">{content.pharma_tag || "Trusted By"}</BrandTag>
             </div>
             <div className={`flex items-center justify-center gap-3 mb-4 transition-all duration-700 delay-600 ${
               isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
             }`}>
               <Building className="w-8 h-8 text-accent" />
-              <h2 className="text-foreground">Pharmaceutical Sponsor Partnerships</h2>
+              <h2 className="text-foreground">{content.pharma_title || "Pharmaceutical Sponsor Partnerships"}</h2>
             </div>
             <p className={`text-muted-foreground max-w-3xl mx-auto transition-all duration-700 delay-700 ${
               isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
             }`}>
-              CRC supports research programs for global pharmaceutical leaders including Johnson & Johnson, New Amsterdam Pharma, Sarepta Therapeutics, Argenx, and Immunic Therapeutics, reflecting strong scientific reliability and alignment with rigorous clinical trial site expectations.
+              {content.pharma_description || "CRC supports research programs for global pharmaceutical leaders including Johnson & Johnson, New Amsterdam Pharma, Sarepta Therapeutics, Argenx, and Immunic Therapeutics, reflecting strong scientific reliability and alignment with rigorous clinical trial site expectations."}
             </p>
           </div>
 
