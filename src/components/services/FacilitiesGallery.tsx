@@ -4,8 +4,9 @@ import useScrollAnimation from "@/hooks/useScrollAnimation";
 import { Dialog, DialogContent } from "@/components/ui/dialog";
 import { X, ZoomIn } from "lucide-react";
 import { useSiteContent } from "@/hooks/useSiteContent";
+import { useSectionImages } from "@/hooks/useSectionImages";
 
-// Import all facility images
+// Import fallback facility images
 import patientRooms from "@/assets/facilities/patient-rooms.jpg";
 import labEquipment from "@/assets/facilities/lab-equipment.jpg";
 import ipPharmacyStorage from "@/assets/facilities/ip-pharmacy-storage.jpg";
@@ -23,29 +24,37 @@ import examinationEquipment from "@/assets/facilities/examination-equipment.jpg"
 import ecgEquipment from "@/assets/facilities/ecg-equipment.jpg";
 import teamPhoto from "@/assets/facilities/team-photo-new.jpg";
 
-const galleryImages = [
-  { src: patientRooms, title: "Patient Rooms", category: "Clinical Care" },
-  { src: patientExamination, title: "Patient Examination", category: "Clinical Care" },
-  { src: examinationRoom, title: "Examination Room", category: "Patient Rooms" },
-  { src: procedureRoom, title: "Procedure Room", category: "Patient Rooms" },
-  { src: labEquipment, title: "Lab Centrifuge", category: "Laboratory" },
-  { src: labEquipment2, title: "Lab Equipment MPW", category: "Laboratory" },
-  { src: labEquipment3, title: "Lab Centrifuge LC-04L", category: "Laboratory" },
-  { src: vitalSigns, title: "Vital Signs Monitor", category: "Monitoring" },
-  { src: ecgEquipment, title: "ECG Equipment", category: "Medical Equipment" },
-  { src: examinationEquipment, title: "Examination Equipment", category: "Medical Equipment" },
-  { src: ipPharmacyStorage, title: "IP Pharmacy Storage", category: "Storage" },
-  { src: freezer70, title: "-70°C Freezer", category: "Storage" },
-  { src: labKitsStorage, title: "Lab Kits Storage", category: "Storage" },
-  { src: emergencyTrolley, title: "Emergency Trolley", category: "Equipment" },
-  { src: coordinatorsOffices, title: "Coordinators Offices", category: "Administration" },
-  { src: teamPhoto, title: "Our Team", category: "Team" },
+const fallbackGalleryImages = [
+  { src: patientRooms, title: "Patient Rooms", category: "Clinical Care", key: "gallery_image1" },
+  { src: patientExamination, title: "Patient Examination", category: "Clinical Care", key: "gallery_image2" },
+  { src: examinationRoom, title: "Examination Room", category: "Patient Rooms", key: "gallery_image3" },
+  { src: procedureRoom, title: "Procedure Room", category: "Patient Rooms", key: "gallery_image4" },
+  { src: labEquipment, title: "Lab Centrifuge", category: "Laboratory", key: "gallery_image5" },
+  { src: labEquipment2, title: "Lab Equipment MPW", category: "Laboratory", key: "gallery_image6" },
+  { src: labEquipment3, title: "Lab Centrifuge LC-04L", category: "Laboratory", key: "gallery_image7" },
+  { src: vitalSigns, title: "Vital Signs Monitor", category: "Monitoring", key: "gallery_image8" },
+  { src: ecgEquipment, title: "ECG Equipment", category: "Medical Equipment", key: "gallery_image9" },
+  { src: examinationEquipment, title: "Examination Equipment", category: "Medical Equipment", key: "gallery_image10" },
+  { src: ipPharmacyStorage, title: "IP Pharmacy Storage", category: "Storage", key: "gallery_image11" },
+  { src: freezer70, title: "-70°C Freezer", category: "Storage", key: "gallery_image12" },
+  { src: labKitsStorage, title: "Lab Kits Storage", category: "Storage", key: "gallery_image13" },
+  { src: emergencyTrolley, title: "Emergency Trolley", category: "Equipment", key: "gallery_image14" },
+  { src: coordinatorsOffices, title: "Coordinators Offices", category: "Administration", key: "gallery_image15" },
+  { src: teamPhoto, title: "Our Team", category: "Team", key: "gallery_image16" },
 ];
 
 const FacilitiesGallery = () => {
   const { ref: sectionRef, isVisible } = useScrollAnimation({ threshold: 0.1 });
-  const [selectedImage, setSelectedImage] = useState<typeof galleryImages[0] | null>(null);
+  const [selectedImage, setSelectedImage] = useState<{ src: string; title: string; category: string } | null>(null);
   const { content } = useSiteContent("services", "gallery");
+  const { getImageUrl } = useSectionImages("services", "gallery");
+
+  // Build gallery images with dynamic URLs
+  const galleryImages = fallbackGalleryImages.map(img => ({
+    src: getImageUrl(img.key, img.src),
+    title: img.title,
+    category: img.category,
+  }));
 
   return (
     <section ref={sectionRef} className="py-16 md:py-24 bg-background relative overflow-hidden">

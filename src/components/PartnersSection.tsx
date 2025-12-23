@@ -3,8 +3,9 @@ import BrandTag from "./BrandTag";
 import useScrollAnimation from "@/hooks/useScrollAnimation";
 import { Handshake, Building } from "lucide-react";
 import { useSiteContent } from "@/hooks/useSiteContent";
+import { useSectionImages } from "@/hooks/useSectionImages";
 
-// Import partner logos - CRO
+// Import fallback partner logos - CRO
 import iqviaLogo from "@/assets/partners/iqvia.png";
 import parexelLogo from "@/assets/partners/parexel.png";
 import syneosLogo from "@/assets/partners/syneos-health.svg";
@@ -15,40 +16,52 @@ import psiLogo from "@/assets/partners/psi.png";
 import mctLogo from "@/assets/partners/mct.png";
 import iconLogo from "@/assets/partners/icon.png";
 
-// Import partner logos - Pharma
+// Import fallback partner logos - Pharma
 import sareptaLogo from "@/assets/partners/sarepta.png";
 import newAmsterdamLogo from "@/assets/partners/new-amsterdam-pharma.png";
 import argenxLogo from "@/assets/partners/argenx.png";
 import immunicLogo from "@/assets/partners/immunic.png";
 import johnsonLogo from "@/assets/partners/johnson-johnson.png";
 
-const croPartners = [
-  { name: "IQVIA", logo: iqviaLogo },
-  { name: "Parexel", logo: parexelLogo },
-  { name: "Syneos Health", logo: syneosLogo },
-  { name: "ICON", logo: iconLogo },
-  { name: "PPD", logo: ppdLogo },
-  { name: "Labcorp", logo: labcorpLogo },
-  { name: "Medpace", logo: medpaceLogo },
-  { name: "PSI", logo: psiLogo },
-  { name: "MCT", logo: mctLogo }
+const fallbackCroPartners = [
+  { name: "IQVIA", logo: iqviaLogo, key: "cro_logo1" },
+  { name: "Parexel", logo: parexelLogo, key: "cro_logo2" },
+  { name: "Syneos Health", logo: syneosLogo, key: "cro_logo3" },
+  { name: "ICON", logo: iconLogo, key: "cro_logo4" },
+  { name: "PPD", logo: ppdLogo, key: "cro_logo5" },
+  { name: "Labcorp", logo: labcorpLogo, key: "cro_logo6" },
+  { name: "Medpace", logo: medpaceLogo, key: "cro_logo7" },
+  { name: "PSI", logo: psiLogo, key: "cro_logo8" },
+  { name: "MCT", logo: mctLogo, key: "cro_logo9" }
 ];
 
-const pharmaPartners = [
-  { name: "Johnson & Johnson", logo: johnsonLogo },
-  { name: "New Amsterdam Pharma", logo: newAmsterdamLogo },
-  { name: "Sarepta Therapeutics", logo: sareptaLogo },
-  { name: "Argenx", logo: argenxLogo },
-  { name: "Immunic Therapeutics", logo: immunicLogo }
+const fallbackPharmaPartners = [
+  { name: "Johnson & Johnson", logo: johnsonLogo, key: "pharma_logo1" },
+  { name: "New Amsterdam Pharma", logo: newAmsterdamLogo, key: "pharma_logo2" },
+  { name: "Sarepta Therapeutics", logo: sareptaLogo, key: "pharma_logo3" },
+  { name: "Argenx", logo: argenxLogo, key: "pharma_logo4" },
+  { name: "Immunic Therapeutics", logo: immunicLogo, key: "pharma_logo5" }
 ];
 
 const PartnersSection = () => {
   const { ref: sectionRef, isVisible } = useScrollAnimation({ threshold: 0.2 });
   const { content } = useSiteContent("home", "partners");
+  const { getImageUrl } = useSectionImages("home", "partners");
   const croScrollRef = useRef<HTMLDivElement>(null);
   const pharmaScrollRef = useRef<HTMLDivElement>(null);
   const [isCroPaused, setIsCroPaused] = useState(false);
   const [isPharmaPaused, setIsPharmaPaused] = useState(false);
+
+  // Build partner arrays with dynamic URLs
+  const croPartners = fallbackCroPartners.map(p => ({
+    name: p.name,
+    logo: getImageUrl(p.key, p.logo)
+  }));
+
+  const pharmaPartners = fallbackPharmaPartners.map(p => ({
+    name: p.name,
+    logo: getImageUrl(p.key, p.logo)
+  }));
 
   // Auto-scroll effect for CRO partners
   useEffect(() => {
@@ -79,7 +92,6 @@ const PartnersSection = () => {
     if (!scrollContainer || isPharmaPaused) return;
 
     let animationId: number;
-    // Start from the middle for reverse scroll
     let scrollPosition = scrollContainer.scrollLeft || scrollContainer.scrollWidth / 2;
     const scrollSpeed = 0.4;
 
@@ -93,7 +105,6 @@ const PartnersSection = () => {
       animationId = requestAnimationFrame(scroll);
     };
 
-    // Initialize position
     scrollContainer.scrollLeft = scrollContainer.scrollWidth / 2;
     animationId = requestAnimationFrame(scroll);
     return () => cancelAnimationFrame(animationId);
