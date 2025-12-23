@@ -3,8 +3,8 @@ import { useNavigate } from "react-router-dom";
 import { useAuth } from "@/hooks/useAuth";
 import { useAllSiteContent } from "@/hooks/useSiteContent";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { FileText, Image, Users } from "lucide-react";
-import { AdminHeader, StatsCards, ContentEditor, AdminsManager, ImagesManager } from "@/components/admin";
+import { FileText, Users } from "lucide-react";
+import { AdminHeader, StatsCards, ContentEditor, AdminsManager } from "@/components/admin";
 
 const AdminDashboard = () => {
   const { user, isAdmin, isLoading: authLoading, signOut, session } = useAuth();
@@ -39,8 +39,8 @@ const AdminDashboard = () => {
       <div className="container mx-auto px-4 py-8">
         {/* Welcome Section */}
         <div className="mb-8">
-          <h2 className="text-2xl font-bold text-foreground mb-2">مرحباً بك!</h2>
-          <p className="text-muted-foreground">قم بإدارة محتوى موقعك والمسؤولين من هنا.</p>
+          <h2 className="text-2xl font-bold text-foreground mb-2">Welcome Back!</h2>
+          <p className="text-muted-foreground">Manage your website content and administrators from here.</p>
         </div>
 
         <StatsCards 
@@ -54,15 +54,11 @@ const AdminDashboard = () => {
           <TabsList className="mb-6 bg-white p-1 shadow-sm">
             <TabsTrigger value="content" className="flex items-center gap-2 px-6">
               <FileText className="h-4 w-4" />
-              المحتوى
-            </TabsTrigger>
-            <TabsTrigger value="images" className="flex items-center gap-2 px-6">
-              <Image className="h-4 w-4" />
-              الصور
+              Content
             </TabsTrigger>
             <TabsTrigger value="admins" className="flex items-center gap-2 px-6">
               <Users className="h-4 w-4" />
-              المسؤولين
+              Administrators
             </TabsTrigger>
           </TabsList>
 
@@ -70,16 +66,13 @@ const AdminDashboard = () => {
             <ContentEditor 
               content={content} 
               pages={pages} 
-              updateContent={updateContent} 
+              updateContent={updateContent}
+              session={session}
             />
           </TabsContent>
 
           <TabsContent value="admins">
             <AdminsManager session={session} user={user} />
-          </TabsContent>
-
-          <TabsContent value="images">
-            <ImagesManager session={session} />
           </TabsContent>
         </Tabs>
       </div>

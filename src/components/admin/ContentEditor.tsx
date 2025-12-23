@@ -5,7 +5,9 @@ import { Textarea } from "@/components/ui/textarea";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useToast } from "@/hooks/use-toast";
-import { FileText, Save, Home, Info, Briefcase, FlaskConical, Phone, HelpCircle, Globe } from "lucide-react";
+import { FileText, Save, Home, Info, Briefcase, FlaskConical, Phone, HelpCircle, Globe, Image, Upload, X, Copy } from "lucide-react";
+import { supabase } from "@/integrations/supabase/client";
+import { Session } from "@supabase/supabase-js";
 
 interface ContentItem {
   id: string;
@@ -17,14 +19,20 @@ interface ContentItem {
   image_url: string | null;
 }
 
+interface SiteImage {
+  name: string;
+  url: string;
+}
+
 interface ContentEditorProps {
   content: ContentItem[];
   pages: string[];
   updateContent: (id: string, newValue: string) => Promise<{ error: unknown }>;
+  session: Session | null;
 }
 
 const pageNames: { [key: string]: { name: string; icon: React.ElementType } } = {
-  home: { name: "Home Page", icon: Home },
+  home: { name: "Home", icon: Home },
   about: { name: "About", icon: Info },
   services: { name: "Services", icon: Briefcase },
   studies: { name: "Studies", icon: FlaskConical },
@@ -62,6 +70,7 @@ const sectionNames: { [key: string]: string } = {
   form: "Contact Form",
   join_team: "Join Team",
   video: "Video Section",
+  images: "Section Images",
 };
 
 const keyNames: { [key: string]: string } = {
@@ -113,7 +122,7 @@ const keyNames: { [key: string]: string } = {
   card4_subtitle: "Card 4 - Subtitle",
   card4_points: "Card 4 - Points (use | separator)",
   
-  // Partners (deprecated - use new whyus partners section)
+  // Partners
   cro_description: "CRO Section - Description",
   pharma_tag: "Pharma Section - Tag",
   pharma_description: "Pharma Section - Description",
@@ -258,6 +267,7 @@ const keyNames: { [key: string]: string } = {
   position6_title: "Position 6 - Title",
   position6_desc: "Position 6 - Description",
   button_subtitle: "Button Subtitle",
+  
   // Vision & Mission
   vision_tag: "Vision Tag",
   vision_text: "Vision Text",
@@ -314,16 +324,19 @@ const keyNames: { [key: string]: string } = {
   pharma_demo3: "Pharma Demo 3",
   pharma_demo4: "Pharma Demo 4",
   
-  // Cards (deprecated)
+  // Cards
   card1_description: "Card 1 - Description",
   card2_description: "Card 2 - Description",
   card3_description: "Card 3 - Description",
 };
 
-const ContentEditor = ({ content, pages, updateContent }: ContentEditorProps) => {
+const ContentEditor = ({ content, pages, updateContent, session }: ContentEditorProps) => {
   const [editedContent, setEditedContent] = useState<{ [key: string]: string }>({});
   const [savingId, setSavingId] = useState<string | null>(null);
   const [activePageTab, setActivePageTab] = useState("home");
+  const [siteImages, setSiteImages] = useState<SiteImage[]>([]);
+  const [loadingImages, setLoadingImages] = useState(false);
+  const [uploadingImage, setUploadingImage] = useState(false);
   const { toast } = useToast();
 
   useEffect(() => {
@@ -333,6 +346,84 @@ const ContentEditor = ({ content, pages, updateContent }: ContentEditorProps) =>
     });
     setEditedContent(initial);
   }, [content]);
+
+  // Fetch images
+  const fetchImages = async () => {
+    setLoadingImages(true);
+    try {
+      const { data, error } = await supabase.storage.from('site-images').list('', { limit: 100 });
+      if (error) throw error;
+      
+      const images = await Promise.all(
+        (data || []).filter(item => !item.id.endsWith('/')).map(async (item) => {
+          const { data: { publicUrl } } = supabase.storage.from('site-images').getPublicUrl(item.name);
+          return { name: item.name, url: publicUrl };
+        })
+      );
+      setSiteImages(images);
+    } catch (error) {
+      console.error('Error fetching images:', error);
+    }
+    setLoadingImages(false);
+  };
+
+  useEffect(() => {
+    if (session) {
+      fetchImages();
+    }
+  }, [session]);
+
+  const handleImageUpload = async (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
+    if (!file) return;
+
+    setUploadingImage(true);
+    try {
+      const formData = new FormData();
+      formData.append('file', file);
+      formData.append('image_type', 'site');
+
+      const { error } = await supabase.functions.invoke('upload-image', {
+        body: formData,
+      });
+
+      if (error) throw error;
+
+      toast({
+        title: "Success",
+        description: "Image uploaded successfully",
+      });
+      fetchImages();
+    } catch (error: unknown) {
+      const errorMessage = error instanceof Error ? error.message : 'Upload failed';
+      toast({
+        title: "Error",
+        description: errorMessage,
+        variant: "destructive",
+      });
+    }
+    setUploadingImage(false);
+  };
+
+  const handleDeleteImage = async (imageName: string) => {
+    try {
+      const { error } = await supabase.storage.from('site-images').remove([imageName]);
+      if (error) throw error;
+
+      toast({
+        title: "Success",
+        description: "Image deleted successfully",
+      });
+      fetchImages();
+    } catch (error: unknown) {
+      const errorMessage = error instanceof Error ? error.message : 'Delete failed';
+      toast({
+        title: "Error",
+        description: errorMessage,
+        variant: "destructive",
+      });
+    }
+  };
 
   const handleSave = async (id: string) => {
     setSavingId(id);
@@ -375,6 +466,89 @@ const ContentEditor = ({ content, pages, updateContent }: ContentEditorProps) =>
            key.includes("points");
   };
 
+  // Image Gallery Component
+  const ImageGallery = () => (
+    <div className="space-y-4">
+      <div className="flex items-center justify-between mb-4">
+        <div className="flex items-center gap-2">
+          <Image className="h-5 w-5 text-primary" />
+          <h3 className="font-semibold">Uploaded Images</h3>
+        </div>
+        <label className="cursor-pointer">
+          <input
+            type="file"
+            accept="image/*"
+            className="hidden"
+            onChange={handleImageUpload}
+            disabled={uploadingImage}
+          />
+          <Button asChild size="sm" disabled={uploadingImage}>
+            <span>
+              {uploadingImage ? (
+                <>
+                  <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white mr-2"></div>
+                  Uploading...
+                </>
+              ) : (
+                <>
+                  <Upload className="h-4 w-4 mr-2" />
+                  Upload
+                </>
+              )}
+            </span>
+          </Button>
+        </label>
+      </div>
+
+      {loadingImages ? (
+        <div className="flex justify-center py-8">
+          <div className="animate-spin rounded-full h-6 w-6 border-b-2 border-primary"></div>
+        </div>
+      ) : siteImages.length === 0 ? (
+        <div className="text-center py-8 bg-muted/30 rounded-xl">
+          <Image className="h-12 w-12 text-muted-foreground mx-auto mb-3 opacity-50" />
+          <p className="text-muted-foreground text-sm">No images uploaded yet</p>
+        </div>
+      ) : (
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3">
+          {siteImages.map((image) => (
+            <div key={image.name} className="relative group rounded-lg overflow-hidden border border-border bg-muted/30">
+              <img 
+                src={image.url} 
+                alt={image.name}
+                className="w-full h-24 object-cover"
+              />
+              <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center gap-1">
+                <Button
+                  size="sm"
+                  variant="secondary"
+                  className="h-7 px-2 text-xs"
+                  onClick={() => {
+                    navigator.clipboard.writeText(image.url);
+                    toast({ title: "Copied", description: "Image URL copied" });
+                  }}
+                >
+                  <Copy className="h-3 w-3" />
+                </Button>
+                <Button
+                  size="sm"
+                  variant="destructive"
+                  className="h-7 px-2"
+                  onClick={() => handleDeleteImage(image.name)}
+                >
+                  <X className="h-3 w-3" />
+                </Button>
+              </div>
+              <div className="p-1.5">
+                <p className="text-xs text-muted-foreground truncate">{image.name}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+      )}
+    </div>
+  );
+
   return (
     <Card className="border-0 shadow-sm">
       <CardHeader className="border-b border-border bg-muted/30">
@@ -384,7 +558,7 @@ const ContentEditor = ({ content, pages, updateContent }: ContentEditorProps) =>
           </div>
           <div>
             <CardTitle>Site Content</CardTitle>
-            <CardDescription>Edit content for all pages</CardDescription>
+            <CardDescription>Edit content and manage images for all pages</CardDescription>
           </div>
         </div>
       </CardHeader>
@@ -410,17 +584,19 @@ const ContentEditor = ({ content, pages, updateContent }: ContentEditorProps) =>
           {pages.map((page) => {
             const pageContent = getPageContent(page);
             const groupedContent = groupContentBySections(pageContent);
+            const sectionKeys = [...Object.keys(groupedContent), "images"];
 
             return (
               <TabsContent key={page} value={page}>
                 <Tabs defaultValue={Object.keys(groupedContent)[0]} className="w-full">
                   <TabsList className="w-full flex-wrap h-auto gap-2 mb-6 bg-white p-2 border">
-                    {Object.keys(groupedContent).map((section) => (
+                    {sectionKeys.map((section) => (
                       <TabsTrigger 
                         key={section} 
                         value={section} 
-                        className="flex-1 min-w-fit"
+                        className="flex-1 min-w-fit flex items-center gap-1.5"
                       >
+                        {section === "images" && <Image className="h-3.5 w-3.5" />}
                         {sectionNames[section] || section}
                       </TabsTrigger>
                     ))}
@@ -488,6 +664,11 @@ const ContentEditor = ({ content, pages, updateContent }: ContentEditorProps) =>
                       ))}
                     </TabsContent>
                   ))}
+
+                  {/* Images Tab for each page */}
+                  <TabsContent value="images" className="bg-muted/30 rounded-xl p-5">
+                    <ImageGallery />
+                  </TabsContent>
                 </Tabs>
               </TabsContent>
             );
