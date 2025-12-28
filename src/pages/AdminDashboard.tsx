@@ -3,8 +3,9 @@ import { useNavigate } from "react-router-dom";
 import { useAuth } from "@/hooks/useAuth";
 import { useAllSiteContent } from "@/hooks/useSiteContent";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { FileText, Users } from "lucide-react";
+import { FileText, Users, Briefcase } from "lucide-react";
 import { AdminHeader, StatsCards, ContentEditor, AdminsManager } from "@/components/admin";
+import PositionsManager from "@/components/admin/PositionsManager";
 
 const AdminDashboard = () => {
   const { user, isAdmin, isLoading: authLoading, signOut, session } = useAuth();
@@ -60,6 +61,10 @@ const AdminDashboard = () => {
               <Users className="h-4 w-4" />
               Administrators
             </TabsTrigger>
+            <TabsTrigger value="positions" className="flex items-center gap-2 px-6">
+              <Briefcase className="h-4 w-4" />
+              Job Positions
+            </TabsTrigger>
           </TabsList>
 
           <TabsContent value="content">
@@ -73,6 +78,10 @@ const AdminDashboard = () => {
 
           <TabsContent value="admins">
             <AdminsManager session={session} user={user} />
+          </TabsContent>
+
+          <TabsContent value="positions">
+            <PositionsManager />
           </TabsContent>
         </Tabs>
       </div>

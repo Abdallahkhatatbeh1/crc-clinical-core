@@ -14,6 +14,7 @@ import { toast } from "@/hooks/use-toast";
 import useScrollAnimation from "@/hooks/useScrollAnimation";
 import BrandTag from "@/components/BrandTag";
 import { z } from "zod";
+import { useJobPositions } from "@/hooks/useJobPositions";
 
 const applicationSchema = z.object({
   fullName: z.string().trim().min(2, "Name must be at least 2 characters").max(100, "Name is too long"),
@@ -26,21 +27,9 @@ const applicationSchema = z.object({
 
 type ApplicationFormData = z.infer<typeof applicationSchema>;
 
-const availablePositions = [
-  { value: "investigator", label: "Principal / Sub-Investigator" },
-  { value: "scientist", label: "Research Scientist" },
-  { value: "pharmacist", label: "Clinical Pharmacist" },
-  { value: "coordinator", label: "Clinical Research Coordinator" },
-  { value: "data_specialist", label: "Data Management Specialist" },
-  { value: "clinical_staff", label: "Research Nurse / Clinical Staff" },
-  { value: "lab_technician", label: "Laboratory Technician" },
-  { value: "quality_assurance", label: "Quality Assurance Specialist" },
-  { value: "regulatory_affairs", label: "Regulatory Affairs Specialist" },
-  { value: "other", label: "Other Position" },
-];
-
 const JobApplicationForm = () => {
   const { ref: sectionRef, isVisible } = useScrollAnimation({ threshold: 0.1 });
+  const { positions, isLoading: positionsLoading } = useJobPositions();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [errors, setErrors] = useState<Partial<Record<keyof ApplicationFormData, string>>>({});
   const [formData, setFormData] = useState<ApplicationFormData>({
@@ -203,15 +192,21 @@ const JobApplicationForm = () => {
                       <SelectValue placeholder="Select a position" />
                     </SelectTrigger>
                     <SelectContent className="bg-background border border-border z-50">
-                      {availablePositions.map((position) => (
-                        <SelectItem 
-                          key={position.value} 
-                          value={position.value}
-                          className="cursor-pointer hover:bg-muted"
-                        >
-                          {position.label}
-                        </SelectItem>
-                      ))}
+                      {positionsLoading ? (
+                        <SelectItem value="loading" disabled>Loading positions...</SelectItem>
+                      ) : positions.length === 0 ? (
+                        <SelectItem value="none" disabled>No positions available</SelectItem>
+                      ) : (
+                        positions.map((position) => (
+                          <SelectItem 
+                            key={position.id} 
+                            value={position.title}
+                            className="cursor-pointer hover:bg-muted"
+                          >
+                            {position.title}
+                          </SelectItem>
+                        ))
+                      )}
                     </SelectContent>
                   </Select>
                 </div>
