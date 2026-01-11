@@ -25,8 +25,9 @@ serve(async (req) => {
 
     const { email, password, secret_key } = await req.json();
 
-    // Simple security check - only allow with correct secret
-    if (secret_key !== 'CRC_ADMIN_SETUP_2024') {
+    // Security check - only allow with correct secret from environment
+    const adminSetupSecret = Deno.env.get('ADMIN_SETUP_SECRET');
+    if (!adminSetupSecret || secret_key !== adminSetupSecret) {
       console.log('Invalid secret key attempt');
       return new Response(
         JSON.stringify({ error: 'Unauthorized' }),
