@@ -14,6 +14,87 @@ export type Database = {
   }
   public: {
     Tables: {
+      contact_submissions: {
+        Row: {
+          created_at: string
+          email: string
+          full_name: string
+          id: string
+          message: string
+          notes: string | null
+          phone: string | null
+          status: string
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          email: string
+          full_name: string
+          id?: string
+          message: string
+          notes?: string | null
+          phone?: string | null
+          status?: string
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          email?: string
+          full_name?: string
+          id?: string
+          message?: string
+          notes?: string | null
+          phone?: string | null
+          status?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      job_applications: {
+        Row: {
+          created_at: string
+          cv_url: string | null
+          email: string
+          experience: string | null
+          full_name: string
+          id: string
+          message: string | null
+          notes: string | null
+          phone: string
+          position: string
+          status: string
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          cv_url?: string | null
+          email: string
+          experience?: string | null
+          full_name: string
+          id?: string
+          message?: string | null
+          notes?: string | null
+          phone: string
+          position: string
+          status?: string
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          cv_url?: string | null
+          email?: string
+          experience?: string | null
+          full_name?: string
+          id?: string
+          message?: string | null
+          notes?: string | null
+          phone?: string
+          position?: string
+          status?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
       job_positions: {
         Row: {
           created_at: string

@@ -3,12 +3,13 @@ import { useNavigate } from "react-router-dom";
 import { useAuth } from "@/hooks/useAuth";
 import { useAllSiteContent } from "@/hooks/useSiteContent";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { FileText, Users, Briefcase, Building2, Stethoscope, Link2 } from "lucide-react";
+import { FileText, Users, Briefcase, Building2, Stethoscope, Link2, MessageSquare } from "lucide-react";
 import { AdminHeader, StatsCards, ContentEditor, AdminsManager } from "@/components/admin";
 import PositionsManager from "@/components/admin/PositionsManager";
 import PartnersManager from "@/components/admin/PartnersManager";
 import TherapeuticAreasManager from "@/components/admin/TherapeuticAreasManager";
 import LinksManager from "@/components/admin/LinksManager";
+import SubmissionsManager from "@/components/admin/SubmissionsManager";
 
 const AdminDashboard = () => {
   const { user, isAdmin, isLoading: authLoading, signOut, session } = useAuth();
@@ -56,6 +57,10 @@ const AdminDashboard = () => {
         {/* Main Tabs */}
         <Tabs value={activeMainTab} onValueChange={setActiveMainTab}>
           <TabsList className="mb-6 bg-white p-1 shadow-sm flex-wrap h-auto gap-1">
+            <TabsTrigger value="submissions" className="flex items-center gap-2 px-4">
+              <MessageSquare className="h-4 w-4" />
+              الطلبات
+            </TabsTrigger>
             <TabsTrigger value="content" className="flex items-center gap-2 px-4">
               <FileText className="h-4 w-4" />
               Content
@@ -81,6 +86,10 @@ const AdminDashboard = () => {
               Admins
             </TabsTrigger>
           </TabsList>
+
+          <TabsContent value="submissions">
+            <SubmissionsManager />
+          </TabsContent>
 
           <TabsContent value="content">
             <ContentEditor 
