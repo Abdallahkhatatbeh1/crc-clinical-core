@@ -1,31 +1,59 @@
+import { useMemo } from "react";
 import { Link } from "react-router-dom";
 import { Mail, Phone, MapPin, ArrowRight, Linkedin, Youtube, Instagram, Facebook } from "lucide-react";
 import crcLogoWhite from "@/assets/crc-logo-white.png";
 import { useSiteContent } from "@/hooks/useSiteContent";
 
-const footerLinks = {
-  company: [
-    { name: "About CRC", href: "/about" },
-    { name: "Our Studies", href: "/studies" },
-    { name: "Services", href: "/services" },
-    { name: "Contact", href: "/contact" },
-  ],
-  services: [
-    { name: "Regulatory Support", href: "/services" },
-    { name: "Patient Recruitment", href: "/services" },
-    { name: "Data Management", href: "/services" },
-    { name: "IP Management", href: "/services" },
-  ],
-  resources: [
-    { name: "Therapeutic Areas", href: "/studies" },
-    { name: "Why Choose CRC", href: "/why-us" },
-    { name: "Careers", href: "/contact" },
-    { name: "Partner With Us", href: "/contact" },
-  ],
-};
-
 const Footer = () => {
   const { content } = useSiteContent("global", "footer");
+
+  // Build footer links from database
+  const footerLinks = useMemo(() => {
+    const buildLinks = (prefix: string) => {
+      const links = [];
+      for (let i = 1; i <= 4; i++) {
+        const name = content[`${prefix}_link${i}_text`];
+        const href = content[`${prefix}_link${i}_url`];
+        if (name && href) {
+          links.push({ name, href });
+        }
+      }
+      return links;
+    };
+
+    const company = buildLinks('company');
+    const services = buildLinks('services');
+    const resources = buildLinks('resources');
+
+    // Fallback to defaults if no content
+    return {
+      company: company.length > 0 ? company : [
+        { name: "About CRC", href: "/about" },
+        { name: "Our Studies", href: "/studies" },
+        { name: "Services", href: "/services" },
+        { name: "Contact", href: "/contact" },
+      ],
+      services: services.length > 0 ? services : [
+        { name: "Regulatory Support", href: "/services" },
+        { name: "Patient Recruitment", href: "/services" },
+        { name: "Data Management", href: "/services" },
+        { name: "IP Management", href: "/services" },
+      ],
+      resources: resources.length > 0 ? resources : [
+        { name: "Therapeutic Areas", href: "/studies" },
+        { name: "Why Choose CRC", href: "/why-us" },
+        { name: "Careers", href: "/contact" },
+        { name: "Partner With Us", href: "/contact" },
+      ],
+    };
+  }, [content]);
+
+  const sectionTitles = {
+    company: content.section1_title || "Company",
+    services: content.section2_title || "Services",
+    contact: content.section3_title || "Contact",
+    resources: content.section4_title || "Resources",
+  };
 
   return (
     <footer className="bg-footer text-footer-foreground relative overflow-hidden">
@@ -110,7 +138,7 @@ const Footer = () => {
           <div>
             <h4 className="font-semibold text-lg mb-6 flex items-center gap-2">
               <span className="w-8 h-0.5 bg-primary rounded-full" />
-              Company
+              {sectionTitles.company}
             </h4>
             <ul className="space-y-4">
               {footerLinks.company.map((link) => (
@@ -131,7 +159,7 @@ const Footer = () => {
           <div>
             <h4 className="font-semibold text-lg mb-6 flex items-center gap-2">
               <span className="w-8 h-0.5 bg-accent rounded-full" />
-              Services
+              {sectionTitles.services}
             </h4>
             <ul className="space-y-4">
               {footerLinks.services.map((link, index) => (
@@ -152,7 +180,7 @@ const Footer = () => {
           <div>
             <h4 className="font-semibold text-lg mb-6 flex items-center gap-2">
               <span className="w-8 h-0.5 bg-primary rounded-full" />
-              Contact
+              {sectionTitles.contact}
             </h4>
             <ul className="space-y-4">
               <li className="flex items-start gap-3 group">
@@ -191,10 +219,10 @@ const Footer = () => {
             </p>
             <div className="flex gap-8">
               <Link to="/privacy-policy" className="text-footer-foreground/40 hover:text-primary text-sm transition-colors">
-                Privacy Policy
+                {content.privacy_text || "Privacy Policy"}
               </Link>
               <Link to="/terms-of-service" className="text-footer-foreground/40 hover:text-primary text-sm transition-colors">
-                Terms of Service
+                {content.terms_text || "Terms of Service"}
               </Link>
             </div>
           </div>

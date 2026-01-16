@@ -41,6 +41,42 @@ export type Database = {
         }
         Relationships: []
       }
+      partners: {
+        Row: {
+          category: string
+          created_at: string | null
+          display_order: number | null
+          id: string
+          is_active: boolean | null
+          logo_url: string | null
+          name: string
+          updated_at: string | null
+          website_url: string | null
+        }
+        Insert: {
+          category: string
+          created_at?: string | null
+          display_order?: number | null
+          id?: string
+          is_active?: boolean | null
+          logo_url?: string | null
+          name: string
+          updated_at?: string | null
+          website_url?: string | null
+        }
+        Update: {
+          category?: string
+          created_at?: string | null
+          display_order?: number | null
+          id?: string
+          is_active?: boolean | null
+          logo_url?: string | null
+          name?: string
+          updated_at?: string | null
+          website_url?: string | null
+        }
+        Relationships: []
+      }
       site_content: {
         Row: {
           content_key: string
@@ -74,6 +110,42 @@ export type Database = {
           page?: string
           section?: string
           updated_at?: string
+        }
+        Relationships: []
+      }
+      therapeutic_areas: {
+        Row: {
+          conditions: string
+          created_at: string | null
+          display_order: number | null
+          id: string
+          image_url: string | null
+          is_active: boolean | null
+          short_title: string
+          title: string
+          updated_at: string | null
+        }
+        Insert: {
+          conditions: string
+          created_at?: string | null
+          display_order?: number | null
+          id?: string
+          image_url?: string | null
+          is_active?: boolean | null
+          short_title: string
+          title: string
+          updated_at?: string | null
+        }
+        Update: {
+          conditions?: string
+          created_at?: string | null
+          display_order?: number | null
+          id?: string
+          image_url?: string | null
+          is_active?: boolean | null
+          short_title?: string
+          title?: string
+          updated_at?: string | null
         }
         Relationships: []
       }

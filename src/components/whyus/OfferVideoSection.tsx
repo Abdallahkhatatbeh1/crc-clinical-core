@@ -17,6 +17,8 @@ const OfferVideoSection = () => {
     { icon: statIcons[3], value: content.stat4_value || "100%", label: content.stat4_label || "On-Time Delivery" }
   ];
 
+  const calendlyUrl = content.calendly_url || "https://calendly.com/sh-crc2021/30min";
+
   return (
     <section ref={sectionRef} className="py-16 md:py-20 lg:py-24 bg-crc-light-bg relative overflow-hidden">
       {/* Decorative Elements */}
@@ -70,7 +72,7 @@ const OfferVideoSection = () => {
             <Button 
               size="lg"
               className="bg-accent hover:bg-accent/90 text-white px-8 py-6 text-lg font-semibold rounded-full shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105"
-              onClick={() => window.open('https://calendly.com/sh-crc2021/30min', '_blank')}
+              onClick={() => window.open(calendlyUrl, '_blank')}
             >
               <Calendar className="w-5 h-5 mr-2" />
               {content.button_text || "Book a Meeting"}

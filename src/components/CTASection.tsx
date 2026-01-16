@@ -8,6 +8,8 @@ const CTASection = () => {
   const { ref: sectionRef, isVisible } = useScrollAnimation({ threshold: 0.3 });
   const { content } = useSiteContent("home", "cta");
 
+  const buttonUrl = content.button_url || "/why-us";
+
   return (
     <section ref={sectionRef} className="py-16 md:py-24 lg:py-32 gradient-brand relative overflow-hidden">
       {/* Animated Background */}
@@ -51,7 +53,7 @@ const CTASection = () => {
               isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
             }`}
           >
-            <Link to="/why-us">
+            <Link to={buttonUrl}>
               <Button variant="hero" size="xl" className="group min-w-[280px]">
                 {content.button_text || "Partner With Us"}
                 <ArrowRight size={20} className="group-hover:translate-x-1 transition-transform" />

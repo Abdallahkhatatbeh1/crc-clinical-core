@@ -28,6 +28,8 @@ const CommitmentSection = () => {
     { icon: commitmentIcons[5], text: content.item6 || "Robust patient recruitment driven by strong community networks" }
   ];
 
+  const ctaButtonUrl = content.cta_button_url || "/why-us";
+
   return (
     <section ref={sectionRef} className="py-16 md:py-20 lg:py-24 gradient-brand relative overflow-hidden">
       {/* Background Elements */}
@@ -74,7 +76,7 @@ const CommitmentSection = () => {
             <p className="text-white/70 mb-6">
               {content.cta_text || "CRC strives to be a trusted, dependable, and high-performing research partner for global organizations seeking clinical trial sites in Jordan and the Middle East."}
             </p>
-            <Link to="/why-us">
+            <Link to={ctaButtonUrl}>
               <Button variant="hero" size="xl" className="group">
                 {content.cta_button || "Partner With Us"}
                 <ArrowRight size={20} className="group-hover:translate-x-1 transition-transform" />
