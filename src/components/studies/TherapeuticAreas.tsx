@@ -1,9 +1,9 @@
-import { useState, useRef, useMemo } from "react";
+import { useState, useRef } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import BrandTag from "@/components/BrandTag";
 import useScrollAnimation from "@/hooks/useScrollAnimation";
 import { useSiteContent } from "@/hooks/useSiteContent";
-import { useSectionImages } from "@/hooks/useSectionImages";
+import { useTherapeuticAreas } from "@/hooks/useTherapeuticAreas";
 
 // Import fallback images
 import gastroenterologyImg from "@/assets/studies/gastroenterology.png";
@@ -24,46 +24,25 @@ import maternityImg from "@/assets/studies/maternity-womens-health.png";
 import psychiatryImg from "@/assets/studies/psychiatry.png";
 import dermatologyImg from "@/assets/studies/dermatology.png";
 
-const fallbackImages = [
-  gastroenterologyImg,
-  cardiovascularImg,
-  neurologyImg,
-  urologyImg,
-  rheumatologyImg,
-  vaccinesImg,
-  geneticDiseasesImg,
-  metabolicDisordersImg,
-  musculoskeletalImg,
-  endocrinologyImg,
-  ophthalmologyImg,
-  entImg,
-  pediatricsImg,
-  geriatricsImg,
-  maternityImg,
-  psychiatryImg,
-  dermatologyImg,
-];
-
-// Default data for fallback
-const defaultAreas = [
-  { title: "Gastroenterology (GI)", shortTitle: "GI", color: "primary", conditions: "Inflammatory Bowel Disease (IBD)|Crohn's Disease|Ulcerative Colitis|IBS|GERD" },
-  { title: "Cardiovascular (Cardio)", shortTitle: "Cardio", color: "accent", conditions: "Hypertension|Coronary Artery Disease|Heart Failure|Arrhythmias" },
-  { title: "Neurology (Neuro)", shortTitle: "Neuro", color: "primary", conditions: "Multiple Sclerosis|Epilepsy|Parkinson's Disease|Migraine" },
-  { title: "Urology", shortTitle: "Urology", color: "accent", conditions: "Overactive Bladder|BPH|Prostatitis" },
-  { title: "Rheumatology (Rheum)", shortTitle: "Rheum", color: "primary", conditions: "Rheumatoid Arthritis|Osteoarthritis|Lupus" },
-  { title: "Vaccines", shortTitle: "Vaccines", color: "accent", conditions: "COVID-19|Influenza|Pneumococcal" },
-  { title: "Genetic Diseases (Genetic)", shortTitle: "Genetic", color: "primary", conditions: "Cystic Fibrosis|Sickle Cell|Muscular Dystrophy" },
-  { title: "Metabolic Disorders (Metabolic)", shortTitle: "Metabolic", color: "accent", conditions: "Diabetes|Obesity|Metabolic Syndrome" },
-  { title: "Musculoskeletal (MSK)", shortTitle: "MSK", color: "primary", conditions: "Osteoporosis|Chronic Pain|Sports Injuries" },
-  { title: "Endocrinology (Endo)", shortTitle: "Endo", color: "accent", conditions: "Thyroid Disorders|Diabetes|Hormonal Imbalances" },
-  { title: "Ophthalmology (Ophthal)", shortTitle: "Ophthal", color: "primary", conditions: "AMD|Glaucoma|Diabetic Retinopathy" },
-  { title: "ENT", shortTitle: "ENT", color: "accent", conditions: "Chronic Sinusitis|Hearing Loss|Sleep Apnea" },
-  { title: "Pediatrics (Peds)", shortTitle: "Peds", color: "primary", conditions: "Pediatric Asthma|ADHD|Childhood Obesity" },
-  { title: "Geriatrics", shortTitle: "Geriatrics", color: "accent", conditions: "Dementia|Frailty|Polypharmacy" },
-  { title: "Maternity & Women's Health (Women's)", shortTitle: "Women's", color: "primary", conditions: "Gestational Diabetes|Endometriosis|Menopause" },
-  { title: "Psychiatry (Psych)", shortTitle: "Psych", color: "accent", conditions: "Depression|Anxiety|Bipolar Disorder" },
-  { title: "Dermatology (Derm)", shortTitle: "Derm", color: "primary", conditions: "Psoriasis|Atopic Dermatitis|Acne|Vitiligo" },
-];
+const fallbackImages: Record<number, string> = {
+  0: gastroenterologyImg,
+  1: cardiovascularImg,
+  2: neurologyImg,
+  3: urologyImg,
+  4: rheumatologyImg,
+  5: vaccinesImg,
+  6: geneticDiseasesImg,
+  7: metabolicDisordersImg,
+  8: musculoskeletalImg,
+  9: endocrinologyImg,
+  10: ophthalmologyImg,
+  11: entImg,
+  12: pediatricsImg,
+  13: geriatricsImg,
+  14: maternityImg,
+  15: psychiatryImg,
+  16: dermatologyImg,
+};
 
 const TherapeuticAreas = () => {
   const { ref: sectionRef, isVisible } = useScrollAnimation({ threshold: 0.05 });
@@ -71,27 +50,17 @@ const TherapeuticAreas = () => {
   const sliderRef = useRef<HTMLDivElement>(null);
   const sectionTopRef = useRef<HTMLDivElement>(null);
   const { content } = useSiteContent("studies", "therapeutic_areas");
-  const { getImageUrl } = useSectionImages("studies", "therapeutic_areas");
+  const { areas, isLoading } = useTherapeuticAreas();
 
-  // Build therapeutic areas from database content or fallback
-  const therapeuticAreas = useMemo(() => {
-    return defaultAreas.map((defaultArea, index) => {
-      const areaNum = index + 1;
-      const title = content[`area${areaNum}_title`] || defaultArea.title;
-      const shortTitle = content[`area${areaNum}_short_title`] || defaultArea.shortTitle;
-      const conditionsStr = content[`area${areaNum}_conditions`] || defaultArea.conditions;
-      const conditions = conditionsStr.split('|').filter(c => c.trim());
-      
-      return {
-        id: areaNum,
-        image: getImageUrl(`area_image${areaNum}`, fallbackImages[index]),
-        title,
-        shortTitle,
-        color: index % 2 === 0 ? "primary" : "accent",
-        conditions
-      };
-    });
-  }, [content, getImageUrl]);
+  // Build therapeutic areas from database
+  const therapeuticAreas = areas.map((area, index) => ({
+    id: area.id,
+    image: area.image_url || fallbackImages[index] || gastroenterologyImg,
+    title: area.title,
+    shortTitle: area.short_title,
+    color: index % 2 === 0 ? "primary" : "accent",
+    conditions: area.conditions.split('|').filter(c => c.trim())
+  }));
   
   const selectedArea = therapeuticAreas[selectedIndex];
 

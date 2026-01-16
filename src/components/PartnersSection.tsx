@@ -3,7 +3,7 @@ import BrandTag from "./BrandTag";
 import useScrollAnimation from "@/hooks/useScrollAnimation";
 import { Handshake, Building } from "lucide-react";
 import { useSiteContent } from "@/hooks/useSiteContent";
-import { useSectionImages } from "@/hooks/useSectionImages";
+import { usePartners } from "@/hooks/usePartners";
 
 // Import fallback partner logos - CRO
 import iqviaLogo from "@/assets/partners/iqvia.png";
@@ -23,50 +23,51 @@ import argenxLogo from "@/assets/partners/argenx.png";
 import immunicLogo from "@/assets/partners/immunic.png";
 import johnsonLogo from "@/assets/partners/johnson-johnson.png";
 
-const fallbackCroPartners = [
-  { name: "IQVIA", logo: iqviaLogo, key: "cro_logo1" },
-  { name: "Parexel", logo: parexelLogo, key: "cro_logo2" },
-  { name: "Syneos Health", logo: syneosLogo, key: "cro_logo3" },
-  { name: "ICON", logo: iconLogo, key: "cro_logo4" },
-  { name: "PPD", logo: ppdLogo, key: "cro_logo5" },
-  { name: "Labcorp", logo: labcorpLogo, key: "cro_logo6" },
-  { name: "Medpace", logo: medpaceLogo, key: "cro_logo7" },
-  { name: "PSI", logo: psiLogo, key: "cro_logo8" },
-  { name: "MCT", logo: mctLogo, key: "cro_logo9" }
-];
+const fallbackCroLogos: Record<string, string> = {
+  "IQVIA": iqviaLogo,
+  "Parexel": parexelLogo,
+  "Syneos Health": syneosLogo,
+  "ICON": iconLogo,
+  "PPD": ppdLogo,
+  "Labcorp": labcorpLogo,
+  "Medpace": medpaceLogo,
+  "PSI": psiLogo,
+  "MCT": mctLogo,
+};
 
-const fallbackPharmaPartners = [
-  { name: "Johnson & Johnson", logo: johnsonLogo, key: "pharma_logo1" },
-  { name: "New Amsterdam Pharma", logo: newAmsterdamLogo, key: "pharma_logo2" },
-  { name: "Sarepta Therapeutics", logo: sareptaLogo, key: "pharma_logo3" },
-  { name: "Argenx", logo: argenxLogo, key: "pharma_logo4" },
-  { name: "Immunic Therapeutics", logo: immunicLogo, key: "pharma_logo5" }
-];
+const fallbackPharmaLogos: Record<string, string> = {
+  "Johnson & Johnson": johnsonLogo,
+  "New Amsterdam Pharma": newAmsterdamLogo,
+  "Sarepta Therapeutics": sareptaLogo,
+  "Argenx": argenxLogo,
+  "Immunic Therapeutics": immunicLogo,
+};
 
 const PartnersSection = () => {
   const { ref: sectionRef, isVisible } = useScrollAnimation({ threshold: 0.2 });
   const { content } = useSiteContent("home", "partners");
-  const { getImageUrl } = useSectionImages("home", "partners");
+  const { partners: croPartnersData } = usePartners('cro');
+  const { partners: pharmaPartnersData } = usePartners('pharma');
   const croScrollRef = useRef<HTMLDivElement>(null);
   const pharmaScrollRef = useRef<HTMLDivElement>(null);
   const [isCroPaused, setIsCroPaused] = useState(false);
   const [isPharmaPaused, setIsPharmaPaused] = useState(false);
 
-  // Build partner arrays with dynamic URLs
-  const croPartners = fallbackCroPartners.map(p => ({
+  // Build partner arrays from database with fallback
+  const croPartners = croPartnersData.map(p => ({
     name: p.name,
-    logo: getImageUrl(p.key, p.logo)
+    logo: p.logo_url || fallbackCroLogos[p.name] || iqviaLogo
   }));
 
-  const pharmaPartners = fallbackPharmaPartners.map(p => ({
+  const pharmaPartners = pharmaPartnersData.map(p => ({
     name: p.name,
-    logo: getImageUrl(p.key, p.logo)
+    logo: p.logo_url || fallbackPharmaLogos[p.name] || johnsonLogo
   }));
 
   // Auto-scroll effect for CRO partners
   useEffect(() => {
     const scrollContainer = croScrollRef.current;
-    if (!scrollContainer || isCroPaused) return;
+    if (!scrollContainer || isCroPaused || croPartners.length === 0) return;
 
     let animationId: number;
     let scrollPosition = scrollContainer.scrollLeft || 0;
@@ -84,12 +85,12 @@ const PartnersSection = () => {
 
     animationId = requestAnimationFrame(scroll);
     return () => cancelAnimationFrame(animationId);
-  }, [isCroPaused]);
+  }, [isCroPaused, croPartners.length]);
 
   // Auto-scroll effect for Pharma partners (opposite direction)
   useEffect(() => {
     const scrollContainer = pharmaScrollRef.current;
-    if (!scrollContainer || isPharmaPaused) return;
+    if (!scrollContainer || isPharmaPaused || pharmaPartners.length === 0) return;
 
     let animationId: number;
     let scrollPosition = scrollContainer.scrollLeft || scrollContainer.scrollWidth / 2;
@@ -108,7 +109,7 @@ const PartnersSection = () => {
     scrollContainer.scrollLeft = scrollContainer.scrollWidth / 2;
     animationId = requestAnimationFrame(scroll);
     return () => cancelAnimationFrame(animationId);
-  }, [isPharmaPaused]);
+  }, [isPharmaPaused, pharmaPartners.length]);
 
   // Duplicate partners for seamless infinite scroll
   const duplicatedCroPartners = [...croPartners, ...croPartners];

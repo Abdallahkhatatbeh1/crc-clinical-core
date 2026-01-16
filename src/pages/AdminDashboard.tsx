@@ -3,9 +3,12 @@ import { useNavigate } from "react-router-dom";
 import { useAuth } from "@/hooks/useAuth";
 import { useAllSiteContent } from "@/hooks/useSiteContent";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { FileText, Users, Briefcase } from "lucide-react";
+import { FileText, Users, Briefcase, Building2, Stethoscope, Link2 } from "lucide-react";
 import { AdminHeader, StatsCards, ContentEditor, AdminsManager } from "@/components/admin";
 import PositionsManager from "@/components/admin/PositionsManager";
+import PartnersManager from "@/components/admin/PartnersManager";
+import TherapeuticAreasManager from "@/components/admin/TherapeuticAreasManager";
+import LinksManager from "@/components/admin/LinksManager";
 
 const AdminDashboard = () => {
   const { user, isAdmin, isLoading: authLoading, signOut, session } = useAuth();
@@ -52,18 +55,30 @@ const AdminDashboard = () => {
 
         {/* Main Tabs */}
         <Tabs value={activeMainTab} onValueChange={setActiveMainTab}>
-          <TabsList className="mb-6 bg-white p-1 shadow-sm">
-            <TabsTrigger value="content" className="flex items-center gap-2 px-6">
+          <TabsList className="mb-6 bg-white p-1 shadow-sm flex-wrap h-auto gap-1">
+            <TabsTrigger value="content" className="flex items-center gap-2 px-4">
               <FileText className="h-4 w-4" />
               Content
             </TabsTrigger>
-            <TabsTrigger value="admins" className="flex items-center gap-2 px-6">
-              <Users className="h-4 w-4" />
-              Administrators
+            <TabsTrigger value="partners" className="flex items-center gap-2 px-4">
+              <Building2 className="h-4 w-4" />
+              Partners
             </TabsTrigger>
-            <TabsTrigger value="positions" className="flex items-center gap-2 px-6">
+            <TabsTrigger value="therapeutic" className="flex items-center gap-2 px-4">
+              <Stethoscope className="h-4 w-4" />
+              Therapeutic Areas
+            </TabsTrigger>
+            <TabsTrigger value="links" className="flex items-center gap-2 px-4">
+              <Link2 className="h-4 w-4" />
+              Links
+            </TabsTrigger>
+            <TabsTrigger value="positions" className="flex items-center gap-2 px-4">
               <Briefcase className="h-4 w-4" />
               Job Positions
+            </TabsTrigger>
+            <TabsTrigger value="admins" className="flex items-center gap-2 px-4">
+              <Users className="h-4 w-4" />
+              Admins
             </TabsTrigger>
           </TabsList>
 
@@ -76,12 +91,24 @@ const AdminDashboard = () => {
             />
           </TabsContent>
 
-          <TabsContent value="admins">
-            <AdminsManager session={session} user={user} />
+          <TabsContent value="partners">
+            <PartnersManager />
+          </TabsContent>
+
+          <TabsContent value="therapeutic">
+            <TherapeuticAreasManager />
+          </TabsContent>
+
+          <TabsContent value="links">
+            <LinksManager />
           </TabsContent>
 
           <TabsContent value="positions">
             <PositionsManager />
+          </TabsContent>
+
+          <TabsContent value="admins">
+            <AdminsManager session={session} user={user} />
           </TabsContent>
         </Tabs>
       </div>
