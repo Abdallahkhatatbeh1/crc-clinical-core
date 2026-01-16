@@ -7,6 +7,7 @@ import { useToast } from "@/hooks/use-toast";
 import BrandTag from "@/components/BrandTag";
 import useScrollAnimation from "@/hooks/useScrollAnimation";
 import { useSiteContent } from "@/hooks/useSiteContent";
+import { supabase } from "@/integrations/supabase/client";
 import { z } from "zod";
 
 const contactSchema = z.object({
@@ -58,8 +59,15 @@ const ContactForm = () => {
     try {
       const validatedData = contactSchema.parse(formData);
       
-      // Simulate API call
-      await new Promise(resolve => setTimeout(resolve, 1500));
+      // Save to database
+      const { error: dbError } = await supabase.from("contact_submissions").insert({
+        full_name: validatedData.name,
+        email: validatedData.email,
+        phone: validatedData.company || null, // Using company field temporarily
+        message: `Subject: ${validatedData.subject}\n\n${validatedData.message}`,
+      });
+
+      if (dbError) throw dbError;
       
       toast({
         title: "Message Sent Successfully!",
@@ -77,6 +85,7 @@ const ContactForm = () => {
         });
         setErrors(fieldErrors);
       } else {
+        console.error("Submission error:", error);
         toast({
           title: "Error",
           description: "Something went wrong. Please try again.",

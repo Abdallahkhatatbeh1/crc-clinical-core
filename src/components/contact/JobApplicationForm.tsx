@@ -15,6 +15,7 @@ import useScrollAnimation from "@/hooks/useScrollAnimation";
 import BrandTag from "@/components/BrandTag";
 import { z } from "zod";
 import { useJobPositions } from "@/hooks/useJobPositions";
+import { supabase } from "@/integrations/supabase/client";
 
 const applicationSchema = z.object({
   fullName: z.string().trim().min(2, "Name must be at least 2 characters").max(100, "Name is too long"),
@@ -67,8 +68,17 @@ const JobApplicationForm = () => {
     setIsSubmitting(true);
 
     try {
-      // Simulate API call
-      await new Promise(resolve => setTimeout(resolve, 1500));
+      // Save to database
+      const { error: dbError } = await supabase.from("job_applications").insert({
+        full_name: result.data.fullName,
+        email: result.data.email,
+        phone: result.data.phone,
+        position: result.data.position,
+        experience: result.data.experience,
+        message: result.data.coverLetter || null,
+      });
+
+      if (dbError) throw dbError;
       
       toast({
         title: "Application Submitted!",
@@ -84,6 +94,7 @@ const JobApplicationForm = () => {
         coverLetter: "",
       });
     } catch (error) {
+      console.error("Submission error:", error);
       toast({
         title: "Submission Failed",
         description: "Please try again later or contact us directly.",
