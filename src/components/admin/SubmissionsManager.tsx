@@ -22,14 +22,6 @@ import {
   DialogFooter,
 } from "@/components/ui/dialog";
 import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from "@/components/ui/table";
-import {
   Mail,
   Phone,
   User,
@@ -44,6 +36,12 @@ import {
   AlertCircle,
   Filter,
   RefreshCw,
+  Building2,
+  Calendar,
+  FileText,
+  ExternalLink,
+  UserCheck,
+  Send,
 } from "lucide-react";
 
 type ContactSubmission = {
@@ -51,6 +49,8 @@ type ContactSubmission = {
   full_name: string;
   email: string;
   phone: string | null;
+  company: string | null;
+  subject: string | null;
   message: string;
   status: string;
   notes: string | null;
@@ -74,12 +74,12 @@ type JobApplication = {
 };
 
 const statusConfig = {
-  new: { label: "جديد", color: "bg-blue-500", icon: Clock },
-  contacted: { label: "تم التواصل", color: "bg-green-500", icon: CheckCircle },
-  in_progress: { label: "قيد المراجعة", color: "bg-yellow-500", icon: AlertCircle },
-  not_interested: { label: "غير مهم", color: "bg-gray-500", icon: XCircle },
-  rejected: { label: "مرفوض", color: "bg-red-500", icon: XCircle },
-  hired: { label: "تم التوظيف", color: "bg-emerald-500", icon: CheckCircle },
+  new: { label: "New", color: "bg-blue-500", icon: Clock },
+  contacted: { label: "Contacted", color: "bg-green-500", icon: CheckCircle },
+  in_progress: { label: "In Progress", color: "bg-yellow-500", icon: AlertCircle },
+  not_interested: { label: "Not Interested", color: "bg-gray-500", icon: XCircle },
+  rejected: { label: "Rejected", color: "bg-red-500", icon: XCircle },
+  hired: { label: "Hired", color: "bg-emerald-500", icon: UserCheck },
 };
 
 const SubmissionsManager = () => {
@@ -111,8 +111,8 @@ const SubmissionsManager = () => {
     } catch (error) {
       console.error("Error fetching submissions:", error);
       toast({
-        title: "خطأ",
-        description: "فشل في جلب البيانات",
+        title: "Error",
+        description: "Failed to fetch submissions",
         variant: "destructive",
       });
     } finally {
@@ -134,21 +134,21 @@ const SubmissionsManager = () => {
 
       if (error) throw error;
 
-      toast({ title: "تم التحديث بنجاح" });
+      toast({ title: "Updated successfully" });
       fetchSubmissions();
       setIsDetailOpen(false);
     } catch (error) {
       console.error("Error updating:", error);
       toast({
-        title: "خطأ",
-        description: "فشل في التحديث",
+        title: "Error",
+        description: "Failed to update",
         variant: "destructive",
       });
     }
   };
 
   const handleDelete = async (id: string, type: "contact" | "job") => {
-    if (!confirm("هل أنت متأكد من الحذف؟")) return;
+    if (!confirm("Are you sure you want to delete this submission?")) return;
 
     try {
       const table = type === "contact" ? "contact_submissions" : "job_applications";
@@ -156,13 +156,13 @@ const SubmissionsManager = () => {
 
       if (error) throw error;
 
-      toast({ title: "تم الحذف بنجاح" });
+      toast({ title: "Deleted successfully" });
       fetchSubmissions();
     } catch (error) {
       console.error("Error deleting:", error);
       toast({
-        title: "خطأ",
-        description: "فشل في الحذف",
+        title: "Error",
+        description: "Failed to delete",
         variant: "destructive",
       });
     }
@@ -186,7 +186,7 @@ const SubmissionsManager = () => {
   };
 
   const formatDate = (dateString: string) => {
-    return new Date(dateString).toLocaleDateString("ar-JO", {
+    return new Date(dateString).toLocaleDateString("en-US", {
       year: "numeric",
       month: "short",
       day: "numeric",
@@ -209,27 +209,67 @@ const SubmissionsManager = () => {
   const filteredContacts = filterItems(contactSubmissions);
   const filteredApplications = filterItems(jobApplications);
 
+  const newContactsCount = contactSubmissions.filter(c => c.status === 'new').length;
+  const newJobsCount = jobApplications.filter(j => j.status === 'new').length;
+
   return (
     <Card className="shadow-sm">
-      <CardHeader className="border-b">
+      <CardHeader className="border-b bg-muted/30">
         <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
-          <CardTitle className="text-xl flex items-center gap-2">
-            <MessageSquare className="h-5 w-5 text-primary" />
-            إدارة الطلبات والرسائل
-          </CardTitle>
+          <div>
+            <CardTitle className="text-xl flex items-center gap-2">
+              <MessageSquare className="h-5 w-5 text-primary" />
+              Submissions Management
+            </CardTitle>
+            <p className="text-sm text-muted-foreground mt-1">
+              Manage contact messages and job applications
+            </p>
+          </div>
           <Button onClick={fetchSubmissions} variant="outline" size="sm" className="gap-2">
             <RefreshCw className={`h-4 w-4 ${isLoading ? "animate-spin" : ""}`} />
-            تحديث
+            Refresh
           </Button>
         </div>
       </CardHeader>
       <CardContent className="pt-6">
+        {/* Stats Cards */}
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
+          <div className="bg-blue-50 dark:bg-blue-950/30 rounded-lg p-4 border border-blue-200 dark:border-blue-800">
+            <div className="flex items-center gap-2 text-blue-600 dark:text-blue-400">
+              <Mail className="h-4 w-4" />
+              <span className="text-sm font-medium">Total Messages</span>
+            </div>
+            <p className="text-2xl font-bold text-blue-700 dark:text-blue-300 mt-1">{contactSubmissions.length}</p>
+          </div>
+          <div className="bg-green-50 dark:bg-green-950/30 rounded-lg p-4 border border-green-200 dark:border-green-800">
+            <div className="flex items-center gap-2 text-green-600 dark:text-green-400">
+              <Briefcase className="h-4 w-4" />
+              <span className="text-sm font-medium">Job Applications</span>
+            </div>
+            <p className="text-2xl font-bold text-green-700 dark:text-green-300 mt-1">{jobApplications.length}</p>
+          </div>
+          <div className="bg-amber-50 dark:bg-amber-950/30 rounded-lg p-4 border border-amber-200 dark:border-amber-800">
+            <div className="flex items-center gap-2 text-amber-600 dark:text-amber-400">
+              <Clock className="h-4 w-4" />
+              <span className="text-sm font-medium">New Messages</span>
+            </div>
+            <p className="text-2xl font-bold text-amber-700 dark:text-amber-300 mt-1">{newContactsCount}</p>
+          </div>
+          <div className="bg-purple-50 dark:bg-purple-950/30 rounded-lg p-4 border border-purple-200 dark:border-purple-800">
+            <div className="flex items-center gap-2 text-purple-600 dark:text-purple-400">
+              <UserCheck className="h-4 w-4" />
+              <span className="text-sm font-medium">New Applications</span>
+            </div>
+            <p className="text-2xl font-bold text-purple-700 dark:text-purple-300 mt-1">{newJobsCount}</p>
+          </div>
+        </div>
+
         {/* Filters */}
         <div className="flex flex-col md:flex-row gap-4 mb-6">
           <div className="relative flex-1">
             <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
             <Input
-              placeholder="بحث بالاسم أو البريد..."
+              placeholder="Search by name or email..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               className="pl-10"
@@ -239,10 +279,10 @@ const SubmissionsManager = () => {
             <Filter className="h-4 w-4 text-muted-foreground" />
             <Select value={statusFilter} onValueChange={setStatusFilter}>
               <SelectTrigger className="w-[180px]">
-                <SelectValue placeholder="تصفية حسب الحالة" />
+                <SelectValue placeholder="Filter by status" />
               </SelectTrigger>
               <SelectContent className="bg-background border z-50">
-                <SelectItem value="all">جميع الحالات</SelectItem>
+                <SelectItem value="all">All Statuses</SelectItem>
                 {Object.entries(statusConfig).map(([key, { label }]) => (
                   <SelectItem key={key} value={key}>
                     {label}
@@ -254,14 +294,14 @@ const SubmissionsManager = () => {
         </div>
 
         <Tabs value={activeTab} onValueChange={setActiveTab}>
-          <TabsList className="mb-6">
-            <TabsTrigger value="contact" className="gap-2">
+          <TabsList className="mb-6 bg-muted/50">
+            <TabsTrigger value="contact" className="gap-2 data-[state=active]:bg-background">
               <Mail className="h-4 w-4" />
-              رسائل التواصل ({filteredContacts.length})
+              Contact Messages ({filteredContacts.length})
             </TabsTrigger>
-            <TabsTrigger value="jobs" className="gap-2">
+            <TabsTrigger value="jobs" className="gap-2 data-[state=active]:bg-background">
               <Briefcase className="h-4 w-4" />
-              طلبات التوظيف ({filteredApplications.length})
+              Job Applications ({filteredApplications.length})
             </TabsTrigger>
           </TabsList>
 
@@ -270,55 +310,92 @@ const SubmissionsManager = () => {
             {isLoading ? (
               <div className="text-center py-12">
                 <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary mx-auto"></div>
+                <p className="text-muted-foreground mt-2">Loading...</p>
               </div>
             ) : filteredContacts.length === 0 ? (
               <div className="text-center py-12 text-muted-foreground">
-                <Mail className="h-12 w-12 mx-auto mb-4 opacity-50" />
-                <p>لا توجد رسائل</p>
+                <Mail className="h-16 w-16 mx-auto mb-4 opacity-30" />
+                <p className="text-lg font-medium">No messages found</p>
+                <p className="text-sm">Messages will appear here when received</p>
               </div>
             ) : (
-              <div className="overflow-x-auto">
-                <Table>
-                  <TableHeader>
-                    <TableRow>
-                      <TableHead>الاسم</TableHead>
-                      <TableHead>البريد الإلكتروني</TableHead>
-                      <TableHead>الحالة</TableHead>
-                      <TableHead>التاريخ</TableHead>
-                      <TableHead className="text-right">الإجراءات</TableHead>
-                    </TableRow>
-                  </TableHeader>
-                  <TableBody>
-                    {filteredContacts.map((submission) => (
-                      <TableRow key={submission.id}>
-                        <TableCell className="font-medium">{submission.full_name}</TableCell>
-                        <TableCell>{submission.email}</TableCell>
-                        <TableCell>{getStatusBadge(submission.status)}</TableCell>
-                        <TableCell className="text-muted-foreground text-sm">
-                          {formatDate(submission.created_at)}
-                        </TableCell>
-                        <TableCell className="text-right">
-                          <div className="flex items-center justify-end gap-2">
-                            <Button
-                              size="sm"
-                              variant="outline"
-                              onClick={() => openDetail(submission)}
-                            >
-                              <Eye className="h-4 w-4" />
-                            </Button>
-                            <Button
-                              size="sm"
-                              variant="destructive"
-                              onClick={() => handleDelete(submission.id, "contact")}
-                            >
-                              <Trash2 className="h-4 w-4" />
-                            </Button>
+              <div className="grid gap-4">
+                {filteredContacts.map((submission) => (
+                  <div
+                    key={submission.id}
+                    className="bg-background border rounded-xl p-5 hover:shadow-md transition-all group"
+                  >
+                    <div className="flex flex-col md:flex-row md:items-start justify-between gap-4">
+                      <div className="flex-1 space-y-3">
+                        <div className="flex items-center gap-3 flex-wrap">
+                          <div className="flex items-center gap-2">
+                            <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center">
+                              <User className="h-5 w-5 text-primary" />
+                            </div>
+                            <div>
+                              <h4 className="font-semibold text-foreground">{submission.full_name}</h4>
+                              <a href={`mailto:${submission.email}`} className="text-sm text-primary hover:underline">
+                                {submission.email}
+                              </a>
+                            </div>
                           </div>
-                        </TableCell>
-                      </TableRow>
-                    ))}
-                  </TableBody>
-                </Table>
+                          {getStatusBadge(submission.status)}
+                        </div>
+                        
+                        <div className="flex flex-wrap gap-4 text-sm text-muted-foreground">
+                          {submission.company && (
+                            <span className="flex items-center gap-1">
+                              <Building2 className="h-4 w-4" />
+                              {submission.company}
+                            </span>
+                          )}
+                          {submission.phone && (
+                            <a href={`tel:${submission.phone}`} className="flex items-center gap-1 hover:text-primary">
+                              <Phone className="h-4 w-4" />
+                              {submission.phone}
+                            </a>
+                          )}
+                          <span className="flex items-center gap-1">
+                            <Calendar className="h-4 w-4" />
+                            {formatDate(submission.created_at)}
+                          </span>
+                        </div>
+
+                        {submission.subject && (
+                          <div className="flex items-center gap-2">
+                            <Badge variant="outline" className="text-xs">
+                              {submission.subject}
+                            </Badge>
+                          </div>
+                        )}
+
+                        <p className="text-sm text-muted-foreground line-clamp-2">
+                          {submission.message}
+                        </p>
+                      </div>
+
+                      <div className="flex items-center gap-2 md:flex-col">
+                        <Button
+                          size="sm"
+                          variant="outline"
+                          onClick={() => openDetail(submission)}
+                          className="gap-2"
+                        >
+                          <Eye className="h-4 w-4" />
+                          View
+                        </Button>
+                        <Button
+                          size="sm"
+                          variant="ghost"
+                          onClick={() => handleDelete(submission.id, "contact")}
+                          className="text-destructive hover:text-destructive hover:bg-destructive/10"
+                        >
+                          <Trash2 className="h-4 w-4" />
+                        </Button>
+                      </div>
+                    </div>
+                  </div>
+                ))}
               </div>
             )}
           </TabsContent>
@@ -328,59 +405,103 @@ const SubmissionsManager = () => {
             {isLoading ? (
               <div className="text-center py-12">
                 <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary mx-auto"></div>
+                <p className="text-muted-foreground mt-2">Loading...</p>
               </div>
             ) : filteredApplications.length === 0 ? (
               <div className="text-center py-12 text-muted-foreground">
-                <Briefcase className="h-12 w-12 mx-auto mb-4 opacity-50" />
-                <p>لا توجد طلبات توظيف</p>
+                <Briefcase className="h-16 w-16 mx-auto mb-4 opacity-30" />
+                <p className="text-lg font-medium">No applications found</p>
+                <p className="text-sm">Job applications will appear here when received</p>
               </div>
             ) : (
-              <div className="overflow-x-auto">
-                <Table>
-                  <TableHeader>
-                    <TableRow>
-                      <TableHead>الاسم</TableHead>
-                      <TableHead>الوظيفة</TableHead>
-                      <TableHead>البريد الإلكتروني</TableHead>
-                      <TableHead>الحالة</TableHead>
-                      <TableHead>التاريخ</TableHead>
-                      <TableHead className="text-right">الإجراءات</TableHead>
-                    </TableRow>
-                  </TableHeader>
-                  <TableBody>
-                    {filteredApplications.map((application) => (
-                      <TableRow key={application.id}>
-                        <TableCell className="font-medium">{application.full_name}</TableCell>
-                        <TableCell>
-                          <Badge variant="outline">{application.position}</Badge>
-                        </TableCell>
-                        <TableCell>{application.email}</TableCell>
-                        <TableCell>{getStatusBadge(application.status)}</TableCell>
-                        <TableCell className="text-muted-foreground text-sm">
-                          {formatDate(application.created_at)}
-                        </TableCell>
-                        <TableCell className="text-right">
-                          <div className="flex items-center justify-end gap-2">
-                            <Button
-                              size="sm"
-                              variant="outline"
-                              onClick={() => openDetail(application)}
-                            >
-                              <Eye className="h-4 w-4" />
-                            </Button>
-                            <Button
-                              size="sm"
-                              variant="destructive"
-                              onClick={() => handleDelete(application.id, "job")}
-                            >
-                              <Trash2 className="h-4 w-4" />
-                            </Button>
+              <div className="grid gap-4">
+                {filteredApplications.map((application) => (
+                  <div
+                    key={application.id}
+                    className="bg-background border rounded-xl p-5 hover:shadow-md transition-all group"
+                  >
+                    <div className="flex flex-col md:flex-row md:items-start justify-between gap-4">
+                      <div className="flex-1 space-y-3">
+                        <div className="flex items-center gap-3 flex-wrap">
+                          <div className="flex items-center gap-2">
+                            <div className="w-10 h-10 rounded-full bg-green-100 dark:bg-green-900/30 flex items-center justify-center">
+                              <Briefcase className="h-5 w-5 text-green-600 dark:text-green-400" />
+                            </div>
+                            <div>
+                              <h4 className="font-semibold text-foreground">{application.full_name}</h4>
+                              <a href={`mailto:${application.email}`} className="text-sm text-primary hover:underline">
+                                {application.email}
+                              </a>
+                            </div>
                           </div>
-                        </TableCell>
-                      </TableRow>
-                    ))}
-                  </TableBody>
-                </Table>
+                          {getStatusBadge(application.status)}
+                        </div>
+                        
+                        <div className="flex flex-wrap gap-4 text-sm text-muted-foreground">
+                          <span className="flex items-center gap-1 font-medium text-foreground">
+                            <Briefcase className="h-4 w-4 text-primary" />
+                            {application.position}
+                          </span>
+                          <a href={`tel:${application.phone}`} className="flex items-center gap-1 hover:text-primary">
+                            <Phone className="h-4 w-4" />
+                            {application.phone}
+                          </a>
+                          <span className="flex items-center gap-1">
+                            <Calendar className="h-4 w-4" />
+                            {formatDate(application.created_at)}
+                          </span>
+                        </div>
+
+                        {application.experience && (
+                          <div className="flex items-center gap-2">
+                            <Badge variant="secondary" className="text-xs">
+                              {application.experience} experience
+                            </Badge>
+                          </div>
+                        )}
+
+                        {application.cv_url && (
+                          <a
+                            href={application.cv_url}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="inline-flex items-center gap-1 text-sm text-primary hover:underline"
+                          >
+                            <FileText className="h-4 w-4" />
+                            View CV/Resume
+                            <ExternalLink className="h-3 w-3" />
+                          </a>
+                        )}
+
+                        {application.message && (
+                          <p className="text-sm text-muted-foreground line-clamp-2">
+                            {application.message}
+                          </p>
+                        )}
+                      </div>
+
+                      <div className="flex items-center gap-2 md:flex-col">
+                        <Button
+                          size="sm"
+                          variant="outline"
+                          onClick={() => openDetail(application)}
+                          className="gap-2"
+                        >
+                          <Eye className="h-4 w-4" />
+                          View
+                        </Button>
+                        <Button
+                          size="sm"
+                          variant="ghost"
+                          onClick={() => handleDelete(application.id, "job")}
+                          className="text-destructive hover:text-destructive hover:bg-destructive/10"
+                        >
+                          <Trash2 className="h-4 w-4" />
+                        </Button>
+                      </div>
+                    </div>
+                  </div>
+                ))}
               </div>
             )}
           </TabsContent>
@@ -394,12 +515,12 @@ const SubmissionsManager = () => {
                 {activeTab === "contact" ? (
                   <>
                     <Mail className="h-5 w-5 text-primary" />
-                    تفاصيل الرسالة
+                    Message Details
                   </>
                 ) : (
                   <>
                     <Briefcase className="h-5 w-5 text-primary" />
-                    تفاصيل طلب التوظيف
+                    Application Details
                   </>
                 )}
               </DialogTitle>
@@ -409,91 +530,132 @@ const SubmissionsManager = () => {
               <div className="space-y-6">
                 {/* Contact Info */}
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  <div className="flex items-center gap-3 p-3 bg-muted rounded-lg">
+                  <div className="flex items-center gap-3 p-4 bg-muted rounded-xl">
                     <User className="h-5 w-5 text-primary" />
                     <div>
-                      <p className="text-xs text-muted-foreground">الاسم</p>
+                      <p className="text-xs text-muted-foreground">Full Name</p>
                       <p className="font-medium">{selectedItem.full_name}</p>
                     </div>
                   </div>
-                  <div className="flex items-center gap-3 p-3 bg-muted rounded-lg">
+                  <div className="flex items-center gap-3 p-4 bg-muted rounded-xl">
                     <Mail className="h-5 w-5 text-primary" />
                     <div>
-                      <p className="text-xs text-muted-foreground">البريد الإلكتروني</p>
+                      <p className="text-xs text-muted-foreground">Email</p>
                       <a href={`mailto:${selectedItem.email}`} className="font-medium text-primary hover:underline">
                         {selectedItem.email}
                       </a>
                     </div>
                   </div>
                   {selectedItem.phone && (
-                    <div className="flex items-center gap-3 p-3 bg-muted rounded-lg">
+                    <div className="flex items-center gap-3 p-4 bg-muted rounded-xl">
                       <Phone className="h-5 w-5 text-primary" />
                       <div>
-                        <p className="text-xs text-muted-foreground">الهاتف</p>
+                        <p className="text-xs text-muted-foreground">Phone</p>
                         <a href={`tel:${selectedItem.phone}`} className="font-medium text-primary hover:underline">
                           {selectedItem.phone}
                         </a>
                       </div>
                     </div>
                   )}
+                  {"company" in selectedItem && selectedItem.company && (
+                    <div className="flex items-center gap-3 p-4 bg-muted rounded-xl">
+                      <Building2 className="h-5 w-5 text-primary" />
+                      <div>
+                        <p className="text-xs text-muted-foreground">Company</p>
+                        <p className="font-medium">{selectedItem.company}</p>
+                      </div>
+                    </div>
+                  )}
                   {"position" in selectedItem && (
-                    <div className="flex items-center gap-3 p-3 bg-muted rounded-lg">
+                    <div className="flex items-center gap-3 p-4 bg-muted rounded-xl">
                       <Briefcase className="h-5 w-5 text-primary" />
                       <div>
-                        <p className="text-xs text-muted-foreground">الوظيفة</p>
+                        <p className="text-xs text-muted-foreground">Position</p>
                         <p className="font-medium">{selectedItem.position}</p>
+                      </div>
+                    </div>
+                  )}
+                  {"experience" in selectedItem && selectedItem.experience && (
+                    <div className="flex items-center gap-3 p-4 bg-muted rounded-xl">
+                      <Clock className="h-5 w-5 text-primary" />
+                      <div>
+                        <p className="text-xs text-muted-foreground">Experience</p>
+                        <p className="font-medium">{selectedItem.experience}</p>
                       </div>
                     </div>
                   )}
                 </div>
 
-                {/* Message / Experience */}
+                {"subject" in selectedItem && selectedItem.subject && (
+                  <div className="p-4 bg-primary/5 rounded-xl border border-primary/20">
+                    <p className="text-sm text-muted-foreground mb-1">Subject</p>
+                    <p className="font-medium text-primary">{selectedItem.subject}</p>
+                  </div>
+                )}
+
+                {/* Message */}
                 {"message" in selectedItem && selectedItem.message && (
-                  <div className="p-4 bg-muted rounded-lg">
-                    <p className="text-sm text-muted-foreground mb-2">الرسالة</p>
+                  <div className="p-4 bg-muted rounded-xl">
+                    <p className="text-sm text-muted-foreground mb-2">Message</p>
                     <p className="whitespace-pre-wrap">{selectedItem.message}</p>
                   </div>
                 )}
 
-                {"experience" in selectedItem && selectedItem.experience && (
-                  <div className="p-4 bg-muted rounded-lg">
-                    <p className="text-sm text-muted-foreground mb-2">الخبرة</p>
-                    <p className="whitespace-pre-wrap">{selectedItem.experience}</p>
+                {/* CV Link for job applications */}
+                {"cv_url" in selectedItem && selectedItem.cv_url && (
+                  <div className="p-4 bg-green-50 dark:bg-green-900/20 rounded-xl border border-green-200 dark:border-green-800">
+                    <p className="text-sm text-muted-foreground mb-2">CV / Resume</p>
+                    <a
+                      href={selectedItem.cv_url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-2 text-green-600 dark:text-green-400 hover:underline font-medium"
+                    >
+                      <FileText className="h-5 w-5" />
+                      Download CV
+                      <ExternalLink className="h-4 w-4" />
+                    </a>
                   </div>
                 )}
 
-                {/* Status Update */}
-                <div className="space-y-4 border-t pt-4">
-                  <div>
-                    <label className="text-sm font-medium mb-2 block">تحديث الحالة</label>
-                    <Select value={editStatus} onValueChange={setEditStatus}>
-                      <SelectTrigger>
-                        <SelectValue />
-                      </SelectTrigger>
-                      <SelectContent className="bg-background border z-50">
-                        {Object.entries(statusConfig).map(([key, { label }]) => (
-                          <SelectItem key={key} value={key}>
-                            {label}
-                          </SelectItem>
-                        ))}
-                      </SelectContent>
-                    </Select>
-                  </div>
-
-                  <div>
-                    <label className="text-sm font-medium mb-2 block">ملاحظات داخلية</label>
-                    <Textarea
-                      value={editNotes}
-                      onChange={(e) => setEditNotes(e.target.value)}
-                      placeholder="أضف ملاحظات خاصة بهذا الطلب..."
-                      rows={3}
-                    />
-                  </div>
+                {/* Submission Date */}
+                <div className="flex items-center gap-2 text-sm text-muted-foreground">
+                  <Calendar className="h-4 w-4" />
+                  Submitted on {formatDate(selectedItem.created_at)}
                 </div>
 
-                <DialogFooter>
+                {/* Status Update */}
+                <div className="border-t pt-6">
+                  <h4 className="font-semibold mb-4">Update Status</h4>
+                  <Select value={editStatus} onValueChange={setEditStatus}>
+                    <SelectTrigger className="w-full">
+                      <SelectValue placeholder="Select status" />
+                    </SelectTrigger>
+                    <SelectContent className="bg-background border z-50">
+                      {Object.entries(statusConfig).map(([key, { label }]) => (
+                        <SelectItem key={key} value={key}>
+                          {label}
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                </div>
+
+                {/* Notes */}
+                <div>
+                  <h4 className="font-semibold mb-4">Internal Notes</h4>
+                  <Textarea
+                    value={editNotes}
+                    onChange={(e) => setEditNotes(e.target.value)}
+                    placeholder="Add private notes about this submission..."
+                    rows={3}
+                    className="resize-none"
+                  />
+                </div>
+
+                <DialogFooter className="gap-2">
                   <Button variant="outline" onClick={() => setIsDetailOpen(false)}>
-                    إلغاء
+                    Cancel
                   </Button>
                   <Button
                     onClick={() =>
@@ -504,8 +666,10 @@ const SubmissionsManager = () => {
                         editNotes
                       )
                     }
+                    className="gap-2"
                   >
-                    حفظ التغييرات
+                    <Send className="h-4 w-4" />
+                    Save Changes
                   </Button>
                 </DialogFooter>
               </div>
