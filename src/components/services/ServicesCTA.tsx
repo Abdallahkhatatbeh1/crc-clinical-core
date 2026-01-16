@@ -14,6 +14,9 @@ const ServicesCTA = () => {
     content.feature3 || "Audit-Ready"
   ];
 
+  const buttonPrimaryUrl = content.button_primary_url || "/why-us";
+  const buttonSecondaryUrl = content.button_secondary_url || "/studies";
+
   return (
     <section ref={sectionRef} className="py-16 md:py-20 lg:py-24 gradient-brand relative overflow-hidden">
       {/* Background */}
@@ -59,13 +62,13 @@ const ServicesCTA = () => {
               isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
             }`}
           >
-            <Link to="/why-us">
+            <Link to={buttonPrimaryUrl}>
               <Button variant="hero" size="xl" className="group min-w-[220px]">
                 {content.button_primary || "Get Started"}
                 <ArrowRight size={20} className="group-hover:translate-x-1 transition-transform" />
               </Button>
             </Link>
-            <Link to="/studies">
+            <Link to={buttonSecondaryUrl}>
               <Button 
                 variant="ghost" 
                 size="xl" 

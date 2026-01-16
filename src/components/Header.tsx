@@ -1,23 +1,43 @@
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import crcLogoFull from "@/assets/crc-logo-full.png";
 import crcLogoSymbol from "@/assets/crc-logo-symbol.png";
-
-const navLinks = [
-  { name: "Home", href: "/" },
-  { name: "About", href: "/about" },
-  { name: "Studies", href: "/studies" },
-  { name: "Services", href: "/services" },
-  { name: "Why Us", href: "/why-us" },
-  { name: "Contact", href: "/contact" },
-];
+import { useSiteContent } from "@/hooks/useSiteContent";
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const location = useLocation();
+  const { content } = useSiteContent("global", "header");
+
+  // Build navigation links from database
+  const navLinks = useMemo(() => {
+    const links = [];
+    for (let i = 1; i <= 6; i++) {
+      const name = content[`nav_link${i}_text`];
+      const href = content[`nav_link${i}_url`];
+      if (name && href) {
+        links.push({ name, href });
+      }
+    }
+    // Fallback to default if no content loaded
+    if (links.length === 0) {
+      return [
+        { name: "Home", href: "/" },
+        { name: "About", href: "/about" },
+        { name: "Studies", href: "/studies" },
+        { name: "Services", href: "/services" },
+        { name: "Why Us", href: "/why-us" },
+        { name: "Contact", href: "/contact" },
+      ];
+    }
+    return links;
+  }, [content]);
+
+  const ctaButtonText = content.cta_button_text || "Get Started";
+  const ctaButtonUrl = content.cta_button_url || "/why-us";
 
   return (
     <header className="fixed top-0 left-0 right-0 z-50 bg-background/95 backdrop-blur-sm border-b border-border">
@@ -59,9 +79,9 @@ const Header = () => {
 
           {/* CTA Button - Desktop */}
           <div className="hidden lg:block">
-            <Link to="/why-us">
+            <Link to={ctaButtonUrl}>
               <Button variant="default" size="default">
-                Get Started
+                {ctaButtonText}
               </Button>
             </Link>
           </div>
@@ -96,9 +116,9 @@ const Header = () => {
                 </Link>
               ))}
               <div className="pt-4 px-4">
-                <Link to="/why-us" onClick={() => setIsMenuOpen(false)}>
+                <Link to={ctaButtonUrl} onClick={() => setIsMenuOpen(false)}>
                   <Button variant="default" size="default" className="w-full">
-                    Get Started
+                    {ctaButtonText}
                   </Button>
                 </Link>
               </div>

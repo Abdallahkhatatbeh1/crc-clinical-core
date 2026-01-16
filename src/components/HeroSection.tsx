@@ -16,6 +16,8 @@ const HeroSection = () => {
     ? content.trust_indicators.split(',').map(s => s.trim()) 
     : ['IQVIA', 'Parexel', 'ICON', 'PPD', 'Medpace'];
 
+  const buttonUrl = content.button_url || "/why-us";
+
   return (
     <section className="relative min-h-[70vh] flex items-center gradient-brand overflow-hidden">
       {/* Subtle Background Elements */}
@@ -63,7 +65,7 @@ const HeroSection = () => {
               isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
             }`}
           >
-            <Link to="/why-us">
+            <Link to={buttonUrl}>
               <Button variant="hero" size="xl" className="group">
                 {content.button_text || "Work With Us"}
                 <ArrowRight size={20} className="group-hover:translate-x-1 transition-transform" />

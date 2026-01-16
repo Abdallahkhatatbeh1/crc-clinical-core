@@ -14,6 +14,8 @@ const StudiesCTA = () => {
     content.trust3 || "Fast Recruitment"
   ];
 
+  const buttonUrl = content.button_url || "/why-us";
+
   return (
     <section ref={sectionRef} className="py-16 md:py-20 lg:py-24 gradient-brand relative overflow-hidden">
       {/* Background */}
@@ -59,7 +61,7 @@ const StudiesCTA = () => {
               isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
             }`}
           >
-            <Link to="/why-us">
+            <Link to={buttonUrl}>
               <Button variant="hero" size="xl" className="group min-w-[220px]">
                 {content.button_text || "Start a Study"}
                 <ArrowRight size={20} className="group-hover:translate-x-1 transition-transform" />
