@@ -60,12 +60,13 @@ const ContactForm = () => {
       const validatedData = contactSchema.parse(formData);
       
       // Save to database
-      const { error: dbError } = await supabase.from("contact_submissions").insert({
+      const { error: dbError } = await supabase.from("contact_submissions").insert([{
         full_name: validatedData.name,
         email: validatedData.email,
-        phone: validatedData.company || null, // Using company field temporarily
-        message: `Subject: ${validatedData.subject}\n\n${validatedData.message}`,
-      });
+        company: validatedData.company || null,
+        subject: validatedData.subject,
+        message: validatedData.message,
+      }] as any);
 
       if (dbError) throw dbError;
       
