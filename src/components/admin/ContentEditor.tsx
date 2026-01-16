@@ -5,7 +5,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useToast } from "@/hooks/use-toast";
-import { FileText, Save, Home, Info, Briefcase, FlaskConical, Phone, HelpCircle, Globe, ImageIcon, RefreshCw } from "lucide-react";
+import { FileText, Save, Home, Info, Briefcase, FlaskConical, Phone, HelpCircle, Globe, ImageIcon, RefreshCw, Search, Filter, X } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { Session } from "@supabase/supabase-js";
 import ImageUploader from "./ImageUploader";
@@ -508,6 +508,8 @@ const ContentEditor = ({ content, pages, updateContent, session }: ContentEditor
   const [activePageTab, setActivePageTab] = useState("home");
   const [imageItems, setImageItems] = useState<ContentItem[]>([]);
   const [refreshKey, setRefreshKey] = useState(0);
+  const [searchQuery, setSearchQuery] = useState("");
+  const [filterType, setFilterType] = useState<"all" | "text" | "url" | "description">("all");
   const { toast } = useToast();
 
   useEffect(() => {
@@ -553,8 +555,41 @@ const ContentEditor = ({ content, pages, updateContent, session }: ContentEditor
     setSavingId(null);
   };
 
+  // Filter content based on search and filter type
+  const filterContent = (items: ContentItem[]) => {
+    return items.filter(item => {
+      const keyName = keyNames[item.content_key] || item.content_key;
+      const value = item.content_value || "";
+      const searchLower = searchQuery.toLowerCase();
+      
+      // Search match
+      const matchesSearch = searchQuery === "" || 
+        keyName.toLowerCase().includes(searchLower) ||
+        value.toLowerCase().includes(searchLower) ||
+        item.content_key.toLowerCase().includes(searchLower);
+      
+      // Filter type match
+      let matchesFilter = true;
+      if (filterType === "url") {
+        matchesFilter = item.content_key.includes("url") || item.content_key.includes("link");
+      } else if (filterType === "description") {
+        matchesFilter = item.content_key.includes("description") || 
+                       item.content_key.includes("text") || 
+                       item.content_key.includes("subtitle");
+      } else if (filterType === "text") {
+        matchesFilter = item.content_key.includes("title") || 
+                       item.content_key.includes("tag") || 
+                       item.content_key.includes("label") ||
+                       item.content_key.includes("button");
+      }
+      
+      return matchesSearch && matchesFilter;
+    });
+  };
+
   const getPageContent = (page: string) => {
-    return content.filter(item => item.page === page && item.content_type !== "image");
+    const pageContent = content.filter(item => item.page === page && item.content_type !== "image");
+    return filterContent(pageContent);
   };
 
   const getPageImages = (page: string, section: string) => {
@@ -647,11 +682,57 @@ const ContentEditor = ({ content, pages, updateContent, session }: ContentEditor
         </div>
       </CardHeader>
       <CardContent className="p-6">
+        {/* Search and Filter Bar */}
+        <div className="flex flex-col sm:flex-row gap-3 mb-6 p-4 bg-muted/30 rounded-xl border">
+          <div className="relative flex-1">
+            <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+            <Input
+              placeholder="ابحث في المحتوى..."
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              className="pl-10 bg-background"
+            />
+            {searchQuery && (
+              <button
+                onClick={() => setSearchQuery("")}
+                className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground"
+              >
+                <X className="h-4 w-4" />
+              </button>
+            )}
+          </div>
+          <div className="flex items-center gap-2">
+            <Filter className="h-4 w-4 text-muted-foreground" />
+            <select
+              value={filterType}
+              onChange={(e) => setFilterType(e.target.value as typeof filterType)}
+              className="px-3 py-2 rounded-md border bg-background text-sm"
+            >
+              <option value="all">جميع الحقول</option>
+              <option value="text">العناوين والأزرار</option>
+              <option value="description">الأوصاف والنصوص</option>
+              <option value="url">الروابط</option>
+            </select>
+          </div>
+          {(searchQuery || filterType !== "all") && (
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={() => { setSearchQuery(""); setFilterType("all"); }}
+              className="whitespace-nowrap"
+            >
+              <X className="h-4 w-4 mr-1" />
+              مسح الفلتر
+            </Button>
+          )}
+        </div>
+
         <Tabs value={activePageTab} onValueChange={setActivePageTab}>
           <TabsList className="w-full flex-wrap h-auto gap-2 mb-6 bg-muted/50 p-2">
             {pages.map((page) => {
               const pageInfo = pageNames[page] || { name: page, icon: FileText };
               const PageIcon = pageInfo.icon;
+              const filteredCount = getPageContent(page).length;
               return (
                 <TabsTrigger 
                   key={page} 
@@ -660,6 +741,11 @@ const ContentEditor = ({ content, pages, updateContent, session }: ContentEditor
                 >
                   <PageIcon className="h-4 w-4" />
                   {pageInfo.name}
+                  {(searchQuery || filterType !== "all") && (
+                    <span className="text-xs bg-primary/10 text-primary px-1.5 py-0.5 rounded-full">
+                      {filteredCount}
+                    </span>
+                  )}
                 </TabsTrigger>
               );
             })}
@@ -668,9 +754,25 @@ const ContentEditor = ({ content, pages, updateContent, session }: ContentEditor
           {pages.map((page) => {
             const pageContent = getPageContent(page);
             const groupedContent = groupContentBySections(pageContent);
+            const hasContent = Object.keys(groupedContent).length > 0;
 
             return (
               <TabsContent key={page} value={page}>
+                {!hasContent ? (
+                  <div className="text-center py-16 bg-muted/30 rounded-xl border">
+                    <Search className="h-12 w-12 text-muted-foreground mx-auto mb-4 opacity-50" />
+                    <h3 className="text-lg font-semibold text-foreground mb-2">لا توجد نتائج</h3>
+                    <p className="text-muted-foreground mb-4">
+                      لم يتم العثور على محتوى مطابق لبحثك في صفحة {pageNames[page]?.name || page}
+                    </p>
+                    <Button
+                      variant="outline"
+                      onClick={() => { setSearchQuery(""); setFilterType("all"); }}
+                    >
+                      مسح البحث
+                    </Button>
+                  </div>
+                ) : (
                 <Tabs defaultValue={Object.keys(groupedContent)[0]} className="w-full">
                   <TabsList className="w-full flex-wrap h-auto gap-2 mb-6 bg-white p-2 border">
                     {Object.keys(groupedContent).map((section) => {
@@ -752,6 +854,7 @@ const ContentEditor = ({ content, pages, updateContent, session }: ContentEditor
                     </TabsContent>
                   ))}
                 </Tabs>
+                )}
               </TabsContent>
             );
           })}
