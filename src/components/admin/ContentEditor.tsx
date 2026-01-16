@@ -708,10 +708,10 @@ const ContentEditor = ({ content, pages, updateContent, session }: ContentEditor
               onChange={(e) => setFilterType(e.target.value as typeof filterType)}
               className="px-3 py-2 rounded-md border bg-background text-sm"
             >
-              <option value="all">جميع الحقول</option>
-              <option value="text">العناوين والأزرار</option>
-              <option value="description">الأوصاف والنصوص</option>
-              <option value="url">الروابط</option>
+              <option value="all">All Fields</option>
+              <option value="text">Titles & Buttons</option>
+              <option value="description">Descriptions & Text</option>
+              <option value="url">URLs</option>
             </select>
           </div>
           {(searchQuery || filterType !== "all") && (
@@ -722,7 +722,7 @@ const ContentEditor = ({ content, pages, updateContent, session }: ContentEditor
               className="whitespace-nowrap"
             >
               <X className="h-4 w-4 mr-1" />
-              مسح الفلتر
+              Clear Filter
             </Button>
           )}
         </div>

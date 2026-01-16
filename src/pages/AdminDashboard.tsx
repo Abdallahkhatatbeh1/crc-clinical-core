@@ -59,7 +59,7 @@ const AdminDashboard = () => {
           <TabsList className="mb-6 bg-white p-1 shadow-sm flex-wrap h-auto gap-1">
             <TabsTrigger value="submissions" className="flex items-center gap-2 px-4">
               <MessageSquare className="h-4 w-4" />
-              الطلبات
+              Submissions
             </TabsTrigger>
             <TabsTrigger value="content" className="flex items-center gap-2 px-4">
               <FileText className="h-4 w-4" />
