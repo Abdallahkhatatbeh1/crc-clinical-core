@@ -49,8 +49,8 @@ type ContactSubmission = {
   full_name: string;
   email: string;
   phone: string | null;
-  company: string | null;
-  subject: string | null;
+  company?: string | null;
+  subject?: string | null;
   message: string;
   status: string;
   notes: string | null;
