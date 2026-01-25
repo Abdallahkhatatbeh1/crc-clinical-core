@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -22,15 +22,23 @@ import AdminDashboard from "./pages/AdminDashboard";
 
 const queryClient = new QueryClient();
 
+// Check if user has seen loading screen in this session
+const hasSeenLoading = sessionStorage.getItem('hasSeenLoading') === 'true';
+
 const App = () => {
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(!hasSeenLoading);
+
+  const handleLoadingComplete = () => {
+    sessionStorage.setItem('hasSeenLoading', 'true');
+    setIsLoading(false);
+  };
 
   return (
     <QueryClientProvider client={queryClient}>
       <TooltipProvider>
         <AuthProvider>
-          {isLoading && (
-            <LoadingScreen onLoadingComplete={() => setIsLoading(false)} />
+        {isLoading && (
+            <LoadingScreen onLoadingComplete={handleLoadingComplete} />
           )}
           <Toaster />
           <Sonner />
