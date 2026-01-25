@@ -64,6 +64,19 @@ const TherapeuticAreas = () => {
   
   const selectedArea = therapeuticAreas[selectedIndex];
 
+  // Show loading state while data is being fetched
+  if (isLoading || therapeuticAreas.length === 0) {
+    return (
+      <section className="py-16 md:py-20 lg:py-24 bg-background">
+        <div className="container mx-auto px-4">
+          <div className="flex items-center justify-center min-h-[400px]">
+            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary"></div>
+          </div>
+        </div>
+      </section>
+    );
+  }
+
   const scrollToSectionTop = () => {
     if (sectionTopRef.current) {
       sectionTopRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' });
